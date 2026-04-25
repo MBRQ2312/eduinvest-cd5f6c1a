@@ -53,14 +53,17 @@ const Index = () => {
             </div>
           </div>
           <h1 className="text-3xl md:text-5xl font-semibold tracking-tighter text-balance leading-[1.02]">
-            Õppimine vajab kordamist.
+            Õppimine toimub koolis, huvikoolis ja kogukonnas.
             <br />
             <span className="text-muted-foreground">
-              Aga keegi ei otsusta, millal piisab.
+              Aga see ei ole seotud ega arvestatud.
             </span>
           </h1>
           <p className="mt-8 text-xl md:text-2xl font-medium text-foreground text-pretty leading-tight">
-            EduInvest teeb selle otsuse.
+            EduInvest seob selle üheks otsuseks —{" "}
+            <span className="text-muted-foreground">
+              mida ei ole vaja enam uuesti teha.
+            </span>
           </p>
           <div className="mt-8 inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary-subtle border border-primary/20">
             <span className="text-xs font-semibold text-primary tracking-tight">
