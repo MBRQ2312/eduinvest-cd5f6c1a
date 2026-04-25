@@ -1,5 +1,6 @@
 import {
   Building2,
+  Check,
   GraduationCap,
   Landmark,
   RotateCcw,
