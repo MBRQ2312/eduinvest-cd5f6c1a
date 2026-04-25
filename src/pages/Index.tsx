@@ -21,8 +21,9 @@ const Index = () => {
               EI
             </div>
             <div>
-              <div className="font-semibold text-sm leading-tight tracking-tight">
+              <div className="font-semibold text-sm leading-tight tracking-tight flex items-baseline gap-1.5">
                 EduInvest
+                <span className="text-primary font-bold">LearnOnce</span>
               </div>
               <div className="text-[10px] text-muted-foreground tracking-[0.18em] uppercase mt-0.5">
                 Iga õppimine loeb
@@ -55,14 +56,24 @@ const Index = () => {
             Õppija ei õpi ainult koolis.
             <br />
             <span className="text-muted-foreground">
-              Aga süsteem ei näe seda tervikuna.
+              Aga süsteem käsitleb õppimist endiselt nii, nagu see toimuks ainult
+              klassiruumis.
             </span>
           </h1>
           <p className="mt-5 text-muted-foreground text-pretty text-base md:text-lg leading-relaxed max-w-2xl">
-            EduInvest muudab spordis, muusikas ja projektides toimuva õppimise üheks
-            ametlikuks otsuseks — ja näitab, mida selle tagajärjel{" "}
-            <strong className="text-foreground">enam ei pea tegema</strong>.
+            EduInvest seob päriselus toimunud õppimise üheks ametlikuks otsuseks — ja
+            teeb nähtavaks,{" "}
+            <strong className="text-foreground">mida ei ole vaja enam uuesti teha</strong>
+            .
           </p>
+          <div className="mt-5 inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary-subtle border border-primary/20">
+            <span className="text-xs font-semibold text-primary tracking-tight">
+              LearnOnce
+            </span>
+            <span className="text-[10px] text-primary/70 italic">
+              Learning that counts once — everywhere
+            </span>
+          </div>
         </section>
 
         {/* Stepper */}
@@ -88,10 +99,10 @@ const Index = () => {
         <footer className="mt-16 pt-10 border-t border-border">
           <div className="text-center max-w-2xl mx-auto">
             <div className="text-[10px] font-bold tracking-[0.22em] uppercase text-muted-foreground mb-3">
-              Meie innovatsioon
+              Filosoofia
             </div>
             <p className="text-lg md:text-xl font-medium italic text-foreground/90 text-pretty leading-relaxed">
-              “Meie innovatsioon ei ole AI. Meie innovatsioon on see, et me{" "}
+              „Me ei lisa õppimist. Me{" "}
               <span className="text-primary not-italic font-semibold">eemaldame</span>{" "}
               dubleerimise.”
             </p>
