@@ -67,7 +67,7 @@ export const Step4Impact = ({ onRestart, onBack }: Step4ImpactProps) => {
         <div className="absolute -right-16 -bottom-16 size-56 rounded-full bg-white/5" />
         <div className="relative">
           <div className="text-[11px] font-semibold tracking-[0.2em] uppercase text-success-foreground/70 mb-2">
-            Killer feature
+            Suurim võit
           </div>
           <h3 className="text-3xl font-semibold tracking-tight text-balance max-w-2xl">
             Me ei lisa midagi süsteemi.
