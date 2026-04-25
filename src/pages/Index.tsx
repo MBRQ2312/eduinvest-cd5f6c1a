@@ -56,8 +56,10 @@ const Index = () => {
             IGA ÕPPIMINE LOEB
           </h1>
           <p className="mt-8 text-xl md:text-2xl font-medium text-foreground text-pretty leading-tight">
-            EduInvest koondab selle{" "}
-            <span className="text-primary">hariduskontole</span>{" "}
+            <span className="font-bold text-foreground">EduInvest</span> koondab selle{" "}
+            <span className="font-bold uppercase tracking-[0.04em] text-primary">
+              HARIDUSKONTOLE
+            </span>{" "}
             <span className="text-muted-foreground">
               ja teeb arvestatavaks.
             </span>
