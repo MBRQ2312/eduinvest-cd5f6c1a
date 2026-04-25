@@ -73,7 +73,7 @@ export const Step1Input = ({ onNext }: Step1InputProps) => {
           Kriitiline küsimus
         </div>
         <p className="text-xl md:text-2xl font-semibold tracking-tight text-balance leading-snug text-primary">
-          Kas seda peab koolis uuesti tegema?
+          Kas seda on vaja koolis uuesti õppida?
         </p>
       </div>
 
