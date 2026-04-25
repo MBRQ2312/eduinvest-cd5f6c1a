@@ -71,7 +71,7 @@ export const Step3Decision = ({ onNext, onBack }: Step3DecisionProps) => {
   return (
     <DemoShell
       stepLabel="03 — Õpetaja otsus"
-      title="Õpetaja teeb lõpliku otsuse"
+      title="Õpetaja otsus"
       subtitle="AI on töö ette valmistanud. Vastutus jääb inimesele."
     >
       <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
@@ -86,7 +86,7 @@ export const Step3Decision = ({ onNext, onBack }: Step3DecisionProps) => {
           <p className="text-sm leading-relaxed text-foreground/90">
             Tegevus <strong>Spordikool — jalgpall</strong> katab suure osa{" "}
             <strong>kehalise kasvatuse</strong> õpitulemustest ning üldpädevusi{" "}
-            <strong>koostöö</strong> ja <strong>enesemääratlus</strong>.
+            <strong>koostöö</strong> ja <strong>enesejuhtimine</strong>.
           </p>
           <div className="mt-5 pt-5 border-t border-border space-y-2.5 text-sm">
             <Row label="Kattuvus" value="70%" />
@@ -148,12 +148,12 @@ export const Step3Decision = ({ onNext, onBack }: Step3DecisionProps) => {
                   </div>
                 </div>
                 <p className="text-2xl md:text-3xl font-semibold leading-tight tracking-tight text-balance">
-                  Õppija on vabastatud{" "}
+                  Õppija ei pea osalema{" "}
                   <span className="bg-white/15 px-2 py-0.5 rounded-md tabular">30%</span>{" "}
                   kehalise kasvatuse tundidest.
                 </p>
                 <p className="mt-4 text-sm text-primary-foreground/85 italic border-l-2 border-white/30 pl-3">
-                  Otsus vähendab dubleerimist süsteemis.
+                  Seda õppimist ei korrata koolis uuesti.
                 </p>
               </div>
             </div>

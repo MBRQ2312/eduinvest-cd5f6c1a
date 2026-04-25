@@ -23,7 +23,7 @@ const MATCHES: Match[] = [
     score: 82,
   },
   { competence: "Koostööpädevus", curriculum: "Üldpädevus 5", strength: "strong", score: 76 },
-  { competence: "Enesemääratlus", curriculum: "Üldpädevus 4", strength: "partial", score: 54 },
+  { competence: "Enesejuhtimine", curriculum: "Üldpädevus 4", strength: "partial", score: 54 },
 ];
 
 export const Step2Analysis = ({ onNext, onBack }: Step2AnalysisProps) => {
@@ -49,7 +49,7 @@ export const Step2Analysis = ({ onNext, onBack }: Step2AnalysisProps) => {
   return (
     <DemoShell
       stepLabel="02 — AI eelanalüüs"
-      title="Kuhu see õppimine kuulub?"
+      title="AI eelanalüüs"
       subtitle="AI ei otsusta. AI valmistab otsuse ette — õpetaja jaoks."
     >
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -124,7 +124,7 @@ export const Step2Analysis = ({ onNext, onBack }: Step2AnalysisProps) => {
           {/* Missing */}
           <div className="mt-3 grid grid-cols-2 gap-3">
             <MissingCard label="Eneseanalüüs" />
-            <MissingCard label="Kirjalik refleksioon" />
+            <MissingCard label="Refleksioon" />
           </div>
 
           {/* AI suggestion */}
@@ -137,8 +137,8 @@ export const Step2Analysis = ({ onNext, onBack }: Step2AnalysisProps) => {
                 AI soovitus
               </div>
               <p className="text-sm mt-1.5 leading-relaxed">
-                Soovitame <strong>arvestada osaliselt</strong>. Lisatõend: lühike õppija
-                refleksioon kogetust.
+                Seda tegevust saab <strong>osaliselt arvestada</strong> kooli õppetöös.
+                Soovitatav lisatõend: <strong>õppija refleksioon</strong>.
               </p>
             </div>
           </div>
@@ -155,7 +155,7 @@ export const Step2Analysis = ({ onNext, onBack }: Step2AnalysisProps) => {
           disabled={phase !== "ready"}
           className="shadow-elevated group"
         >
-          Edasi õpetajale
+          Saada õpetajale
           <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
         </Button>
       </div>

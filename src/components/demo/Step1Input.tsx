@@ -17,7 +17,7 @@ export const Step1Input = ({ onNext }: Step1InputProps) => {
     <DemoShell
       stepLabel="01 — Õppija sisend"
       title="Lisa õppimiskogemus"
-      subtitle="Mitte hinnet. Mitte kodutööd. Päris elu — mis on toimunud väljaspool kooli."
+      subtitle="See ei ole hinne ega kodutöö. See on õppimine, mis on juba toimunud."
     >
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-12 gap-y-7">
         <Field label="Tegevus">
@@ -39,7 +39,7 @@ export const Step1Input = ({ onNext }: Step1InputProps) => {
 
         <Field label="Vastutaja">
           <div className="text-lg font-semibold tracking-tight">Mart Kask</div>
-          <div className="text-sm text-muted-foreground mt-0.5">Treener · EJL litsents B</div>
+          <div className="text-sm text-muted-foreground mt-0.5">Treener · UEFA B litsents</div>
         </Field>
 
         <div className="lg:col-span-2">
@@ -68,7 +68,24 @@ export const Step1Input = ({ onNext }: Step1InputProps) => {
         </div>
       </div>
 
-      <div className="mt-10 pt-7 border-t border-border flex flex-col-reverse sm:flex-row sm:items-center sm:justify-between gap-4">
+      {/* Critical question */}
+      <div className="mt-9 rounded-2xl border-l-4 border-primary bg-primary-subtle/60 p-6">
+        <div className="text-[10px] font-bold tracking-[0.22em] uppercase text-primary mb-2">
+          Kriitiline küsimus
+        </div>
+        <p className="text-lg md:text-xl font-medium tracking-tight text-balance leading-snug">
+          Küsimus ei ole:{" "}
+          <span className="text-muted-foreground line-through decoration-2">
+            kas see on tehtud
+          </span>
+          .
+          <br />
+          Küsimus on:{" "}
+          <strong className="text-primary">kas seda peab koolis uuesti tegema.</strong>
+        </p>
+      </div>
+
+      <div className="mt-8 pt-7 border-t border-border flex flex-col-reverse sm:flex-row sm:items-center sm:justify-between gap-4">
         <p className="text-xs text-muted-foreground max-w-md leading-relaxed">
           See sisend liigub AI-eelanalüüsi, mis pakub välja seose riikliku õppekavaga.
           Otsuse teeb õpetaja.
