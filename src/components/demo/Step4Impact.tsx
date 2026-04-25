@@ -149,12 +149,25 @@ export const Step4Impact = ({ onRestart, onBack }: Step4ImpactProps) => {
         ))}
       </div>
 
-      {/* Closing line */}
-      <div className="mt-10 text-center">
-        <p className="text-sm text-muted-foreground italic max-w-2xl mx-auto leading-relaxed">
-          Täna teeb õppija sama asja mitu korda. Meie lahendus teeb selle{" "}
-          <strong className="text-foreground not-italic">üheks korraks.</strong>
-        </p>
+      {/* Summary insight */}
+      <div className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="rounded-2xl border border-border bg-card p-6">
+          <div className="text-[10px] font-bold tracking-[0.22em] uppercase text-muted-foreground mb-3">
+            Näeme
+          </div>
+          <p className="text-base md:text-lg font-medium text-foreground leading-snug text-pretty">
+            kui palju õppimist on juba tehtud, kes sellesse panustab ja kui palju
+            kool peab veel õpetama.
+          </p>
+        </div>
+        <div className="rounded-2xl border-l-4 border-primary bg-primary-subtle/60 p-6">
+          <div className="text-[10px] font-bold tracking-[0.22em] uppercase text-primary mb-3">
+            See loob aluse
+          </div>
+          <p className="text-base md:text-lg font-semibold text-primary leading-snug text-pretty">
+            õpetaja tööaja ja rahastuse õiglasemaks jaotuseks.
+          </p>
+        </div>
       </div>
 
       <div className="mt-10 pt-7 border-t border-border flex items-center justify-between gap-4">
