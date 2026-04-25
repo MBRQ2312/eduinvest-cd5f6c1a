@@ -53,7 +53,7 @@ const Index = () => {
             </div>
           </div>
           <h1 className="text-2xl md:text-4xl font-semibold uppercase tracking-[0.04em] text-balance leading-[1.1]">
-            IGA ÕPPIMINE LOEB.
+            IGA ÕPPIMINE LOEB
           </h1>
           <p className="mt-8 text-xl md:text-2xl font-medium text-foreground text-pretty leading-tight">
             EduInvest koondab selle{" "}
