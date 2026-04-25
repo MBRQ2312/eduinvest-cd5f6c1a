@@ -66,7 +66,7 @@ export const Step4Impact = ({ onRestart, onBack }: Step4ImpactProps) => {
   return (
     <DemoShell
       stepLabel="04 — Süsteemne mõju"
-      title="Üks otsus — neli võitjat"
+      title="Mõju"
       subtitle="See ei ole ainult üks otsus. See on süsteemi mõju, kus aeg ja raha kokku hoitakse."
     >
       {/* Hero metric */}
@@ -85,12 +85,12 @@ export const Step4Impact = ({ onRestart, onBack }: Step4ImpactProps) => {
             Suurim väärtus on see,
             <br />
             mida <span className="italic underline decoration-2 underline-offset-[6px]">
-              enam ei pea
+              ei ole vaja
             </span>{" "}
-            tegema.
+            enam teha.
           </h3>
           <p className="mt-5 text-success-foreground/85 text-pretty text-base md:text-lg leading-relaxed">
-            Me ei lisa midagi süsteemi — me eemaldame dubleerimise.
+            Me ei lisa õppimist — me eemaldame dubleerimise.
           </p>
         </div>
       </div>
