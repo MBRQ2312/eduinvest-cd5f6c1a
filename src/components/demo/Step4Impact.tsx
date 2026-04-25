@@ -228,13 +228,13 @@ export const Step4Impact = ({ onRestart, onBack }: Step4ImpactProps) => {
       <div className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-4">
         <div className="rounded-2xl border border-border bg-card p-6">
           <div className="text-[10px] font-bold tracking-[0.22em] uppercase text-muted-foreground mb-4">
-            Näeme
+            Näeme tervikut
           </div>
           <ul className="space-y-2.5">
             {[
-              "kes õpetab",
-              "kui palju õpetatakse",
-              "kus tekib dubleerimine",
+              "mida õppija on juba teinud",
+              "kes on õpetanud",
+              "kui palju kool peab veel tegema",
             ].map((s) => (
               <li key={s} className="flex items-center gap-2.5 text-base">
                 <span className="size-5 rounded-full bg-primary-subtle text-primary flex items-center justify-center shrink-0">
@@ -246,12 +246,23 @@ export const Step4Impact = ({ onRestart, onBack }: Step4ImpactProps) => {
           </ul>
         </div>
         <div className="rounded-2xl border-l-4 border-primary bg-primary-subtle/60 p-6">
-          <div className="text-[10px] font-bold tracking-[0.22em] uppercase text-primary mb-3">
-            See loob aluse
+          <div className="text-[10px] font-bold tracking-[0.22em] uppercase text-primary mb-4">
+            See võimaldab
           </div>
-          <p className="text-base md:text-lg font-semibold text-primary leading-snug text-pretty">
-            tööaja ja rahastuse targemaks jaotuseks.
-          </p>
+          <ul className="space-y-2.5">
+            {[
+              "vähendada dubleerimist",
+              "optimeerida õpetaja koormust",
+              "suunata rahastust õiglasemalt",
+            ].map((s) => (
+              <li key={s} className="flex items-center gap-2.5 text-base">
+                <span className="size-5 rounded-full bg-primary text-primary-foreground flex items-center justify-center shrink-0">
+                  <Check className="size-3.5" strokeWidth={3} />
+                </span>
+                <span className="text-primary font-semibold">{s}</span>
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
 
