@@ -17,7 +17,7 @@ export const Step1Input = ({ onNext }: Step1InputProps) => {
     <DemoShell
       stepLabel="01 — Õppija sisend"
       title="Lisa õppimiskogemus"
-      subtitle="See on õppimine, mis on juba toimunud."
+      subtitle="See on õppimine, mis on juba tehtud."
     >
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-12 gap-y-7">
         <Field label="Tegevus">
@@ -73,7 +73,7 @@ export const Step1Input = ({ onNext }: Step1InputProps) => {
           Kriitiline küsimus
         </div>
         <p className="text-xl md:text-2xl font-semibold tracking-tight text-balance leading-snug text-primary">
-          Kas seda peab koolis uuesti tegema?
+          Kas seda on vaja koolis uuesti õppida?
         </p>
       </div>
 
