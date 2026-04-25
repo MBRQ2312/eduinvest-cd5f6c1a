@@ -8,64 +8,64 @@
 
 @layer base {
   :root {
-    /* Surfaces */
-    --background: 210 20% 97%;          /* aluminum bg, slightly cooler */
-    --foreground: 215 25% 8%;           /* ink */
+    /* Surfaces — warm off-white paper */
+    --background: 36 30% 97%;            /* warm cream */
+    --foreground: 220 30% 10%;           /* deep ink */
 
     --card: 0 0% 100%;
-    --card-foreground: 215 25% 8%;
+    --card-foreground: 220 30% 10%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 215 25% 8%;
+    --popover-foreground: 220 30% 10%;
 
-    /* Brand: Nordic blue (institutional) */
-    --primary: 211 84% 27%;             /* deeper, more authoritative */
-    --primary-foreground: 0 0% 100%;
-    --primary-subtle: 211 80% 96%;
-    --primary-glow: 211 84% 45%;
+    /* Brand: Deep teal — calm, distinctive, authoritative */
+    --primary: 188 78% 22%;
+    --primary-foreground: 36 30% 98%;
+    --primary-subtle: 186 50% 94%;
+    --primary-glow: 186 70% 38%;
 
-    --secondary: 210 17% 96%;
-    --secondary-foreground: 215 25% 8%;
+    --secondary: 36 20% 94%;
+    --secondary-foreground: 220 30% 10%;
 
-    --muted: 215 14% 94%;
-    --muted-foreground: 215 11% 38%;
+    --muted: 30 14% 92%;
+    --muted-foreground: 220 12% 38%;
 
-    --accent: 211 80% 96%;
-    --accent-foreground: 211 84% 27%;
+    --accent: 186 50% 94%;
+    --accent-foreground: 188 78% 22%;
 
-    --destructive: 0 65% 42%;
+    --destructive: 8 72% 46%;
     --destructive-foreground: 0 0% 100%;
 
-    /* Outcome / success (impact green) */
-    --success: 152 68% 22%;
-    --success-foreground: 0 0% 100%;
-    --success-subtle: 150 42% 93%;
+    /* Outcome / success — vivid impact green */
+    --success: 158 72% 26%;
+    --success-foreground: 36 30% 98%;
+    --success-subtle: 156 48% 92%;
 
-    /* Warning (partial / pending) */
-    --warning: 32 92% 42%;
-    --warning-subtle: 38 90% 95%;
+    /* Warning / accent — warm amber (highlights "decision") */
+    --warning: 32 95% 48%;
+    --warning-subtle: 38 92% 94%;
 
     /* Borders */
-    --border: 215 14% 88%;
-    --border-strong: 215 14% 78%;
-    --input: 215 14% 88%;
-    --ring: 211 84% 27%;
+    --border: 30 14% 86%;
+    --border-strong: 30 14% 74%;
+    --input: 30 14% 86%;
+    --ring: 188 78% 22%;
 
     --radius: 0.875rem;
 
     /* Elevation */
-    --shadow-xs: 0 1px 2px hsl(215 25% 8% / 0.04);
-    --shadow-sm: 0 1px 3px hsl(215 25% 8% / 0.05), 0 1px 2px hsl(215 25% 8% / 0.03);
-    --shadow-card: 0 4px 12px -2px hsl(215 25% 8% / 0.06), 0 2px 4px -2px hsl(215 25% 8% / 0.04);
-    --shadow-elevated: 0 12px 32px -8px hsl(211 84% 27% / 0.18), 0 4px 12px -4px hsl(215 25% 8% / 0.08);
-    --shadow-hero: 0 24px 60px -16px hsl(152 68% 22% / 0.35), 0 8px 24px -8px hsl(152 68% 22% / 0.2);
+    --shadow-xs: 0 1px 2px hsl(220 30% 10% / 0.04);
+    --shadow-sm: 0 1px 3px hsl(220 30% 10% / 0.06), 0 1px 2px hsl(220 30% 10% / 0.03);
+    --shadow-card: 0 4px 14px -3px hsl(220 30% 10% / 0.07), 0 2px 4px -2px hsl(220 30% 10% / 0.04);
+    --shadow-elevated: 0 14px 36px -10px hsl(188 78% 22% / 0.22), 0 4px 12px -4px hsl(220 30% 10% / 0.08);
+    --shadow-hero: 0 28px 64px -18px hsl(158 72% 26% / 0.42), 0 10px 26px -10px hsl(158 72% 26% / 0.22);
 
     /* Motion */
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     --transition-spring: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
 
     /* Institutional grid pattern */
-    --grid-line: 215 14% 92%;
+    --grid-line: 30 14% 90%;
 
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
