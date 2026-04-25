@@ -46,8 +46,8 @@ export const Step1Input = ({ onNext }: Step1InputProps) => {
         <div className="lg:col-span-2">
           <Field label="Mida õppisin">
             <p className="text-base leading-relaxed">
-              Treeningplaani järgimine, meeskonnatöö, vastupidavuse arendamine, taktikaline
-              mõtlemine ja kaotuste käsitlemine.
+              Meeskonnatöö, distsipliin, vastupidavus, treeningplaani järgimine ja
+              taktikaline mõtlemine.
             </p>
           </Field>
         </div>
