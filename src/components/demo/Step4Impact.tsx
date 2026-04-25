@@ -68,7 +68,7 @@ export const Step4Impact = ({ onRestart, onBack }: Step4ImpactProps) => {
     <DemoShell
       stepLabel="04 — Süsteemne mõju"
       title="Mõju"
-      subtitle="See ei ole ainult üks otsus. See on süsteemi mõju, kus aeg ja raha kokku hoitakse."
+      subtitle="Õppimine on koondatud hariduskontole. Vaata, mida see muudab."
     >
       {/* Hero metric */}
       <div className="relative bg-gradient-to-br from-success via-success to-success/90 rounded-2xl p-8 md:p-10 text-success-foreground shadow-hero mb-8 overflow-hidden">
@@ -83,16 +83,29 @@ export const Step4Impact = ({ onRestart, onBack }: Step4ImpactProps) => {
             </div>
           </div>
           <h3 className="text-3xl md:text-4xl lg:text-5xl font-semibold tracking-tighter text-balance leading-[1.05]">
-            Suurim väärtus on see,
-            <br />
-            mida <span className="italic underline decoration-2 underline-offset-[6px]">
-              ei ole vaja
+            Iga õppimine{" "}
+            <span className="italic underline decoration-2 underline-offset-[6px]">
+              loeb
             </span>{" "}
-            enam teha.
+            — ja muutub arvestatavaks.
           </h3>
-          <p className="mt-5 text-success-foreground/85 text-pretty text-base md:text-lg leading-relaxed">
-            Me ei lisa õppimist — me eemaldame dubleerimise.
-          </p>
+          <ul className="mt-6 grid grid-cols-1 sm:grid-cols-3 gap-3">
+            {[
+              "vähem dubleerimist",
+              "väiksem õpetaja koormus",
+              "selge ülevaade õpiteest",
+            ].map((b) => (
+              <li
+                key={b}
+                className="flex items-center gap-2 text-sm md:text-base font-medium text-success-foreground/95"
+              >
+                <span className="size-5 rounded-full bg-white/20 flex items-center justify-center shrink-0">
+                  <Check className="size-3.5" strokeWidth={3} />
+                </span>
+                {b}
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
 
