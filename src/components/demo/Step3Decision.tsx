@@ -1,5 +1,13 @@
-import { useState } from "react";
-import { ArrowRight, CheckCircle2, CircleDashed, MinusCircle, Plus, XCircle } from "lucide-react";
+import { useEffect, useState } from "react";
+import {
+  ArrowRight,
+  CheckCircle2,
+  CircleDashed,
+  MinusCircle,
+  Plus,
+  Sparkles,
+  XCircle,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { DemoShell } from "./DemoShell";
 
@@ -65,8 +73,32 @@ const selectedToneClass: Record<string, string> = {
   muted: "border-foreground bg-foreground text-background shadow-elevated",
 };
 
+const COVERAGE = [
+  { label: "Kehaline kasvatus", level: "strong" as const },
+  { label: "Koostöö", level: "strong" as const },
+  { label: "Enesejuhtimine", level: "partial" as const },
+];
+
 export const Step3Decision = ({ onNext, onBack }: Step3DecisionProps) => {
   const [decision, setDecision] = useState<Decision | null>(null);
+  const [evaluating, setEvaluating] = useState(false);
+  const [released, setReleased] = useState(false);
+
+  // Micro-animation: when "partial" is chosen, briefly show "hindamisel" then "vabastatud"
+  useEffect(() => {
+    if (decision === "partial") {
+      setEvaluating(true);
+      setReleased(false);
+      const t1 = setTimeout(() => {
+        setEvaluating(false);
+        setReleased(true);
+      }, 900);
+      return () => clearTimeout(t1);
+    } else {
+      setEvaluating(false);
+      setReleased(false);
+    }
+  }, [decision]);
 
   return (
     <DemoShell
@@ -75,24 +107,50 @@ export const Step3Decision = ({ onNext, onBack }: Step3DecisionProps) => {
       subtitle="AI on töö ette valmistanud. Vastutus jääb inimesele."
     >
       <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
-        {/* AI summary */}
+        {/* AI summary + coverage */}
         <div className="lg:col-span-2 bg-muted/40 rounded-2xl p-6 border border-border">
           <div className="flex items-center gap-2 mb-4">
-            <div className="h-1 w-6 bg-muted-foreground/40 rounded-full" />
+            <Sparkles className="size-3.5 text-muted-foreground" />
             <div className="text-[10px] font-bold tracking-[0.2em] uppercase text-muted-foreground">
               AI kokkuvõte
             </div>
           </div>
-          <p className="text-sm leading-relaxed text-foreground/90">
-            Tegevus <strong>Spordikool — jalgpall</strong> katab suure osa{" "}
-            <strong>kehalise kasvatuse</strong> õpitulemustest ning üldpädevusi{" "}
-            <strong>koostöö</strong> ja <strong>enesejuhtimine</strong>.
+          <p className="text-base leading-relaxed text-foreground/90 font-medium">
+            See tegevus katab suure osa{" "}
+            <strong className="text-foreground">kehalise kasvatuse</strong>{" "}
+            õpitulemustest.
           </p>
-          <div className="mt-5 pt-5 border-t border-border space-y-2.5 text-sm">
-            <Row label="Kattuvus" value="70%" />
-            <Row label="Tõendeid" value="3 / 3" />
-            <Row label="Kestus" value="6 kuud" />
-            <Row label="Soovitus" value="Osaline" highlight />
+
+          <div className="mt-6 pt-5 border-t border-border">
+            <div className="text-[10px] font-bold tracking-[0.2em] uppercase text-muted-foreground mb-3">
+              Kattuvus õppekavaga
+            </div>
+            <div className="space-y-2">
+              {COVERAGE.map(({ label, level }) => (
+                <div
+                  key={label}
+                  className="flex items-center justify-between gap-3 text-sm"
+                >
+                  <div className="flex items-center gap-2.5 min-w-0">
+                    <span
+                      className={`size-2.5 rounded-full shrink-0 ${
+                        level === "strong" ? "bg-success" : "bg-warning"
+                      }`}
+                    />
+                    <span className="font-medium text-foreground/90 truncate">
+                      {label}
+                    </span>
+                  </div>
+                  <span
+                    className={`text-[11px] font-semibold uppercase tracking-wider ${
+                      level === "strong" ? "text-success" : "text-warning"
+                    }`}
+                  >
+                    {level === "strong" ? "Tugev" : "Osaline"}
+                  </span>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
 
@@ -129,12 +187,22 @@ export const Step3Decision = ({ onNext, onBack }: Step3DecisionProps) => {
             })}
           </div>
 
+          {/* Micro-animation: evaluating → released */}
+          {decision === "partial" && evaluating && (
+            <div className="mt-6 rounded-2xl border border-warning/30 bg-warning-subtle p-5 flex items-center gap-3">
+              <div className="size-2.5 rounded-full bg-warning animate-pulse" />
+              <span className="text-sm font-semibold text-warning tracking-tight">
+                Hindamisel…
+              </span>
+            </div>
+          )}
+
           {/* THE KEY MOMENT — outcome card */}
           <div
             className={`mt-6 transition-spring ${
-              decision === "partial"
+              decision === "partial" && released
                 ? "opacity-100 translate-y-0 scale-100"
-                : "opacity-0 -translate-y-3 scale-95 pointer-events-none"
+                : "opacity-0 -translate-y-3 scale-95 pointer-events-none h-0 mt-0 overflow-hidden"
             }`}
           >
             <div className="relative bg-gradient-to-br from-primary to-primary-glow text-primary-foreground rounded-2xl p-7 shadow-elevated overflow-hidden">
@@ -144,7 +212,7 @@ export const Step3Decision = ({ onNext, onBack }: Step3DecisionProps) => {
                 <div className="flex items-center gap-2 mb-3">
                   <MinusCircle className="size-4" />
                   <div className="text-[10px] font-bold tracking-[0.22em] uppercase text-primary-foreground/80">
-                    Otsuse tagajärg
+                    Vabastatud
                   </div>
                 </div>
                 <p className="text-2xl md:text-3xl font-semibold leading-tight tracking-tight text-balance">
@@ -153,9 +221,25 @@ export const Step3Decision = ({ onNext, onBack }: Step3DecisionProps) => {
                   kehalise kasvatuse tundidest.
                 </p>
                 <p className="mt-4 text-sm text-primary-foreground/85 italic border-l-2 border-white/30 pl-3">
-                  Seda õppimist ei korrata koolis uuesti.
+                  See õppimine on juba arvestatud.
+                  <br />
+                  Seda ei korrata koolis uuesti.
                 </p>
+                <div className="mt-5 inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/15 text-xs font-semibold tabular">
+                  Vabaneb ~12 tundi kuus õppija ajast
+                </div>
               </div>
+            </div>
+
+            {/* WOW-lause */}
+            <div className="mt-5 px-2">
+              <p className="text-base md:text-lg font-medium italic text-foreground/85 leading-snug text-balance">
+                Otsus ei lisa midagi juurde.
+                <br />
+                <span className="text-primary not-italic font-semibold">
+                  See eemaldab selle, mida ei ole enam vaja teha.
+                </span>
+              </p>
             </div>
           </div>
         </div>
@@ -178,20 +262,3 @@ export const Step3Decision = ({ onNext, onBack }: Step3DecisionProps) => {
     </DemoShell>
   );
 };
-
-const Row = ({
-  label,
-  value,
-  highlight,
-}: {
-  label: string;
-  value: string;
-  highlight?: boolean;
-}) => (
-  <div className="flex items-center justify-between text-sm">
-    <span className="text-muted-foreground">{label}</span>
-    <span className={`font-semibold tabular ${highlight ? "text-warning" : "text-foreground"}`}>
-      {value}
-    </span>
-  </div>
-);
