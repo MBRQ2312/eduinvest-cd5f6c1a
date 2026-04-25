@@ -200,7 +200,7 @@ export const Step4Impact = ({ onRestart, onBack }: Step4ImpactProps) => {
             ))}
           </ul>
 
-          <div className="rounded-xl bg-warning-subtle border border-warning/25 p-4">
+          <div className="rounded-xl bg-warning-subtle border border-warning/25 p-4 mb-4">
             <div className="text-[10px] font-bold tracking-[0.2em] uppercase text-warning mb-1">
               KOV ringluses
             </div>
@@ -211,6 +211,16 @@ export const Step4Impact = ({ onRestart, onBack }: Step4ImpactProps) => {
               </span>
             </div>
           </div>
+
+          <CheckList
+            eyebrow="Tähendus"
+            items={[
+              "kes panustab",
+              "kes katab õppimise",
+              "kus tekib ülekate",
+            ]}
+            tone="warning"
+          />
         </ViewCard>
       </div>
 
