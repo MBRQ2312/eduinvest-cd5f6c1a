@@ -17,7 +17,7 @@ export const Step1Input = ({ onNext }: Step1InputProps) => {
     <DemoShell
       stepLabel="01 — Õppija sisend"
       title="Lisa õppimiskogemus"
-      subtitle="See on õppimine, mis on juba toimunud."
+      subtitle="See on õppimine, mis on juba tehtud."
     >
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-12 gap-y-7">
         <Field label="Tegevus">
