@@ -102,10 +102,10 @@ export const Step4Impact = ({ onRestart, onBack }: Step4ImpactProps) => {
             </li>
           </ul>
 
-          <div className="rounded-xl bg-success-subtle border border-success/15 p-4">
+          <div className="rounded-xl bg-success-subtle border border-success/15 p-4 mb-4">
             <div className="flex items-center justify-between mb-2">
               <span className="text-[10px] font-bold tracking-[0.2em] uppercase text-success">
-                Õpitulemus kaetud
+                Õppekava kaetus
               </span>
               <span className="text-2xl font-bold tabular text-success">
                 {LEARNER.curriculumCovered}%
@@ -118,6 +118,12 @@ export const Step4Impact = ({ onRestart, onBack }: Step4ImpactProps) => {
               />
             </div>
           </div>
+
+          <CheckList
+            eyebrow="Otsus"
+            items={["Kehaline kasvatus → osaliselt arvestatud"]}
+            tone="primary"
+          />
         </ViewCard>
 
         {/* 2. Õpetamise vaade */}
@@ -146,7 +152,7 @@ export const Step4Impact = ({ onRestart, onBack }: Step4ImpactProps) => {
             ))}
           </ul>
 
-          <div className="rounded-xl bg-primary-subtle border border-primary/15 p-4">
+          <div className="rounded-xl bg-primary-subtle border border-primary/15 p-4 mb-4">
             <div className="text-[10px] font-bold tracking-[0.2em] uppercase text-primary mb-1">
               Õpetaja koormus koolis
             </div>
@@ -159,6 +165,15 @@ export const Step4Impact = ({ onRestart, onBack }: Step4ImpactProps) => {
               </span>
             </div>
           </div>
+
+          <CheckList
+            eyebrow="Mõju"
+            items={[
+              "õpetaja koormus väheneb",
+              "vähem korduvat õpetamist",
+            ]}
+            tone="primary"
+          />
         </ViewCard>
 
         {/* 3. Ressursi vaade */}
@@ -185,7 +200,7 @@ export const Step4Impact = ({ onRestart, onBack }: Step4ImpactProps) => {
             ))}
           </ul>
 
-          <div className="rounded-xl bg-warning-subtle border border-warning/25 p-4">
+          <div className="rounded-xl bg-warning-subtle border border-warning/25 p-4 mb-4">
             <div className="text-[10px] font-bold tracking-[0.2em] uppercase text-warning mb-1">
               KOV ringluses
             </div>
@@ -196,6 +211,16 @@ export const Step4Impact = ({ onRestart, onBack }: Step4ImpactProps) => {
               </span>
             </div>
           </div>
+
+          <CheckList
+            eyebrow="Tähendus"
+            items={[
+              "kes panustab",
+              "kes katab õppimise",
+              "kus tekib ülekate",
+            ]}
+            tone="warning"
+          />
         </ViewCard>
       </div>
 
@@ -203,13 +228,13 @@ export const Step4Impact = ({ onRestart, onBack }: Step4ImpactProps) => {
       <div className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-4">
         <div className="rounded-2xl border border-border bg-card p-6">
           <div className="text-[10px] font-bold tracking-[0.22em] uppercase text-muted-foreground mb-4">
-            Näeme
+            Näeme tervikut
           </div>
           <ul className="space-y-2.5">
             {[
-              "kes õpetab",
-              "kui palju õpetatakse",
-              "kus tekib dubleerimine",
+              "mida õppija on juba teinud",
+              "kes on õpetanud",
+              "kui palju kool peab veel tegema",
             ].map((s) => (
               <li key={s} className="flex items-center gap-2.5 text-base">
                 <span className="size-5 rounded-full bg-primary-subtle text-primary flex items-center justify-center shrink-0">
@@ -221,12 +246,23 @@ export const Step4Impact = ({ onRestart, onBack }: Step4ImpactProps) => {
           </ul>
         </div>
         <div className="rounded-2xl border-l-4 border-primary bg-primary-subtle/60 p-6">
-          <div className="text-[10px] font-bold tracking-[0.22em] uppercase text-primary mb-3">
-            See loob aluse
+          <div className="text-[10px] font-bold tracking-[0.22em] uppercase text-primary mb-4">
+            See võimaldab
           </div>
-          <p className="text-base md:text-lg font-semibold text-primary leading-snug text-pretty">
-            tööaja ja rahastuse targemaks jaotuseks.
-          </p>
+          <ul className="space-y-2.5">
+            {[
+              "vähendada dubleerimist",
+              "optimeerida õpetaja koormust",
+              "suunata rahastust õiglasemalt",
+            ].map((s) => (
+              <li key={s} className="flex items-center gap-2.5 text-base">
+                <span className="size-5 rounded-full bg-primary text-primary-foreground flex items-center justify-center shrink-0">
+                  <Check className="size-3.5" strokeWidth={3} />
+                </span>
+                <span className="text-primary font-semibold">{s}</span>
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
 
@@ -273,3 +309,30 @@ const ViewCard = ({
     {children}
   </div>
 );
+
+const CheckList = ({
+  eyebrow,
+  items,
+  tone,
+}: {
+  eyebrow: string;
+  items: string[];
+  tone: "primary" | "warning";
+}) => {
+  const toneClass = tone === "primary" ? "text-primary" : "text-warning";
+  return (
+    <div>
+      <div className={`text-[10px] font-bold tracking-[0.2em] uppercase mb-2 ${toneClass}`}>
+        {eyebrow}
+      </div>
+      <ul className="space-y-1.5">
+        {items.map((s) => (
+          <li key={s} className="flex items-start gap-2 text-sm">
+            <Check className={`size-4 mt-0.5 shrink-0 ${toneClass}`} strokeWidth={3} />
+            <span className="text-foreground/90 font-medium leading-snug">{s}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+};
