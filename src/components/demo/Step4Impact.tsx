@@ -69,13 +69,11 @@ export const Step4Impact = ({ onRestart, onBack }: Step4ImpactProps) => {
           <div className="text-[11px] font-semibold tracking-[0.2em] uppercase text-success-foreground/70 mb-2">
             Suurim võit
           </div>
-          <h3 className="text-3xl font-semibold tracking-tight text-balance max-w-2xl">
-            Me ei lisa midagi süsteemi.
-            <br />
-            Me <span className="underline decoration-2 underline-offset-4">eemaldame</span> midagi.
+          <h3 className="text-3xl md:text-4xl font-semibold tracking-tight text-balance max-w-3xl leading-tight">
+            Suurim väärtus on see, mida enam ei pea tegema.
           </h3>
           <p className="mt-3 text-success-foreground/80 max-w-xl text-pretty">
-            Täna teeb õppija sama asja mitu korda. Meie lahendus teeb selle üheks korraks.
+            Me ei lisa midagi süsteemi — me eemaldame dubleerimise. Üks otsus, neli võitjat.
           </p>
         </div>
       </div>

@@ -88,12 +88,15 @@ export const Step3Decision = ({ onNext, onBack }: Step3DecisionProps) => {
               decision === "partial" ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-2 pointer-events-none"
             }`}
           >
-            <div className="bg-primary text-primary-foreground rounded-xl p-5 shadow-elevated animate-in fade-in zoom-in-95">
+            <div className="bg-primary text-primary-foreground rounded-xl p-6 shadow-elevated animate-in fade-in zoom-in-95">
               <div className="text-[11px] font-semibold tracking-[0.2em] uppercase text-primary-foreground/70">
                 Otsuse tagajärg
               </div>
-              <p className="text-lg font-semibold mt-1.5 leading-snug text-balance">
-                Õppija ei pea osalema 30% kehalise kasvatuse tundidest.
+              <p className="text-2xl md:text-3xl font-semibold mt-2 leading-tight text-balance">
+                Õppija on vabastatud 30% kehalise kasvatuse tundidest.
+              </p>
+              <p className="mt-3 text-sm text-primary-foreground/80 italic">
+                Otsus vähendab dubleerimist süsteemis.
               </p>
             </div>
           </div>
