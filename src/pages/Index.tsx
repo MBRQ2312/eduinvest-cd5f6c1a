@@ -52,23 +52,19 @@ const Index = () => {
               Klikitav demo · ~90 sekundit
             </div>
           </div>
-          <h1 className="text-3xl md:text-5xl font-semibold tracking-tighter text-balance leading-[1.05]">
-            Õppija ei õpi ainult koolis.
+          <h1 className="text-3xl md:text-5xl font-semibold tracking-tighter text-balance leading-[1.02]">
+            Õppimine vajab kordamist.
             <br />
             <span className="text-muted-foreground">
-              Aga süsteem käsitleb õppimist endiselt nii, nagu see toimuks ainult
-              klassiruumis.
+              Aga keegi ei otsusta, millal piisab.
             </span>
           </h1>
-          <p className="mt-5 text-muted-foreground text-pretty text-base md:text-lg leading-relaxed max-w-2xl">
-            EduInvest seob päriselus toimunud õppimise üheks ametlikuks otsuseks — ja
-            teeb nähtavaks,{" "}
-            <strong className="text-foreground">mida ei ole vaja enam uuesti teha</strong>
-            .
+          <p className="mt-8 text-xl md:text-2xl font-medium text-foreground text-pretty leading-tight">
+            EduInvest teeb selle otsuse.
           </p>
-          <div className="mt-5 inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary-subtle border border-primary/20">
+          <div className="mt-8 inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary-subtle border border-primary/20">
             <span className="text-xs font-semibold text-primary tracking-tight">
-              LearnOnce
+              EduInvest: LearnOnce
             </span>
             <span className="text-[10px] text-primary/70 italic">
               Learning that counts once — everywhere
