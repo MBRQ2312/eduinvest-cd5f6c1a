@@ -152,7 +152,7 @@ export const Step4Impact = ({ onRestart, onBack }: Step4ImpactProps) => {
             ))}
           </ul>
 
-          <div className="rounded-xl bg-primary-subtle border border-primary/15 p-4">
+          <div className="rounded-xl bg-primary-subtle border border-primary/15 p-4 mb-4">
             <div className="text-[10px] font-bold tracking-[0.2em] uppercase text-primary mb-1">
               Õpetaja koormus koolis
             </div>
@@ -165,6 +165,15 @@ export const Step4Impact = ({ onRestart, onBack }: Step4ImpactProps) => {
               </span>
             </div>
           </div>
+
+          <CheckList
+            eyebrow="Mõju"
+            items={[
+              "õpetaja koormus väheneb",
+              "vähem korduvat õpetamist",
+            ]}
+            tone="primary"
+          />
         </ViewCard>
 
         {/* 3. Ressursi vaade */}
