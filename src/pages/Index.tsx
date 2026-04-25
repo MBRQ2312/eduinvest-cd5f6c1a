@@ -55,8 +55,8 @@ const Index = () => {
           <h1 className="text-2xl md:text-4xl font-semibold uppercase tracking-[0.04em] text-balance leading-[1.1]">
             IGA ÕPPIMINE LOEB
           </h1>
-          <p className="mt-8 text-xl md:text-2xl font-medium text-foreground text-pretty leading-tight">
-            <span className="font-bold text-foreground">EduInvest</span> koondab selle{" "}
+          <p className="mt-6 text-base md:text-lg font-medium text-foreground text-pretty leading-snug">
+            <span className="font-bold text-foreground">EduInvest</span> koondab s.t{" "}
             <span className="font-bold uppercase tracking-[0.04em] text-primary">
               HARIDUSKONTOLE
             </span>{" "}
