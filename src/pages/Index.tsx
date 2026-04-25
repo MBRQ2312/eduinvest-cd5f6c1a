@@ -98,9 +98,8 @@ const Index = () => {
               Filosoofia
             </div>
             <p className="text-lg md:text-xl font-medium italic text-foreground/90 text-pretty leading-relaxed">
-              „Me ei lisa õppimist. Me{" "}
-              <span className="text-primary not-italic font-semibold">eemaldame</span>{" "}
-              dubleerimise.”
+              „Me ei lisa õppimist. Me teeme juba toimunu{" "}
+              <span className="text-primary not-italic font-semibold">arvestatavaks</span>.”
             </p>
           </div>
         </footer>
