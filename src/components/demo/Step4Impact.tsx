@@ -309,3 +309,30 @@ const ViewCard = ({
     {children}
   </div>
 );
+
+const CheckList = ({
+  eyebrow,
+  items,
+  tone,
+}: {
+  eyebrow: string;
+  items: string[];
+  tone: "primary" | "warning";
+}) => {
+  const toneClass = tone === "primary" ? "text-primary" : "text-warning";
+  return (
+    <div>
+      <div className={`text-[10px] font-bold tracking-[0.2em] uppercase mb-2 ${toneClass}`}>
+        {eyebrow}
+      </div>
+      <ul className="space-y-1.5">
+        {items.map((s) => (
+          <li key={s} className="flex items-start gap-2 text-sm">
+            <Check className={`size-4 mt-0.5 shrink-0 ${toneClass}`} strokeWidth={3} />
+            <span className="text-foreground/90 font-medium leading-snug">{s}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+};
