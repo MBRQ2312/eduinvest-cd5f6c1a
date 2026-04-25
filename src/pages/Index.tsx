@@ -56,12 +56,12 @@ const Index = () => {
             IGA ÕPPIMINE LOEB
           </h1>
           <p className="mt-6 text-base md:text-lg font-medium text-foreground text-pretty leading-snug">
-            <span className="font-bold text-foreground">EduInvest</span> koondab s.t{" "}
+            <span className="font-bold text-foreground">EduInvest</span> koondab õppimised{" "}
             <span className="font-bold uppercase tracking-[0.04em] text-primary">
               HARIDUSKONTOLE
             </span>{" "}
             <span className="text-muted-foreground">
-              ja teeb arvestatavaks.
+              s.t teeb õpitu arvestatavaks.
             </span>
           </p>
           <div className="mt-8 inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary-subtle border border-primary/20">
