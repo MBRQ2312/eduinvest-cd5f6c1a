@@ -20,44 +20,60 @@ interface StepIndicatorProps {
 export const StepIndicator = ({ current }: StepIndicatorProps) => {
   return (
     <div className="w-full">
-      <div className="flex items-center justify-between gap-2">
+      <div className="flex items-stretch justify-between gap-0">
         {STEPS.map((step, idx) => {
           const isDone = step.id < current;
           const isActive = step.id === current;
+          const isFuture = step.id > current;
           return (
             <div key={step.id} className="flex items-center flex-1 min-w-0 last:flex-none">
-              <div className="flex flex-col items-start gap-2 min-w-0">
-                <div className="flex items-center gap-3">
+              <div className="flex items-center gap-3 min-w-0">
+                <div className="relative shrink-0">
                   <div
-                    className={`shrink-0 size-7 rounded-full flex items-center justify-center text-xs font-semibold tabular transition-smooth border ${
+                    className={`size-9 rounded-full flex items-center justify-center text-xs font-bold tabular transition-spring border-2 ${
                       isDone
                         ? "bg-primary text-primary-foreground border-primary"
                         : isActive
-                          ? "bg-primary text-primary-foreground border-primary shadow-elevated"
+                          ? "bg-primary text-primary-foreground border-primary shadow-elevated scale-110"
                           : "bg-card text-muted-foreground border-border"
                     }`}
                   >
-                    {isDone ? <Check className="size-3.5" strokeWidth={3} /> : step.id.toString().padStart(2, "0")}
+                    {isDone ? (
+                      <Check className="size-4" strokeWidth={3} />
+                    ) : (
+                      step.id.toString().padStart(2, "0")
+                    )}
                   </div>
-                  <div className="min-w-0">
-                    <div
-                      className={`text-sm font-medium truncate transition-smooth ${
-                        isActive || isDone ? "text-foreground" : "text-muted-foreground"
-                      }`}
-                    >
-                      {step.label}
-                    </div>
-                    <div className="text-[11px] uppercase tracking-widest text-muted-foreground truncate">
-                      {step.short}
-                    </div>
+                  {isActive && (
+                    <div className="absolute inset-0 rounded-full bg-primary/30 animate-ping" />
+                  )}
+                </div>
+                <div className="min-w-0 hidden sm:block">
+                  <div
+                    className={`text-sm font-semibold truncate transition-smooth tracking-tight ${
+                      isActive
+                        ? "text-foreground"
+                        : isDone
+                          ? "text-foreground/80"
+                          : "text-muted-foreground"
+                    }`}
+                  >
+                    {step.label}
+                  </div>
+                  <div
+                    className={`text-[10px] uppercase tracking-[0.18em] truncate transition-smooth ${
+                      isActive ? "text-primary font-semibold" : "text-muted-foreground/70"
+                    }`}
+                  >
+                    {step.short}
                   </div>
                 </div>
               </div>
               {idx < STEPS.length - 1 && (
-                <div className="flex-1 h-px mx-4 bg-border relative overflow-hidden">
+                <div className="flex-1 h-px mx-3 sm:mx-5 bg-border relative overflow-hidden">
                   <div
-                    className={`absolute inset-y-0 left-0 bg-primary transition-smooth ${
-                      step.id < current ? "w-full" : "w-0"
+                    className={`absolute inset-y-0 left-0 bg-primary transition-spring ${
+                      isFuture ? "w-0" : "w-full"
                     }`}
                   />
                 </div>

@@ -9,42 +9,59 @@ const Index = () => {
   const [step, setStep] = useState<1 | 2 | 3 | 4>(1);
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background relative">
+      {/* Institutional grid background */}
+      <div className="absolute inset-0 bg-grid bg-grid-fade pointer-events-none opacity-50" />
+
       {/* Header bar */}
-      <header className="border-b border-border bg-card sticky top-0 z-20 backdrop-blur-md bg-card/90">
+      <header className="border-b border-border bg-card/85 sticky top-0 z-30 backdrop-blur-md">
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between gap-6">
           <div className="flex items-center gap-3">
-            <div className="size-9 rounded-lg bg-primary text-primary-foreground flex items-center justify-center font-bold text-sm tracking-tight">
+            <div className="size-10 rounded-xl bg-primary text-primary-foreground flex items-center justify-center font-bold text-sm tracking-tight shadow-card">
               EI
             </div>
             <div>
-              <div className="font-semibold text-sm leading-tight">EduInvest</div>
-              <div className="text-[11px] text-muted-foreground tracking-wide">
+              <div className="font-semibold text-sm leading-tight tracking-tight">
+                EduInvest
+              </div>
+              <div className="text-[10px] text-muted-foreground tracking-[0.18em] uppercase mt-0.5">
                 Iga õppimine loeb
               </div>
             </div>
           </div>
-          <div className="hidden md:flex items-center gap-2 text-xs text-muted-foreground">
-            <div className="size-1.5 rounded-full bg-success animate-pulse" />
-            <span>Demo režiim</span>
-            <span className="mx-1.5 text-border">•</span>
-            <span className="tabular">Markus T. · 8. klass</span>
+          <div className="hidden md:flex items-center gap-3 text-xs">
+            <div className="flex items-center gap-2 text-muted-foreground">
+              <div className="size-1.5 rounded-full bg-success animate-pulse" />
+              <span>Demo režiim</span>
+            </div>
+            <span className="text-border">·</span>
+            <span className="tabular text-foreground/70 font-medium">
+              Markus T. · 8. klass
+            </span>
           </div>
         </div>
       </header>
 
-      <main className="max-w-7xl mx-auto px-6 py-10">
+      <main className="max-w-7xl mx-auto px-6 py-10 md:py-14 relative">
         {/* Hero */}
-        <section className="mb-10 max-w-3xl">
-          <div className="text-[11px] font-semibold tracking-[0.2em] uppercase text-primary mb-3">
-            Klikitav demo · ~90 sekundit
+        <section className="mb-12 max-w-3xl">
+          <div className="inline-flex items-center gap-2 mb-4">
+            <div className="h-1 w-8 bg-primary rounded-full" />
+            <div className="text-[10px] font-bold tracking-[0.22em] uppercase text-primary">
+              Klikitav demo · ~90 sekundit
+            </div>
           </div>
-          <h1 className="text-3xl md:text-4xl font-semibold tracking-tight text-balance">
-            Õppija ei õpi ainult koolis. Aga süsteem ei näe seda tervikuna.
+          <h1 className="text-3xl md:text-5xl font-semibold tracking-tighter text-balance leading-[1.05]">
+            Õppija ei õpi ainult koolis.
+            <br />
+            <span className="text-muted-foreground">
+              Aga süsteem ei näe seda tervikuna.
+            </span>
           </h1>
-          <p className="mt-3 text-muted-foreground text-pretty">
-            EduInvest muudab spordis, muusikas ja projektides toimuva õppimise üheks ametlikuks
-            otsuseks — ja näitab, mida selle tagajärjel <strong>enam ei pea tegema</strong>.
+          <p className="mt-5 text-muted-foreground text-pretty text-base md:text-lg leading-relaxed max-w-2xl">
+            EduInvest muudab spordis, muusikas ja projektides toimuva õppimise üheks
+            ametlikuks otsuseks — ja näitab, mida selle tagajärjel{" "}
+            <strong className="text-foreground">enam ei pea tegema</strong>.
           </p>
         </section>
 
@@ -68,11 +85,17 @@ const Index = () => {
         </section>
 
         {/* Footer */}
-        <footer className="mt-16 pt-8 border-t border-border text-center">
-          <p className="text-sm text-muted-foreground italic max-w-xl mx-auto text-pretty">
-            “Meie innovatsioon ei ole AI. Meie innovatsioon on see, et me eemaldame
-            dubleerimise.”
-          </p>
+        <footer className="mt-16 pt-10 border-t border-border">
+          <div className="text-center max-w-2xl mx-auto">
+            <div className="text-[10px] font-bold tracking-[0.22em] uppercase text-muted-foreground mb-3">
+              Meie innovatsioon
+            </div>
+            <p className="text-lg md:text-xl font-medium italic text-foreground/90 text-pretty leading-relaxed">
+              “Meie innovatsioon ei ole AI. Meie innovatsioon on see, et me{" "}
+              <span className="text-primary not-italic font-semibold">eemaldame</span>{" "}
+              dubleerimise.”
+            </p>
+          </div>
         </footer>
       </main>
     </div>

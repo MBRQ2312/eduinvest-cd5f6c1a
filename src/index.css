@@ -9,57 +9,63 @@
 @layer base {
   :root {
     /* Surfaces */
-    --background: 210 17% 96%;          /* aluminum-bg #F3F5F7 */
-    --foreground: 215 22% 9%;           /* ink #111418 */
+    --background: 210 20% 97%;          /* aluminum bg, slightly cooler */
+    --foreground: 215 25% 8%;           /* ink */
 
-    --card: 0 0% 100%;                  /* surface */
-    --card-foreground: 215 22% 9%;
+    --card: 0 0% 100%;
+    --card-foreground: 215 25% 8%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 215 22% 9%;
+    --popover-foreground: 215 25% 8%;
 
-    /* Brand: Nordic blue */
-    --primary: 209 81% 29%;             /* #0E4884 */
+    /* Brand: Nordic blue (institutional) */
+    --primary: 211 84% 27%;             /* deeper, more authoritative */
     --primary-foreground: 0 0% 100%;
-    --primary-subtle: 209 71% 96%;      /* #F0F6FC */
-    --primary-glow: 209 81% 45%;
+    --primary-subtle: 211 80% 96%;
+    --primary-glow: 211 84% 45%;
 
-    /* Secondary surface */
     --secondary: 210 17% 96%;
-    --secondary-foreground: 215 22% 9%;
+    --secondary-foreground: 215 25% 8%;
 
-    --muted: 210 14% 93%;
-    --muted-foreground: 215 11% 40%;    /* ink-muted #5B6571 */
+    --muted: 215 14% 94%;
+    --muted-foreground: 215 11% 38%;
 
-    --accent: 209 71% 96%;
-    --accent-foreground: 209 81% 29%;
+    --accent: 211 80% 96%;
+    --accent-foreground: 211 84% 27%;
 
-    --destructive: 0 65% 45%;
+    --destructive: 0 65% 42%;
     --destructive-foreground: 0 0% 100%;
 
-    /* Outcome / success (impact) */
-    --success: 144 72% 21%;             /* #0F5C2E */
+    /* Outcome / success (impact green) */
+    --success: 152 68% 22%;
     --success-foreground: 0 0% 100%;
-    --success-subtle: 142 41% 93%;      /* #E8F5EE */
+    --success-subtle: 150 42% 93%;
 
     /* Warning (partial / pending) */
-    --warning: 35 92% 50%;
-    --warning-subtle: 40 85% 95%;
+    --warning: 32 92% 42%;
+    --warning-subtle: 38 90% 95%;
 
-    /* Borders & inputs */
-    --border: 220 11% 90%;              /* #E2E4E9 */
-    --input: 220 11% 90%;
-    --ring: 209 81% 29%;
+    /* Borders */
+    --border: 215 14% 88%;
+    --border-strong: 215 14% 78%;
+    --input: 215 14% 88%;
+    --ring: 211 84% 27%;
 
-    --radius: 0.75rem;
+    --radius: 0.875rem;
 
     /* Elevation */
-    --shadow-sm: 0 1px 2px hsl(215 22% 9% / 0.04);
-    --shadow-card: 0 2px 8px -2px hsl(215 22% 9% / 0.04);
-    --shadow-elevated: 0 4px 16px -4px hsl(209 81% 29% / 0.15);
+    --shadow-xs: 0 1px 2px hsl(215 25% 8% / 0.04);
+    --shadow-sm: 0 1px 3px hsl(215 25% 8% / 0.05), 0 1px 2px hsl(215 25% 8% / 0.03);
+    --shadow-card: 0 4px 12px -2px hsl(215 25% 8% / 0.06), 0 2px 4px -2px hsl(215 25% 8% / 0.04);
+    --shadow-elevated: 0 12px 32px -8px hsl(211 84% 27% / 0.18), 0 4px 12px -4px hsl(215 25% 8% / 0.08);
+    --shadow-hero: 0 24px 60px -16px hsl(152 68% 22% / 0.35), 0 8px 24px -8px hsl(152 68% 22% / 0.2);
 
     /* Motion */
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-spring: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+
+    /* Institutional grid pattern */
+    --grid-line: 215 14% 92%;
 
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
@@ -72,31 +78,32 @@
   }
 
   .dark {
-    --background: 215 22% 9%;
+    --background: 215 25% 7%;
     --foreground: 0 0% 98%;
-    --card: 215 22% 11%;
+    --card: 215 25% 10%;
     --card-foreground: 0 0% 98%;
-    --popover: 215 22% 11%;
+    --popover: 215 25% 10%;
     --popover-foreground: 0 0% 98%;
-    --primary: 209 81% 55%;
-    --primary-foreground: 215 22% 9%;
-    --primary-subtle: 209 50% 18%;
-    --secondary: 215 20% 15%;
+    --primary: 211 84% 60%;
+    --primary-foreground: 215 25% 8%;
+    --primary-subtle: 211 50% 16%;
+    --secondary: 215 22% 14%;
     --secondary-foreground: 0 0% 98%;
-    --muted: 215 20% 15%;
+    --muted: 215 22% 14%;
     --muted-foreground: 215 11% 65%;
-    --accent: 215 20% 15%;
+    --accent: 215 22% 14%;
     --accent-foreground: 0 0% 98%;
     --destructive: 0 62% 40%;
     --destructive-foreground: 0 0% 98%;
-    --success: 144 50% 50%;
-    --success-foreground: 215 22% 9%;
-    --success-subtle: 144 30% 18%;
-    --warning: 35 92% 60%;
-    --warning-subtle: 35 30% 18%;
-    --border: 215 20% 18%;
-    --input: 215 20% 18%;
-    --ring: 209 81% 55%;
+    --success: 150 50% 50%;
+    --success-foreground: 215 25% 8%;
+    --success-subtle: 150 30% 16%;
+    --warning: 32 92% 60%;
+    --warning-subtle: 32 30% 16%;
+    --border: 215 22% 18%;
+    --input: 215 22% 18%;
+    --ring: 211 84% 60%;
+    --grid-line: 215 22% 14%;
   }
 }
 
@@ -105,25 +112,54 @@
     @apply border-border;
   }
 
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
   body {
-    @apply bg-background text-foreground antialiased;
+    @apply bg-background text-foreground;
     font-family: 'Public Sans', system-ui, -apple-system, sans-serif;
-    font-feature-settings: 'cv11', 'ss01';
+    font-feature-settings: 'cv11', 'ss01', 'ss02';
   }
 
   .tabular {
     font-variant-numeric: tabular-nums;
+    font-feature-settings: 'tnum';
   }
 }
 
 @layer utilities {
+  .shadow-xs {
+    box-shadow: var(--shadow-xs);
+  }
   .shadow-card {
     box-shadow: var(--shadow-card);
   }
   .shadow-elevated {
     box-shadow: var(--shadow-elevated);
   }
+  .shadow-hero {
+    box-shadow: var(--shadow-hero);
+  }
   .transition-smooth {
     transition: var(--transition-smooth);
+  }
+  .transition-spring {
+    transition: var(--transition-spring);
+  }
+
+  /* Institutional grid background */
+  .bg-grid {
+    background-image:
+      linear-gradient(to right, hsl(var(--grid-line)) 1px, transparent 1px),
+      linear-gradient(to bottom, hsl(var(--grid-line)) 1px, transparent 1px);
+    background-size: 64px 64px;
+  }
+
+  .bg-grid-fade {
+    mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black 30%, transparent 80%);
+    -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black 30%, transparent 80%);
   }
 }
