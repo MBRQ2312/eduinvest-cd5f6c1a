@@ -102,10 +102,10 @@ export const Step4Impact = ({ onRestart, onBack }: Step4ImpactProps) => {
             </li>
           </ul>
 
-          <div className="rounded-xl bg-success-subtle border border-success/15 p-4">
+          <div className="rounded-xl bg-success-subtle border border-success/15 p-4 mb-4">
             <div className="flex items-center justify-between mb-2">
               <span className="text-[10px] font-bold tracking-[0.2em] uppercase text-success">
-                Õpitulemus kaetud
+                Õppekava kaetus
               </span>
               <span className="text-2xl font-bold tabular text-success">
                 {LEARNER.curriculumCovered}%
@@ -118,6 +118,12 @@ export const Step4Impact = ({ onRestart, onBack }: Step4ImpactProps) => {
               />
             </div>
           </div>
+
+          <CheckList
+            eyebrow="Otsus"
+            items={["Kehaline kasvatus → osaliselt arvestatud"]}
+            tone="primary"
+          />
         </ViewCard>
 
         {/* 2. Õpetamise vaade */}
