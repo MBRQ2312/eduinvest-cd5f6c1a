@@ -436,4 +436,38 @@ const PilotExample = ({
   </div>
 );
 
+const FlowStep = ({
+  n,
+  icon: Icon,
+  title,
+  text,
+  last,
+}: {
+  n: number;
+  icon: typeof PencilLine;
+  title: string;
+  text: string;
+  last?: boolean;
+}) => (
+  <li className="relative flex gap-4 md:gap-5">
+    <div className="relative flex flex-col items-center shrink-0">
+      <div className="size-10 md:size-11 rounded-xl bg-primary text-primary-foreground flex items-center justify-center font-bold text-sm tabular shadow-card">
+        {n.toString().padStart(2, "0")}
+      </div>
+      {!last && (
+        <div className="absolute top-10 md:top-11 bottom-[-1.25rem] w-px bg-border" />
+      )}
+    </div>
+    <div className="flex-1 min-w-0 pb-1">
+      <div className="flex items-center gap-2 mb-1">
+        <Icon className="size-4 text-primary" />
+        <h4 className="text-sm md:text-base font-semibold tracking-tight text-foreground">
+          {title}
+        </h4>
+      </div>
+      <p className="text-sm text-foreground/75 leading-relaxed text-pretty">{text}</p>
+    </div>
+  </li>
+);
+
 export default Index;
