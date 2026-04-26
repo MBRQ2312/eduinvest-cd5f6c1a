@@ -23,17 +23,17 @@ const Index = () => {
             <div>
               <div className="font-semibold text-sm leading-tight tracking-tight flex items-baseline gap-1.5">
                 EduInvest
-                <span className="text-primary font-bold">LearnOnce</span>
+                <span className="text-primary font-bold">Lab</span>
               </div>
               <div className="text-[10px] text-muted-foreground tracking-[0.18em] uppercase mt-0.5">
-                Iga õppimine loeb
+                Õppija tegelik õpitee nähtavaks
               </div>
             </div>
           </div>
           <div className="hidden md:flex items-center gap-3 text-xs">
             <div className="flex items-center gap-2 text-muted-foreground">
               <div className="size-1.5 rounded-full bg-success animate-pulse" />
-              <span>Demo režiim</span>
+              <span>Demo režiim · õa 2025/2026</span>
             </div>
             <span className="text-border">·</span>
             <span className="tabular text-foreground/70 font-medium">
@@ -49,28 +49,40 @@ const Index = () => {
           <div className="inline-flex items-center gap-2 mb-4">
             <div className="h-1 w-8 bg-primary rounded-full" />
             <div className="text-[10px] font-bold tracking-[0.22em] uppercase text-primary">
-              Klikitav demo · ~90 sekundit
+              Klikitav demo · ~90 sekundit · õppeaasta 2025/2026
             </div>
           </div>
-          <h1 className="text-2xl md:text-4xl font-semibold uppercase tracking-[0.04em] text-balance leading-[1.1]">
-            IGA ÕPPIMINE LOEB
+          <h1 className="text-2xl md:text-4xl font-semibold tracking-tight text-balance leading-[1.1]">
+            Õppija tegelik õpitee{" "}
+            <span className="text-primary">nähtavaks</span>
           </h1>
-          <p className="mt-6 text-base md:text-lg font-medium text-foreground text-pretty leading-snug">
-            <span className="font-bold text-foreground">EduInvest</span> koondab õppimised{" "}
-            <span className="font-bold uppercase tracking-[0.04em] text-primary">
-              HARIDUSKONTOLE
-            </span>{" "}
-            <span className="text-muted-foreground">
-              s.t teeb õpitu arvestatavaks.
-            </span>
+          <p className="mt-6 text-base md:text-lg font-medium text-foreground text-pretty leading-relaxed">
+            <span className="font-bold text-foreground">EduInvest Lab</span> aitab koolil
+            märgata, võrrelda ja arvestada õppimist, mis toimub ka väljaspool tundi —
+            huvikoolis, spordikoolis, muusikakoolis, keeleõppes, projektides või kogukonnas.
           </p>
-          <div className="mt-8 inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary-subtle border border-primary/20">
-            <span className="text-xs font-semibold text-primary tracking-tight">
-              EduInvest: LearnOnce
+          <p className="mt-4 text-sm md:text-base text-muted-foreground text-pretty leading-relaxed">
+            Õppija koormus väheneb, õpetaja saab otsustustuge ja koolijuht näeb tervikpilti.
+            Kogu õpitu koondub{" "}
+            <span className="font-bold uppercase tracking-[0.04em] text-foreground">
+              HARIDUSKONTOLE
             </span>
-            <span className="text-[10px] text-primary/70 italic">
-              Learning that counts once — everywhere
-            </span>
+            .
+          </p>
+          <div className="mt-8 flex flex-wrap items-center gap-2">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary-subtle border border-primary/20">
+              <span className="text-xs font-semibold text-primary tracking-tight">
+                Põhimõte
+              </span>
+              <span className="text-xs text-primary/85 font-medium">
+                AI ei otsusta. AI toetab õpetaja otsust.
+              </span>
+            </div>
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-muted/60 border border-border">
+              <span className="text-[11px] text-muted-foreground font-medium">
+                Sihtrühm: koolijuhid · õpetajad · lapsevanemad · KOV-id · huvikoolid
+              </span>
+            </div>
           </div>
         </section>
 
@@ -100,8 +112,11 @@ const Index = () => {
               Filosoofia
             </div>
             <p className="text-lg md:text-xl font-medium italic text-foreground/90 text-pretty leading-relaxed">
-              „Me ei lisa õppimist. Me teeme juba toimunu{" "}
-              <span className="text-primary not-italic font-semibold">arvestatavaks</span>.”
+              „Me ei lisa õppimist juurde. Me teeme juba toimunu{" "}
+              <span className="text-primary not-italic font-semibold">nähtavaks ja arvestatavaks</span>.”
+            </p>
+            <p className="mt-3 text-xs text-muted-foreground tracking-[0.18em] uppercase font-semibold">
+              AI ei otsusta. AI toetab õpetaja otsust.
             </p>
           </div>
         </footer>

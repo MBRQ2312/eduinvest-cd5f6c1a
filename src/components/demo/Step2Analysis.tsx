@@ -50,7 +50,7 @@ export const Step2Analysis = ({ onNext, onBack }: Step2AnalysisProps) => {
     <DemoShell
       stepLabel="02 — AI eelanalüüs"
       title="AI eelanalüüs"
-      subtitle="AI ei otsusta. AI valmistab otsuse ette — õpetaja jaoks."
+      subtitle="AI ei otsusta. AI toetab õpetaja otsust — seob õpitu õppekavaga."
     >
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Score card */}
@@ -79,8 +79,8 @@ export const Step2Analysis = ({ onNext, onBack }: Step2AnalysisProps) => {
           </div>
 
           <div className="mt-auto pt-7 text-xs text-primary/70 leading-relaxed border-t border-primary/10 mt-6">
-            Põhineb <strong>3 tõendil</strong> ja <strong>6-kuulisel</strong> järjepideval
-            tegevusel.
+            Põhineb <strong>3 tõendil</strong> ja <strong>6 kuu</strong> järjepideval
+            tegevusel käesoleval õppeaastal (2025/2026).
           </div>
         </div>
 

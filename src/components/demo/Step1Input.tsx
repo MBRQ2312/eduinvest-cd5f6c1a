@@ -17,7 +17,7 @@ export const Step1Input = ({ onNext }: Step1InputProps) => {
     <DemoShell
       stepLabel="01 — Õppija sisend"
       title="Lisa õppimiskogemus"
-      subtitle="See on õppimine, mis on juba tehtud."
+      subtitle="Õppimine, mis on juba toimunud — väljaspool klassiruumi."
     >
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-12 gap-y-7">
         <Field label="Tegevus">
@@ -31,9 +31,9 @@ export const Step1Input = ({ onNext }: Step1InputProps) => {
         </Field>
 
         <Field label="Kestus">
-          <div className="text-lg font-semibold tracking-tight tabular">6 kuud</div>
+          <div className="text-lg font-semibold tracking-tight tabular">Käesolev õppeaasta</div>
           <div className="text-sm text-muted-foreground mt-0.5">
-            September 2024 — veebruar 2025
+            September 2025 — veebruar 2026 · 6 kuud
           </div>
         </Field>
 

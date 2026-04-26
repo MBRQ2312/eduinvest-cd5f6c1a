@@ -46,7 +46,7 @@ export const Step4Impact = ({ onRestart, onBack }: Step4ImpactProps) => {
   return (
     <DemoShell
       stepLabel="04 — Süsteemne mõju"
-      title="Mõju"
+      title="Mõju koolile, õppijale ja KOV-ile"
       subtitle="Kolm vaadet samale õppimisele: õppija, õpetamine, ressurss."
     >
       {/* Hero */}
@@ -70,7 +70,8 @@ export const Step4Impact = ({ onRestart, onBack }: Step4ImpactProps) => {
             , et me ei näe seda tervikuna.
           </h3>
           <p className="mt-5 text-success-foreground/90 text-pretty text-base md:text-lg leading-relaxed">
-            EduInvest teeb selle nähtavaks — õppija, õpetamine ja ressurss ühel pildil.
+            EduInvest Lab teeb selle nähtavaks — õppija, õpetamine ja ressurss ühel pildil.
+            Koolijuht, õpetaja ja KOV näevad sama tervikut.
           </p>
         </div>
       </div>
