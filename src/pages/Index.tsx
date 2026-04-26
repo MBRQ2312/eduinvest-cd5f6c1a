@@ -1,4 +1,6 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
+import { ArrowDown, Music, Trophy } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import { StepIndicator } from "@/components/demo/StepIndicator";
 import { Step1Input } from "@/components/demo/Step1Input";
 import { Step2Analysis } from "@/components/demo/Step2Analysis";
@@ -7,6 +9,11 @@ import { Step4Impact } from "@/components/demo/Step4Impact";
 
 const Index = () => {
   const [step, setStep] = useState<1 | 2 | 3 | 4>(1);
+  const flowRef = useRef<HTMLDivElement>(null);
+
+  const scrollToFlow = () => {
+    flowRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
 
   return (
     <div className="min-h-screen bg-background relative">
@@ -86,8 +93,78 @@ const Index = () => {
           </div>
         </section>
 
+        {/* Esimene piloot */}
+        <section className="mb-12">
+          <div className="rounded-2xl border border-border bg-card shadow-card overflow-hidden">
+            <div className="grid grid-cols-1 lg:grid-cols-5 gap-0">
+              {/* Left: intro */}
+              <div className="lg:col-span-2 p-7 md:p-9 border-b lg:border-b-0 lg:border-r border-border bg-muted/30">
+                <div className="inline-flex items-center gap-2 mb-4">
+                  <div className="h-1 w-8 bg-primary rounded-full" />
+                  <div className="text-[10px] font-bold tracking-[0.22em] uppercase text-primary">
+                    Esimene piloot
+                  </div>
+                </div>
+                <h2 className="text-2xl md:text-3xl font-semibold tracking-tight text-balance leading-tight">
+                  Huviharidusest{" "}
+                  <span className="text-primary">üldharidusse</span>
+                </h2>
+                <p className="mt-4 text-sm md:text-base text-foreground/85 leading-relaxed text-pretty">
+                  EduInvest Lab ei alusta korraga kõigi õpitegevuste arvestamisest.
+                  Alustame ühest kitsast ja arusaadavast kasutusjuhust:{" "}
+                  <span className="font-semibold text-foreground">
+                    huvihariduse arvestamisest üldhariduse õpitulemuste täitmisel.
+                  </span>
+                </p>
+                <p className="mt-4 text-sm text-muted-foreground leading-relaxed text-pretty">
+                  Kui õppija saavutab osa õpitulemustest juba huvikoolis või
+                  spordikoolis, aitab EduInvest õpetajal näha,{" "}
+                  <span className="text-foreground font-medium">mida võiks koolis arvestada</span>,{" "}
+                  <span className="text-foreground font-medium">millist tõendit on vaja</span> ja{" "}
+                  <span className="text-foreground font-medium">mis jääb veel teha</span>.
+                  Lõppotsuse teeb õpetaja või kooli määratud vastutaja.
+                </p>
+                <div className="mt-6">
+                  <Button onClick={scrollToFlow} size="lg" className="shadow-elevated group">
+                    Vaata piloodi töövoogu
+                    <ArrowDown className="size-4 transition-transform group-hover:translate-y-0.5" />
+                  </Button>
+                </div>
+              </div>
+
+              {/* Right: two examples */}
+              <div className="lg:col-span-3 p-7 md:p-9">
+                <div className="text-[10px] font-bold tracking-[0.22em] uppercase text-muted-foreground mb-5">
+                  Kaks näidet piloodis
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <PilotExample
+                    icon={Music}
+                    source="Muusikakool"
+                    target="Muusikaõpetus"
+                    description="Pillimäng, solfedžo ja esinemiskogemus võivad katta osa kooli muusikaõpetuse õpitulemustest."
+                  />
+                  <PilotExample
+                    icon={Trophy}
+                    source="Spordikool"
+                    target="Kehaline kasvatus"
+                    description="Treeningud, võistlused ja füüsiline ettevalmistus võivad katta osa kehalise kasvatuse õpitulemustest."
+                  />
+                </div>
+                <div className="mt-5 rounded-xl border-l-4 border-primary bg-primary-subtle/50 p-4">
+                  <p className="text-xs md:text-sm text-foreground/85 leading-relaxed">
+                    <span className="font-semibold text-primary">Põhimõte:</span>{" "}
+                    AI ei otsusta. AI toetab õpetaja otsust — toob kokku tõendid,
+                    pakub seoseid õppekavaga ja näitab, mis on juba kaetud.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* Stepper */}
-        <section className="mb-8">
+        <section className="mb-8" ref={flowRef}>
           <StepIndicator current={step} />
         </section>
 
