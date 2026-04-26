@@ -1,5 +1,10 @@
 import { useRef, useState } from "react";
 import {
+  Building2,
+  GraduationCap,
+  Heart,
+  Landmark,
+  School,
   AlertCircle,
   ArrowDown,
   BookOpenCheck,
@@ -333,6 +338,55 @@ const Index = () => {
           </div>
         </section>
 
+        {/* Miks see on vajalik kogu haridusruumile? */}
+        <section className="mb-12">
+          <div className="max-w-3xl mb-8">
+            <div className="inline-flex items-center gap-2 mb-4">
+              <div className="h-1 w-8 bg-primary rounded-full" />
+              <div className="text-[10px] font-bold tracking-[0.22em] uppercase text-primary">
+                Mõju osapooltele
+              </div>
+            </div>
+            <h2 className="text-2xl md:text-3xl font-semibold tracking-tight text-balance leading-tight">
+              Miks see on vajalik{" "}
+              <span className="text-primary">kogu haridusruumile?</span>
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <StakeholderCard
+              icon={GraduationCap}
+              role="Õppijale"
+              text="Vähendab tunnet, et sama asja tuleb teha mitu korda. Õppija näeb, et tema pingutus väljaspool kooli loeb."
+            />
+            <StakeholderCard
+              icon={UserCog}
+              role="Õpetajale"
+              text="Õpetaja ei pea iga arvestusjuhtumit nullist läbi mõtlema. Ta saab struktureeritud otsustoe, kuid lõppotsus jääb talle."
+            />
+            <StakeholderCard
+              icon={School}
+              role="Koolijuhile"
+              text="Koolijuht näeb, kus õppija koormus ja õpetajate töö dubleerub ning saab teha paremaid korraldusotsuseid."
+            />
+            <StakeholderCard
+              icon={Heart}
+              role="Lapsevanemale"
+              text="Lapsevanem saab aru, miks midagi arvestati või ei arvestatud. See vähendab segadust ja vaidlusi."
+            />
+            <StakeholderCard
+              icon={Building2}
+              role="Omavalitsusele"
+              text="KOV näeb, kuidas huviharidus ja üldharidus saavad päriselt koos toimida."
+            />
+            <StakeholderCard
+              icon={Landmark}
+              role="Riigile ja HTM-ile"
+              text="EduInvest loob katsetatava mudeli, kuidas liikuda paindlikuma, oskuspõhisema ja andmepõhisema hariduse poole."
+            />
+          </div>
+        </section>
+
         {/* Stepper */}
         <section className="mb-8" ref={flowRef}>
           <StepIndicator current={step} />
@@ -468,6 +522,28 @@ const FlowStep = ({
       <p className="text-sm text-foreground/75 leading-relaxed text-pretty">{text}</p>
     </div>
   </li>
+);
+
+const StakeholderCard = ({
+  icon: Icon,
+  role,
+  text,
+}: {
+  icon: typeof GraduationCap;
+  role: string;
+  text: string;
+}) => (
+  <div className="rounded-2xl border border-border bg-card p-6 hover:border-primary/30 hover:shadow-card transition-smooth flex flex-col">
+    <div className="flex items-center gap-3 mb-3">
+      <div className="size-10 rounded-xl bg-primary-subtle text-primary flex items-center justify-center shrink-0">
+        <Icon className="size-5" />
+      </div>
+      <div className="text-base md:text-lg font-semibold tracking-tight text-foreground">
+        {role}
+      </div>
+    </div>
+    <p className="text-sm text-foreground/75 leading-relaxed text-pretty">{text}</p>
+  </div>
 );
 
 export default Index;
