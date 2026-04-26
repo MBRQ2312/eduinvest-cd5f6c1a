@@ -104,7 +104,7 @@ export const Step3Decision = ({ onNext, onBack }: Step3DecisionProps) => {
     <DemoShell
       stepLabel="03 — Õpetaja otsus"
       title="Õpetaja otsus"
-      subtitle="AI on töö ette valmistanud. Vastutus jääb inimesele."
+      subtitle="AI ei otsusta. AI toetab õpetaja otsust — vastutus jääb inimesele."
     >
       <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
         {/* AI summary + coverage */}
