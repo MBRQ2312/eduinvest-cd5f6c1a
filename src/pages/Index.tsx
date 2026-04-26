@@ -202,4 +202,41 @@ const Index = () => {
   );
 };
 
+const PilotExample = ({
+  icon: Icon,
+  source,
+  target,
+  description,
+}: {
+  icon: typeof Music;
+  source: string;
+  target: string;
+  description: string;
+}) => (
+  <div className="group rounded-xl border border-border bg-background p-5 hover:border-primary/30 hover:shadow-card transition-smooth">
+    <div className="flex items-start gap-3 mb-4">
+      <div className="size-10 rounded-lg bg-primary-subtle text-primary flex items-center justify-center shrink-0">
+        <Icon className="size-5" />
+      </div>
+      <div className="min-w-0 flex-1">
+        <div className="text-[10px] font-bold tracking-[0.2em] uppercase text-muted-foreground">
+          Allikas → Sihtaine
+        </div>
+        <div className="mt-1 flex items-center gap-2 flex-wrap">
+          <span className="text-sm font-semibold text-foreground tracking-tight">
+            {source}
+          </span>
+          <span className="text-muted-foreground text-xs">→</span>
+          <span className="text-sm font-semibold text-primary tracking-tight">
+            {target}
+          </span>
+        </div>
+      </div>
+    </div>
+    <p className="text-xs md:text-sm text-foreground/75 leading-relaxed">
+      {description}
+    </p>
+  </div>
+);
+
 export default Index;
