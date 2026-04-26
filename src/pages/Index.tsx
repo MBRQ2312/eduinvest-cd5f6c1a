@@ -1,5 +1,11 @@
 import { useRef, useState } from "react";
 import {
+  ArrowRight,
+  FlaskConical,
+  GraduationCap as GradCap,
+  Handshake,
+  Mic,
+  Rocket,
   Building2,
   GraduationCap,
   Heart,
@@ -387,6 +393,84 @@ const Index = () => {
           </div>
         </section>
 
+        {/* EduInvest Lab */}
+        <section className="mb-12">
+          <div className="rounded-2xl border border-border bg-card overflow-hidden shadow-card">
+            <div className="p-7 md:p-9 bg-gradient-to-br from-primary-subtle/60 to-transparent border-b border-border">
+              <div className="inline-flex items-center gap-2 mb-4">
+                <FlaskConical className="size-4 text-primary" />
+                <div className="text-[10px] font-bold tracking-[0.22em] uppercase text-primary">
+                  Arendusruum
+                </div>
+              </div>
+              <h2 className="text-2xl md:text-3xl font-semibold tracking-tight text-balance leading-tight">
+                EduInvest <span className="text-primary">Lab</span>
+              </h2>
+              <p className="mt-4 text-sm md:text-base text-foreground/85 leading-relaxed text-pretty max-w-3xl">
+                EduInvest ei ole ainult digitaalne prototüüp, vaid{" "}
+                <span className="font-semibold text-foreground">
+                  haridusuuenduse arendusruum
+                </span>
+                {" "}— kus mõte, metoodika ja tööriist arenevad koos koolide ja partneritega.
+              </p>
+            </div>
+
+            <div className="p-7 md:p-9">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <LabTrack
+                  index="01"
+                  icon={Mic}
+                  title="EduInvest Talks"
+                  text="Kogemusjagamised, ümarlauad ja arutelud koolijuhtide, õpetajate, huvikoolide, õppijate ja hariduspartneritega."
+                />
+                <LabTrack
+                  index="02"
+                  icon={GradCap}
+                  title="EduInvest Academy"
+                  text="Koolitused õpetajatele ja koolijuhtidele õppija tegeliku õpitee arvestamise, otsustoe ja AI vastutustundliku kasutamise teemal."
+                />
+                <LabTrack
+                  index="03"
+                  icon={Rocket}
+                  title="EduInvest Pilot"
+                  text="Koolides testitav õpitee arvestamise mudel, mis algab ühest kitsast kasutusjuhust ja kasvab tõenduspõhiselt."
+                />
+              </div>
+
+              <div className="mt-7 rounded-xl border-l-4 border-primary bg-primary-subtle/50 p-5 md:p-6 flex flex-col md:flex-row md:items-center gap-5 md:gap-6">
+                <div className="flex items-start gap-3 flex-1 min-w-0">
+                  <div className="shrink-0 size-10 rounded-lg bg-primary text-primary-foreground flex items-center justify-center">
+                    <Handshake className="size-5" />
+                  </div>
+                  <div className="min-w-0">
+                    <div className="text-[10px] font-bold tracking-[0.22em] uppercase text-primary mb-1.5">
+                      Partnerluse kutse
+                    </div>
+                    <p className="text-sm md:text-base text-foreground/90 leading-relaxed text-pretty">
+                      Otsime{" "}
+                      <span className="font-semibold text-foreground">koole</span>,{" "}
+                      <span className="font-semibold text-foreground">huvikoolide esindajaid</span>,{" "}
+                      <span className="font-semibold text-foreground">KOV-e</span> ja{" "}
+                      <span className="font-semibold text-foreground">hariduspartnereid</span>,
+                      kellega katsetada õppija tegeliku õpitee arvestamist.
+                    </p>
+                  </div>
+                </div>
+                <Button
+                  size="lg"
+                  asChild
+                  className="shadow-elevated group shrink-0 w-full md:w-auto"
+                >
+                  <a href="mailto:tere@eduinvest.ee?subject=EduInvest%20Lab%20%E2%80%94%20koost%C3%B6%C3%B6">
+                    Räägime koostööst
+                    <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
+                  </a>
+                </Button>
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* Stepper */}
         <section className="mb-8" ref={flowRef}>
           <StepIndicator current={step} />
@@ -542,6 +626,33 @@ const StakeholderCard = ({
         {role}
       </div>
     </div>
+    <p className="text-sm text-foreground/75 leading-relaxed text-pretty">{text}</p>
+  </div>
+);
+
+const LabTrack = ({
+  index,
+  icon: Icon,
+  title,
+  text,
+}: {
+  index: string;
+  icon: typeof Mic;
+  title: string;
+  text: string;
+}) => (
+  <div className="rounded-2xl border border-border bg-background p-6 hover:border-primary/30 hover:shadow-elevated transition-smooth flex flex-col">
+    <div className="flex items-start justify-between mb-4">
+      <div className="size-11 rounded-xl bg-primary text-primary-foreground flex items-center justify-center">
+        <Icon className="size-5" />
+      </div>
+      <span className="text-[11px] font-bold tabular tracking-[0.2em] text-muted-foreground/70">
+        {index}
+      </span>
+    </div>
+    <h3 className="text-base md:text-lg font-semibold tracking-tight text-foreground mb-2 text-balance">
+      {title}
+    </h3>
     <p className="text-sm text-foreground/75 leading-relaxed text-pretty">{text}</p>
   </div>
 );
