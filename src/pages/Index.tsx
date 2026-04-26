@@ -1,5 +1,15 @@
 import { useRef, useState } from "react";
-import { ArrowDown, Music, Trophy } from "lucide-react";
+import {
+  ArrowDown,
+  BookOpenCheck,
+  Layers,
+  Map,
+  MessageSquareText,
+  Music,
+  ScrollText,
+  Trophy,
+  UserCog,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { StepIndicator } from "@/components/demo/StepIndicator";
 import { Step1Input } from "@/components/demo/Step1Input";
@@ -163,6 +173,68 @@ const Index = () => {
           </div>
         </section>
 
+        {/* Üks piloot, viis väljundit */}
+        <section className="mb-12">
+          <div className="max-w-3xl mb-8">
+            <div className="inline-flex items-center gap-2 mb-4">
+              <div className="h-1 w-8 bg-primary rounded-full" />
+              <div className="text-[10px] font-bold tracking-[0.22em] uppercase text-primary">
+                Piloodi väljundid
+              </div>
+            </div>
+            <h2 className="text-2xl md:text-3xl font-semibold tracking-tight text-balance leading-tight">
+              Üks piloot, <span className="text-primary">viis väljundit</span>
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <OutputCard
+              index="01"
+              icon={Map}
+              title="Õppija õpitee kaart"
+              text="Näitab, kus õppija juba õpib — koolis, huvihariduses, projektides, keeleõppes ja tugiteenustes."
+            />
+            <OutputCard
+              index="02"
+              icon={UserCog}
+              title="Õpetaja otsustugi"
+              text="Aitab õpetajal hinnata, kas kooliväline tegevus katab mõne õpitulemuse. AI teeb eeltöö, õpetaja otsustab."
+            />
+            <OutputCard
+              index="03"
+              icon={Layers}
+              title="Koolijuhi dubleerimise vaade"
+              text="Näitab, kus õppija aeg ja õpetaja töö võivad dubleeruda ning kus on võimalik õppekorraldust paindlikumaks muuta."
+            />
+            <OutputCard
+              index="04"
+              icon={MessageSquareText}
+              title="Õppija ja lapsevanema selgitusvaade"
+              text="Selgitab lihtsas keeles, mida arvestati, miks arvestati ja mis jääb veel õppida."
+            />
+            <OutputCard
+              index="05"
+              icon={ScrollText}
+              title="Hea tava ja metoodiline juhend"
+              text="Aitab koolil teha arvestamist õiglaselt, läbipaistvalt ja kooskõlas vastutuse põhimõtetega."
+            />
+            <div className="rounded-2xl border-l-4 border-primary bg-primary-subtle/50 p-6 flex flex-col justify-center">
+              <div className="flex items-center gap-2 mb-3">
+                <BookOpenCheck className="size-4 text-primary" />
+                <div className="text-[10px] font-bold tracking-[0.22em] uppercase text-primary">
+                  Üks töövoog
+                </div>
+              </div>
+              <p className="text-sm md:text-base text-foreground/90 leading-relaxed text-pretty font-medium">
+                See ei ole viis eraldi toodet, vaid{" "}
+                <span className="text-primary font-semibold">
+                  üks arvestamise töövoog viie vajaliku vaatega.
+                </span>
+              </p>
+            </div>
+          </div>
+        </section>
+
         {/* Stepper */}
         <section className="mb-8" ref={flowRef}>
           <StepIndicator current={step} />
@@ -201,6 +273,33 @@ const Index = () => {
     </div>
   );
 };
+
+const OutputCard = ({
+  index,
+  icon: Icon,
+  title,
+  text,
+}: {
+  index: string;
+  icon: typeof Map;
+  title: string;
+  text: string;
+}) => (
+  <div className="group rounded-2xl border border-border bg-card p-6 hover:border-primary/30 hover:shadow-elevated transition-smooth flex flex-col">
+    <div className="flex items-start justify-between mb-4">
+      <div className="size-11 rounded-xl bg-primary-subtle text-primary flex items-center justify-center">
+        <Icon className="size-5" />
+      </div>
+      <span className="text-[11px] font-bold tabular tracking-[0.2em] text-muted-foreground/70">
+        {index}
+      </span>
+    </div>
+    <h3 className="text-base md:text-lg font-semibold tracking-tight text-foreground mb-2 text-balance">
+      {title}
+    </h3>
+    <p className="text-sm text-foreground/75 leading-relaxed text-pretty">{text}</p>
+  </div>
+);
 
 const PilotExample = ({
   icon: Icon,
