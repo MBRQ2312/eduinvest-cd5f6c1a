@@ -630,4 +630,31 @@ const StakeholderCard = ({
   </div>
 );
 
+const LabTrack = ({
+  index,
+  icon: Icon,
+  title,
+  text,
+}: {
+  index: string;
+  icon: typeof Mic;
+  title: string;
+  text: string;
+}) => (
+  <div className="rounded-2xl border border-border bg-background p-6 hover:border-primary/30 hover:shadow-elevated transition-smooth flex flex-col">
+    <div className="flex items-start justify-between mb-4">
+      <div className="size-11 rounded-xl bg-primary text-primary-foreground flex items-center justify-center">
+        <Icon className="size-5" />
+      </div>
+      <span className="text-[11px] font-bold tabular tracking-[0.2em] text-muted-foreground/70">
+        {index}
+      </span>
+    </div>
+    <h3 className="text-base md:text-lg font-semibold tracking-tight text-foreground mb-2 text-balance">
+      {title}
+    </h3>
+    <p className="text-sm text-foreground/75 leading-relaxed text-pretty">{text}</p>
+  </div>
+);
+
 export default Index;
