@@ -1,14 +1,23 @@
 import { useRef, useState } from "react";
 import {
+  AlertCircle,
   ArrowDown,
   BookOpenCheck,
+  ClipboardList,
+  FileSearch,
+  GitCompare,
   Layers,
   Map,
   MessageSquareText,
   Music,
+  PencilLine,
   ScrollText,
+  ShieldCheck,
+  Sparkles,
   Trophy,
+  UserCheck,
   UserCog,
+  Users2,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { StepIndicator } from "@/components/demo/StepIndicator";
@@ -230,6 +239,95 @@ const Index = () => {
                 <span className="text-primary font-semibold">
                   üks arvestamise töövoog viie vajaliku vaatega.
                 </span>
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* Kuidas see töötab? */}
+        <section className="mb-12">
+          <div className="max-w-3xl mb-8">
+            <div className="inline-flex items-center gap-2 mb-4">
+              <div className="h-1 w-8 bg-primary rounded-full" />
+              <div className="text-[10px] font-bold tracking-[0.22em] uppercase text-primary">
+                Töövoog
+              </div>
+            </div>
+            <h2 className="text-2xl md:text-3xl font-semibold tracking-tight text-balance leading-tight">
+              Kuidas see <span className="text-primary">töötab?</span>
+            </h2>
+            <p className="mt-4 text-sm md:text-base text-muted-foreground leading-relaxed text-pretty">
+              Näide: õppija käib <span className="text-foreground font-medium">muusikakoolis</span>.
+              Vaata, kuidas tema õpitu jõuab kooli muusikaõpetuses arvestamiseni.
+            </p>
+          </div>
+
+          <div className="rounded-2xl border border-border bg-card p-6 md:p-8 shadow-card">
+            <ol className="relative space-y-5">
+              <FlowStep
+                n={1}
+                icon={PencilLine}
+                title="Õppija või lapsevanem lisab info"
+                text="Sisestatakse, millist õppimist muusikakoolis tehakse — pill, sagedus, kestus."
+              />
+              <FlowStep
+                n={2}
+                icon={ClipboardList}
+                title="EduInvest aitab kirjeldada"
+                text="Süsteem soovitab, kuidas tegevusi sõnastada ja milliseid tõendeid lisada."
+              />
+              <FlowStep
+                n={3}
+                icon={GitCompare}
+                title="Süsteem võrdleb õppekavaga"
+                text="Tegevusi võrreldakse kooli muusikaõpetuse õpitulemustega."
+              />
+              <FlowStep
+                n={4}
+                icon={FileSearch}
+                title="Õpetaja näeb ettepanekut"
+                text="Mida saab arvestada, mida mitte ja millist lisatõendit on vaja."
+              />
+              <FlowStep
+                n={5}
+                icon={UserCheck}
+                title="Õpetaja teeb otsuse"
+                text="Lõppvastutus jääb inimesele — õpetajale või kooli määratud vastutajale."
+              />
+              <FlowStep
+                n={6}
+                icon={MessageSquareText}
+                title="Õppija ja lapsevanem saavad selgituse"
+                text="Lihtsas keeles: mida arvestati, miks arvestati ja mis jääb veel õppida."
+              />
+              <FlowStep
+                n={7}
+                icon={Users2}
+                title="Koolijuht näeb anonüümset koondpilti"
+                text="Kui palju sarnaseid arvestusjuhtumeid koolis tekib ja kus on mustrid."
+              />
+              <FlowStep
+                n={8}
+                icon={ShieldCheck}
+                title="Piloodi põhjal täieneb hea tava"
+                text="Kooli arvestamise reeglid muutuvad selgemaks ja korduvkasutatavaks."
+                last
+              />
+            </ol>
+          </div>
+
+          <div className="mt-6 rounded-xl border-l-4 border-warning bg-warning-subtle p-5 flex gap-3.5">
+            <div className="shrink-0 size-8 rounded-lg bg-warning/15 flex items-center justify-center">
+              <AlertCircle className="size-4 text-warning" />
+            </div>
+            <div className="min-w-0">
+              <div className="text-[10px] font-bold tracking-[0.22em] uppercase text-warning mb-1.5">
+                Oluline rõhutus
+              </div>
+              <p className="text-sm md:text-base text-foreground/90 leading-relaxed text-pretty">
+                EduInvest <span className="font-semibold">ei anna hinnet</span> ega{" "}
+                <span className="font-semibold">vabasta õpilast automaatselt tunnist</span>.
+                See aitab teha läbipaistva ja põhjendatud otsuse.
               </p>
             </div>
           </div>
