@@ -5,9 +5,11 @@ import {
   CheckCircle2,
   CircleDashed,
   FileSearch,
+  Scale,
   ShieldCheck,
   Sparkles,
   Trophy,
+  User,
   XCircle,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -75,12 +77,69 @@ const selectedToneClass: Record<string, string> = {
   destructive: "border-destructive bg-destructive text-destructive-foreground shadow-elevated",
 };
 
-const COVERAGE = [
-  { label: "Kehalised oskused ja vastupidavus", level: "strong" as const },
-  { label: "Koostöö ja meeskonnatöö", level: "strong" as const },
-  { label: "Eneseanalüüs ja refleksioon", level: "partial" as const },
-  { label: "Kooli õppekava spetsiifilised teemad", level: "missing" as const },
-];
+type ProfileId = "A" | "B";
+type Level = "strong" | "partial" | "missing";
+
+const PROFILES: Record<
+  ProfileId,
+  {
+    name: string;
+    tag: string;
+    summary: string;
+    facts: string[];
+    coverage: { label: string; level: Level }[];
+    aiSummary: string;
+    recommended: Decision;
+    recommendedNote: string;
+  }
+> = {
+  A: {
+    name: "Profiil A",
+    tag: "Tulemustele orienteeritud sportlane",
+    summary: "Treenib 4–5 korda nädalas, osaleb võistlustel ja laagrites.",
+    facts: [
+      "Treenib 4–5 korda nädalas",
+      "Osaleb võistlustel ja laagrites",
+      "Treener kinnitab järjepidevust",
+      "Õpitulemused: kehaline aktiivsus, enesejuhtimine, koostöö, liikumisoskused",
+    ],
+    coverage: [
+      { label: "Kehaline aktiivsus ja vastupidavus", level: "strong" },
+      { label: "Liikumisoskused", level: "strong" },
+      { label: "Enesejuhtimine", level: "strong" },
+      { label: "Koostöö ja meeskonnatöö", level: "strong" },
+      { label: "Eneseanalüüs ja refleksioon", level: "partial" },
+    ],
+    aiSummary:
+      "Õppija on saavutanud suure osa kehalise kasvatuse õpitulemustest spordikoolis. Soovitatav osaline arvestamine ja koolitundide koormuse vähendamine.",
+    recommended: "partial",
+    recommendedNote:
+      "AI soovitus: arvestada osaliselt ning vähendada koolitundide koormust. Lõppotsuse teeb õpetaja.",
+  },
+  B: {
+    name: "Profiil B",
+    tag: "Õppija, kelle õppekava maht ei ole veel kaetud",
+    summary: "Osaleb trennis ebaregulaarselt, tõendus on puudulik.",
+    facts: [
+      "Osaleb trennis ebaregulaarselt",
+      "Puudub piisav tõendus",
+      "Vajab kehalise kasvatuse tundides osalemist",
+      "Õppekava maht ei ole kaetud",
+    ],
+    coverage: [
+      { label: "Kehaline aktiivsus ja vastupidavus", level: "partial" },
+      { label: "Liikumisoskused", level: "partial" },
+      { label: "Enesejuhtimine", level: "missing" },
+      { label: "Koostöö ja meeskonnatöö", level: "missing" },
+      { label: "Eneseanalüüs ja refleksioon", level: "missing" },
+    ],
+    aiSummary:
+      "Tõendusmaterjal on puudulik ja õppekava maht ei ole kaetud. Soovitatav mitte arvestada või küsida lisatõendit.",
+    recommended: "none",
+    recommendedNote:
+      "AI soovitus: mitte arvestada või küsida lisatõendit. Lõppotsuse teeb õpetaja.",
+  },
+};
 
 const OUTCOME: Record<
   Decision,
@@ -121,9 +180,19 @@ const OUTCOME: Record<
 };
 
 export const Step3Decision = ({ onNext, onBack }: Step3DecisionProps) => {
+  const [profileId, setProfileId] = useState<ProfileId>("A");
   const [decision, setDecision] = useState<Decision | null>(null);
   const [evaluating, setEvaluating] = useState(false);
   const [shown, setShown] = useState(false);
+
+  const profile = PROFILES[profileId];
+
+  // Reset decision when switching profile
+  useEffect(() => {
+    setDecision(null);
+    setEvaluating(false);
+    setShown(false);
+  }, [profileId]);
 
   useEffect(() => {
     if (decision) {
@@ -165,19 +234,76 @@ export const Step3Decision = ({ onNext, onBack }: Step3DecisionProps) => {
         </div>
       </div>
 
+      {/* Profiili valija */}
+      <div className="mb-6 rounded-2xl border border-border bg-card p-5">
+        <div className="flex items-center gap-2 mb-3">
+          <Scale className="size-4 text-primary" />
+          <div className="text-[10px] font-bold tracking-[0.22em] uppercase text-primary">
+            Vali õppijaprofiil
+          </div>
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          {(["A", "B"] as ProfileId[]).map((id) => {
+            const p = PROFILES[id];
+            const active = profileId === id;
+            return (
+              <button
+                key={id}
+                onClick={() => setProfileId(id)}
+                className={`text-left p-4 rounded-xl border-2 transition-smooth flex items-start gap-3 ${
+                  active
+                    ? "border-primary bg-primary-subtle shadow-card"
+                    : "border-border bg-muted/30 hover:border-primary/40"
+                }`}
+              >
+                <div
+                  className={`size-9 rounded-lg flex items-center justify-center shrink-0 ${
+                    active ? "bg-primary text-primary-foreground" : "bg-muted text-foreground/70"
+                  }`}
+                >
+                  <User className="size-4" />
+                </div>
+                <div className="min-w-0">
+                  <div className="text-[10px] font-bold tracking-[0.2em] uppercase text-muted-foreground">
+                    {p.name}
+                  </div>
+                  <div className="font-semibold text-sm tracking-tight text-foreground leading-snug">
+                    {p.tag}
+                  </div>
+                  <div className="text-xs text-foreground/70 mt-1 leading-snug">
+                    {p.summary}
+                  </div>
+                </div>
+              </button>
+            );
+          })}
+        </div>
+
+        {/* Profiili faktid */}
+        <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-2">
+          {profile.facts.map((f) => (
+            <div
+              key={f}
+              className="flex items-start gap-2 text-xs text-foreground/80 rounded-lg bg-muted/40 border border-border px-3 py-2"
+            >
+              <CheckCircle2 className="size-3.5 mt-0.5 text-primary shrink-0" />
+              <span className="leading-snug">{f}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+
       <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
         {/* AI summary + coverage */}
         <div className="lg:col-span-2 bg-muted/40 rounded-2xl p-6 border border-border">
           <div className="flex items-center gap-2 mb-4">
             <Sparkles className="size-3.5 text-muted-foreground" />
             <div className="text-[10px] font-bold tracking-[0.2em] uppercase text-muted-foreground">
-              AI eelanalüüs
+              AI eelanalüüs · {profile.name}
             </div>
           </div>
           <p className="text-base leading-relaxed text-foreground/90 font-medium">
-            Spordikoolis toimuv katab osa{" "}
-            <strong className="text-foreground">kehalise kasvatuse</strong>{" "}
-            õpitulemustest. Osa teemasid jääb koolis edasi.
+            {profile.aiSummary}
           </p>
 
           <div className="mt-6 pt-5 border-t border-border">
@@ -185,7 +311,7 @@ export const Step3Decision = ({ onNext, onBack }: Step3DecisionProps) => {
               Kattuvus õppekavaga
             </div>
             <div className="space-y-2">
-              {COVERAGE.map(({ label, level }) => (
+              {profile.coverage.map(({ label, level }) => (
                 <div
                   key={label}
                   className="flex items-center justify-between gap-3 text-sm"
@@ -243,9 +369,20 @@ export const Step3Decision = ({ onNext, onBack }: Step3DecisionProps) => {
               Õpetaja valib otsuse
             </div>
           </div>
+
+          {/* AI soovitus profiilile */}
+          <div className="mb-3 rounded-xl border border-primary/25 bg-primary-subtle p-3 flex items-start gap-2.5">
+            <Sparkles className="size-4 text-primary mt-0.5 shrink-0" />
+            <p className="text-xs text-foreground/85 leading-relaxed">
+              <span className="font-semibold text-primary">{profile.name}:</span>{" "}
+              {profile.recommendedNote}
+            </p>
+          </div>
+
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             {OPTIONS.map(({ id, label, hint, icon: Icon, tone }) => {
               const selected = decision === id;
+              const recommended = profile.recommended === id;
               return (
                 <button
                   key={id}
@@ -254,6 +391,11 @@ export const Step3Decision = ({ onNext, onBack }: Step3DecisionProps) => {
                     selected ? selectedToneClass[tone] : toneClass[tone]
                   }`}
                 >
+                  {recommended && !selected && (
+                    <span className="absolute -top-2 -right-2 px-2 py-0.5 rounded-full bg-primary text-primary-foreground text-[9px] font-bold tracking-wider uppercase shadow-card">
+                      AI soovitus
+                    </span>
+                  )}
                   <Icon className="size-5 shrink-0 mt-0.5" />
                   <div className="min-w-0">
                     <div className="font-semibold text-sm tracking-tight leading-snug">
@@ -317,6 +459,63 @@ export const Step3Decision = ({ onNext, onBack }: Step3DecisionProps) => {
               </div>
             </div>
           )}
+        </div>
+      </div>
+
+      {/* Võrdluskaart */}
+      <div className="mt-10 rounded-2xl border border-border bg-card overflow-hidden shadow-card">
+        <div className="bg-gradient-to-br from-primary to-primary-glow text-primary-foreground p-6">
+          <div className="flex items-center gap-2 mb-2">
+            <Scale className="size-4" />
+            <div className="text-[10px] font-bold tracking-[0.22em] uppercase text-primary-foreground/80">
+              Võrdlus
+            </div>
+          </div>
+          <h3 className="text-2xl md:text-3xl font-semibold tracking-tight text-balance leading-tight">
+            „Sama spordikool ei tähenda sama otsust.”
+          </h3>
+          <p className="mt-3 text-sm md:text-base text-primary-foreground/90 leading-relaxed max-w-2xl">
+            EduInvest aitab teha õiglase, mitte automaatse otsuse. Iga õppija
+            tegelik õpitee, tõendus ja õppekava kaetus on erinev.
+          </p>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-border">
+          {(["A", "B"] as ProfileId[]).map((id) => {
+            const p = PROFILES[id];
+            const opt = OPTIONS.find((o) => o.id === p.recommended)!;
+            const Icon = opt.icon;
+            return (
+              <div key={id} className="p-6">
+                <div className="text-[10px] font-bold tracking-[0.22em] uppercase text-muted-foreground mb-1">
+                  {p.name}
+                </div>
+                <div className="font-semibold text-base tracking-tight text-foreground leading-snug">
+                  {p.tag}
+                </div>
+                <p className="text-sm text-foreground/75 mt-2 leading-relaxed">
+                  {p.summary}
+                </p>
+                <div className="mt-4 rounded-xl border border-border bg-muted/40 p-3 flex items-start gap-2.5">
+                  <Icon className="size-4 mt-0.5 text-primary shrink-0" />
+                  <div className="min-w-0">
+                    <div className="text-[10px] font-bold tracking-[0.2em] uppercase text-primary mb-0.5">
+                      AI soovitus
+                    </div>
+                    <div className="text-sm font-medium text-foreground leading-snug">
+                      {opt.label}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+        <div className="px-6 py-4 border-t border-border bg-muted/30">
+          <p className="text-xs text-foreground/70 leading-relaxed">
+            <strong className="text-foreground">Lõppotsuse teeb õpetaja.</strong>{" "}
+            AI ei vabasta tunnist ega anna hinnet — ta toetab läbipaistva ja
+            põhjendatud otsuse tegemisel.
+          </p>
         </div>
       </div>
 
