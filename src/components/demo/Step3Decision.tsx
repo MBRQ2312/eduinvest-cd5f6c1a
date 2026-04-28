@@ -234,19 +234,76 @@ export const Step3Decision = ({ onNext, onBack }: Step3DecisionProps) => {
         </div>
       </div>
 
+      {/* Profiili valija */}
+      <div className="mb-6 rounded-2xl border border-border bg-card p-5">
+        <div className="flex items-center gap-2 mb-3">
+          <Scale className="size-4 text-primary" />
+          <div className="text-[10px] font-bold tracking-[0.22em] uppercase text-primary">
+            Vali õppijaprofiil
+          </div>
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          {(["A", "B"] as ProfileId[]).map((id) => {
+            const p = PROFILES[id];
+            const active = profileId === id;
+            return (
+              <button
+                key={id}
+                onClick={() => setProfileId(id)}
+                className={`text-left p-4 rounded-xl border-2 transition-smooth flex items-start gap-3 ${
+                  active
+                    ? "border-primary bg-primary-subtle shadow-card"
+                    : "border-border bg-muted/30 hover:border-primary/40"
+                }`}
+              >
+                <div
+                  className={`size-9 rounded-lg flex items-center justify-center shrink-0 ${
+                    active ? "bg-primary text-primary-foreground" : "bg-muted text-foreground/70"
+                  }`}
+                >
+                  <User className="size-4" />
+                </div>
+                <div className="min-w-0">
+                  <div className="text-[10px] font-bold tracking-[0.2em] uppercase text-muted-foreground">
+                    {p.name}
+                  </div>
+                  <div className="font-semibold text-sm tracking-tight text-foreground leading-snug">
+                    {p.tag}
+                  </div>
+                  <div className="text-xs text-foreground/70 mt-1 leading-snug">
+                    {p.summary}
+                  </div>
+                </div>
+              </button>
+            );
+          })}
+        </div>
+
+        {/* Profiili faktid */}
+        <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-2">
+          {profile.facts.map((f) => (
+            <div
+              key={f}
+              className="flex items-start gap-2 text-xs text-foreground/80 rounded-lg bg-muted/40 border border-border px-3 py-2"
+            >
+              <CheckCircle2 className="size-3.5 mt-0.5 text-primary shrink-0" />
+              <span className="leading-snug">{f}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+
       <div className="grid grid-cols-1 lg:grid-cols-5 gap-6">
         {/* AI summary + coverage */}
         <div className="lg:col-span-2 bg-muted/40 rounded-2xl p-6 border border-border">
           <div className="flex items-center gap-2 mb-4">
             <Sparkles className="size-3.5 text-muted-foreground" />
             <div className="text-[10px] font-bold tracking-[0.2em] uppercase text-muted-foreground">
-              AI eelanalüüs
+              AI eelanalüüs · {profile.name}
             </div>
           </div>
           <p className="text-base leading-relaxed text-foreground/90 font-medium">
-            Spordikoolis toimuv katab osa{" "}
-            <strong className="text-foreground">kehalise kasvatuse</strong>{" "}
-            õpitulemustest. Osa teemasid jääb koolis edasi.
+            {profile.aiSummary}
           </p>
 
           <div className="mt-6 pt-5 border-t border-border">
