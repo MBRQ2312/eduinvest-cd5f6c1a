@@ -311,7 +311,7 @@ export const Step3Decision = ({ onNext, onBack }: Step3DecisionProps) => {
               Kattuvus õppekavaga
             </div>
             <div className="space-y-2">
-              {COVERAGE.map(({ label, level }) => (
+              {profile.coverage.map(({ label, level }) => (
                 <div
                   key={label}
                   className="flex items-center justify-between gap-3 text-sm"
