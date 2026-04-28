@@ -142,6 +142,19 @@ export const Step2Analysis = ({ onNext, onBack }: Step2AnalysisProps) => {
               </p>
             </div>
           </div>
+
+          {/* Vastutuse rõhutus */}
+          <div className="mt-3 rounded-xl border border-border bg-muted/40 p-4">
+            <div className="text-[10px] font-bold tracking-[0.2em] uppercase text-muted-foreground mb-2">
+              Vastutus
+            </div>
+            <ul className="space-y-1 text-xs text-foreground/80 leading-relaxed">
+              <li>• AI ei vabasta õpilast tunnist.</li>
+              <li>• AI ei anna hinnet.</li>
+              <li>• AI toetab õpetajat läbipaistva otsuse tegemisel.</li>
+              <li>• Lõppotsuse teeb õpetaja või kooli määratud vastutaja.</li>
+            </ul>
+          </div>
         </div>
       </div>
 
