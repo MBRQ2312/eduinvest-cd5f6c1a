@@ -1,4 +1,4 @@
-import { ArrowRight, FileCheck2, UserCheck, Video } from "lucide-react";
+import { ArrowRight, FileCheck2, UserCheck, Video, Trophy, Calendar, Clock, ClipboardCheck, MessageSquare, Target } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { DemoShell } from "./DemoShell";
 
