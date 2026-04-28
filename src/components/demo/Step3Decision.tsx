@@ -5,9 +5,11 @@ import {
   CheckCircle2,
   CircleDashed,
   FileSearch,
+  Scale,
   ShieldCheck,
   Sparkles,
   Trophy,
+  User,
   XCircle,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
