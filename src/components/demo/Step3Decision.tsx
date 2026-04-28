@@ -518,6 +518,8 @@ export const Step3Decision = ({ onNext, onBack }: Step3DecisionProps) => {
           </p>
         </div>
       </div>
+
+      <div className="mt-10 pt-7 border-t border-border flex items-center justify-between gap-4">
         <Button variant="ghost" onClick={onBack}>
           ← Tagasi
         </Button>
