@@ -77,12 +77,69 @@ const selectedToneClass: Record<string, string> = {
   destructive: "border-destructive bg-destructive text-destructive-foreground shadow-elevated",
 };
 
-const COVERAGE = [
-  { label: "Kehalised oskused ja vastupidavus", level: "strong" as const },
-  { label: "Koostöö ja meeskonnatöö", level: "strong" as const },
-  { label: "Eneseanalüüs ja refleksioon", level: "partial" as const },
-  { label: "Kooli õppekava spetsiifilised teemad", level: "missing" as const },
-];
+type ProfileId = "A" | "B";
+type Level = "strong" | "partial" | "missing";
+
+const PROFILES: Record<
+  ProfileId,
+  {
+    name: string;
+    tag: string;
+    summary: string;
+    facts: string[];
+    coverage: { label: string; level: Level }[];
+    aiSummary: string;
+    recommended: Decision;
+    recommendedNote: string;
+  }
+> = {
+  A: {
+    name: "Profiil A",
+    tag: "Tulemustele orienteeritud sportlane",
+    summary: "Treenib 4–5 korda nädalas, osaleb võistlustel ja laagrites.",
+    facts: [
+      "Treenib 4–5 korda nädalas",
+      "Osaleb võistlustel ja laagrites",
+      "Treener kinnitab järjepidevust",
+      "Õpitulemused: kehaline aktiivsus, enesejuhtimine, koostöö, liikumisoskused",
+    ],
+    coverage: [
+      { label: "Kehaline aktiivsus ja vastupidavus", level: "strong" },
+      { label: "Liikumisoskused", level: "strong" },
+      { label: "Enesejuhtimine", level: "strong" },
+      { label: "Koostöö ja meeskonnatöö", level: "strong" },
+      { label: "Eneseanalüüs ja refleksioon", level: "partial" },
+    ],
+    aiSummary:
+      "Õppija on saavutanud suure osa kehalise kasvatuse õpitulemustest spordikoolis. Soovitatav osaline arvestamine ja koolitundide koormuse vähendamine.",
+    recommended: "partial",
+    recommendedNote:
+      "AI soovitus: arvestada osaliselt ning vähendada koolitundide koormust. Lõppotsuse teeb õpetaja.",
+  },
+  B: {
+    name: "Profiil B",
+    tag: "Õppija, kelle õppekava maht ei ole veel kaetud",
+    summary: "Osaleb trennis ebaregulaarselt, tõendus on puudulik.",
+    facts: [
+      "Osaleb trennis ebaregulaarselt",
+      "Puudub piisav tõendus",
+      "Vajab kehalise kasvatuse tundides osalemist",
+      "Õppekava maht ei ole kaetud",
+    ],
+    coverage: [
+      { label: "Kehaline aktiivsus ja vastupidavus", level: "partial" },
+      { label: "Liikumisoskused", level: "partial" },
+      { label: "Enesejuhtimine", level: "missing" },
+      { label: "Koostöö ja meeskonnatöö", level: "missing" },
+      { label: "Eneseanalüüs ja refleksioon", level: "missing" },
+    ],
+    aiSummary:
+      "Tõendusmaterjal on puudulik ja õppekava maht ei ole kaetud. Soovitatav mitte arvestada või küsida lisatõendit.",
+    recommended: "none",
+    recommendedNote:
+      "AI soovitus: mitte arvestada või küsida lisatõendit. Lõppotsuse teeb õpetaja.",
+  },
+};
 
 const OUTCOME: Record<
   Decision,
