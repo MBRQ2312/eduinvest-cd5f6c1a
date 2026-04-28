@@ -462,7 +462,62 @@ export const Step3Decision = ({ onNext, onBack }: Step3DecisionProps) => {
         </div>
       </div>
 
-      <div className="mt-10 pt-7 border-t border-border flex items-center justify-between gap-4">
+      {/* Võrdluskaart */}
+      <div className="mt-10 rounded-2xl border border-border bg-card overflow-hidden shadow-card">
+        <div className="bg-gradient-to-br from-primary to-primary-glow text-primary-foreground p-6">
+          <div className="flex items-center gap-2 mb-2">
+            <Scale className="size-4" />
+            <div className="text-[10px] font-bold tracking-[0.22em] uppercase text-primary-foreground/80">
+              Võrdlus
+            </div>
+          </div>
+          <h3 className="text-2xl md:text-3xl font-semibold tracking-tight text-balance leading-tight">
+            „Sama spordikool ei tähenda sama otsust.”
+          </h3>
+          <p className="mt-3 text-sm md:text-base text-primary-foreground/90 leading-relaxed max-w-2xl">
+            EduInvest aitab teha õiglase, mitte automaatse otsuse. Iga õppija
+            tegelik õpitee, tõendus ja õppekava kaetus on erinev.
+          </p>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-border">
+          {(["A", "B"] as ProfileId[]).map((id) => {
+            const p = PROFILES[id];
+            const opt = OPTIONS.find((o) => o.id === p.recommended)!;
+            const Icon = opt.icon;
+            return (
+              <div key={id} className="p-6">
+                <div className="text-[10px] font-bold tracking-[0.22em] uppercase text-muted-foreground mb-1">
+                  {p.name}
+                </div>
+                <div className="font-semibold text-base tracking-tight text-foreground leading-snug">
+                  {p.tag}
+                </div>
+                <p className="text-sm text-foreground/75 mt-2 leading-relaxed">
+                  {p.summary}
+                </p>
+                <div className="mt-4 rounded-xl border border-border bg-muted/40 p-3 flex items-start gap-2.5">
+                  <Icon className="size-4 mt-0.5 text-primary shrink-0" />
+                  <div className="min-w-0">
+                    <div className="text-[10px] font-bold tracking-[0.2em] uppercase text-primary mb-0.5">
+                      AI soovitus
+                    </div>
+                    <div className="text-sm font-medium text-foreground leading-snug">
+                      {opt.label}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+        <div className="px-6 py-4 border-t border-border bg-muted/30">
+          <p className="text-xs text-foreground/70 leading-relaxed">
+            <strong className="text-foreground">Lõppotsuse teeb õpetaja.</strong>{" "}
+            AI ei vabasta tunnist ega anna hinnet — ta toetab läbipaistva ja
+            põhjendatud otsuse tegemisel.
+          </p>
+        </div>
+      </div>
         <Button variant="ghost" onClick={onBack}>
           ← Tagasi
         </Button>
