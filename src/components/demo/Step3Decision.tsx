@@ -369,9 +369,20 @@ export const Step3Decision = ({ onNext, onBack }: Step3DecisionProps) => {
               Õpetaja valib otsuse
             </div>
           </div>
+
+          {/* AI soovitus profiilile */}
+          <div className="mb-3 rounded-xl border border-primary/25 bg-primary-subtle p-3 flex items-start gap-2.5">
+            <Sparkles className="size-4 text-primary mt-0.5 shrink-0" />
+            <p className="text-xs text-foreground/85 leading-relaxed">
+              <span className="font-semibold text-primary">{profile.name}:</span>{" "}
+              {profile.recommendedNote}
+            </p>
+          </div>
+
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             {OPTIONS.map(({ id, label, hint, icon: Icon, tone }) => {
               const selected = decision === id;
+              const recommended = profile.recommended === id;
               return (
                 <button
                   key={id}
@@ -380,6 +391,11 @@ export const Step3Decision = ({ onNext, onBack }: Step3DecisionProps) => {
                     selected ? selectedToneClass[tone] : toneClass[tone]
                   }`}
                 >
+                  {recommended && !selected && (
+                    <span className="absolute -top-2 -right-2 px-2 py-0.5 rounded-full bg-primary text-primary-foreground text-[9px] font-bold tracking-wider uppercase shadow-card">
+                      AI soovitus
+                    </span>
+                  )}
                   <Icon className="size-5 shrink-0 mt-0.5" />
                   <div className="min-w-0">
                     <div className="font-semibold text-sm tracking-tight leading-snug">
