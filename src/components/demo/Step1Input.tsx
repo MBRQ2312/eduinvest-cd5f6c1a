@@ -157,3 +157,24 @@ const Field = ({ label, children }: { label: string; children: React.ReactNode }
     <div>{children}</div>
   </div>
 );
+
+const CompField = ({
+  icon: Icon,
+  label,
+  value,
+  hint,
+}: {
+  icon: React.ComponentType<{ className?: string }>;
+  label: string;
+  value: string;
+  hint?: string;
+}) => (
+  <div className="flex flex-col gap-1.5">
+    <div className="text-[10px] font-bold tracking-[0.2em] uppercase text-muted-foreground flex items-center gap-1.5">
+      <Icon className="size-3.5" />
+      {label}
+    </div>
+    <div className="text-base font-semibold tracking-tight leading-snug">{value}</div>
+    {hint && <div className="text-xs text-muted-foreground">{hint}</div>}
+  </div>
+);
