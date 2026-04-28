@@ -180,9 +180,19 @@ const OUTCOME: Record<
 };
 
 export const Step3Decision = ({ onNext, onBack }: Step3DecisionProps) => {
+  const [profileId, setProfileId] = useState<ProfileId>("A");
   const [decision, setDecision] = useState<Decision | null>(null);
   const [evaluating, setEvaluating] = useState(false);
   const [shown, setShown] = useState(false);
+
+  const profile = PROFILES[profileId];
+
+  // Reset decision when switching profile
+  useEffect(() => {
+    setDecision(null);
+    setEvaluating(false);
+    setShown(false);
+  }, [profileId]);
 
   useEffect(() => {
     if (decision) {
