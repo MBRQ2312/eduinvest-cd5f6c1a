@@ -67,6 +67,68 @@ export const Step1Input = ({ onNext }: Step1InputProps) => {
         </div>
       </div>
 
+      {/* Võistlused ja treeninglaagrid */}
+      <div className="mt-9 rounded-2xl border border-border bg-muted/30 p-6">
+        <div className="flex items-center gap-2.5 mb-5">
+          <div className="size-8 rounded-lg bg-primary/10 flex items-center justify-center">
+            <Trophy className="size-4 text-primary" />
+          </div>
+          <div>
+            <div className="text-[10px] font-bold tracking-[0.22em] uppercase text-muted-foreground">
+              Lisajaotis
+            </div>
+            <h3 className="text-lg font-semibold tracking-tight">Võistlused ja treeninglaagrid</h3>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-10 gap-y-5">
+          <CompField icon={Trophy} label="Võistluse või laagri nimi" value="Eesti MV U16 — jalgpall" hint="Eesti Jalgpalli Liit" />
+          <CompField icon={Calendar} label="Kuupäevad" value="14.–17.11.2025" hint="4 päeva" />
+          <CompField icon={Clock} label="Maht" value="32 tundi" hint="≈ 4 treeningpäeva" />
+          <CompField icon={UserCheck} label="Treeneri / juhendaja kinnitus" value="Mart Kask" hint="Allkirjastatud digitaalselt" />
+
+          <div className="lg:col-span-2">
+            <CompField
+              icon={ClipboardCheck}
+              label="Tulemused või osalemise kirjeldus"
+              value="Meeskond saavutas 3. koha. Mängisin kõigis kohtumistes algkoosseisus, sh kaks täispikka kohtumist."
+            />
+          </div>
+
+          <div className="lg:col-span-2">
+            <CompField
+              icon={MessageSquare}
+              label="Õppija refleksioon — mida õppisin?"
+              value="Õppisin, kuidas hoida keskendumist väsimuses, juhtida pingutust pikkade päevade jooksul ning seada endale enne mängu konkreetne eesmärk. Sain aru, kui palju aitab meeskonnas selge rollijaotus."
+            />
+          </div>
+
+          <div className="lg:col-span-2">
+            <div className="text-[10px] font-bold tracking-[0.2em] uppercase text-muted-foreground mb-2.5 flex items-center gap-1.5">
+              <Target className="size-3.5" />
+              Seos õpitulemustega
+            </div>
+            <div className="flex flex-wrap gap-2">
+              {[
+                "Vastupidavus",
+                "Liikumisoskused",
+                "Koostöö",
+                "Enesejuhtimine",
+                "Pingutuse juhtimine",
+                "Eesmärgistamine",
+              ].map((tag) => (
+                <span
+                  key={tag}
+                  className="inline-flex items-center px-3 py-1.5 rounded-full border border-primary/20 bg-primary-subtle text-primary text-xs font-medium"
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+
       {/* Critical question */}
       <div className="mt-9 rounded-2xl border-l-4 border-primary bg-primary-subtle/60 p-6">
         <div className="text-[10px] font-bold tracking-[0.22em] uppercase text-primary mb-2">
