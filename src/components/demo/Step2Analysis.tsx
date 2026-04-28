@@ -143,6 +143,18 @@ export const Step2Analysis = ({ onNext, onBack }: Step2AnalysisProps) => {
             </div>
           </div>
 
+          {/* Võistlused ja laagrid — täpsustus */}
+          <div className="mt-3 rounded-xl border-l-4 border-primary bg-primary-subtle/50 p-4">
+            <div className="text-[10px] font-bold tracking-[0.2em] uppercase text-primary mb-1.5">
+              Võistlused ja treeninglaagrid
+            </div>
+            <p className="text-sm leading-relaxed text-foreground/90">
+              Üks võistlus või treeninglaager võib anda olulise õpikogemuse, kuid arvestamine
+              sõltub <strong>tõenditest</strong>, <strong>refleksioonist</strong> ja{" "}
+              <strong>seosest õppekava õpitulemustega</strong>.
+            </p>
+          </div>
+
           {/* Vastutuse rõhutus */}
           <div className="mt-3 rounded-xl border border-border bg-muted/40 p-4">
             <div className="text-[10px] font-bold tracking-[0.2em] uppercase text-muted-foreground mb-2">
