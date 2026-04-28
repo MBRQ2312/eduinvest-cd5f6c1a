@@ -36,9 +36,11 @@ import { Step1Input } from "@/components/demo/Step1Input";
 import { Step2Analysis } from "@/components/demo/Step2Analysis";
 import { Step3Decision } from "@/components/demo/Step3Decision";
 import { Step4Impact } from "@/components/demo/Step4Impact";
+import { PartnerView } from "@/components/demo/PartnerView";
 
 const Index = () => {
   const [step, setStep] = useState<1 | 2 | 3 | 4>(1);
+  const [role, setRole] = useState<"flow" | "partner">("flow");
   const flowRef = useRef<HTMLDivElement>(null);
 
   const scrollToFlow = () => {
@@ -471,22 +473,56 @@ const Index = () => {
           </div>
         </section>
 
-        {/* Stepper */}
-        <section className="mb-8" ref={flowRef}>
-          <StepIndicator current={step} />
+        {/* Role switcher */}
+        <section className="mb-6" ref={flowRef}>
+          <div className="inline-flex items-center gap-1 p-1 rounded-xl border border-border bg-card shadow-card">
+            <button
+              onClick={() => setRole("flow")}
+              className={`px-4 py-2 rounded-lg text-xs font-semibold tracking-tight transition-smooth ${
+                role === "flow"
+                  ? "bg-primary text-primary-foreground shadow-card"
+                  : "text-muted-foreground hover:text-foreground"
+              }`}
+            >
+              Õppija → Õpetaja töövoog
+            </button>
+            <button
+              onClick={() => setRole("partner")}
+              className={`px-4 py-2 rounded-lg text-xs font-semibold tracking-tight transition-smooth ${
+                role === "partner"
+                  ? "bg-primary text-primary-foreground shadow-card"
+                  : "text-muted-foreground hover:text-foreground"
+              }`}
+            >
+              Partneri vaade
+            </button>
+          </div>
         </section>
 
-        {/* Active step */}
+        {/* Stepper (only in flow mode) */}
+        {role === "flow" && (
+          <section className="mb-8">
+            <StepIndicator current={step} />
+          </section>
+        )}
+
+        {/* Active view */}
         <section>
-          {step === 1 && <Step1Input onNext={() => setStep(2)} />}
-          {step === 2 && (
-            <Step2Analysis onBack={() => setStep(1)} onNext={() => setStep(3)} />
-          )}
-          {step === 3 && (
-            <Step3Decision onBack={() => setStep(2)} onNext={() => setStep(4)} />
-          )}
-          {step === 4 && (
-            <Step4Impact onBack={() => setStep(3)} onRestart={() => setStep(1)} />
+          {role === "partner" ? (
+            <PartnerView />
+          ) : (
+            <>
+              {step === 1 && <Step1Input onNext={() => setStep(2)} />}
+              {step === 2 && (
+                <Step2Analysis onBack={() => setStep(1)} onNext={() => setStep(3)} />
+              )}
+              {step === 3 && (
+                <Step3Decision onBack={() => setStep(2)} onNext={() => setStep(4)} />
+              )}
+              {step === 4 && (
+                <Step4Impact onBack={() => setStep(3)} onRestart={() => setStep(1)} />
+              )}
+            </>
           )}
         </section>
 
