@@ -39,6 +39,13 @@ import {
   BrainCircuit,
   Gavel,
   MailX,
+  HandHelping,
+  Languages,
+  Workflow,
+  BarChart3,
+  ListChecks,
+  Timer,
+  Target,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { StepIndicator } from "@/components/demo/StepIndicator";
