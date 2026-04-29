@@ -1,6 +1,7 @@
 import { ArrowRight, FileCheck2, UserCheck, Video, Trophy, Calendar, Clock, ClipboardCheck, MessageSquare, Target } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { DemoShell } from "./DemoShell";
+import { ParentNote } from "./ParentNote";
 
 interface Step1InputProps {
   onNext: () => void;
@@ -19,6 +20,8 @@ export const Step1Input = ({ onNext }: Step1InputProps) => {
       title="Lisa õppimiskogemus"
       subtitle="Õppimine, mis on juba toimunud — väljaspool klassiruumi."
     >
+      <ParentNote text="Õppija kirjeldab, mida ta on koolivälisel ajal õppinud — millisel tegevusel, kui sageli, kui kaua ja millise juhendaja juures. See on alus, mille põhjal kool ja partner saavad rääkida." />
+
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-12 gap-y-7">
         <Field label="Tegevus">
           <div className="text-lg font-semibold tracking-tight">Spordikool — jalgpall</div>
