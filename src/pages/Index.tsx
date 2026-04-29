@@ -1007,4 +1007,66 @@ const LabTrack = ({
   </div>
 );
 
+const DesignCard = ({
+  icon: Icon,
+  eyebrow,
+  title,
+  items,
+}: {
+  icon: typeof Map;
+  eyebrow: string;
+  title: string;
+  items: string[];
+}) => (
+  <div className="rounded-2xl border border-border bg-muted/20 p-5 flex flex-col">
+    <div className="flex items-center gap-2.5 mb-3">
+      <div className="size-9 rounded-lg bg-primary/10 text-primary flex items-center justify-center">
+        <Icon className="size-4" />
+      </div>
+      <div className="text-[10px] font-bold tracking-[0.22em] uppercase text-primary">
+        {eyebrow}
+      </div>
+    </div>
+    <div className="text-base font-semibold tracking-tight mb-3">{title}</div>
+    <ul className="space-y-1.5 text-sm text-foreground/80 leading-relaxed">
+      {items.map((it) => (
+        <li key={it} className="flex items-start gap-2">
+          <CheckCircle2 className="size-3.5 text-primary mt-1 shrink-0" />
+          <span>{it}</span>
+        </li>
+      ))}
+    </ul>
+  </div>
+);
+
+const Metric = ({
+  icon: Icon,
+  label,
+  target,
+  hint,
+}: {
+  icon: typeof Map;
+  label: string;
+  target: string;
+  hint: string;
+}) => (
+  <div className="rounded-2xl border border-border bg-muted/20 p-5">
+    <div className="flex items-center gap-2 mb-3">
+      <div className="size-8 rounded-lg bg-primary/10 text-primary flex items-center justify-center">
+        <Icon className="size-4" />
+      </div>
+      <div className="text-[10px] font-bold tracking-[0.22em] uppercase text-muted-foreground">
+        Mõõdik
+      </div>
+    </div>
+    <div className="text-3xl font-semibold tabular tracking-tighter text-primary leading-none">
+      {target}
+    </div>
+    <div className="mt-2 text-sm font-semibold tracking-tight text-foreground">
+      {label}
+    </div>
+    <p className="mt-1 text-xs text-muted-foreground leading-relaxed">{hint}</p>
+  </div>
+);
+
 export default Index;
