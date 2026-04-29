@@ -542,3 +542,159 @@ export const Step3Decision = ({ onNext, onBack }: Step3DecisionProps) => {
     </DemoShell>
   );
 };
+
+/* ---------- Õpitulemuste tabel ---------- */
+
+type OutcomeRow = {
+  outcome: string;
+  evidence: string;
+  coverage: Level;
+  extra: string;
+  decision: string;
+};
+
+const OUTCOME_ROWS: Record<ProfileId, OutcomeRow[]> = {
+  A: [
+    {
+      outcome: "Kehaline aktiivsus ja vastupidavus",
+      evidence: "Treeningpäevik · treeneri kinnitus",
+      coverage: "strong",
+      extra: "—",
+      decision: "Arvestada",
+    },
+    {
+      outcome: "Liikumisoskused (jalgpall)",
+      evidence: "Võistlustulemus · video",
+      coverage: "strong",
+      extra: "—",
+      decision: "Arvestada",
+    },
+    {
+      outcome: "Koostöö ja meeskonnatöö",
+      evidence: "Treeneri kommentaar",
+      coverage: "strong",
+      extra: "—",
+      decision: "Arvestada",
+    },
+    {
+      outcome: "Enesejuhtimine ja pingutuse juhtimine",
+      evidence: "Laagri tagasiside",
+      coverage: "strong",
+      extra: "Lühike refleksioon",
+      decision: "Arvestada osaliselt",
+    },
+    {
+      outcome: "Eneseanalüüs ja refleksioon",
+      evidence: "—",
+      coverage: "partial",
+      extra: "Õppija kirjalik refleksioon",
+      decision: "Küsi lisatõend",
+    },
+  ],
+  B: [
+    {
+      outcome: "Kehaline aktiivsus ja vastupidavus",
+      evidence: "Üksikud treeningud",
+      coverage: "partial",
+      extra: "Regulaarsuse tõend",
+      decision: "Küsi lisatõend",
+    },
+    {
+      outcome: "Liikumisoskused",
+      evidence: "Puudub",
+      coverage: "partial",
+      extra: "Treeningu kinnitus",
+      decision: "Küsi lisatõend",
+    },
+    {
+      outcome: "Koostöö ja meeskonnatöö",
+      evidence: "Puudub",
+      coverage: "missing",
+      extra: "Koolitunnis osalemine",
+      decision: "Ära arvesta",
+    },
+    {
+      outcome: "Enesejuhtimine",
+      evidence: "Puudub",
+      coverage: "missing",
+      extra: "Koolitunnis osalemine",
+      decision: "Ära arvesta",
+    },
+    {
+      outcome: "Eneseanalüüs ja refleksioon",
+      evidence: "Puudub",
+      coverage: "missing",
+      extra: "Refleksioon kooliga",
+      decision: "Ära arvesta",
+    },
+  ],
+};
+
+const coverageStyle: Record<Level, string> = {
+  strong: "bg-success/10 text-success border-success/30",
+  partial: "bg-warning-subtle text-warning border-warning/30",
+  missing: "bg-destructive/10 text-destructive border-destructive/30",
+};
+const coverageLabel: Record<Level, string> = {
+  strong: "Tugev",
+  partial: "Osaline",
+  missing: "Puudu",
+};
+
+const OutcomesTable = ({ profileId }: { profileId: ProfileId }) => {
+  const rows = OUTCOME_ROWS[profileId];
+  return (
+    <div className="mt-10 rounded-2xl border border-border bg-card overflow-hidden shadow-card">
+      <div className="p-6 border-b border-border bg-muted/30">
+        <div className="text-[10px] font-bold tracking-[0.22em] uppercase text-primary mb-1.5">
+          Õpitulemuste tabel · {profileId === "A" ? "Profiil A" : "Profiil B"}
+        </div>
+        <h3 className="text-lg md:text-xl font-semibold tracking-tight leading-tight">
+          Õpitulemus → tõend → kaetus → vajalik lisategevus → õpetaja otsus
+        </h3>
+      </div>
+      <div className="overflow-x-auto">
+        <table className="w-full text-sm">
+          <thead className="bg-muted/40 text-[10px] font-bold tracking-[0.18em] uppercase text-muted-foreground">
+            <tr>
+              <Th>Õpitulemus</Th>
+              <Th>Tõend</Th>
+              <Th>Kaetus</Th>
+              <Th>Vajalik lisategevus</Th>
+              <Th>Õpetaja otsus</Th>
+            </tr>
+          </thead>
+          <tbody className="divide-y divide-border">
+            {rows.map((r) => (
+              <tr key={r.outcome} className="hover:bg-muted/20 transition-smooth">
+                <td className="px-4 py-3 font-semibold tracking-tight text-foreground/90 min-w-[200px]">
+                  {r.outcome}
+                </td>
+                <td className="px-4 py-3 text-foreground/75">{r.evidence}</td>
+                <td className="px-4 py-3">
+                  <span
+                    className={`inline-flex items-center px-2.5 py-1 rounded-full border text-[11px] font-semibold ${coverageStyle[r.coverage]}`}
+                  >
+                    {coverageLabel[r.coverage]}
+                  </span>
+                </td>
+                <td className="px-4 py-3 text-foreground/75">{r.extra}</td>
+                <td className="px-4 py-3 font-semibold text-foreground">{r.decision}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <div className="px-6 py-4 border-t border-border bg-muted/30 text-xs text-foreground/70 leading-relaxed">
+        Tabel teeb õpetaja otsuse põhjenduse läbipaistvaks õppijale, lapsevanemale ja
+        partnerile. <strong className="text-foreground">AI ei täida tabelit lõplikult</strong>
+        {" "}— ta valmistab ette ettepaneku, mille õpetaja kinnitab või muudab.
+      </div>
+    </div>
+  );
+};
+
+const Th = ({ children }: { children: React.ReactNode }) => (
+  <th className="text-left px-4 py-3 font-bold">{children}</th>
+);
+
