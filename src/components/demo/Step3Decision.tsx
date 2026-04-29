@@ -151,7 +151,7 @@ const OUTCOME: Record<
       "Osa kehalise kasvatuse õpitulemustest loetakse kaetuks spordikoolis omandatu põhjal.",
     body:
       "Õppija osaleb endiselt koolitundides. Õpetaja otsustab, milliseid teemasid ja oskusi on koolis veel vaja käsitleda.",
-    chip: "Õppija ei vabane tunnist",
+    chip: "Õppekoormus kohandatud — mitte vabastatud",
   },
   training: {
     eyebrow: "Ettepanek õpetajale",
@@ -224,8 +224,9 @@ export const Step3Decision = ({ onNext, onBack }: Step3DecisionProps) => {
               Vastutuse põhimõte
             </div>
             <p className="text-sm text-foreground/85 leading-relaxed">
-              <strong>AI ei vabasta õpilast tunnist. AI ei anna hinnet.</strong>{" "}
-              AI toetab õpetajat läbipaistva otsuse tegemisel.{" "}
+              <strong>AI ei vabasta automaatselt tunnist. AI ei anna hinnet.</strong>{" "}
+              Vajadusel <strong>õppekoormus kohandatud</strong> — õppija jätkab koolis
+              vajalikus mahus.{" "}
               <span className="text-foreground/70">
                 Lõppotsuse teeb õpetaja või kooli määratud vastutaja.
               </span>
@@ -513,8 +514,8 @@ export const Step3Decision = ({ onNext, onBack }: Step3DecisionProps) => {
         <div className="px-6 py-4 border-t border-border bg-muted/30">
           <p className="text-xs text-foreground/70 leading-relaxed">
             <strong className="text-foreground">Lõppotsuse teeb õpetaja.</strong>{" "}
-            AI ei vabasta tunnist ega anna hinnet — ta toetab läbipaistva ja
-            põhjendatud otsuse tegemisel.
+            AI ei vabasta automaatselt tunnist ega anna hinnet — vajadusel{" "}
+            <strong>õppekoormus kohandatud</strong>, mitte tühistatud.
           </p>
         </div>
       </div>

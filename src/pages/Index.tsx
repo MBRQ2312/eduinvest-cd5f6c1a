@@ -349,7 +349,7 @@ const Index = () => {
               </div>
               <p className="text-sm md:text-base text-foreground/90 leading-relaxed text-pretty">
                 EduInvest <span className="font-semibold">ei anna hinnet</span> ega{" "}
-                <span className="font-semibold">vabasta õpilast automaatselt tunnist</span>.
+                <span className="font-semibold">vabasta õpilast automaatselt tunnist</span> — vajadusel <span className="font-semibold">õppekoormus kohandatud</span>.
                 See aitab teha läbipaistva ja põhjendatud otsuse.
               </p>
             </div>

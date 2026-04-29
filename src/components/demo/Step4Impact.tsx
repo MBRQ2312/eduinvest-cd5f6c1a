@@ -122,7 +122,7 @@ export const Step4Impact = ({ onRestart, onBack }: Step4ImpactProps) => {
 
           <CheckList
             eyebrow="Otsus"
-            items={["Kehaline kasvatus → osaliselt arvestatud"]}
+            items={["Kehaline kasvatus → osaliselt arvestatud, õppekoormus kohandatud"]}
             tone="primary"
           />
         </ViewCard>
