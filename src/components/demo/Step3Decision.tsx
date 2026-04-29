@@ -14,6 +14,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { DemoShell } from "./DemoShell";
+import { ParentNote } from "./ParentNote";
 
 interface Step3DecisionProps {
   onNext: () => void;
@@ -211,10 +212,11 @@ export const Step3Decision = ({ onNext, onBack }: Step3DecisionProps) => {
 
   return (
     <DemoShell
-      stepLabel="03 — Õpetaja otsus"
+      stepLabel="04 — Õpetaja otsus ja mõju"
       title="Õpetaja otsus"
       subtitle="Spordikool → kehaline kasvatus. AI teeb eeltöö, otsuse teeb õpetaja."
     >
+      <ParentNote text="Õpetaja näeb õppija sisendit, partneri kinnitust ja AI eelanalüüsi koos. Tema otsustab, kas ja kuidas spordikoolis õpitut arvestada — vajadusel kohandatakse koolitundide koormust, õppijat tunnist automaatselt ei vabastata." />
       {/* Vastutuse riba */}
       <div className="mb-6 rounded-2xl border-l-4 border-primary bg-primary-subtle/60 p-5">
         <div className="flex items-start gap-3">
