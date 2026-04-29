@@ -8,9 +8,9 @@ interface Step {
 
 const STEPS: Step[] = [
   { id: 1, label: "Õppija sisend", short: "Päris elu" },
-  { id: 2, label: "AI seob õppekavaga", short: "Seos" },
-  { id: 3, label: "Õpetaja teeb otsuse", short: "Inimene" },
-  { id: 4, label: "Mõju", short: "Hariduskonto" },
+  { id: 2, label: "Partneri kinnitus", short: "Tõendus" },
+  { id: 3, label: "AI eelanalüüs", short: "Seos" },
+  { id: 4, label: "Õpetaja otsus ja mõju", short: "Inimene" },
 ];
 
 interface StepIndicatorProps {
