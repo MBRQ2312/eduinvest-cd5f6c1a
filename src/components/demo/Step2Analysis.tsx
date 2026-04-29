@@ -161,7 +161,7 @@ export const Step2Analysis = ({ onNext, onBack }: Step2AnalysisProps) => {
               Vastutus
             </div>
             <ul className="space-y-1 text-xs text-foreground/80 leading-relaxed">
-              <li>• AI ei vabasta õpilast tunnist.</li>
+              <li>• AI ei vabasta õpilast automaatselt tunnist — vajadusel <strong>õppekoormus kohandatud</strong>.</li>
               <li>• AI ei anna hinnet.</li>
               <li>• AI toetab õpetajat läbipaistva otsuse tegemisel.</li>
               <li>• Lõppotsuse teeb õpetaja või kooli määratud vastutaja.</li>
