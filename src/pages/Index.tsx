@@ -29,6 +29,16 @@ import {
   UserCheck,
   UserCog,
   Users2,
+  Cloud,
+  Lock,
+  CheckCircle2,
+  Circle,
+  Loader2,
+  Send,
+  FileCheck2,
+  BrainCircuit,
+  Gavel,
+  MailX,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { StepIndicator } from "@/components/demo/StepIndicator";
