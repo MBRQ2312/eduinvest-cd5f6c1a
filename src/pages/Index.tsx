@@ -29,6 +29,16 @@ import {
   UserCheck,
   UserCog,
   Users2,
+  Cloud,
+  Lock,
+  CheckCircle2,
+  Circle,
+  Loader2,
+  Send,
+  FileCheck2,
+  BrainCircuit,
+  Gavel,
+  MailX,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { StepIndicator } from "@/components/demo/StepIndicator";
@@ -468,6 +478,160 @@ const Index = () => {
                     <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
                   </a>
                 </Button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Koostööruum */}
+        <section className="mb-12">
+          <div className="rounded-2xl border border-border bg-card overflow-hidden shadow-card">
+            <div className="p-7 md:p-9 bg-gradient-to-br from-primary-subtle/60 to-transparent border-b border-border">
+              <div className="flex items-start justify-between gap-6 flex-wrap">
+                <div className="min-w-0 flex-1">
+                  <div className="inline-flex items-center gap-2 mb-4">
+                    <Cloud className="size-4 text-primary" />
+                    <div className="text-[10px] font-bold tracking-[0.22em] uppercase text-primary">
+                      Jagatud töövoog
+                    </div>
+                  </div>
+                  <h2 className="text-2xl md:text-3xl font-semibold tracking-tight text-balance leading-tight">
+                    Koostööruum
+                  </h2>
+                  <p className="mt-4 text-sm md:text-base text-foreground/85 leading-relaxed text-pretty max-w-3xl">
+                    Õppija, lapsevanem, kool ja partner näevad{" "}
+                    <span className="font-semibold text-foreground">sama juhtumi staatust</span>{" "}
+                    turvalises pilvepõhises töövoos. Info ei liigu e-postiga, ei lähe kaduma ja
+                    iga osapool näeb oma rolli ning järgmist sammu.
+                  </p>
+                </div>
+                <div className="hidden md:flex flex-col gap-2 shrink-0">
+                  <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-primary/20 bg-primary-subtle text-primary text-[11px] font-semibold">
+                    <Lock className="size-3.5" /> Turvaline ligipääs rolli järgi
+                  </div>
+                  <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-border bg-muted/40 text-muted-foreground text-[11px] font-semibold">
+                    <MailX className="size-3.5" /> Mitte e-posti põhine menetlus
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="p-7 md:p-9">
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-8">
+                {[
+                  { icon: GradCap, label: "Õppija" },
+                  { icon: Heart, label: "Lapsevanem" },
+                  { icon: School, label: "Kool" },
+                  { icon: Building2, label: "Partner" },
+                ].map((r) => (
+                  <div
+                    key={r.label}
+                    className="rounded-xl border border-border bg-muted/30 p-4 flex items-center gap-3"
+                  >
+                    <div className="size-9 rounded-lg bg-primary/10 text-primary flex items-center justify-center">
+                      <r.icon className="size-4" />
+                    </div>
+                    <div className="text-sm font-semibold tracking-tight">{r.label}</div>
+                  </div>
+                ))}
+              </div>
+
+              <div className="text-[10px] font-bold tracking-[0.22em] uppercase text-muted-foreground mb-4">
+                Juhtumi staatused
+              </div>
+
+              <ol className="space-y-3">
+                {[
+                  { icon: PencilLine, label: "Sisend lisatud", actor: "Õppija", state: "done" },
+                  { icon: Send, label: "Partneri kinnitus ootab", actor: "Partner", state: "done" },
+                  { icon: FileCheck2, label: "Tõendid lisatud", actor: "Partner", state: "done" },
+                  { icon: BrainCircuit, label: "AI eelanalüüs tehtud", actor: "Süsteem", state: "done" },
+                  { icon: Gavel, label: "Õpetaja otsus ootab", actor: "Õpetaja", state: "active" },
+                  { icon: ShieldCheck, label: "Otsus tehtud", actor: "Õpetaja", state: "todo" },
+                  {
+                    icon: MessageSquareText,
+                    label: "Õppija ja lapsevanema selgitus saadetud",
+                    actor: "Kool",
+                    state: "todo",
+                  },
+                ].map((s, i) => {
+                  const isDone = s.state === "done";
+                  const isActive = s.state === "active";
+                  return (
+                    <li
+                      key={s.label}
+                      className={`rounded-xl border p-4 flex items-center gap-4 transition-smooth ${
+                        isActive
+                          ? "border-primary/40 bg-primary-subtle/60 shadow-card"
+                          : isDone
+                            ? "border-border bg-card"
+                            : "border-dashed border-border bg-muted/20"
+                      }`}
+                    >
+                      <div
+                        className={`shrink-0 size-9 rounded-lg flex items-center justify-center ${
+                          isActive
+                            ? "bg-primary text-primary-foreground"
+                            : isDone
+                              ? "bg-success/15 text-success"
+                              : "bg-muted text-muted-foreground"
+                        }`}
+                      >
+                        {isDone ? (
+                          <CheckCircle2 className="size-4" />
+                        ) : isActive ? (
+                          <Loader2 className="size-4 animate-spin" />
+                        ) : (
+                          <Circle className="size-4" />
+                        )}
+                      </div>
+                      <div className="text-[11px] font-bold tabular text-muted-foreground w-6">
+                        {String(i + 1).padStart(2, "0")}
+                      </div>
+                      <div className="min-w-0 flex-1">
+                        <div
+                          className={`text-sm font-semibold tracking-tight ${
+                            !isDone && !isActive ? "text-muted-foreground" : "text-foreground"
+                          }`}
+                        >
+                          {s.label}
+                        </div>
+                        <div className="text-[11px] text-muted-foreground mt-0.5 flex items-center gap-1.5">
+                          <s.icon className="size-3" />
+                          {s.actor}
+                        </div>
+                      </div>
+                      {isActive && (
+                        <span className="hidden sm:inline-flex items-center px-2.5 py-1 rounded-full bg-primary text-primary-foreground text-[10px] font-bold tracking-[0.14em] uppercase">
+                          Käib
+                        </span>
+                      )}
+                      {isDone && (
+                        <span className="hidden sm:inline-flex items-center px-2.5 py-1 rounded-full border border-success/30 bg-success/10 text-success text-[10px] font-bold tracking-[0.14em] uppercase">
+                          Tehtud
+                        </span>
+                      )}
+                    </li>
+                  );
+                })}
+              </ol>
+
+              <div className="mt-8 rounded-xl border-l-4 border-primary bg-primary-subtle/50 p-5 flex gap-3.5">
+                <div className="shrink-0 size-9 rounded-lg bg-primary/15 flex items-center justify-center">
+                  <Cloud className="size-4 text-primary" />
+                </div>
+                <div>
+                  <div className="text-[10px] font-bold tracking-[0.22em] uppercase text-primary mb-1.5">
+                    Märkus
+                  </div>
+                  <p className="text-sm leading-relaxed text-foreground/90 text-pretty">
+                    Demo ei loo uut e-posti põhist menetlust, vaid katsetab{" "}
+                    <span className="font-semibold text-foreground">
+                      pilvepõhist koostööruumi
+                    </span>
+                    , kus info ei lähe kaduma ja iga osapool näeb oma rolli.
+                  </p>
+                </div>
               </div>
             </div>
           </div>
