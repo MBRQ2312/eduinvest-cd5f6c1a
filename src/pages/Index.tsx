@@ -667,7 +667,7 @@ const Index = () => {
         {/* Stepper (only in flow mode) */}
         {role === "flow" && (
           <section className="mb-8">
-            <StepIndicator current={step} />
+            <StepIndicator current={step >= 4 ? 4 : step} />
           </section>
         )}
 
@@ -679,13 +679,19 @@ const Index = () => {
             <>
               {step === 1 && <Step1Input onNext={() => setStep(2)} />}
               {step === 2 && (
-                <Step2Analysis onBack={() => setStep(1)} onNext={() => setStep(3)} />
+                <PartnerConfirmationStep
+                  onBack={() => setStep(1)}
+                  onNext={() => setStep(3)}
+                />
               )}
               {step === 3 && (
-                <Step3Decision onBack={() => setStep(2)} onNext={() => setStep(4)} />
+                <Step2Analysis onBack={() => setStep(2)} onNext={() => setStep(4)} />
               )}
               {step === 4 && (
-                <Step4Impact onBack={() => setStep(3)} onRestart={() => setStep(1)} />
+                <Step3Decision onBack={() => setStep(3)} onNext={() => setStep(5)} />
+              )}
+              {step === 5 && (
+                <Step4Impact onBack={() => setStep(4)} onRestart={() => setStep(1)} />
               )}
             </>
           )}
