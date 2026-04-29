@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { ArrowRight, Sparkles, AlertCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { DemoShell } from "./DemoShell";
+import { ParentNote } from "./ParentNote";
 
 interface Step2AnalysisProps {
   onNext: () => void;
@@ -48,10 +49,11 @@ export const Step2Analysis = ({ onNext, onBack }: Step2AnalysisProps) => {
 
   return (
     <DemoShell
-      stepLabel="02 — AI eelanalüüs"
+      stepLabel="03 — AI eelanalüüs"
       title="AI eelanalüüs"
       subtitle="AI ei otsusta. AI toetab õpetaja otsust — seob õpitu õppekavaga."
     >
+      <ParentNote text="AI loeb kokku, mida õppija on teinud ja millise õppekava osaga see haakub. AI ei pane hinnet ega vabasta tunnist — ta valmistab õpetajale ette läbipaistva pildi." />
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Score card */}
         <div className="lg:col-span-1 bg-gradient-to-br from-primary-subtle to-primary-subtle/50 rounded-2xl p-7 border border-primary/15 flex flex-col">
@@ -161,7 +163,7 @@ export const Step2Analysis = ({ onNext, onBack }: Step2AnalysisProps) => {
               Vastutus
             </div>
             <ul className="space-y-1 text-xs text-foreground/80 leading-relaxed">
-              <li>• AI ei vabasta õpilast tunnist.</li>
+              <li>• AI ei vabasta õpilast automaatselt tunnist — vajadusel <strong>õppekoormus kohandatud</strong>.</li>
               <li>• AI ei anna hinnet.</li>
               <li>• AI toetab õpetajat läbipaistva otsuse tegemisel.</li>
               <li>• Lõppotsuse teeb õpetaja või kooli määratud vastutaja.</li>

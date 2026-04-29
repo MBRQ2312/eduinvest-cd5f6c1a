@@ -7,6 +7,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { DemoShell } from "./DemoShell";
+import { ParentNote } from "./ParentNote";
 
 interface Step4ImpactProps {
   onRestart: () => void;
@@ -45,10 +46,11 @@ export const Step4Impact = ({ onRestart, onBack }: Step4ImpactProps) => {
 
   return (
     <DemoShell
-      stepLabel="04 — Süsteemne mõju"
+      stepLabel="04 — Mõju"
       title="Mõju koolile, õppijale ja KOV-ile"
       subtitle="Kolm vaadet samale õppimisele: õppija, õpetamine, ressurss."
     >
+      <ParentNote text="Kui otsus on tehtud, näeb iga osapool tulemust: õppijal on selge pilt oma õpiteest, õpetajal väheneb topelttöö ning kool ja KOV näevad, kuidas üld- ja huviharidus tegelikult koos töötavad." />
       {/* Hero */}
       <div className="relative bg-gradient-to-br from-success via-success to-success/90 rounded-2xl p-8 md:p-10 text-success-foreground shadow-hero mb-8 overflow-hidden">
         <div className="absolute -right-10 -top-10 size-56 rounded-full bg-white/5" />
@@ -122,7 +124,7 @@ export const Step4Impact = ({ onRestart, onBack }: Step4ImpactProps) => {
 
           <CheckList
             eyebrow="Otsus"
-            items={["Kehaline kasvatus → osaliselt arvestatud"]}
+            items={["Kehaline kasvatus → osaliselt arvestatud, õppekoormus kohandatud"]}
             tone="primary"
           />
         </ViewCard>
