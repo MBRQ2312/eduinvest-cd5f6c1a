@@ -46,10 +46,11 @@ import { Step1Input } from "@/components/demo/Step1Input";
 import { Step2Analysis } from "@/components/demo/Step2Analysis";
 import { Step3Decision } from "@/components/demo/Step3Decision";
 import { Step4Impact } from "@/components/demo/Step4Impact";
+import { PartnerConfirmationStep } from "@/components/demo/PartnerConfirmationStep";
 import { PartnerView } from "@/components/demo/PartnerView";
 
 const Index = () => {
-  const [step, setStep] = useState<1 | 2 | 3 | 4>(1);
+  const [step, setStep] = useState<1 | 2 | 3 | 4 | 5>(1);
   const [role, setRole] = useState<"flow" | "partner">("flow");
   const flowRef = useRef<HTMLDivElement>(null);
 
