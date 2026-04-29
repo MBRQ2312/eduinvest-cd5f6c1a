@@ -645,6 +645,142 @@ const Index = () => {
           </div>
         </section>
 
+        {/* Õppija toe-, keele- ja õpitee disaini kaart */}
+        <section className="mb-12">
+          <div className="rounded-2xl border border-border bg-card overflow-hidden shadow-card">
+            <div className="p-7 md:p-9 bg-gradient-to-br from-primary-subtle/60 to-transparent border-b border-border">
+              <div className="inline-flex items-center gap-2 mb-4">
+                <HandHelping className="size-4 text-primary" />
+                <div className="text-[10px] font-bold tracking-[0.22em] uppercase text-primary">
+                  Õppija toe-, keele- ja õpitee disain
+                </div>
+              </div>
+              <h2 className="text-2xl md:text-3xl font-semibold tracking-tight text-balance leading-tight">
+                Õpitee disaini kaart
+              </h2>
+              <p className="mt-4 text-sm md:text-base text-foreground/85 leading-relaxed text-pretty max-w-3xl">
+                Kaart{" "}
+                <span className="font-semibold text-foreground">
+                  ei jaga diagnoose
+                </span>
+                , vaid kirjeldab kokkuleppeid, mis aitavad õppijal õppida —
+                eesti keeles, talle sobivas tempos ja toega, mida ta vajab.
+              </p>
+            </div>
+
+            <div className="p-7 md:p-9 grid grid-cols-1 md:grid-cols-3 gap-4">
+              <DesignCard
+                icon={HandHelping}
+                eyebrow="Tugi"
+                title="Õppimist toetavad kokkulepped"
+                items={[
+                  "Pikem aeg ülesannete lahendamiseks",
+                  "Suuline vastamine kirjaliku kõrval",
+                  "Vaiksem ruum kontrolltöö ajaks",
+                ]}
+              />
+              <DesignCard
+                icon={Languages}
+                eyebrow="Keel"
+                title="Keelelise õppe kokkulepped"
+                items={[
+                  "Aineõpetaja kasutab lihtsamat sõnastust",
+                  "Mõisted seotakse õppija emakeelega",
+                  "Eesti keele tugi reaalsete ainete sees",
+                ]}
+              />
+              <DesignCard
+                icon={Workflow}
+                eyebrow="Õpitee"
+                title="Õpitee disaini kokkulepped"
+                items={[
+                  "Mis õpitakse koolis, mis huvikoolis, mis kodus",
+                  "Millal vaadatakse koos, kas kokkulepe töötab",
+                  "Kes on iga sammu eest vastutaja",
+                ]}
+              />
+            </div>
+
+            <div className="px-7 md:px-9 pb-7 md:pb-9">
+              <div className="rounded-xl border-l-4 border-primary bg-primary-subtle/50 p-5 text-sm leading-relaxed text-foreground/90">
+                <strong className="text-foreground">Põhimõte:</strong>{" "}
+                kaart kirjeldab, mida õppija jaoks on{" "}
+                <strong>kokku lepitud</strong> — mitte mida ta „on” või „ei
+                ole”. Kaart elab koostööruumis ja seda uuendatakse koos
+                õppija, lapsevanema ja kooliga.
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Mida piloodis testime */}
+        <section className="mb-12">
+          <div className="rounded-2xl border border-border bg-card overflow-hidden shadow-card">
+            <div className="p-7 md:p-9 bg-gradient-to-br from-primary-subtle/60 to-transparent border-b border-border">
+              <div className="inline-flex items-center gap-2 mb-4">
+                <Target className="size-4 text-primary" />
+                <div className="text-[10px] font-bold tracking-[0.22em] uppercase text-primary">
+                  EduInvest Pilot
+                </div>
+              </div>
+              <h2 className="text-2xl md:text-3xl font-semibold tracking-tight text-balance leading-tight">
+                Mida piloodis testime?
+              </h2>
+              <p className="mt-4 text-sm md:text-base text-foreground/85 leading-relaxed text-pretty max-w-3xl">
+                Piloot algab ühest kasutusjuhust — spordikool → kehaline
+                kasvatus — ja kasvab tõenduspõhiselt. Mõõdame, kas mudel
+                tegelikult vähendab dubleerimist ja toetab õpetaja otsust.
+              </p>
+            </div>
+
+            <div className="p-7 md:p-9 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              <Metric
+                icon={ListChecks}
+                label="Õpetaja otsuse läbipaistvus"
+                target="≥ 90%"
+                hint="otsustest sisaldab põhjendust ja õpitulemuste seost"
+              />
+              <Metric
+                icon={Timer}
+                label="Õpetaja aja kokkuhoid"
+                target="−30%"
+                hint="vähem topeltõpetamist arvestatud juhtumites"
+              />
+              <Metric
+                icon={Workflow}
+                label="Koostööruumi kasutus"
+                target="100%"
+                hint="juhtumitest liigub pilves, mitte e-postis"
+              />
+              <Metric
+                icon={BarChart3}
+                label="Õppija arvestatud õpitee"
+                target="≥ 60%"
+                hint="kooliväline õppimine seotud õpitulemustega"
+              />
+              <Metric
+                icon={HandHelping}
+                label="Lapsevanema arusaadavus"
+                target="≥ 4 / 5"
+                hint="lapsevanem mõistab, miks midagi arvestati"
+              />
+              <Metric
+                icon={ShieldCheck}
+                label="Õiglus profiilide vahel"
+                target="0"
+                hint="automaatset tunnist vabastust — kõik otsused inimese kinnitatud"
+              />
+            </div>
+
+            <div className="px-7 md:px-9 pb-7 md:pb-9">
+              <div className="rounded-xl border border-border bg-muted/40 p-5 text-xs leading-relaxed text-foreground/75">
+                Mõõdikud on piloodi alguspunkt. Neid täpsustatakse koos
+                koolide, KOV-i ja partneritega esimese semestri lõpus.
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* Role switcher */}
         <section className="mb-6" ref={flowRef}>
           <div className="inline-flex items-center gap-1 p-1 rounded-xl border border-border bg-card shadow-card">
