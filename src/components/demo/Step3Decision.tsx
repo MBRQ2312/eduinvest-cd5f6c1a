@@ -465,6 +465,9 @@ export const Step3Decision = ({ onNext, onBack }: Step3DecisionProps) => {
         </div>
       </div>
 
+      {/* Õpitulemuste tabel */}
+      <OutcomesTable profileId={profileId} />
+
       {/* Võrdluskaart */}
       <div className="mt-10 rounded-2xl border border-border bg-card overflow-hidden shadow-card">
         <div className="bg-gradient-to-br from-primary to-primary-glow text-primary-foreground p-6">
