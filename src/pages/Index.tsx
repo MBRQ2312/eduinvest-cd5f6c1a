@@ -1,76 +1,51 @@
 import { useRef, useState } from "react";
 import {
-  ArrowRight,
-  FlaskConical,
-  GraduationCap as GradCap,
-  Handshake,
-  Mic,
-  Rocket,
-  Building2,
-  GraduationCap,
-  Heart,
-  Landmark,
-  School,
-  AlertCircle,
   ArrowDown,
-  BookOpenCheck,
-  ClipboardList,
-  FileSearch,
-  GitCompare,
-  Layers,
-  Map,
-  MessageSquareText,
-  Music,
-  PencilLine,
+  ArrowRight,
+  Brain,
+  CheckCircle2,
+  GraduationCap,
+  Languages,
   ScrollText,
   ShieldCheck,
   Sparkles,
   Trophy,
   UserCheck,
-  UserCog,
   Users2,
-  Cloud,
-  Lock,
-  CheckCircle2,
-  Circle,
-  Loader2,
-  Send,
-  FileCheck2,
-  BrainCircuit,
-  Gavel,
-  MailX,
+  XCircle,
+  School,
+  Heart,
+  Building2,
   HandHelping,
-  Languages,
-  Workflow,
-  BarChart3,
-  ListChecks,
-  Timer,
-  Target,
+  BookOpenCheck,
+  Layers,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { StepIndicator } from "@/components/demo/StepIndicator";
-import { Step1Input } from "@/components/demo/Step1Input";
-import { Step2Analysis } from "@/components/demo/Step2Analysis";
-import { Step3Decision } from "@/components/demo/Step3Decision";
-import { Step4Impact } from "@/components/demo/Step4Impact";
-import { PartnerConfirmationStep } from "@/components/demo/PartnerConfirmationStep";
-import { PartnerView } from "@/components/demo/PartnerView";
+import { LearnOnceStep1Input } from "@/components/demo/LearnOnceStep1Input";
+import { LearnOnceStep2SchoolData } from "@/components/demo/LearnOnceStep2SchoolData";
+import { LearnOnceStep3Analysis } from "@/components/demo/LearnOnceStep3Analysis";
+import { LearnOnceStep4Decision } from "@/components/demo/LearnOnceStep4Decision";
+import { LearnOnceStep5Explanation } from "@/components/demo/LearnOnceStep5Explanation";
+import { LearnOnceStep6Principal } from "@/components/demo/LearnOnceStep6Principal";
+
+type Step = 1 | 2 | 3 | 4 | 5 | 6;
 
 const Index = () => {
-  const [step, setStep] = useState<1 | 2 | 3 | 4 | 5>(1);
-  const [role, setRole] = useState<"flow" | "partner">("flow");
+  const [step, setStep] = useState<Step>(1);
   const flowRef = useRef<HTMLDivElement>(null);
+  const scrollToFlow = () => flowRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
 
-  const scrollToFlow = () => {
-    flowRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+  const go = (s: Step) => {
+    setStep(s);
+    setTimeout(() => flowRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }), 50);
   };
 
   return (
     <div className="min-h-screen bg-background relative">
-      {/* Institutional grid background */}
       <div className="absolute inset-0 bg-grid bg-grid-fade pointer-events-none opacity-50" />
 
-      {/* Header bar */}
+      {/* Header */}
       <header className="border-b border-border bg-card/85 sticky top-0 z-30 backdrop-blur-md">
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between gap-6">
           <div className="flex items-center gap-3">
@@ -79,23 +54,18 @@ const Index = () => {
             </div>
             <div>
               <div className="font-semibold text-sm leading-tight tracking-tight flex items-baseline gap-1.5">
-                EduInvest
-                <span className="text-primary font-bold">Lab</span>
+                EduInvest <span className="text-primary font-bold">LearnOnce</span>
               </div>
               <div className="text-[10px] text-muted-foreground tracking-[0.18em] uppercase mt-0.5">
-                Õppija tegelik õpitee nähtavaks
+                Õpetaja otsustustugi koolivälise õppimise arvestamiseks
               </div>
             </div>
           </div>
           <div className="hidden md:flex items-center gap-3 text-xs">
             <div className="flex items-center gap-2 text-muted-foreground">
               <div className="size-1.5 rounded-full bg-success animate-pulse" />
-              <span>Demo režiim · õa 2025/2026</span>
+              <span>Häkatoni demo · Markus T., 8.A</span>
             </div>
-            <span className="text-border">·</span>
-            <span className="tabular text-foreground/70 font-medium">
-              Markus T. · 8. klass
-            </span>
           </div>
         </div>
       </header>
@@ -106,966 +76,311 @@ const Index = () => {
           <div className="inline-flex items-center gap-2 mb-4">
             <div className="h-1 w-8 bg-primary rounded-full" />
             <div className="text-[10px] font-bold tracking-[0.22em] uppercase text-primary">
-              Klikitav demo · ~90 sekundit · õppeaasta 2025/2026
+              Üks otsustusvoog · 6 vaadet · ~2 minutit
             </div>
           </div>
-          <h1 className="text-2xl md:text-4xl font-semibold tracking-tight text-balance leading-[1.1]">
-            Õppija tegelik õpitee{" "}
-            <span className="text-primary">nähtavaks</span>
+          <h1 className="text-3xl md:text-5xl font-semibold tracking-tight text-balance leading-[1.05]">
+            Õpetaja otsustustugi{" "}
+            <span className="text-primary">koolivälise õppimise</span> arvestamiseks
           </h1>
           <p className="mt-6 text-base md:text-lg font-medium text-foreground text-pretty leading-relaxed">
-            <span className="font-bold text-foreground">EduInvest Lab</span> aitab koolil
-            märgata, võrrelda ja arvestada õppimist, mis toimub ka väljaspool tundi —
-            huvikoolis, spordikoolis, muusikakoolis, keeleõppes, projektides või kogukonnas.
+            EduInvest <span className="text-primary font-bold">LearnOnce</span> ei loo õppimist juurde.
+            See teeb juba toimunud õppimise <strong>nähtavaks</strong>, <strong>võrreldavaks</strong>{" "}
+            ja õpetaja otsusel <strong>arvestatavaks</strong>.
           </p>
-          <p className="mt-4 text-sm md:text-base text-muted-foreground text-pretty leading-relaxed">
-            Õppija koormus väheneb, õpetaja saab otsustustuge ja koolijuht näeb tervikpilti.
-            Kogu õpitu koondub{" "}
-            <span className="font-bold uppercase tracking-[0.04em] text-foreground">
-              HARIDUSKONTOLE
-            </span>
-            .
-          </p>
-          <div className="mt-8 flex flex-wrap items-center gap-2">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary-subtle border border-primary/20">
-              <span className="text-xs font-semibold text-primary tracking-tight">
-                Põhimõte
-              </span>
-              <span className="text-xs text-primary/85 font-medium">
-                AI ei otsusta. AI toetab õpetaja otsust.
-              </span>
-            </div>
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-muted/60 border border-border">
-              <span className="text-[11px] text-muted-foreground font-medium">
-                Sihtrühm: koolijuhid · õpetajad · lapsevanemad · KOV-id · huvikoolid
-              </span>
-            </div>
+          <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-sm">
+            {[
+              "AI ei otsusta",
+              "AI ei anna hinnet",
+              "AI ei vabasta tunnist",
+              "Õpetaja teeb lõpliku otsuse",
+            ].map((p) => (
+              <div key={p} className="flex items-center gap-2 text-foreground/85">
+                <CheckCircle2 className="size-4 text-primary shrink-0" />
+                <span>{p}</span>
+              </div>
+            ))}
+          </div>
+          <div className="mt-8">
+            <Button size="lg" onClick={scrollToFlow} className="shadow-elevated group">
+              Käivita demo
+              <ArrowDown className="size-4 transition-transform group-hover:translate-y-0.5" />
+            </Button>
           </div>
         </section>
 
-        {/* Esimene piloot */}
+        {/* Põhistsenaarium */}
         <section className="mb-12">
-          <div className="rounded-2xl border border-border bg-card shadow-card overflow-hidden">
-            <div className="grid grid-cols-1 lg:grid-cols-5 gap-0">
-              {/* Left: intro */}
+          <div className="rounded-2xl border border-border bg-card overflow-hidden shadow-card">
+            <div className="grid grid-cols-1 lg:grid-cols-5">
               <div className="lg:col-span-2 p-7 md:p-9 border-b lg:border-b-0 lg:border-r border-border bg-muted/30">
                 <div className="inline-flex items-center gap-2 mb-4">
                   <div className="h-1 w-8 bg-primary rounded-full" />
                   <div className="text-[10px] font-bold tracking-[0.22em] uppercase text-primary">
-                    Esimene piloot
+                    Demo põhistsenaarium
                   </div>
                 </div>
-                <h2 className="text-2xl md:text-3xl font-semibold tracking-tight text-balance leading-tight">
-                  Huviharidusest{" "}
-                  <span className="text-primary">üldharidusse</span>
+                <h2 className="text-2xl md:text-3xl font-semibold tracking-tight leading-tight">
+                  Markus T., <span className="text-primary">8. klass</span>
                 </h2>
                 <p className="mt-4 text-sm md:text-base text-foreground/85 leading-relaxed text-pretty">
-                  EduInvest Lab ei alusta korraga kõigi õpitegevuste arvestamisest.
-                  Alustame ühest kitsast ja arusaadavast kasutusjuhust:{" "}
-                  <span className="font-semibold text-foreground">
-                    huvihariduse arvestamisest üldhariduse õpitulemuste täitmisel.
-                  </span>
+                  Markus käib jalgpallitrennis <strong>3 korda nädalas</strong>. Treeningud
+                  toimuvad <strong>eesti keeles</strong>. Treener on eestikeelne ning
+                  tiimikaaslastega suhtleb Markus valdavalt eesti keeles.
                 </p>
-                <p className="mt-4 text-sm text-muted-foreground leading-relaxed text-pretty">
-                  Kui õppija saavutab osa õpitulemustest juba huvikoolis või
-                  spordikoolis, aitab EduInvest õpetajal näha,{" "}
-                  <span className="text-foreground font-medium">mida võiks koolis arvestada</span>,{" "}
-                  <span className="text-foreground font-medium">millist tõendit on vaja</span> ja{" "}
-                  <span className="text-foreground font-medium">mis jääb veel teha</span>.
-                  Lõppotsuse teeb õpetaja või kooli määratud vastutaja.
-                </p>
-                <div className="mt-6">
-                  <Button onClick={scrollToFlow} size="lg" className="shadow-elevated group">
-                    Vaata piloodi töövoogu
-                    <ArrowDown className="size-4 transition-transform group-hover:translate-y-0.5" />
-                  </Button>
-                </div>
               </div>
-
-              {/* Right: two examples */}
               <div className="lg:col-span-3 p-7 md:p-9">
-                <div className="text-[10px] font-bold tracking-[0.22em] uppercase text-muted-foreground mb-5">
-                  Kaks näidet piloodis
+                <div className="text-[10px] font-bold tracking-[0.22em] uppercase text-muted-foreground mb-3">
+                  Küsimus koolile
                 </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <PilotExample
-                    icon={Music}
-                    source="Muusikakool"
-                    target="Muusikaõpetus"
-                    description="Pillimäng, solfedžo ja esinemiskogemus võivad katta osa kooli muusikaõpetuse õpitulemustest."
-                  />
-                  <PilotExample
-                    icon={Trophy}
-                    source="Spordikool"
-                    target="Kehaline kasvatus"
-                    description="Treeningud, võistlused ja füüsiline ettevalmistus võivad katta osa kehalise kasvatuse õpitulemustest."
-                  />
-                </div>
-                <div className="mt-5 rounded-xl border-l-4 border-primary bg-primary-subtle/50 p-4">
-                  <p className="text-xs md:text-sm text-foreground/85 leading-relaxed">
-                    <span className="font-semibold text-primary">Põhimõte:</span>{" "}
-                    AI ei otsusta. AI toetab õpetaja otsust — toob kokku tõendid,
-                    pakub seoseid õppekavaga ja näitab, mis on juba kaetud.
-                  </p>
+                <p className="text-lg md:text-xl font-semibold tracking-tight leading-snug text-balance">
+                  Kas osa Markuse spordikoolis toimuvast õppimisest saab arvestada{" "}
+                  <span className="text-primary">kehalise kasvatuse</span> ja osaliselt ka{" "}
+                  <span className="text-primary">eesti keele funktsionaalse kasutuse</span>{" "}
+                  õpitulemuste tõendina?
+                </p>
+                <div className="mt-5 rounded-xl border-l-4 border-warning bg-warning-subtle p-4 text-sm leading-relaxed text-foreground/90">
+                  <strong>NB!</strong> Eesti keele osa <strong>ei tähenda</strong> automaatselt
+                  eesti keele aine hinde asendamist. See tähendab, et kool saab märgata ja
+                  tõendina kasutada olukordi, kus õppija kasutab eesti keelt päriselulises
+                  suhtluses.
                 </div>
               </div>
             </div>
           </div>
         </section>
 
-        {/* Üks piloot, viis väljundit */}
-        <section className="mb-12">
-          <div className="max-w-3xl mb-8">
-            <div className="inline-flex items-center gap-2 mb-4">
-              <div className="h-1 w-8 bg-primary rounded-full" />
-              <div className="text-[10px] font-bold tracking-[0.22em] uppercase text-primary">
-                Piloodi väljundid
-              </div>
-            </div>
-            <h2 className="text-2xl md:text-3xl font-semibold tracking-tight text-balance leading-tight">
-              Üks piloot, <span className="text-primary">viis väljundit</span>
-            </h2>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            <OutputCard
-              index="01"
-              icon={Map}
-              title="Õppija õpitee kaart"
-              text="Näitab, kus õppija juba õpib — koolis, huvihariduses, projektides, keeleõppes ja tugiteenustes."
-            />
-            <OutputCard
-              index="02"
-              icon={UserCog}
-              title="Õpetaja otsustugi"
-              text="Aitab õpetajal hinnata, kas kooliväline tegevus katab mõne õpitulemuse. AI teeb eeltöö, õpetaja otsustab."
-            />
-            <OutputCard
-              index="03"
-              icon={Layers}
-              title="Koolijuhi dubleerimise vaade"
-              text="Näitab, kus õppija aeg ja õpetaja töö võivad dubleeruda ning kus on võimalik õppekorraldust paindlikumaks muuta."
-            />
-            <OutputCard
-              index="04"
-              icon={MessageSquareText}
-              title="Õppija ja lapsevanema selgitusvaade"
-              text="Selgitab lihtsas keeles, mida arvestati, miks arvestati ja mis jääb veel õppida."
-            />
-            <OutputCard
-              index="05"
-              icon={ScrollText}
-              title="Hea tava ja metoodiline juhend"
-              text="Aitab koolil teha arvestamist õiglaselt, läbipaistvalt ja kooskõlas vastutuse põhimõtetega."
-            />
-            <div className="rounded-2xl border-l-4 border-primary bg-primary-subtle/50 p-6 flex flex-col justify-center">
-              <div className="flex items-center gap-2 mb-3">
-                <BookOpenCheck className="size-4 text-primary" />
-                <div className="text-[10px] font-bold tracking-[0.22em] uppercase text-primary">
-                  Üks töövoog
-                </div>
-              </div>
-              <p className="text-sm md:text-base text-foreground/90 leading-relaxed text-pretty font-medium">
-                See ei ole viis eraldi toodet, vaid{" "}
-                <span className="text-primary font-semibold">
-                  üks arvestamise töövoog viie vajaliku vaatega.
-                </span>
-              </p>
-            </div>
-          </div>
+        {/* Stepper + flow */}
+        <section ref={flowRef} className="mb-8">
+          <StepIndicator current={step} />
         </section>
 
-        {/* Kuidas see töötab? */}
-        <section className="mb-12">
-          <div className="max-w-3xl mb-8">
-            <div className="inline-flex items-center gap-2 mb-4">
-              <div className="h-1 w-8 bg-primary rounded-full" />
-              <div className="text-[10px] font-bold tracking-[0.22em] uppercase text-primary">
-                Töövoog
-              </div>
-            </div>
-            <h2 className="text-2xl md:text-3xl font-semibold tracking-tight text-balance leading-tight">
-              Kuidas see <span className="text-primary">töötab?</span>
-            </h2>
-            <p className="mt-4 text-sm md:text-base text-muted-foreground leading-relaxed text-pretty">
-              Näide: õppija käib <span className="text-foreground font-medium">muusikakoolis</span>.
-              Vaata, kuidas tema õpitu jõuab kooli muusikaõpetuses arvestamiseni.
-            </p>
-          </div>
-
-          <div className="rounded-2xl border border-border bg-card p-6 md:p-8 shadow-card">
-            <ol className="relative space-y-5">
-              <FlowStep
-                n={1}
-                icon={PencilLine}
-                title="Õppija või lapsevanem lisab info"
-                text="Sisestatakse, millist õppimist muusikakoolis tehakse — pill, sagedus, kestus."
-              />
-              <FlowStep
-                n={2}
-                icon={ClipboardList}
-                title="EduInvest aitab kirjeldada"
-                text="Süsteem soovitab, kuidas tegevusi sõnastada ja milliseid tõendeid lisada."
-              />
-              <FlowStep
-                n={3}
-                icon={GitCompare}
-                title="Süsteem võrdleb õppekavaga"
-                text="Tegevusi võrreldakse kooli muusikaõpetuse õpitulemustega."
-              />
-              <FlowStep
-                n={4}
-                icon={FileSearch}
-                title="Õpetaja näeb ettepanekut"
-                text="Mida saab arvestada, mida mitte ja millist lisatõendit on vaja."
-              />
-              <FlowStep
-                n={5}
-                icon={UserCheck}
-                title="Õpetaja teeb otsuse"
-                text="Lõppvastutus jääb inimesele — õpetajale või kooli määratud vastutajale."
-              />
-              <FlowStep
-                n={6}
-                icon={MessageSquareText}
-                title="Õppija ja lapsevanem saavad selgituse"
-                text="Lihtsas keeles: mida arvestati, miks arvestati ja mis jääb veel õppida."
-              />
-              <FlowStep
-                n={7}
-                icon={Users2}
-                title="Koolijuht näeb anonüümset koondpilti"
-                text="Kui palju sarnaseid arvestusjuhtumeid koolis tekib ja kus on mustrid."
-              />
-              <FlowStep
-                n={8}
-                icon={ShieldCheck}
-                title="Piloodi põhjal täieneb hea tava"
-                text="Kooli arvestamise reeglid muutuvad selgemaks ja korduvkasutatavaks."
-                last
-              />
-            </ol>
-          </div>
-
-          <div className="mt-6 rounded-xl border-l-4 border-warning bg-warning-subtle p-5 flex gap-3.5">
-            <div className="shrink-0 size-8 rounded-lg bg-warning/15 flex items-center justify-center">
-              <AlertCircle className="size-4 text-warning" />
-            </div>
-            <div className="min-w-0">
-              <div className="text-[10px] font-bold tracking-[0.22em] uppercase text-warning mb-1.5">
-                Oluline rõhutus
-              </div>
-              <p className="text-sm md:text-base text-foreground/90 leading-relaxed text-pretty">
-                EduInvest <span className="font-semibold">ei anna hinnet</span> ega{" "}
-                <span className="font-semibold">vabasta õpilast automaatselt tunnist</span> — vajadusel <span className="font-semibold">õppekoormus kohandatud</span>.
-                See aitab teha läbipaistva ja põhjendatud otsuse.
-              </p>
-            </div>
-          </div>
+        <section className="mb-14">
+          {step === 1 && <LearnOnceStep1Input onNext={() => go(2)} />}
+          {step === 2 && <LearnOnceStep2SchoolData onBack={() => go(1)} onNext={() => go(3)} />}
+          {step === 3 && <LearnOnceStep3Analysis onBack={() => go(2)} onNext={() => go(4)} />}
+          {step === 4 && <LearnOnceStep4Decision onBack={() => go(3)} onNext={() => go(5)} />}
+          {step === 5 && <LearnOnceStep5Explanation onBack={() => go(4)} onNext={() => go(6)} />}
+          {step === 6 && <LearnOnceStep6Principal onBack={() => go(5)} onRestart={() => go(1)} />}
         </section>
 
-        {/* Miks see on vajalik kogu haridusruumile? */}
-        <section className="mb-12">
-          <div className="max-w-3xl mb-8">
-            <div className="inline-flex items-center gap-2 mb-4">
-              <div className="h-1 w-8 bg-primary rounded-full" />
-              <div className="text-[10px] font-bold tracking-[0.22em] uppercase text-primary">
-                Mõju osapooltele
-              </div>
-            </div>
-            <h2 className="text-2xl md:text-3xl font-semibold tracking-tight text-balance leading-tight">
-              Miks see on vajalik{" "}
-              <span className="text-primary">kogu haridusruumile?</span>
-            </h2>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            <StakeholderCard
-              icon={GraduationCap}
-              role="Õppijale"
-              text="Vähendab tunnet, et sama asja tuleb teha mitu korda. Õppija näeb, et tema pingutus väljaspool kooli loeb."
-            />
-            <StakeholderCard
-              icon={UserCog}
-              role="Õpetajale"
-              text="Õpetaja ei pea iga arvestusjuhtumit nullist läbi mõtlema. Ta saab struktureeritud otsustoe, kuid lõppotsus jääb talle."
-            />
-            <StakeholderCard
-              icon={School}
-              role="Koolijuhile"
-              text="Koolijuht näeb, kus õppija koormus ja õpetajate töö dubleerub ning saab teha paremaid korraldusotsuseid."
-            />
-            <StakeholderCard
-              icon={Heart}
-              role="Lapsevanemale"
-              text="Lapsevanem saab aru, miks midagi arvestati või ei arvestatud. See vähendab segadust ja vaidlusi."
-            />
-            <StakeholderCard
-              icon={Building2}
-              role="Omavalitsusele"
-              text="KOV näeb, kuidas huviharidus ja üldharidus saavad päriselt koos toimida."
-            />
-            <StakeholderCard
-              icon={Landmark}
-              role="Riigile ja HTM-ile"
-              text="EduInvest loob katsetatava mudeli, kuidas liikuda paindlikuma, oskuspõhisema ja andmepõhisema hariduse poole."
-            />
-          </div>
-        </section>
-
-        {/* EduInvest Lab */}
+        {/* VÕTA */}
         <section className="mb-12">
           <div className="rounded-2xl border border-border bg-card overflow-hidden shadow-card">
             <div className="p-7 md:p-9 bg-gradient-to-br from-primary-subtle/60 to-transparent border-b border-border">
               <div className="inline-flex items-center gap-2 mb-4">
-                <FlaskConical className="size-4 text-primary" />
+                <ScrollText className="size-4 text-primary" />
                 <div className="text-[10px] font-bold tracking-[0.22em] uppercase text-primary">
-                  Arendusruum
+                  VÕTA üldhariduse kontekstis
                 </div>
               </div>
-              <h2 className="text-2xl md:text-3xl font-semibold tracking-tight text-balance leading-tight">
-                EduInvest <span className="text-primary">Lab</span>
+              <h2 className="text-2xl md:text-3xl font-semibold tracking-tight leading-tight">
+                Tuttav loogika, <span className="text-primary">üldhariduse jaoks kohandatud</span>
               </h2>
               <p className="mt-4 text-sm md:text-base text-foreground/85 leading-relaxed text-pretty max-w-3xl">
-                EduInvest ei ole ainult digitaalne prototüüp, vaid{" "}
-                <span className="font-semibold text-foreground">
-                  haridusuuenduse arendusruum
-                </span>
-                {" "}— kus mõte, metoodika ja tööriist arenevad koos koolide ja partneritega.
+                EduInvest LearnOnce kasutab VÕTA (varasemate õpingute ja töökogemuse
+                arvestamine) põhimõtet lihtsustatud kujul.
               </p>
             </div>
-
-            <div className="p-7 md:p-9">
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <LabTrack
-                  index="01"
-                  icon={Mic}
-                  title="EduInvest Talks"
-                  text="Kogemusjagamised, ümarlauad ja arutelud koolijuhtide, õpetajate, huvikoolide, õppijate ja hariduspartneritega."
-                />
-                <LabTrack
-                  index="02"
-                  icon={GradCap}
-                  title="EduInvest Academy"
-                  text="Koolitused õpetajatele ja koolijuhtidele õppija tegeliku õpitee arvestamise, otsustoe ja AI vastutustundliku kasutamise teemal."
-                />
-                <LabTrack
-                  index="03"
-                  icon={Rocket}
-                  title="EduInvest Pilot"
-                  text="Koolides testitav õpitee arvestamise mudel, mis algab ühest kitsast kasutusjuhust ja kasvab tõenduspõhiselt."
-                />
-              </div>
-
-              <div className="mt-7 rounded-xl border-l-4 border-primary bg-primary-subtle/50 p-5 md:p-6 flex flex-col md:flex-row md:items-center gap-5 md:gap-6">
-                <div className="flex items-start gap-3 flex-1 min-w-0">
-                  <div className="shrink-0 size-10 rounded-lg bg-primary text-primary-foreground flex items-center justify-center">
-                    <Handshake className="size-5" />
+            <div className="p-7 md:p-9 grid grid-cols-1 md:grid-cols-2 gap-3">
+              {[
+                "Õppija esitab varasema või paralleelse õpikogemuse",
+                "Kool võrdleb seda õppekava õpitulemustega",
+                "Kogemus peab olema tõendatud",
+                "Arvestus võib olla täielik või osaline",
+                "Otsus peab olema põhjendatud",
+                "Lõppotsuse teeb kooli määratud vastutaja või õpetaja",
+                "Otsus dokumenteeritakse",
+              ].map((s, i) => (
+                <div key={s} className="flex items-start gap-3 p-3 rounded-xl border border-border bg-muted/30">
+                  <div className="size-7 rounded-lg bg-primary text-primary-foreground flex items-center justify-center text-xs font-bold tabular shrink-0">
+                    {i + 1}
                   </div>
-                  <div className="min-w-0">
-                    <div className="text-[10px] font-bold tracking-[0.22em] uppercase text-primary mb-1.5">
-                      Partnerluse kutse
-                    </div>
-                    <p className="text-sm md:text-base text-foreground/90 leading-relaxed text-pretty">
-                      Otsime{" "}
-                      <span className="font-semibold text-foreground">koole</span>,{" "}
-                      <span className="font-semibold text-foreground">huvikoolide esindajaid</span>,{" "}
-                      <span className="font-semibold text-foreground">KOV-e</span> ja{" "}
-                      <span className="font-semibold text-foreground">hariduspartnereid</span>,
-                      kellega katsetada õppija tegeliku õpitee arvestamist.
-                    </p>
-                  </div>
+                  <span className="text-sm text-foreground/90 leading-snug">{s}</span>
                 </div>
-                <Button
-                  size="lg"
-                  asChild
-                  className="shadow-elevated group shrink-0 w-full md:w-auto"
-                >
-                  <a href="mailto:tere@eduinvest.ee?subject=EduInvest%20Lab%20%E2%80%94%20koost%C3%B6%C3%B6">
-                    Räägime koostööst
-                    <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
-                  </a>
-                </Button>
+              ))}
+            </div>
+            <div className="px-7 md:px-9 pb-7 md:pb-9">
+              <div className="rounded-xl border-l-4 border-primary bg-primary-subtle/50 p-5 text-sm leading-relaxed text-foreground/90">
+                <strong className="text-foreground">Gümnaasiumis:</strong> sama loogikat saab
+                kasutada valikkursuste, projektõppe, huvikooli, keeleõppe, spordi, muusika,
+                vabatahtliku töö või muu tõendatud õpikogemuse arvestamisel — kui kooli
+                õppekorralduseeskiri seda võimaldab.
               </div>
             </div>
           </div>
         </section>
 
-        {/* Koostööruum */}
+        {/* Eesti keele moodul */}
         <section className="mb-12">
           <div className="rounded-2xl border border-border bg-card overflow-hidden shadow-card">
             <div className="p-7 md:p-9 bg-gradient-to-br from-primary-subtle/60 to-transparent border-b border-border">
-              <div className="flex items-start justify-between gap-6 flex-wrap">
-                <div className="min-w-0 flex-1">
-                  <div className="inline-flex items-center gap-2 mb-4">
-                    <Cloud className="size-4 text-primary" />
-                    <div className="text-[10px] font-bold tracking-[0.22em] uppercase text-primary">
-                      Jagatud töövoog
-                    </div>
-                  </div>
-                  <h2 className="text-2xl md:text-3xl font-semibold tracking-tight text-balance leading-tight">
-                    Koostööruum
-                  </h2>
-                  <p className="mt-4 text-sm md:text-base text-foreground/85 leading-relaxed text-pretty max-w-3xl">
-                    Õppija, lapsevanem, kool ja partner näevad{" "}
-                    <span className="font-semibold text-foreground">sama juhtumi staatust</span>{" "}
-                    turvalises pilvepõhises töövoos. Info ei liigu e-postiga, ei lähe kaduma ja
-                    iga osapool näeb oma rolli ning järgmist sammu.
-                  </p>
-                </div>
-                <div className="hidden md:flex flex-col gap-2 shrink-0">
-                  <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-primary/20 bg-primary-subtle text-primary text-[11px] font-semibold">
-                    <Lock className="size-3.5" /> Turvaline ligipääs rolli järgi
-                  </div>
-                  <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-border bg-muted/40 text-muted-foreground text-[11px] font-semibold">
-                    <MailX className="size-3.5" /> Mitte e-posti põhine menetlus
-                  </div>
+              <div className="inline-flex items-center gap-2 mb-4">
+                <Languages className="size-4 text-primary" />
+                <div className="text-[10px] font-bold tracking-[0.22em] uppercase text-primary">
+                  Eesti keelele ülemineku tugi
                 </div>
               </div>
+              <h2 className="text-2xl md:text-3xl font-semibold tracking-tight leading-tight">
+                Eesti keele õpikeskkonna <span className="text-primary">nähtavaks tegemine</span>
+              </h2>
             </div>
+            <div className="p-7 md:p-9 space-y-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="rounded-xl border border-warning/30 bg-warning-subtle p-5">
+                  <div className="text-[10px] font-bold tracking-[0.22em] uppercase text-warning mb-2">Probleem</div>
+                  <p className="text-sm text-foreground/90 leading-relaxed">
+                    Õppija võib kasutada eesti keelt palju ka väljaspool eesti keele tundi —
+                    trennis, muusikakoolis, huviringis, projektis, kogukonnas või võistlustel.
+                    <strong> Kool ei näe seda süsteemselt.</strong>
+                  </p>
+                </div>
+                <div className="rounded-xl border border-success/25 bg-success-subtle p-5">
+                  <div className="text-[10px] font-bold tracking-[0.22em] uppercase text-success mb-2">Lahendus</div>
+                  <p className="text-sm text-foreground/90 leading-relaxed">
+                    EduInvest aitab koguda ja kirjeldada neid olukordi kui{" "}
+                    <strong>tõendeid õppija eestikeelse suhtluskeskkonna kohta</strong>.
+                  </p>
+                </div>
+              </div>
 
-            <div className="p-7 md:p-9">
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <LangExample
+                  icon={Trophy}
+                  title="Sporditrenn eesti keeles"
+                  items={[
+                    "Treener annab juhiseid eesti keeles",
+                    "Õppija suhtleb tiimikaaslastega eesti keeles",
+                    "Õppija kasutab sporditermineid",
+                    "Õppija analüüsib oma arengut eesti keeles",
+                  ]}
+                />
+                <LangExample
+                  icon={BookOpenCheck}
+                  title="Muusikakool eesti keeles"
+                  items={[
+                    "Õpetaja juhendab eesti keeles",
+                    "Õppija mõistab tööjuhiseid",
+                    "Õppija kirjeldab harjutamist eesti keeles",
+                    "Õppija osaleb esinemistel ja tagasisidevestlustes",
+                  ]}
+                />
+              </div>
+
+              <div className="rounded-xl border-l-4 border-primary bg-primary-subtle/50 p-5 text-sm leading-relaxed text-foreground/90">
+                <strong>Oluline piirang:</strong> See <strong>ei tähenda</strong> automaatset eesti
+                keele hinde asendamist. See tähendab, et kool saab õppija tegeliku eestikeelse
+                õpikogemuse <strong>nähtavaks teha</strong> ja vajadusel kasutada{" "}
+                <strong>toetava tõendina</strong>.
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Vastutusmudel */}
+        <section className="mb-12">
+          <div className="rounded-2xl border border-border bg-card overflow-hidden shadow-card">
+            <div className="p-7 md:p-9 bg-gradient-to-br from-primary-subtle/60 to-transparent border-b border-border">
+              <div className="inline-flex items-center gap-2 mb-4">
+                <ShieldCheck className="size-4 text-primary" />
+                <div className="text-[10px] font-bold tracking-[0.22em] uppercase text-primary">
+                  Vastutus ja andmed
+                </div>
+              </div>
+              <h2 className="text-2xl md:text-3xl font-semibold tracking-tight leading-tight">
+                Vastutusmudel
+              </h2>
+            </div>
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm">
+                <thead className="bg-muted/40 text-[10px] font-bold tracking-[0.18em] uppercase text-muted-foreground">
+                  <tr>
+                    <th className="text-left px-6 py-3">Küsimus</th>
+                    <th className="text-left px-6 py-3">Vastus</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-border">
+                  {[
+                    ["Kes teeb otsuse?", "Õpetaja või kooli määratud vastutaja"],
+                    ["Mida AI teeb?", "Koondab andmed, pakub seoseid, näitab tõendilünki"],
+                    ["Kas AI annab hinde?", "Ei"],
+                    ["Kas AI vabastab tunnist?", "Ei"],
+                    ["Kas otsus on selgitatav?", "Jah"],
+                    ["Kas otsus on muudetav?", "Jah, õpetaja saab AI ettepanekuid muuta"],
+                    ["Kas eKool / Stuudium on kohustuslik?", "Ei, häkil kasutatakse mock-andmeid"],
+                    ["Mis on hilisem integratsioon?", "eKooli / Stuudiumi andmete lugemine ja otsuse salvestamise tugi"],
+                    ["Kas andmeid jagatakse automaatselt?", "Ei, ainult kooli ja nõusolekupõhise töövoo alusel"],
+                  ].map(([q, a]) => (
+                    <tr key={q} className="hover:bg-muted/20 transition-smooth">
+                      <td className="px-6 py-3 font-semibold text-foreground/90">{q}</td>
+                      <td className="px-6 py-3 text-foreground/80">{a}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        {/* Sõnum žüriile */}
+        <section className="mb-12">
+          <div className="rounded-2xl bg-gradient-to-br from-primary to-primary-glow text-primary-foreground p-8 md:p-12 shadow-hero overflow-hidden relative">
+            <div className="absolute -right-12 -top-12 size-56 rounded-full bg-white/5" />
+            <div className="absolute -right-24 -bottom-24 size-72 rounded-full bg-white/5" />
+            <div className="relative max-w-3xl">
+              <div className="text-[10px] font-bold tracking-[0.22em] uppercase text-primary-foreground/80 mb-4">
+                Sõnum žüriile
+              </div>
+              <h2 className="text-2xl md:text-4xl font-semibold tracking-tight leading-tight text-balance">
+                EduInvest LearnOnce ei loo õppimist juurde.
+                <br />
+                See teeb juba toimunud õppimise{" "}
+                <span className="italic underline decoration-2 underline-offset-[6px]">
+                  nähtavaks, võrreldavaks ja õpetaja otsusel arvestatavaks.
+                </span>
+              </h2>
+              <div className="mt-7 grid grid-cols-1 sm:grid-cols-3 gap-3">
                 {[
-                  { icon: GradCap, label: "Õppija" },
-                  { icon: Heart, label: "Lapsevanem" },
-                  { icon: School, label: "Kool" },
-                  { icon: Building2, label: "Partner" },
-                ].map((r) => (
-                  <div
-                    key={r.label}
-                    className="rounded-xl border border-border bg-muted/30 p-4 flex items-center gap-3"
-                  >
-                    <div className="size-9 rounded-lg bg-primary/10 text-primary flex items-center justify-center">
-                      <r.icon className="size-4" />
-                    </div>
-                    <div className="text-sm font-semibold tracking-tight">{r.label}</div>
+                  { k: "AI", v: "teeb õpetaja jaoks eeltöö" },
+                  { k: "Õpetaja", v: "otsustab" },
+                  { k: "Õppija ja pere", v: "saavad selgituse" },
+                ].map((c) => (
+                  <div key={c.k} className="rounded-xl bg-white/10 border border-white/15 p-4">
+                    <div className="text-[10px] font-bold tracking-[0.22em] uppercase text-primary-foreground/70">{c.k}</div>
+                    <div className="text-sm md:text-base font-semibold mt-1 leading-snug">{c.v}</div>
                   </div>
                 ))}
               </div>
-
-              <div className="text-[10px] font-bold tracking-[0.22em] uppercase text-muted-foreground mb-4">
-                Juhtumi staatused
-              </div>
-
-              <ol className="space-y-3">
-                {[
-                  { icon: PencilLine, label: "Sisend lisatud", actor: "Õppija", state: "done" },
-                  { icon: Send, label: "Partneri kinnitus ootab", actor: "Partner", state: "done" },
-                  { icon: FileCheck2, label: "Tõendid lisatud", actor: "Partner", state: "done" },
-                  { icon: BrainCircuit, label: "AI eelanalüüs tehtud", actor: "Süsteem", state: "done" },
-                  { icon: Gavel, label: "Õpetaja otsus ootab", actor: "Õpetaja", state: "active" },
-                  { icon: ShieldCheck, label: "Otsus tehtud", actor: "Õpetaja", state: "todo" },
-                  {
-                    icon: MessageSquareText,
-                    label: "Õppija ja lapsevanema selgitus saadetud",
-                    actor: "Kool",
-                    state: "todo",
-                  },
-                ].map((s, i) => {
-                  const isDone = s.state === "done";
-                  const isActive = s.state === "active";
-                  return (
-                    <li
-                      key={s.label}
-                      className={`rounded-xl border p-4 flex items-center gap-4 transition-smooth ${
-                        isActive
-                          ? "border-primary/40 bg-primary-subtle/60 shadow-card"
-                          : isDone
-                            ? "border-border bg-card"
-                            : "border-dashed border-border bg-muted/20"
-                      }`}
-                    >
-                      <div
-                        className={`shrink-0 size-9 rounded-lg flex items-center justify-center ${
-                          isActive
-                            ? "bg-primary text-primary-foreground"
-                            : isDone
-                              ? "bg-success/15 text-success"
-                              : "bg-muted text-muted-foreground"
-                        }`}
-                      >
-                        {isDone ? (
-                          <CheckCircle2 className="size-4" />
-                        ) : isActive ? (
-                          <Loader2 className="size-4 animate-spin" />
-                        ) : (
-                          <Circle className="size-4" />
-                        )}
-                      </div>
-                      <div className="text-[11px] font-bold tabular text-muted-foreground w-6">
-                        {String(i + 1).padStart(2, "0")}
-                      </div>
-                      <div className="min-w-0 flex-1">
-                        <div
-                          className={`text-sm font-semibold tracking-tight ${
-                            !isDone && !isActive ? "text-muted-foreground" : "text-foreground"
-                          }`}
-                        >
-                          {s.label}
-                        </div>
-                        <div className="text-[11px] text-muted-foreground mt-0.5 flex items-center gap-1.5">
-                          <s.icon className="size-3" />
-                          {s.actor}
-                        </div>
-                      </div>
-                      {isActive && (
-                        <span className="hidden sm:inline-flex items-center px-2.5 py-1 rounded-full bg-primary text-primary-foreground text-[10px] font-bold tracking-[0.14em] uppercase">
-                          Käib
-                        </span>
-                      )}
-                      {isDone && (
-                        <span className="hidden sm:inline-flex items-center px-2.5 py-1 rounded-full border border-success/30 bg-success/10 text-success text-[10px] font-bold tracking-[0.14em] uppercase">
-                          Tehtud
-                        </span>
-                      )}
-                    </li>
-                  );
-                })}
-              </ol>
-
-              <div className="mt-8 rounded-xl border-l-4 border-primary bg-primary-subtle/50 p-5 flex gap-3.5">
-                <div className="shrink-0 size-9 rounded-lg bg-primary/15 flex items-center justify-center">
-                  <Cloud className="size-4 text-primary" />
-                </div>
-                <div>
-                  <div className="text-[10px] font-bold tracking-[0.22em] uppercase text-primary mb-1.5">
-                    Märkus
-                  </div>
-                  <p className="text-sm leading-relaxed text-foreground/90 text-pretty">
-                    Demo ei loo uut e-posti põhist menetlust, vaid katsetab{" "}
-                    <span className="font-semibold text-foreground">
-                      pilvepõhist koostööruumi
-                    </span>
-                    , kus info ei lähe kaduma ja iga osapool näeb oma rolli.
-                  </p>
-                </div>
-              </div>
             </div>
           </div>
         </section>
 
-        {/* Õppija toe-, keele- ja õpitee disaini kaart */}
-        <section className="mb-12">
-          <div className="rounded-2xl border border-border bg-card overflow-hidden shadow-card">
-            <div className="p-7 md:p-9 bg-gradient-to-br from-primary-subtle/60 to-transparent border-b border-border">
-              <div className="inline-flex items-center gap-2 mb-4">
-                <HandHelping className="size-4 text-primary" />
-                <div className="text-[10px] font-bold tracking-[0.22em] uppercase text-primary">
-                  Õppija toe-, keele- ja õpitee disain
-                </div>
-              </div>
-              <h2 className="text-2xl md:text-3xl font-semibold tracking-tight text-balance leading-tight">
-                Õpitee disaini kaart
-              </h2>
-              <p className="mt-4 text-sm md:text-base text-foreground/85 leading-relaxed text-pretty max-w-3xl">
-                Kaart{" "}
-                <span className="font-semibold text-foreground">
-                  ei jaga diagnoose
-                </span>
-                , vaid kirjeldab kokkuleppeid, mis aitavad õppijal õppida —
-                eesti keeles, talle sobivas tempos ja toega, mida ta vajab.
-              </p>
-            </div>
-
-            <div className="p-7 md:p-9 grid grid-cols-1 md:grid-cols-3 gap-4">
-              <DesignCard
-                icon={HandHelping}
-                eyebrow="Tugi"
-                title="Õppimist toetavad kokkulepped"
-                items={[
-                  "Pikem aeg ülesannete lahendamiseks",
-                  "Suuline vastamine kirjaliku kõrval",
-                  "Vaiksem ruum kontrolltöö ajaks",
-                ]}
-              />
-              <DesignCard
-                icon={Languages}
-                eyebrow="Keel"
-                title="Keelelise õppe kokkulepped"
-                items={[
-                  "Aineõpetaja kasutab lihtsamat sõnastust",
-                  "Mõisted seotakse õppija emakeelega",
-                  "Eesti keele tugi reaalsete ainete sees",
-                ]}
-              />
-              <DesignCard
-                icon={Workflow}
-                eyebrow="Õpitee"
-                title="Õpitee disaini kokkulepped"
-                items={[
-                  "Mis õpitakse koolis, mis huvikoolis, mis kodus",
-                  "Millal vaadatakse koos, kas kokkulepe töötab",
-                  "Kes on iga sammu eest vastutaja",
-                ]}
-              />
-            </div>
-
-            <div className="px-7 md:px-9 pb-7 md:pb-9">
-              <div className="rounded-xl border-l-4 border-primary bg-primary-subtle/50 p-5 text-sm leading-relaxed text-foreground/90">
-                <strong className="text-foreground">Põhimõte:</strong>{" "}
-                kaart kirjeldab, mida õppija jaoks on{" "}
-                <strong>kokku lepitud</strong> — mitte mida ta „on” või „ei
-                ole”. Kaart elab koostööruumis ja seda uuendatakse koos
-                õppija, lapsevanema ja kooliga.
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Mida piloodis testime */}
-        <section className="mb-12">
-          <div className="rounded-2xl border border-border bg-card overflow-hidden shadow-card">
-            <div className="p-7 md:p-9 bg-gradient-to-br from-primary-subtle/60 to-transparent border-b border-border">
-              <div className="inline-flex items-center gap-2 mb-4">
-                <Target className="size-4 text-primary" />
-                <div className="text-[10px] font-bold tracking-[0.22em] uppercase text-primary">
-                  EduInvest Pilot
-                </div>
-              </div>
-              <h2 className="text-2xl md:text-3xl font-semibold tracking-tight text-balance leading-tight">
-                Mida piloodis testime?
-              </h2>
-              <p className="mt-4 text-sm md:text-base text-foreground/85 leading-relaxed text-pretty max-w-3xl">
-                Piloot algab ühest kasutusjuhust — spordikool → kehaline
-                kasvatus — ja kasvab tõenduspõhiselt. Mõõdame, kas mudel
-                tegelikult vähendab dubleerimist ja toetab õpetaja otsust.
-              </p>
-            </div>
-
-            <div className="p-7 md:p-9 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              <Metric
-                icon={ListChecks}
-                label="Õpetaja otsuse läbipaistvus"
-                target="≥ 90%"
-                hint="otsustest sisaldab põhjendust ja õpitulemuste seost"
-              />
-              <Metric
-                icon={Timer}
-                label="Õpetaja aja kokkuhoid"
-                target="−30%"
-                hint="vähem topeltõpetamist arvestatud juhtumites"
-              />
-              <Metric
-                icon={Workflow}
-                label="Koostööruumi kasutus"
-                target="100%"
-                hint="juhtumitest liigub pilves, mitte e-postis"
-              />
-              <Metric
-                icon={BarChart3}
-                label="Õppija arvestatud õpitee"
-                target="≥ 60%"
-                hint="kooliväline õppimine seotud õpitulemustega"
-              />
-              <Metric
-                icon={HandHelping}
-                label="Lapsevanema arusaadavus"
-                target="≥ 4 / 5"
-                hint="lapsevanem mõistab, miks midagi arvestati"
-              />
-              <Metric
-                icon={ShieldCheck}
-                label="Õiglus profiilide vahel"
-                target="0"
-                hint="automaatset tunnist vabastust — kõik otsused inimese kinnitatud"
-              />
-            </div>
-
-            <div className="px-7 md:px-9 pb-7 md:pb-9">
-              <div className="rounded-xl border border-border bg-muted/40 p-5 text-xs leading-relaxed text-foreground/75">
-                Mõõdikud on piloodi alguspunkt. Neid täpsustatakse koos
-                koolide, KOV-i ja partneritega esimese semestri lõpus.
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Role switcher */}
-        <section className="mb-6" ref={flowRef}>
-          <div className="inline-flex items-center gap-1 p-1 rounded-xl border border-border bg-card shadow-card">
-            <button
-              onClick={() => setRole("flow")}
-              className={`px-4 py-2 rounded-lg text-xs font-semibold tracking-tight transition-smooth ${
-                role === "flow"
-                  ? "bg-primary text-primary-foreground shadow-card"
-                  : "text-muted-foreground hover:text-foreground"
-              }`}
-            >
-              Õppija → Õpetaja töövoog
-            </button>
-            <button
-              onClick={() => setRole("partner")}
-              className={`px-4 py-2 rounded-lg text-xs font-semibold tracking-tight transition-smooth ${
-                role === "partner"
-                  ? "bg-primary text-primary-foreground shadow-card"
-                  : "text-muted-foreground hover:text-foreground"
-              }`}
-            >
-              Partneri vaade
-            </button>
-          </div>
-        </section>
-
-        {/* Stepper (only in flow mode) */}
-        {role === "flow" && (
-          <section className="mb-8">
-            <StepIndicator current={step >= 4 ? 4 : step} />
-          </section>
-        )}
-
-        {/* Active view */}
-        <section>
-          {role === "partner" ? (
-            <PartnerView />
-          ) : (
-            <>
-              {step === 1 && <Step1Input onNext={() => setStep(2)} />}
-              {step === 2 && (
-                <PartnerConfirmationStep
-                  onBack={() => setStep(1)}
-                  onNext={() => setStep(3)}
-                />
-              )}
-              {step === 3 && (
-                <Step2Analysis onBack={() => setStep(2)} onNext={() => setStep(4)} />
-              )}
-              {step === 4 && (
-                <Step3Decision onBack={() => setStep(3)} onNext={() => setStep(5)} />
-              )}
-              {step === 5 && (
-                <Step4Impact onBack={() => setStep(4)} onRestart={() => setStep(1)} />
-              )}
-            </>
-          )}
-        </section>
-
-        {/* Footer */}
-        <footer className="mt-16 pt-10 border-t border-border">
-          <div className="text-center max-w-2xl mx-auto">
-            <div className="text-[10px] font-bold tracking-[0.22em] uppercase text-muted-foreground mb-3">
-              Filosoofia
-            </div>
-            <p className="text-lg md:text-xl font-medium italic text-foreground/90 text-pretty leading-relaxed">
-              „Me ei lisa õppimist juurde. Me teeme juba toimunu{" "}
-              <span className="text-primary not-italic font-semibold">nähtavaks ja arvestatavaks</span>.”
-            </p>
-            <p className="mt-3 text-xs text-muted-foreground tracking-[0.18em] uppercase font-semibold">
-              AI ei otsusta. AI toetab õpetaja otsust.
-            </p>
-          </div>
+        <footer className="mt-16 pt-10 border-t border-border text-center">
+          <p className="text-xs text-muted-foreground tracking-[0.18em] uppercase font-semibold">
+            AI ei otsusta · Õpetaja otsustab · Õppija ja pere saavad selgituse · Koolijuht näeb mustreid
+          </p>
         </footer>
       </main>
     </div>
   );
 };
 
-const OutputCard = ({
-  index,
-  icon: Icon,
-  title,
-  text,
-}: {
-  index: string;
-  icon: typeof Map;
-  title: string;
-  text: string;
-}) => (
-  <div className="group rounded-2xl border border-border bg-card p-6 hover:border-primary/30 hover:shadow-elevated transition-smooth flex flex-col">
-    <div className="flex items-start justify-between mb-4">
-      <div className="size-11 rounded-xl bg-primary-subtle text-primary flex items-center justify-center">
-        <Icon className="size-5" />
-      </div>
-      <span className="text-[11px] font-bold tabular tracking-[0.2em] text-muted-foreground/70">
-        {index}
-      </span>
-    </div>
-    <h3 className="text-base md:text-lg font-semibold tracking-tight text-foreground mb-2 text-balance">
-      {title}
-    </h3>
-    <p className="text-sm text-foreground/75 leading-relaxed text-pretty">{text}</p>
-  </div>
-);
-
-const PilotExample = ({
-  icon: Icon,
-  source,
-  target,
-  description,
-}: {
-  icon: typeof Music;
-  source: string;
-  target: string;
-  description: string;
-}) => (
-  <div className="group rounded-xl border border-border bg-background p-5 hover:border-primary/30 hover:shadow-card transition-smooth">
-    <div className="flex items-start gap-3 mb-4">
-      <div className="size-10 rounded-lg bg-primary-subtle text-primary flex items-center justify-center shrink-0">
-        <Icon className="size-5" />
-      </div>
-      <div className="min-w-0 flex-1">
-        <div className="text-[10px] font-bold tracking-[0.2em] uppercase text-muted-foreground">
-          Allikas → Sihtaine
-        </div>
-        <div className="mt-1 flex items-center gap-2 flex-wrap">
-          <span className="text-sm font-semibold text-foreground tracking-tight">
-            {source}
-          </span>
-          <span className="text-muted-foreground text-xs">→</span>
-          <span className="text-sm font-semibold text-primary tracking-tight">
-            {target}
-          </span>
-        </div>
-      </div>
-    </div>
-    <p className="text-xs md:text-sm text-foreground/75 leading-relaxed">
-      {description}
-    </p>
-  </div>
-);
-
-const FlowStep = ({
-  n,
-  icon: Icon,
-  title,
-  text,
-  last,
-}: {
-  n: number;
-  icon: typeof PencilLine;
-  title: string;
-  text: string;
-  last?: boolean;
-}) => (
-  <li className="relative flex gap-4 md:gap-5">
-    <div className="relative flex flex-col items-center shrink-0">
-      <div className="size-10 md:size-11 rounded-xl bg-primary text-primary-foreground flex items-center justify-center font-bold text-sm tabular shadow-card">
-        {n.toString().padStart(2, "0")}
-      </div>
-      {!last && (
-        <div className="absolute top-10 md:top-11 bottom-[-1.25rem] w-px bg-border" />
-      )}
-    </div>
-    <div className="flex-1 min-w-0 pb-1">
-      <div className="flex items-center gap-2 mb-1">
-        <Icon className="size-4 text-primary" />
-        <h4 className="text-sm md:text-base font-semibold tracking-tight text-foreground">
-          {title}
-        </h4>
-      </div>
-      <p className="text-sm text-foreground/75 leading-relaxed text-pretty">{text}</p>
-    </div>
-  </li>
-);
-
-const StakeholderCard = ({
-  icon: Icon,
-  role,
-  text,
-}: {
-  icon: typeof GraduationCap;
-  role: string;
-  text: string;
-}) => (
-  <div className="rounded-2xl border border-border bg-card p-6 hover:border-primary/30 hover:shadow-card transition-smooth flex flex-col">
-    <div className="flex items-center gap-3 mb-3">
-      <div className="size-10 rounded-xl bg-primary-subtle text-primary flex items-center justify-center shrink-0">
-        <Icon className="size-5" />
-      </div>
-      <div className="text-base md:text-lg font-semibold tracking-tight text-foreground">
-        {role}
-      </div>
-    </div>
-    <p className="text-sm text-foreground/75 leading-relaxed text-pretty">{text}</p>
-  </div>
-);
-
-const LabTrack = ({
-  index,
-  icon: Icon,
-  title,
-  text,
-}: {
-  index: string;
-  icon: typeof Mic;
-  title: string;
-  text: string;
-}) => (
-  <div className="rounded-2xl border border-border bg-background p-6 hover:border-primary/30 hover:shadow-elevated transition-smooth flex flex-col">
-    <div className="flex items-start justify-between mb-4">
-      <div className="size-11 rounded-xl bg-primary text-primary-foreground flex items-center justify-center">
-        <Icon className="size-5" />
-      </div>
-      <span className="text-[11px] font-bold tabular tracking-[0.2em] text-muted-foreground/70">
-        {index}
-      </span>
-    </div>
-    <h3 className="text-base md:text-lg font-semibold tracking-tight text-foreground mb-2 text-balance">
-      {title}
-    </h3>
-    <p className="text-sm text-foreground/75 leading-relaxed text-pretty">{text}</p>
-  </div>
-);
-
-const DesignCard = ({
-  icon: Icon,
-  eyebrow,
-  title,
-  items,
-}: {
-  icon: typeof Map;
-  eyebrow: string;
-  title: string;
-  items: string[];
-}) => (
-  <div className="rounded-2xl border border-border bg-muted/20 p-5 flex flex-col">
+const LangExample = ({ icon: Icon, title, items }: { icon: React.ComponentType<{ className?: string }>; title: string; items: string[] }) => (
+  <div className="rounded-xl border border-border bg-muted/20 p-5">
     <div className="flex items-center gap-2.5 mb-3">
-      <div className="size-9 rounded-lg bg-primary/10 text-primary flex items-center justify-center">
+      <div className="size-9 rounded-lg bg-primary text-primary-foreground flex items-center justify-center">
         <Icon className="size-4" />
       </div>
-      <div className="text-[10px] font-bold tracking-[0.22em] uppercase text-primary">
-        {eyebrow}
-      </div>
+      <div className="text-base font-semibold tracking-tight">{title}</div>
     </div>
-    <div className="text-base font-semibold tracking-tight mb-3">{title}</div>
-    <ul className="space-y-1.5 text-sm text-foreground/80 leading-relaxed">
+    <ul className="space-y-1.5">
       {items.map((it) => (
-        <li key={it} className="flex items-start gap-2">
+        <li key={it} className="flex items-start gap-2 text-sm text-foreground/85">
           <CheckCircle2 className="size-3.5 text-primary mt-1 shrink-0" />
-          <span>{it}</span>
+          <span className="leading-snug">{it}</span>
         </li>
       ))}
     </ul>
-  </div>
-);
-
-const Metric = ({
-  icon: Icon,
-  label,
-  target,
-  hint,
-}: {
-  icon: typeof Map;
-  label: string;
-  target: string;
-  hint: string;
-}) => (
-  <div className="rounded-2xl border border-border bg-muted/20 p-5">
-    <div className="flex items-center gap-2 mb-3">
-      <div className="size-8 rounded-lg bg-primary/10 text-primary flex items-center justify-center">
-        <Icon className="size-4" />
-      </div>
-      <div className="text-[10px] font-bold tracking-[0.22em] uppercase text-muted-foreground">
-        Mõõdik
-      </div>
-    </div>
-    <div className="text-3xl font-semibold tabular tracking-tighter text-primary leading-none">
-      {target}
-    </div>
-    <div className="mt-2 text-sm font-semibold tracking-tight text-foreground">
-      {label}
-    </div>
-    <p className="mt-1 text-xs text-muted-foreground leading-relaxed">{hint}</p>
   </div>
 );
 
