@@ -8,9 +8,11 @@ interface Step {
 
 const STEPS: Step[] = [
   { id: 1, label: "Õppija sisend", short: "Päris elu" },
-  { id: 2, label: "Partneri kinnitus", short: "Tõendus" },
+  { id: 2, label: "Kooliandmed", short: "eKool / Stuudium" },
   { id: 3, label: "AI eelanalüüs", short: "Seos" },
-  { id: 4, label: "Õpetaja otsus ja mõju", short: "Inimene" },
+  { id: 4, label: "Õpetaja otsus", short: "Inimene" },
+  { id: 5, label: "Selgitus perele", short: "Arusaadav" },
+  { id: 6, label: "Koolijuhi vaade", short: "Mustrid" },
 ];
 
 interface StepIndicatorProps {
@@ -48,7 +50,7 @@ export const StepIndicator = ({ current }: StepIndicatorProps) => {
                     <div className="absolute inset-0 rounded-full bg-primary/30 animate-ping" />
                   )}
                 </div>
-                <div className="min-w-0 hidden sm:block">
+                <div className="min-w-0 hidden lg:block">
                   <div
                     className={`text-sm font-semibold truncate transition-smooth tracking-tight ${
                       isActive
@@ -70,7 +72,7 @@ export const StepIndicator = ({ current }: StepIndicatorProps) => {
                 </div>
               </div>
               {idx < STEPS.length - 1 && (
-                <div className="flex-1 h-px mx-3 sm:mx-5 bg-border relative overflow-hidden">
+                <div className="flex-1 h-px mx-3 sm:mx-4 bg-border relative overflow-hidden">
                   <div
                     className={`absolute inset-y-0 left-0 bg-primary transition-spring ${
                       isFuture ? "w-0" : "w-full"
