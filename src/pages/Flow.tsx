@@ -596,7 +596,7 @@ const Step3 = ({
 };
 
 /* === Step 4: Mõju === */
-const Step4 = ({ decision }: { decision: "full" | "partial" | "more" | null }) => {
+const Step4 = ({ decision, subjects }: { decision: "full" | "partial" | "more" | null; subjects: Subject[] }) => {
   const summary =
     decision === "full"
       ? { t: "Täielik arvestamine", c: C.green, msg: "Õpetaja kinnitas tõendite alusel." }
@@ -605,6 +605,15 @@ const Step4 = ({ decision }: { decision: "full" | "partial" | "more" | null }) =
       : decision === "more"
       ? { t: "Vajab lisatõendit", c: C.orange, msg: "Pere täiendab tõendit, otsus tuleb hiljem." }
       : { t: "Otsus tegemata", c: "#9CA3AF", msg: "Mine tagasi ja vali variant." };
+
+  const familyLetter =
+    decision === "full"
+      ? "Tere! Tõendid (treeneri kinnitus, treeningmaht, võistlused, eestikeelne keskkond) on piisavad. Arvestasime Nikita jalgpallitreeningut kehalise kasvatuse õpitulemuste 'regulaarne liikumine' ja 'vastupidavus' täitmisel. Nikita ei pea neis osades kooli kehalise kasvatuse tunnis täiendavalt tõendama."
+      : decision === "partial"
+      ? "Tere! Arvestasime Nikita jalgpallitreeningut kehalise kasvatuse osas (regulaarne liikumine, vastupidavus). Eesti keele osas jääb treening toetavaks tõendiks, kuid ei asenda hindamist. Palume Nikitalt lühikest eneseanalüüsi (5–7 lauset) järgmise nädala lõpuks."
+      : decision === "more"
+      ? "Tere! Tõendid on head, kuid otsuse tegemiseks vajame veel: (1) Nikita lühieneseanalüüs (5–7 lauset), (2) lühivestlus klassijuhatajaga. Pärast nende lisamist teeb õpetaja lõppotsuse 5 tööpäeva jooksul."
+      : "";
 
   return (
     <div>
