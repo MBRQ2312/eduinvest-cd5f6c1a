@@ -253,22 +253,22 @@ const Index = () => {
               Mida iga osapool saab
             </h2>
           </div>
-          <div className="grid md:grid-cols-3 gap-4 md:gap-6">
+          <div className="grid md:grid-cols-3 gap-3">
             {[
               {
-                icon: <Users className="size-5" />,
+                icon: <Users className="size-[18px]" strokeWidth={1.75} />,
                 title: "Perele",
                 text: "Selge, mida kool vajab ja miks otsus selline tuli.",
                 tone: "primary",
               },
               {
-                icon: <GraduationCap className="size-5" />,
+                icon: <GraduationCap className="size-[18px]" strokeWidth={1.75} />,
                 title: "Õpetajale",
                 text: "Tõendid ja võimalikud õppekava seosed on enne otsust koondatud.",
                 tone: "accent",
               },
               {
-                icon: <Building2 className="size-5" />,
+                icon: <Building2 className="size-[18px]" strokeWidth={1.75} />,
                 title: "Koolijuhile",
                 text: "Korduvad juhtumid muutuvad nähtavaks ja ühtseks praktikaks.",
                 tone: "success",
@@ -283,13 +283,13 @@ const Index = () => {
               return (
                 <div
                   key={c.title}
-                  className="rounded-[20px] bg-card border-2 border-border-strong p-6 md:p-7 shadow-card hover:shadow-elevated transition-smooth"
+                  className="rounded-2xl bg-card border border-border p-5 hover:shadow-card hover:border-primary/40 transition-smooth"
                 >
-                  <div className={`size-11 rounded-xl ${bg} flex items-center justify-center mb-5`}>
+                  <div className={`size-9 rounded-lg ${bg} flex items-center justify-center mb-4`}>
                     {c.icon}
                   </div>
-                  <h3 className="text-lg font-semibold tracking-tight mb-2">{c.title}</h3>
-                  <p className="text-[15px] text-foreground/70 leading-relaxed">{c.text}</p>
+                  <h3 className="text-[17px] font-semibold tracking-tight mb-1.5">{c.title}</h3>
+                  <p className="text-[13px] text-muted-foreground leading-relaxed">{c.text}</p>
                 </div>
               );
             })}
