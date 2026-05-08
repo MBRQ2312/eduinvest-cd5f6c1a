@@ -217,15 +217,6 @@ const Index = () => {
                   <ArrowDown className="size-4 ml-1 rotate-[-90deg]" />
                 </Link>
               </Button>
-              <Button
-                size="lg"
-                variant="outline"
-                onClick={scrollToTimeline}
-                className="rounded-xl"
-              >
-                Vaata täisotsustusvoogu
-                <ArrowDown className="size-4 ml-1" />
-              </Button>
             </div>
           </div>
 
@@ -340,86 +331,6 @@ const Index = () => {
           </div>
         </section>
 
-        {/* VERTIKAALNE OTSUSTUSVOOG */}
-        <section ref={timelineRef} className="border-b border-border scroll-mt-20">
-          <div className="max-w-[1180px] mx-auto px-4 sm:px-6 md:px-8 py-16 md:py-24">
-          <div className="max-w-2xl mb-10 md:mb-14">
-            <h2 className="text-[28px] md:text-[40px] font-semibold tracking-tight leading-[1.1]">
-              Üks otsustusvoog lõpuni
-            </h2>
-            <p className="mt-3 text-base md:text-lg text-foreground/70">
-              Taotlusest kooli põhjendatud otsuseni.
-            </p>
-          </div>
-
-          <ol className="relative max-w-3xl">
-            {/* vertical line */}
-            <span
-              className="absolute left-[22px] md:left-[28px] top-2 bottom-2 w-px bg-border-strong"
-              aria-hidden="true"
-            />
-            {FLOW.map((s, idx) => {
-              const stepNum = (idx + 1) as Step;
-              const isActive = step === stepNum;
-              const dot =
-                s.tone === "ai"
-                  ? "bg-accent text-accent-foreground"
-                  : s.tone === "decision"
-                  ? "bg-success text-success-foreground"
-                  : "bg-primary text-primary-foreground";
-              const ring =
-                s.tone === "ai"
-                  ? "ring-accent/20"
-                  : s.tone === "decision"
-                  ? "ring-success/20"
-                  : "ring-primary/20";
-              return (
-                <li key={s.n} className="relative pl-14 md:pl-20 pb-6 last:pb-0">
-                  <span
-                    className={`absolute left-0 top-1 size-11 md:size-14 rounded-full ${dot} ring-8 ${ring} bg-background flex items-center justify-center`}
-                  >
-                    <span className={`size-7 md:size-8 rounded-full ${dot} flex items-center justify-center`}>
-                      {s.icon}
-                    </span>
-                  </span>
-                  <button
-                    type="button"
-                    onClick={() => setStep(isActive ? 0 : stepNum)}
-                    aria-expanded={isActive}
-                    className={`w-full text-left rounded-[20px] bg-card border-2 ${isActive ? "border-primary shadow-elevated" : "border-border-strong shadow-card"} p-5 md:p-6 transition-smooth hover:border-primary`}
-                  >
-                    <div className="flex items-center gap-3 mb-1.5">
-                      <span className="text-xs font-semibold tracking-widest text-muted-foreground tabular">
-                        {s.n}
-                      </span>
-                      <h3 className="text-[17px] md:text-lg font-semibold tracking-tight flex-1 break-words">
-                        {s.title}
-                      </h3>
-                      <ChevronDown
-                        className={`size-4 text-muted-foreground transition-transform shrink-0 ${isActive ? "rotate-180" : ""}`}
-                      />
-                    </div>
-                    <p className="text-[14.5px] md:text-[15px] text-foreground/75 leading-relaxed break-words">
-                      {s.text}
-                    </p>
-                  </button>
-
-                  {isActive && (
-                    <div ref={flowRef} className="mt-4 scroll-mt-24">
-                      {stepNum === 1 && <ApplicationStep onNext={() => go(2)} />}
-                      {stepNum === 2 && <SchoolMappingStep onBack={() => go(1)} onNext={() => go(3)} />}
-                      {stepNum === 3 && <EvidenceStep onBack={() => go(2)} onNext={() => go(4)} />}
-                      {stepNum === 4 && <AiAnalysisStep onBack={() => go(3)} onNext={() => go(5)} />}
-                      {stepNum === 5 && <DecisionStep onBack={() => go(4)} onNext={() => go(6)} />}
-                      {stepNum === 6 && <ExplanationStep onBack={() => go(5)} onRestart={() => go(1)} />}
-                    </div>
-                  )}
-                </li>
-              );
-            })}
-          </ol>
-          </div>
-        </section>
 
         {/* VÄÄRTUSKAARDID */}
         <section className="section-alt border-b border-border">
