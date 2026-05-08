@@ -148,8 +148,6 @@ const Index = () => {
 
   const scrollToTimeline = () =>
     timelineRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
-  const scrollToFlow = () =>
-    flowRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
 
   const go = (s: number) => {
     setStep(s as Step);
