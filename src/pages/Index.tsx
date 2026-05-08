@@ -177,34 +177,37 @@ const Index = () => {
         </div>
       </header>
 
-      <main className="max-w-[1180px] mx-auto px-5 md:px-8 py-12 md:py-20 relative">
+      <main className="max-w-[1180px] mx-auto px-4 sm:px-6 md:px-8 py-12 md:py-20 relative">
         {/* HERO */}
-        <section className="grid md:grid-cols-2 gap-10 md:gap-14 items-center mb-20 md:mb-32">
-          <div className="break-words">
+        <section className="grid md:grid-cols-2 gap-10 md:gap-14 items-center mb-20 md:mb-28">
+          <div className="break-words min-w-0">
             <div className="text-[11px] font-semibold tracking-[0.22em] uppercase text-primary mb-5">
-              EduInvest LearnOnce
+              Prototüüp
             </div>
-            <h1 className="text-[38px] leading-[1.08] md:text-[48px] lg:text-[58px] font-semibold tracking-tight text-foreground">
-              Kooliväline õppimine{" "}
-              <span className="text-primary">kooli vaatesse</span>
+            <h1 className="text-[34px] leading-[1.08] sm:text-[42px] md:text-[52px] lg:text-[60px] font-semibold tracking-tight text-foreground break-words">
+              EduInvest <span className="text-primary">LearnOnce</span>
             </h1>
-            <p className="mt-5 md:mt-6 text-lg md:text-xl text-foreground/80 leading-snug font-normal">
-              Õpi üks kord. Tõenda selgelt. Kool otsustab.
-            </p>
-            <p className="mt-5 md:mt-6 text-[15px] md:text-base text-foreground/70 leading-relaxed max-w-xl">
-              LearnOnce aitab koolil näha, milline õppimine on juba toimunud, millised tõendid
-              on olemas ja milliseid õppekava seoseid õpetaja saab kontrollida.
+            <p className="mt-5 text-lg md:text-xl text-foreground/80 leading-snug">
+              Kooliväline õppimine kooli vaatesse.
             </p>
 
-            <div className="mt-7 inline-flex items-start gap-3 rounded-2xl border border-border/70 bg-card px-4 py-3 max-w-xl">
-              <ShieldCheck className="size-4 text-primary mt-0.5 shrink-0" />
-              <p className="text-[13px] text-foreground/75 leading-relaxed">
-                AI ei otsusta, ei anna hinnet ega vabasta tunnist. AI teeb eelanalüüsi.
-                Otsuse teeb kool.
-              </p>
+            <div className="mt-6 flex flex-wrap gap-2">
+              {["Õpi üks kord.", "Tõenda selgelt.", "Kool otsustab."].map((t) => (
+                <span
+                  key={t}
+                  className="inline-flex items-center px-3.5 py-1.5 rounded-full bg-card border border-border/70 text-[13px] font-medium text-foreground/85"
+                >
+                  {t}
+                </span>
+              ))}
             </div>
 
-            <div className="mt-8 flex flex-wrap gap-3">
+            <p className="mt-6 text-[15px] md:text-base text-foreground/70 leading-relaxed max-w-xl">
+              AI ei otsusta, ei anna hinnet ega vabasta tunnist. AI aitab tõendid ja
+              õppekava seosed õpetajale nähtavaks teha.
+            </p>
+
+            <div className="mt-7 flex flex-wrap gap-3">
               <Button
                 size="lg"
                 onClick={scrollToTimeline}
@@ -221,8 +224,47 @@ const Index = () => {
           </div>
         </section>
 
+        {/* ROLLIVÄRAV */}
+        <section className="mb-20 md:mb-28">
+          <div className="text-[11px] font-semibold tracking-[0.22em] uppercase text-muted-foreground mb-5">
+            Vali, kes sa oled
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
+            {[
+              { to: "/perele", icon: <Users className="size-5" />, name: "Lapsevanem", desc: "Algatan taotluse", tone: "primary" as const },
+              { to: "/treener", icon: <Trophy className="size-5" />, name: "Treener", desc: "Kinnitan tõendid", tone: "accent" as const },
+              { to: "/opetaja", icon: <GraduationCap className="size-5" />, name: "Õpetaja", desc: "Teen otsuse", tone: "success" as const },
+              { to: "/juht", icon: <Building2 className="size-5" />, name: "Koolijuht", desc: "Näen mustreid", tone: "primary" as const },
+            ].map((r) => {
+              const bg =
+                r.tone === "accent"
+                  ? "bg-accent-subtle text-accent"
+                  : r.tone === "success"
+                  ? "bg-success-subtle text-success"
+                  : "bg-primary-subtle text-primary";
+              return (
+                <Link
+                  key={r.to}
+                  to={r.to}
+                  className="group rounded-[18px] border border-border/60 bg-card p-5 hover:border-primary/40 hover:shadow-sm transition-smooth flex flex-col gap-3 min-w-0"
+                >
+                  <div className={`size-10 rounded-xl ${bg} flex items-center justify-center`}>
+                    {r.icon}
+                  </div>
+                  <div className="text-[15px] font-semibold tracking-tight group-hover:text-primary transition-smooth break-words">
+                    {r.name}
+                  </div>
+                  <div className="text-[13px] text-muted-foreground leading-relaxed break-words">
+                    {r.desc}
+                  </div>
+                </Link>
+              );
+            })}
+          </div>
+        </section>
+
         {/* VERTIKAALNE OTSUSTUSVOOG */}
-        <section ref={timelineRef} className="mb-24 md:mb-32">
+        <section ref={timelineRef} className="mb-24 md:mb-32 scroll-mt-20">
           <div className="max-w-2xl mb-10 md:mb-14">
             <h2 className="text-[28px] md:text-[40px] font-semibold tracking-tight leading-[1.1]">
               Üks otsustusvoog lõpuni
@@ -238,7 +280,9 @@ const Index = () => {
               className="absolute left-[22px] md:left-[28px] top-2 bottom-2 w-px bg-border"
               aria-hidden="true"
             />
-            {FLOW.map((s) => {
+            {FLOW.map((s, idx) => {
+              const stepNum = (idx + 1) as Step;
+              const isActive = step === stepNum;
               const dot =
                 s.tone === "ai"
                   ? "bg-accent text-accent-foreground"
@@ -252,7 +296,7 @@ const Index = () => {
                   ? "ring-success/20"
                   : "ring-primary/20";
               return (
-                <li key={s.n} className="relative pl-14 md:pl-20 pb-8 last:pb-0">
+                <li key={s.n} className="relative pl-14 md:pl-20 pb-6 last:pb-0">
                   <span
                     className={`absolute left-0 top-1 size-11 md:size-14 rounded-full ${dot} ring-8 ${ring} bg-background flex items-center justify-center`}
                   >
@@ -260,19 +304,38 @@ const Index = () => {
                       {s.icon}
                     </span>
                   </span>
-                  <div className="rounded-[20px] bg-card border border-border/60 shadow-sm p-5 md:p-6">
+                  <button
+                    type="button"
+                    onClick={() => setStep(isActive ? (0 as unknown as Step) : stepNum)}
+                    aria-expanded={isActive}
+                    className={`w-full text-left rounded-[20px] bg-card border ${isActive ? "border-primary/40 shadow-sm" : "border-border/60"} p-5 md:p-6 transition-smooth hover:border-primary/30`}
+                  >
                     <div className="flex items-center gap-3 mb-1.5">
                       <span className="text-xs font-semibold tracking-widest text-muted-foreground tabular">
                         {s.n}
                       </span>
-                      <h3 className="text-[17px] md:text-lg font-semibold tracking-tight">
+                      <h3 className="text-[17px] md:text-lg font-semibold tracking-tight flex-1 break-words">
                         {s.title}
                       </h3>
+                      <ChevronDown
+                        className={`size-4 text-muted-foreground transition-transform shrink-0 ${isActive ? "rotate-180" : ""}`}
+                      />
                     </div>
-                    <p className="text-[14.5px] md:text-[15px] text-foreground/75 leading-relaxed">
+                    <p className="text-[14.5px] md:text-[15px] text-foreground/75 leading-relaxed break-words">
                       {s.text}
                     </p>
-                  </div>
+                  </button>
+
+                  {isActive && (
+                    <div ref={flowRef} className="mt-4 scroll-mt-24">
+                      {stepNum === 1 && <ApplicationStep onNext={() => go(2)} />}
+                      {stepNum === 2 && <SchoolMappingStep onBack={() => go(1)} onNext={() => go(3)} />}
+                      {stepNum === 3 && <EvidenceStep onBack={() => go(2)} onNext={() => go(4)} />}
+                      {stepNum === 4 && <AiAnalysisStep onBack={() => go(3)} onNext={() => go(5)} />}
+                      {stepNum === 5 && <DecisionStep onBack={() => go(4)} onNext={() => go(6)} />}
+                      {stepNum === 6 && <ExplanationStep onBack={() => go(5)} onRestart={() => go(1)} />}
+                    </div>
+                  )}
                 </li>
               );
             })}
@@ -327,64 +390,6 @@ const Index = () => {
               );
             })}
           </div>
-        </section>
-
-        {/* DEMO CTA */}
-        <section className="mb-24 md:mb-32">
-          <div className="rounded-[24px] bg-foreground text-background p-7 md:p-12 relative overflow-hidden">
-            <div
-              className="absolute -top-16 -right-16 size-64 rounded-full bg-accent/15 blur-2xl pointer-events-none"
-              aria-hidden="true"
-            />
-            <div className="absolute bottom-0 right-1/3 size-40 rounded-full bg-primary/20 blur-2xl pointer-events-none" aria-hidden="true" />
-            <div className="relative max-w-2xl">
-              <div className="text-[11px] font-semibold tracking-[0.22em] uppercase text-background/60 mb-4">
-                Näidisjuhtum
-              </div>
-              <h2 className="text-[28px] md:text-[40px] font-semibold tracking-tight leading-[1.1]">
-                Vaata Nikita juhtumit
-              </h2>
-              <p className="mt-4 text-[15px] md:text-base text-background/75 leading-relaxed">
-                8. klassi õppija käib kolm korda nädalas eestikeelses jalgpallitrennis.
-                Kool hindab, kas osa sellest saab arvestada kehalises kasvatuses ja eesti keele
-                praktilise kasutuse toetava tõendina.
-              </p>
-              <Button
-                size="lg"
-                onClick={scrollToFlow}
-                className="mt-7 bg-background text-foreground hover:bg-background/90 h-12 px-6 text-[15px] rounded-xl"
-              >
-                Käivita 6-sammuline demo
-                <ArrowRight className="size-4 ml-1" />
-              </Button>
-            </div>
-          </div>
-        </section>
-
-        {/* Rollivärav */}
-        <section className="mb-20 md:mb-28">
-          <div className="text-[11px] font-semibold tracking-[0.22em] uppercase text-muted-foreground mb-5">
-            Vali, kes sa oled
-          </div>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
-            <RoleCard to="/perele" emoji="👨‍👩‍👧" name="Lapsevanem" desc="Algatan taotluse" />
-            <RoleCard to="/treener" emoji="🏃" name="Treener" desc="Kinnitan tõendid" />
-            <RoleCard to="/opetaja" emoji="👩‍🏫" name="Õpetaja" desc="Teen otsuse" />
-            <RoleCard to="/juht" emoji="🏫" name="Koolijuht" desc="Näen mustreid" />
-          </div>
-        </section>
-
-        {/* Demo flow */}
-        <section ref={flowRef} className="mb-6">
-          <ProcessBar current={step} onJump={go} />
-        </section>
-        <section className="mb-20">
-          {step === 1 && <ApplicationStep onNext={() => go(2)} />}
-          {step === 2 && <SchoolMappingStep onBack={() => go(1)} onNext={() => go(3)} />}
-          {step === 3 && <EvidenceStep onBack={() => go(2)} onNext={() => go(4)} />}
-          {step === 4 && <AiAnalysisStep onBack={() => go(3)} onNext={() => go(5)} />}
-          {step === 5 && <DecisionStep onBack={() => go(4)} onNext={() => go(6)} />}
-          {step === 6 && <ExplanationStep onBack={() => go(5)} onRestart={() => go(1)} />}
         </section>
 
         {/* Loe lähemalt */}
