@@ -101,7 +101,7 @@ const Slide1 = () => (
     <Eyebrow>Prototüüp · EduInvest LearnOnce</Eyebrow>
     <Title>Kooliväline õppimine kooli vaatesse</Title>
     <Lead>
-      AI teeb eeltöö. Õpetaja otsustab. Pere saab selgituse. Koolijuht näeb mustreid.
+      Tõendid kokku. Seosed nähtavaks. Otsus koolile.
     </Lead>
 
     <div className="mt-8 flex flex-wrap gap-2.5">
@@ -114,7 +114,7 @@ const Slide1 = () => (
       style={{ background: C.subtle, borderLeft: `4px solid ${C.teal}` }}>
       <ShieldCheck className="size-5 mt-0.5 shrink-0" style={{ color: C.teal }} />
       <p className="text-sm sm:text-base" style={{ color: C.text }}>
-        AI ei anna hinnet, ei vabasta tunnist ega tee lõppotsust.
+        Kool ei vaja veel üht vormi. Kool vajab juhtimisinfot. AI teeb eeltöö. Kool otsustab.
       </p>
     </div>
   </SlideShell>
