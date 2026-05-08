@@ -385,32 +385,25 @@ const Metric = ({ v, l }: { v: string; l: string }) => (
 
 const Slide8 = () => (
   <SlideShell>
-    <Eyebrow>Testgrupp ja valideerimine</Eyebrow>
+    <Eyebrow>Valideerisime sihtgrupiga</Eyebrow>
     <Title>Me ei testinud ainult ideed. Testisime prototüüpi.</Title>
 
     <div className="mt-6 grid grid-cols-2 sm:grid-cols-5 gap-3">
-      <Metric v="49" l="külastajat" />
-      <Metric v="138" l="lehevaatamist" />
-      <Metric v="2.82" l="vaadet / külastus" />
-      <Metric v="2:19" l="keskmine külastus" />
-      <Metric v="69%" l="mobiilist" />
+      <Metric v="69" l="külastajat" />
+      <Metric v="320" l="lehevaatamist" />
+      <Metric v="4.64" l="vaadet / külastus" />
+      <Metric v="3 min 2 s" l="keskmine külastus" />
+      <Metric v="69.6%" l="mobiilist" />
     </div>
 
-    <div className="mt-5 grid md:grid-cols-2 gap-4">
+    <div className="mt-5">
       <Card bg={`${C.teal}0D`} border={`${C.teal}40`}>
-        <Eyebrow color={C.teal}>Õpilased</Eyebrow>
-        <ul className="text-sm space-y-1.5" style={{ color: C.text }}>
-          <li>• Pelgulinna Riigigümnaasiumi 10. klass</li>
-          <li>• Tallinna Kuristiku Gümnaasiumi 8. klass</li>
-          <li>• Pärnu Mai Kooli 8.c pilootgrupp</li>
-        </ul>
-      </Card>
-      <Card bg={`${C.green}0D`} border={`${C.green}40`}>
-        <Eyebrow color={C.green}>Koolijuhid ja haridusjuhid</Eyebrow>
-        <ul className="text-sm space-y-1.5" style={{ color: C.text }}>
-          <li>• Alustava koolijuhi arenguprogrammi XI lend 2025</li>
-          <li>• Koolijuhtide ja haridusjuhtide tagasiside</li>
-        </ul>
+        <Eyebrow color={C.teal}>Koolijuhid ja nende tiimiliikmed</Eyebrow>
+        <p className="text-sm sm:text-base leading-relaxed" style={{ color: C.text }}>
+          Prototüüpi jagati koolijuhtidele ja nende tiimiliikmetele eri koolitüüpidest:
+          põhikoolid, gümnaasiumid, riigigümnaasium, erakoolid, väiksemad piirkonnakoolid,
+          huvikoolid, kunsti- ja muusikakoolid.
+        </p>
       </Card>
     </div>
 
@@ -420,19 +413,19 @@ const Slide8 = () => (
         <ul className="text-xs sm:text-sm space-y-1.5" style={{ color: C.text }}>
           <li>• Kas probleem on päris?</li>
           <li>• Kas töövoog on arusaadav?</li>
-          <li>• Kelle lauale selline juhtum koolis jõuaks?</li>
-          <li>• Milliseid tõendeid oleks vaja?</li>
-          <li>• Kas seda võiks testida ühe klassi ja ühe ainega?</li>
+          <li>• Kas see lihtsustaks kooli tööd?</li>
+          <li>• Kas see looks uut väärtust?</li>
+          <li>• Kas kool või koolipidaja kaaluks kasutamist või ostmist?</li>
         </ul>
       </Card>
       <Card bg={`${C.lime}20`} border={`${C.lime}80`}>
         <Eyebrow color={C.green}>Mida teada saime?</Eyebrow>
         <ul className="text-xs sm:text-sm space-y-1.5" style={{ color: C.text }}>
-          <li>• töövoog peab olema lihtne ja mobiilis loetav;</li>
-          <li>• rollid peavad olema selged;</li>
-          <li>• kool: vastutus, tõendite piisavus, põhjendatud otsus;</li>
-          <li>• treener kinnitab tegevust, mitte õpitulemusi;</li>
-          <li>• AI peab olema kontrollitav eelanalüüs.</li>
+          <li>• Koolijuht vajab juhtimisinfot;</li>
+          <li>• Töövoog peab vähendama bürokraatiat;</li>
+          <li>• AI peab jääma eelanalüüsiks;</li>
+          <li>• Otsus peab jääma koolile;</li>
+          <li>• Riskid tuleb nähtavaks teha.</li>
         </ul>
       </Card>
     </div>
