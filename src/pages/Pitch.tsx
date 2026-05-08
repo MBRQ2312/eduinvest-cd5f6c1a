@@ -405,6 +405,20 @@ export default function Pitch() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, [i]);
 
+  const touchStartX = useRef<number | null>(null);
+  const onTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.changedTouches[0].screenX;
+  };
+  const onTouchEnd = (e: React.TouchEvent) => {
+    if (touchStartX.current === null) return;
+    const endX = e.changedTouches[0].screenX;
+    const diff = touchStartX.current - endX;
+    const threshold = 50;
+    if (diff > threshold) next();
+    else if (diff < -threshold) prev();
+    touchStartX.current = null;
+  };
+
   const Current = SLIDES[i];
 
   return (
