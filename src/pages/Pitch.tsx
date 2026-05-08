@@ -1007,20 +1007,313 @@ const SlideRisks = () => (
   </SlideShell>
 );
 
-/* === 12-slaidiline järjekord === */
+/* === Uued slaidid Luukase tagasiside põhjal === */
+
+/* Mida koolijuht tegelikult ostab? */
+const SlidePrincipalValue = () => {
+  const items = [
+    { i: <Layers />, t: "Korduvad mustrid", d: "Millistes klassides, ainetes ja huvikoolides tekib arvestamise potentsiaal?" },
+    { i: <CalendarRange />, t: "Tunniplaani õhk", d: "Kuidas järgmise perioodi tunniplaani paremini planeerida?" },
+    { i: <GraduationCap />, t: "Õpetaja tööaja suunamine", d: "Vabasta õpetaja aega põhiainetele, tugitegevustele ja andekate toetamisele." },
+    { i: <FileCheck />, t: "Põhjendatud otsus perele", d: "Selge vastus: mida arvestati, mida mitte ja miks." },
+    { i: <Trophy />, t: "Huvihariduse väärtus koolile", d: "Tee nähtavaks õppimine, mis toimub juba väljaspool kooli." },
+  ];
+  return (
+    <SlideShell>
+      <Eyebrow color={C.green}>Väärtus enne töövoogu</Eyebrow>
+      <Title>Mida koolijuht tegelikult ostab?</Title>
+      <Lead>
+        Koolijuht ei osta taotlusvormi. Koolijuht ostab võimaluse näha, kus õppimine
+        dubleerub ja kus saab ressurssi targemalt kasutada.
+      </Lead>
+
+      <div className="mt-8 grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+        {items.map((c) => (
+          <Card key={c.t}>
+            <div className="size-10 rounded-full flex items-center justify-center mb-3"
+              style={{ background: `${C.teal}15`, color: C.teal }}>
+              {c.i}
+            </div>
+            <div className="font-semibold text-base sm:text-lg" style={{ color: C.text }}>{c.t}</div>
+            <p className="text-sm mt-2" style={{ color: "#4B5563" }}>{c.d}</p>
+          </Card>
+        ))}
+      </div>
+
+      <p className="mt-8 text-base sm:text-lg font-medium pl-4 border-l-4"
+        style={{ color: C.text, borderColor: C.lime }}>
+        Väärtus ei ole vähem klikke. Väärtus on parem otsus õppija aja, õpetaja
+        tööaja ja tunniplaani kohta.
+      </p>
+    </SlideShell>
+  );
+};
+
+/* Lahendus + kasutusjuhud */
+const SlideSolution = () => (
+  <SlideShell>
+    <Eyebrow color={C.teal}>Lahendus</Eyebrow>
+    <Title>Tõendid kokku. Seosed nähtavaks. Otsus koolile.</Title>
+    <Lead>
+      Üks otsustusvoog, mis töötab paljude koolivälise õppimise liikide jaoks.
+      Nikita demo on üks näide paljudest.
+    </Lead>
+
+    <div className="mt-8 grid md:grid-cols-2 gap-3">
+      {[
+        { from: "Spordikool / trenn", to: "Kehaline kasvatus" },
+        { from: "Muusikakool", to: "Muusika" },
+        { from: "Kunstikool", to: "Kunst" },
+        { from: "Robootikaring", to: "Tehnoloogia" },
+        { from: "Kosmosering", to: "Füüsika / loodusained" },
+        { from: "Eestikeelne trenn", to: "Eesti keele praktiline kasutus" },
+        { from: "Olümpiaadid / võistlused", to: "Ainepädevuste tõendamine" },
+        { from: "Vabatahtlik / projektid", to: "Sotsiaalsed pädevused" },
+      ].map((u) => (
+        <Card key={u.from} className="!p-4">
+          <div className="flex items-center gap-3">
+            <span className="text-sm font-semibold" style={{ color: C.text }}>{u.from}</span>
+            <ArrowRight className="size-3.5 shrink-0" style={{ color: C.teal }} />
+            <span className="text-sm" style={{ color: "#4B5563" }}>{u.to}</span>
+          </div>
+        </Card>
+      ))}
+    </div>
+
+    <Footnote color={C.orange}>
+      Nikita demo tõestab ühte otsustusvoogu lõpuni. Sama loogika töötab kõikides
+      eelpool toodud juhtudel.
+    </Footnote>
+  </SlideShell>
+);
+
+/* Koolijuhi vaade — peamine demo */
+const SlidePrincipalView = () => (
+  <SlideShell>
+    <Eyebrow>Koolijuhi vaade — peamine demo</Eyebrow>
+    <Title>Koolijuht näeb mustreid, mitte üksikuid taotlusi.</Title>
+
+    <div className="mt-6 grid md:grid-cols-2 gap-4">
+      <Card bg={C.subtle}>
+        <Eyebrow color={C.teal}>Mida koondvaade näitab</Eyebrow>
+        <ul className="text-sm space-y-1.5 mt-2" style={{ color: C.text }}>
+          <li>• taotlusi kokku ja voo seis;</li>
+          <li>• 12 sarnast taotlust, 3 korduvat ainet;</li>
+          <li>• korduvad huvikoolid;</li>
+          <li>• mitu vajab lisatõendit;</li>
+          <li>• mitu vajab õpetaja otsust;</li>
+          <li>• potentsiaalne õpetaja eeltöö aja võit;</li>
+          <li>• võimalik tunniplaani ümberkorraldus;</li>
+          <li>• KOV-i koondraport.</li>
+        </ul>
+      </Card>
+
+      <Card bg={`${C.lime}25`} border={`${C.lime}80`}>
+        <Eyebrow color={C.green}>Mida koolijuht saab teha</Eyebrow>
+        <ul className="text-sm space-y-1.5 mt-2" style={{ color: C.text }}>
+          <li>• näha korduvaid mustreid;</li>
+          <li>• planeerida järgmise perioodi tunniplaani;</li>
+          <li>• suunata õpetaja tööaega põhiainetele;</li>
+          <li>• luua kooli arvestamise hea tava;</li>
+          <li>• eksportida koondraport koolipidajale.</li>
+        </ul>
+      </Card>
+    </div>
+
+    <div className="mt-6 flex flex-wrap gap-2.5 justify-center">
+      <Button asChild size="lg" className="rounded-full"
+        style={{ background: C.teal, color: "white" }}>
+        <Link to="/juht"><Eye className="size-4" /> Ava koolijuhi koondvaade</Link>
+      </Button>
+    </div>
+
+    <p className="mt-6 text-base sm:text-lg font-medium pl-4 border-l-4"
+      style={{ color: C.text, borderColor: C.lime }}>
+      Kui koolijuhi vaade on tugev, siis saab tootest aru.
+    </p>
+  </SlideShell>
+);
+
+/* Kuidas raha päriselt realiseerub */
+const SlideRealize = () => (
+  <SlideShell>
+    <Eyebrow color={C.green}>Mõju realiseerimine</Eyebrow>
+    <Title>Kuidas ressursiekvivalent muutub kooli jaoks päris väärtuseks?</Title>
+    <Lead>
+      Raha ei realiseeru pangakontol. See realiseerub kooli töökorralduses.
+    </Lead>
+
+    <div className="mt-8 grid md:grid-cols-2 gap-3">
+      {[
+        { t: "Vähem dubleerivaid tunde", d: "Õpitulemus, mis on tõendatult saavutatud, ei vaja koolis kordamist." },
+        { t: "Paremini planeeritud valikained", d: "Korduvate ainete grupeerimine vabastab tunde valikainetele ja tugitegevustele." },
+        { t: "Õpetaja tööaja suunamine", d: "Eesti keelele, matemaatikale, reaalainetele, tugitegevustele ja andekate toetamisele." },
+        { t: "Väiksem käsitsi menetluse koormus", d: "AI eeltöö kahandab ühe otsuse ettevalmistust 25–40 minutilt 5–10 minutile." },
+        { t: "Parem otsus koolikorralduse kohta", d: "Milliseid õpetajaid, tunde ja valikaineid kool tegelikult vajab." },
+        { t: "Parem põhjendus koolipidajale", d: "Andmetel põhinev raport, mitte üksikute kaebuste kaupa selgitamine." },
+      ].map((x) => (
+        <Card key={x.t}>
+          <div className="font-semibold text-sm sm:text-base" style={{ color: C.text }}>{x.t}</div>
+          <p className="text-xs sm:text-sm mt-1.5" style={{ color: "#4B5563" }}>{x.d}</p>
+        </Card>
+      ))}
+    </div>
+
+    <div className="mt-6 rounded-2xl p-5 sm:p-6"
+      style={{ background: C.green, color: "white" }}>
+      <p className="text-base sm:text-xl font-medium leading-snug">
+        Kool ei maksa ainult tööriista eest.{" "}
+        <span style={{ color: C.lime }}>
+          Kool maksab selle eest, et näha, kus saab õpetajaressurssi ümber suunata.
+        </span>
+      </p>
+      <p className="mt-3 text-xs sm:text-sm opacity-90">
+        LearnOnce ei vähenda õpetaja väärtust. LearnOnce aitab kasutada õpetaja aega
+        seal, kus tema mõju on suurem.
+      </p>
+    </div>
+  </SlideShell>
+);
+
+/* Ärimudel — uuendatud, hinnastamise hüpoteesidega */
+const SlideBusinessModel = () => (
+  <SlideShell>
+    <Eyebrow color={C.purple}>Ärimudel</Eyebrow>
+    <Title>Kes maksab ja miks?</Title>
+
+    <div className="mt-8 grid md:grid-cols-3 gap-4">
+      <Card bg={`${C.teal}0D`} border={`${C.teal}40`}>
+        <Eyebrow color={C.teal}>1 · Kool / koolijuht</Eyebrow>
+        <p className="text-sm font-medium mb-2" style={{ color: C.text }}>Esimene klient</p>
+        <p className="text-xs sm:text-sm" style={{ color: "#4B5563" }}>
+          Maksab juhtimisinfo, töövoo ja koondvaate eest.
+        </p>
+      </Card>
+      <Card bg={`${C.green}0D`} border={`${C.green}40`}>
+        <Eyebrow color={C.green}>2 · KOV / koolipidaja</Eyebrow>
+        <p className="text-sm font-medium mb-2" style={{ color: C.text }}>Skaleerija</p>
+        <p className="text-xs sm:text-sm" style={{ color: "#4B5563" }}>
+          Võib osta mitmele koolile ühtse mudeli ja koondvaate.
+        </p>
+      </Card>
+      <Card bg={`${C.lime}25`} border={`${C.lime}80`}>
+        <Eyebrow color={C.green}>3 · Huvikool</Eyebrow>
+        <p className="text-sm font-medium mb-2" style={{ color: C.text }}>Teine kliendigrupp</p>
+        <p className="text-xs sm:text-sm" style={{ color: "#4B5563" }}>
+          Maksab kvaliteedimärgi või arvestatavuse profiili eest.
+        </p>
+      </Card>
+    </div>
+
+    <div className="mt-6">
+      <Eyebrow color={C.purple}>Hinnastamise hüpoteesid (valideerime järgmises etapis)</Eyebrow>
+      <div className="mt-2 grid sm:grid-cols-2 lg:grid-cols-5 gap-2.5">
+        {[
+          { t: "Koolipõhine SaaS", d: "Kuutasu kooli kohta." },
+          { t: "Õppijapõhine tasu", d: "Tasu juhtumi/õppija kohta." },
+          { t: "KOV-litsents", d: "Mitmele koolile korraga." },
+          { t: "Huvikooli kvaliteedimärk", d: "Aastatasu profiili eest." },
+          { t: "Integratsioonipartnerlus", d: "eKool / Stuudium / ARNO plugin." },
+        ].map((x) => (
+          <Card key={x.t} className="!p-3">
+            <div className="text-xs font-semibold" style={{ color: C.text }}>{x.t}</div>
+            <div className="text-[11px] mt-1" style={{ color: "#6B7280" }}>{x.d}</div>
+          </Card>
+        ))}
+      </div>
+    </div>
+
+    <div className="mt-5 rounded-xl p-3 text-xs sm:text-sm"
+      style={{ background: `${C.orange}15`, borderLeft: `3px solid ${C.orange}`, color: C.text }}>
+      <strong>Aus märkus:</strong> hinnastamist ja maksevalmidust valideerime järgmises etapis.
+      Häkil küsisime kasutus- ja ostuhuvi, mitte ei tõestanud veel turgu.
+    </div>
+  </SlideShell>
+);
+
+/* Mai → september 2026 teekaart */
+const SlideRoadmap = () => {
+  const months = [
+    {
+      m: "Mai 2026",
+      color: C.teal,
+      items: ["korrastame prototüübi", "valime 2 pilootasutust", "kaardistame andmekoosseisu", "täpsustame maksevalmiduse küsimused"],
+    },
+    {
+      m: "Juuni 2026",
+      color: C.green,
+      items: ["standardne tõendikaart", "andmekaitse ja vanema nõusolek", "huvikooli kvaliteedimärgi loogika", "koolijuhi dashboard mock-andmetega"],
+    },
+    {
+      m: "August 2026",
+      color: C.purple,
+      items: ["koolid valivad klassi/lennu", "õpetajad testivad AI eelanalüüsi", "huvikoolid lisavad õpiväljundid", "tehniline tee: SaaS / KOV / plugin"],
+    },
+    {
+      m: "September 2026",
+      color: C.lime,
+      items: ["piloot ≥ 2 haridusasutuses", "mõõdame menetlusaega", "mõõdame õpetaja eeltöö vähenemist", "valideerime maksevalmidust"],
+    },
+  ];
+  return (
+    <SlideShell>
+      <Eyebrow>Teekaart</Eyebrow>
+      <Title>Häkist piloodini: mai → september 2026.</Title>
+
+      <div className="mt-8 grid md:grid-cols-4 gap-3">
+        {months.map((mo) => (
+          <Card key={mo.m} className="!p-4">
+            <div className="inline-flex rounded-full px-3 py-1 text-xs font-semibold mb-3"
+              style={{ background: mo.color, color: mo.color === C.lime ? C.green : "white" }}>
+              {mo.m}
+            </div>
+            <ul className="text-xs sm:text-sm space-y-1.5" style={{ color: C.text }}>
+              {mo.items.map((it) => (
+                <li key={it}>• {it}</li>
+              ))}
+            </ul>
+          </Card>
+        ))}
+      </div>
+
+      <div className="mt-8 rounded-[20px] p-6 sm:p-8 text-center"
+        style={{ background: C.green, color: "white" }}>
+        <p className="text-lg sm:text-2xl font-medium leading-snug">
+          Me ei digitaliseeri vana bürokraatiat.<br />
+          Me loome koolile <span style={{ color: C.lime }}>otsustustoe</span>.
+        </p>
+        <p className="mt-3 text-sm opacity-90">
+          Kool ei vaja veel üht vormi. Kool vajab juhtimisinfot. AI teeb eeltöö. Kool otsustab.
+        </p>
+      </div>
+
+      <div className="mt-6 flex flex-wrap gap-3 justify-center">
+        <Button asChild size="lg" className="rounded-full"
+          style={{ background: C.teal, color: "white" }}>
+          <Link to="/juht"><Eye className="size-4" /> Vaata koolijuhi vaadet</Link>
+        </Button>
+        <Button asChild size="lg" variant="outline" className="rounded-full">
+          <Link to="/"><HomeIcon className="size-4" /> Avalehele</Link>
+        </Button>
+      </div>
+    </SlideShell>
+  );
+};
+
+/* === 12-slaidiline järjekord (Luukase tagasiside) === */
 const SLIDES = [
-  Slide1,        // 1 Ava
-  Slide2,        // 2 Miks nüüd?
-  SlideScale,    // 3 Eesti haridusruumi mõõtkava
-  Slide3,        // 4 Probleem
-  SlidePayers,   // 5 Kes maksab ja miks?
-  Slide4,        // 6 Demojuhtum
-  Slide5,        // 7 Lahendus
-  Slide6,        // 8 AI roll
-  Slide9,        // 9 Mida Eesti haridusruum võidab?
-  Slide8,        // 10 Valideerimine
-  SlideRisks,    // 11 Riskid ja ausus
-  Slide14,       // 12 Skaleerimine ja lõpp
+  Slide1,                // 1  Suur probleem (30 s)
+  Slide2,                // 2  Miks nüüd?
+  SlidePrincipalValue,   // 3  Mida koolijuht tegelikult ostab?
+  SlideSolution,         // 4  Lahendus + kasutusjuhud
+  Slide4,                // 5  Demojuhtum (Nikita — näide)
+  Slide6,                // 6  AI roll
+  SlidePrincipalView,    // 7  Koolijuhi vaade (peamine demo)
+  SlideRealize,          // 8  Kuidas raha realiseerub
+  Slide8,                // 9  Valideerimine
+  SlideBusinessModel,    // 10 Ärimudel — kes maksab?
+  SlideRisks,            // 11 Riskid ja tehniline ausus
+  SlideRoadmap,          // 12 Mai → september 2026 + lõppsõnum
 ];
 const TITLES = [
   "Ava", "Miks nüüd?", "Mõõtkava", "Probleem", "Kes maksab",
