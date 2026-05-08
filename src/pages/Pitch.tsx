@@ -525,8 +525,253 @@ const Slide9 = () => (
   </SlideShell>
 );
 
-/* 10 — Skaleerimine ja lõpp */
+/* 10 — Kolm kliendisegmenti */
 const Slide10 = () => (
+  <SlideShell>
+    <Eyebrow>Kliendisegmendid</Eyebrow>
+    <Title>Kellele LearnOnce väärtust loob?</Title>
+    <Lead>
+      LearnOnce ei ole ainult töövoog. See on otsustustugi, mis loob väärtust
+      kolmele erinevale kliendisegmendile.
+    </Lead>
+
+    <div className="mt-8 grid md:grid-cols-3 gap-4">
+      <Card bg={`${C.teal}0D`} border={`${C.teal}40`}>
+        <div className="size-10 rounded-full flex items-center justify-center mb-3"
+          style={{ background: C.teal, color: "white" }}>
+          <Building2 className="size-5" />
+        </div>
+        <Eyebrow color={C.teal}>1 · Kool / koolijuht</Eyebrow>
+        <p className="text-sm font-medium mb-2" style={{ color: C.text }}>
+          Esmane klient
+        </p>
+        <ul className="text-xs sm:text-sm space-y-1.5" style={{ color: "#4B5563" }}>
+          <li>• ülevaade, kus õppimine dubleerub;</li>
+          <li>• tunniplaani targem juhtimine;</li>
+          <li>• õpetaja tööaeg põhiainetele ja andekate toetamisele;</li>
+          <li>• otsus tõenduste põhjal, mitte kõhutunde järgi.</li>
+        </ul>
+      </Card>
+
+      <Card bg={`${C.green}0D`} border={`${C.green}40`}>
+        <div className="size-10 rounded-full flex items-center justify-center mb-3"
+          style={{ background: C.green, color: "white" }}>
+          <Globe className="size-5" />
+        </div>
+        <Eyebrow color={C.green}>2 · KOV / koolipidaja</Eyebrow>
+        <p className="text-sm font-medium mb-2" style={{ color: C.text }}>
+          Skaleerimise ostja
+        </p>
+        <ul className="text-xs sm:text-sm space-y-1.5" style={{ color: "#4B5563" }}>
+          <li>• koolideülene muster;</li>
+          <li>• vähem üksikvaidlusi;</li>
+          <li>• ühtne arvestamise mudel;</li>
+          <li>• huvihariduse ja üldhariduse parem sidumine.</li>
+        </ul>
+      </Card>
+
+      <Card bg={`${C.lime}25`} border={`${C.lime}80`}>
+        <div className="size-10 rounded-full flex items-center justify-center mb-3"
+          style={{ background: C.green, color: "white" }}>
+          <Trophy className="size-5" />
+        </div>
+        <Eyebrow color={C.green}>3 · Huvikoolid</Eyebrow>
+        <p className="text-sm font-medium mb-2" style={{ color: C.text }}>
+          Kvaliteedimärk
+        </p>
+        <ul className="text-xs sm:text-sm space-y-1.5" style={{ color: "#4B5563" }}>
+          <li>• 800+ huvikooli Eestis;</li>
+          <li>• õpe muutub koolile nähtavaks;</li>
+          <li>• standardiseeritud arvestatavuse profiil;</li>
+          <li>• tugevam väärtuspakkumine perele.</li>
+        </ul>
+      </Card>
+    </div>
+
+    <p className="mt-8 text-base sm:text-lg font-medium pl-4 border-l-4"
+      style={{ color: C.text, borderColor: C.lime }}>
+      KOV ei vaja iga pere eraldi vaidlust. KOV vajab mudelit, kuidas koolivälist
+      õppimist tõendatult ja võrreldavalt arvestada.
+    </p>
+  </SlideShell>
+);
+
+/* 11 — Mida koolijuht päriselt võidab */
+const Slide11 = () => {
+  const items = [
+    { i: <Layers />, t: "Tunniplaani õhk", d: "Kui osa õppijaid täidab õpitulemusi tõendatult huvihariduses, saab järgmist perioodi targemalt planeerida." },
+    { i: <FileCheck />, t: "Vähem dubleerimist", d: "Kool ei õpeta sama õpitulemust uuesti, kui see on juhendatud keskkonnas tõendatult saavutatud." },
+    { i: <GraduationCap />, t: "Õpetaja tööaja parem kasutus", d: "Aeg liigub sinna, kus on kõige rohkem vaja: eesti keel, matemaatika, reaalained, tugitegevused, andekate arendamine." },
+    { i: <Trophy />, t: "Valikained ja talendid", d: "Talendikas õppija saab õppida talendi juures ja kool saab seda tõendatult arvestada." },
+    { i: <ShieldCheck />, t: "Vähem vaidlusi", d: "Pere saab põhjendatud selgituse, mitte suulise “jah/ei” vastuse." },
+    { i: <Eye />, t: "Juhtimisinfo", d: "Koolijuht näeb, millised ained, klassid ja huvikoolid tekitavad arvestamise potentsiaali." },
+  ];
+  return (
+    <SlideShell>
+      <Eyebrow>Koolijuhi vaade</Eyebrow>
+      <Title>Mida koolijuht päriselt võidab?</Title>
+
+      <div className="mt-8 grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+        {items.map((c) => (
+          <Card key={c.t}>
+            <div className="size-10 rounded-full flex items-center justify-center mb-3"
+              style={{ background: `${C.teal}15`, color: C.teal }}>
+              {c.i}
+            </div>
+            <div className="font-semibold text-base sm:text-lg" style={{ color: C.text }}>{c.t}</div>
+            <p className="text-sm mt-2" style={{ color: "#4B5563" }}>{c.d}</p>
+          </Card>
+        ))}
+      </div>
+
+      <p className="mt-8 text-base sm:text-lg font-medium pl-4 border-l-4"
+        style={{ color: C.text, borderColor: C.lime }}>
+        Koolijuht ei osta vormi. Koolijuht ostab võimaluse juhtida õppija aega,
+        õpetaja tööaega ja tunniplaani targemalt.
+      </p>
+
+      <Footnote>
+        See ei tähenda õpetajate väärtuse vähendamist — see tähendab, et õpetaja aeg
+        suunatakse sinna, kus tema mõju on suurem.
+      </Footnote>
+    </SlideShell>
+  );
+};
+
+/* 12 — Huvikoolide kvaliteedimärk */
+const Slide12 = () => (
+  <SlideShell>
+    <Eyebrow color={C.green}>Huvikoolide segment</Eyebrow>
+    <Title>Nähtav õpe, mitte lihtsalt hobi.</Title>
+    <Lead>
+      Eestis on 800+ tegutsevat huvikooli ja üle 3000 õppekava. Täna jõuavad tõendid
+      kooli eri vormis: PDF, kiri, link, screenshot, treeneri kommentaar.
+    </Lead>
+
+    <div className="mt-8 grid md:grid-cols-[1.3fr_1fr] gap-5">
+      <Card bg={C.subtle}>
+        <Eyebrow color={C.teal}>LearnOnce arvestatavuse profiil</Eyebrow>
+        <ul className="text-sm space-y-1.5 mt-2" style={{ color: C.text }}>
+          <li>• huvikooli õppekava;</li>
+          <li>• õpiväljundid;</li>
+          <li>• juhendaja kinnitus ja kvalifikatsioon;</li>
+          <li>• osalemise maht;</li>
+          <li>• tegevuse keel;</li>
+          <li>• võistlused / esinemised / link;</li>
+          <li>• seos üldhariduse õpitulemustega.</li>
+        </ul>
+      </Card>
+
+      <div className="space-y-3">
+        <Card bg={`${C.lime}25`} border={`${C.lime}80`}>
+          <div className="text-xs uppercase tracking-wide font-semibold" style={{ color: C.green }}>
+            Kvaliteedimärk
+          </div>
+          <div className="text-xl font-semibold mt-1" style={{ color: C.text }}>
+            LearnOnce arvestatav õpe
+          </div>
+          <p className="text-xs mt-2" style={{ color: "#4B5563" }}>
+            See ei tähenda automaatset vabastust. Kool saab huvikooli õpet võrrelda
+            ja kasutada otsuse tegemisel.
+          </p>
+        </Card>
+
+        <Card bg={`${C.teal}0D`} border={`${C.teal}40`}>
+          <p className="text-sm font-medium" style={{ color: C.text }}>
+            “Õpi meie juures — sinu pingutus võib koolis arvesse minna.”
+          </p>
+        </Card>
+      </div>
+    </div>
+
+    <div className="mt-6 rounded-xl p-3 text-sm"
+      style={{ background: `${C.orange}15`, borderLeft: `3px solid ${C.orange}`, color: C.text }}>
+      <strong>Oluline piirang:</strong> Huvikool ei otsusta kooli eest. Huvikool
+      kinnitab tegevuse, mahu, sisu, keele ja õpiväljundite kirjelduse. Lõppotsuse teeb kool.
+    </div>
+  </SlideShell>
+);
+
+/* 13 — Ärimudel: kes maksab ja miks */
+const Slide13 = () => (
+  <SlideShell>
+    <Eyebrow color={C.purple}>Ärimudel</Eyebrow>
+    <Title>Kes maksab ja miks?</Title>
+
+    <div className="mt-8 grid md:grid-cols-3 gap-4">
+      <Card bg={`${C.teal}0D`} border={`${C.teal}40`}>
+        <Eyebrow color={C.teal}>Kool / koolijuht</Eyebrow>
+        <p className="text-sm font-medium mb-2" style={{ color: C.text }}>
+          Maksab töövoo ja juhtimisinfo eest.
+        </p>
+        <ul className="text-xs space-y-1" style={{ color: "#4B5563" }}>
+          <li>• vähem käsitööd;</li>
+          <li>• parem tunniplaan;</li>
+          <li>• vähem dubleerimist;</li>
+          <li>• õpetaja tööaeg põhiainetele.</li>
+        </ul>
+      </Card>
+
+      <Card bg={`${C.green}0D`} border={`${C.green}40`}>
+        <Eyebrow color={C.green}>KOV / koolipidaja</Eyebrow>
+        <p className="text-sm font-medium mb-2" style={{ color: C.text }}>
+          Maksab või toetab koolideülese mudelina.
+        </p>
+        <ul className="text-xs space-y-1" style={{ color: "#4B5563" }}>
+          <li>• vähem kaebusi;</li>
+          <li>• ühtne praktika;</li>
+          <li>• huvi- ja üldhariduse sidumine;</li>
+          <li>• ressursi parem kasutus.</li>
+        </ul>
+      </Card>
+
+      <Card bg={`${C.lime}25`} border={`${C.lime}80`}>
+        <Eyebrow color={C.green}>Huvikool</Eyebrow>
+        <p className="text-sm font-medium mb-2" style={{ color: C.text }}>
+          Maksab kvaliteedimärgi / arvestatavuse profiili eest.
+        </p>
+        <ul className="text-xs space-y-1" style={{ color: "#4B5563" }}>
+          <li>• õpe muutub nähtavaks;</li>
+          <li>• standardiseeritud tõend;</li>
+          <li>• suurem väärtus perele;</li>
+          <li>• eristumine turul.</li>
+        </ul>
+      </Card>
+    </div>
+
+    <div className="mt-6">
+      <Eyebrow color={C.purple}>Võimalikud hinnastusmudelid</Eyebrow>
+      <div className="mt-2 grid sm:grid-cols-2 lg:grid-cols-5 gap-2.5">
+        {[
+          { t: "Koolipõhine SaaS", d: "Kuutasu töövoo eest." },
+          { t: "Õppijapõhine", d: "Tasu juhtumi/õppija kohta." },
+          { t: "KOV litsents", d: "Mitmele koolile korraga." },
+          { t: "Huvikooli märk", d: "Arvestatavuse profiil." },
+          { t: "Integratsioon", d: "eKool / Stuudium / ARNO lisamoodul." },
+        ].map((x) => (
+          <Card key={x.t} className="!p-3">
+            <div className="text-xs font-semibold" style={{ color: C.text }}>{x.t}</div>
+            <div className="text-[11px] mt-1" style={{ color: "#6B7280" }}>{x.d}</div>
+          </Card>
+        ))}
+      </div>
+    </div>
+
+    <div className="mt-5 rounded-xl p-3 text-xs sm:text-sm"
+      style={{ background: C.subtle, borderLeft: `3px solid ${C.teal}`, color: C.text }}>
+      <strong>Esimene müügisuund:</strong> koolid ja koolipidajad. <strong>Teine kasvusuund:</strong> huvikoolide
+      kvaliteedimärk. <strong>Kolmas kasvusuund:</strong> eKool / Stuudium / ARNO plug-in või riiklik moodul.
+    </div>
+
+    <Footnote color={C.orange}>
+      Ärimudelit valideerime järgmises etapis. Häkil tõestasime probleemi, kasutajahuvi
+      ja ühe otsustusvoo prototüübi.
+    </Footnote>
+  </SlideShell>
+);
+
+/* 14 — Skaleerimine ja lõpp */
+const Slide14 = () => (
   <SlideShell>
     <Eyebrow>Skaleerimine</Eyebrow>
     <Title>Alustame kitsalt, laiendame samm-sammult.</Title>
