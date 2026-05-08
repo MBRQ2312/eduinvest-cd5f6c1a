@@ -679,6 +679,29 @@ const Step4 = ({ decision, subjects }: { decision: "full" | "partial" | "more" |
         </div>
       </div>
 
+      {familyLetter && (
+        <div className="mt-6 rounded-2xl border p-5 sm:p-6"
+          style={{ background: `${C.purple}08`, borderColor: `${C.purple}40` }}>
+          <div className="flex items-start gap-3">
+            <div className="size-10 rounded-full flex items-center justify-center shrink-0"
+              style={{ background: C.purple, color: "white" }}>
+              <Users className="size-5" />
+            </div>
+            <div className="min-w-0 flex-1">
+              <div className="text-xs uppercase tracking-wider font-semibold mb-1" style={{ color: C.purple }}>
+                Selgitus perele {subjects.length > 0 && `· ${subjects.length} ainet`}
+              </div>
+              <p className="text-sm leading-relaxed" style={{ color: C.text }}>
+                {familyLetter}
+              </p>
+              <div className="mt-3 text-[11px]" style={{ color: "#6B7280" }}>
+                AI mustand · Saadetakse perele alles pärast õpetaja kinnitust.
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
       <div className="mt-6 rounded-2xl p-5 sm:p-6 text-center"
         style={{ background: C.green, color: "white" }}>
         <p className="text-base sm:text-lg font-medium">
