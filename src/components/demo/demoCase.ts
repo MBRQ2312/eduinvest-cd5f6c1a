@@ -94,6 +94,34 @@ export const DEMO_CASE = {
         suggestion: "Ühine projekt-tund kvartali lõpus",
       },
     ],
+    // Laiendatud koondmõõdikud
+    metrics: {
+      totalRequests: 28,
+      needsTeacherDecision: 11,
+      needsPrincipalApproval: 6,
+      needsMoreEvidence: 4,
+      repeatingSubjects: 4,
+      repeatingHobbySchools: 7,
+      hobbyLinkedPerClass: [
+        { group: "8.A", linked: 14, of: 22 },
+        { group: "6.B", linked: 11, of: 21 },
+        { group: "5.C", linked: 9, of: 19 },
+        { group: "9. lend", linked: 38, of: 64 },
+      ],
+      teacherPrepHoursSavedPerMonth: 18,
+      scheduleReshuffleSlots: 5,
+    },
+    topHobbySchools: [
+      { name: "FC Levadia U16", students: 6, subjects: ["Kehaline kasvatus"] },
+      { name: "Tallinna Muusikakool", students: 5, subjects: ["Muusika"] },
+      { name: "Kunstikool Vaba Joon", students: 4, subjects: ["Kunst"] },
+      { name: "Ujumisklubi Aurum", students: 4, subjects: ["Kehaline kasvatus"] },
+    ],
+    kovRepeatingCases: [
+      { pattern: "Jalgpalli treening → kehaline kasvatus", schools: 5, students: 34 },
+      { pattern: "Muusikakool → muusika", schools: 4, students: 22 },
+      { pattern: "Kunstikool → kunst", schools: 3, students: 14 },
+    ],
   },
 } as const;
 
