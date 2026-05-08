@@ -162,6 +162,11 @@ const Index = () => {
     setTimeout(() => flowRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }), 50);
   };
 
+  const startCase = () => {
+    setStep(1 as Step);
+    setTimeout(() => timelineRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }), 50);
+  };
+
   return (
     <div className="min-h-screen bg-background relative overflow-x-hidden">
       <header className="border-b border-border/60 bg-background/80 sticky top-0 z-30 backdrop-blur-md">
