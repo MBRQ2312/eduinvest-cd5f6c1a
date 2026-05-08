@@ -156,38 +156,8 @@ const Index = () => {
         {/* ROLLIVÄRAV */}
         <section className="section-alt border-b border-border">
           <div className="max-w-[1180px] mx-auto px-4 sm:px-6 md:px-8 py-16 md:py-24">
-          <div className="text-[11px] font-semibold tracking-[0.22em] uppercase text-muted-foreground mb-5">
-            Vali, kes sa oled
-          </div>
-
-          {/* Koolijuht — peamine vaade */}
-          <Link
-            to="/juht"
-            className="group block rounded-[20px] border-2 border-primary/40 bg-primary-subtle/30 p-6 md:p-7 shadow-card hover:border-primary hover:shadow-elevated transition-smooth mb-4"
-          >
-            <div className="flex items-start gap-5">
-              <div className="size-14 rounded-2xl bg-primary text-primary-foreground flex items-center justify-center shrink-0">
-                <Building2 className="size-7" />
-              </div>
-              <div className="min-w-0 flex-1">
-                <div className="flex items-center gap-2 flex-wrap">
-                  <span className="text-lg md:text-xl font-semibold tracking-tight group-hover:text-primary transition-smooth">
-                    Koolijuht
-                  </span>
-                  <span className="text-[10px] font-bold tracking-[0.18em] uppercase px-2 py-0.5 rounded-md bg-primary text-primary-foreground">
-                    Pitch'i põhidemo
-                  </span>
-                </div>
-                <p className="text-sm md:text-base text-foreground/75 mt-2 leading-relaxed">
-                  Näen mustreid, juhin tunniplaani ja õpetaja tööaega. Mida kool võidab,
-                  kui kooliväline õppimine on tõendatud ja arvestatav.
-                </p>
-              </div>
-            </div>
-          </Link>
-
-          <div className="text-[11px] font-semibold tracking-[0.22em] uppercase text-muted-foreground mt-8 mb-3">
-            Tugivaated
+          <div className="text-[11px] font-semibold tracking-[0.22em] uppercase text-muted-foreground mb-3">
+            Rollivaated
           </div>
           <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
             {[
