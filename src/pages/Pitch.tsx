@@ -4,7 +4,7 @@ import {
   ArrowLeft, ArrowRight, Users, GraduationCap, Building2, Sparkles,
   ShieldCheck, CheckCircle2, Home as HomeIcon, Trophy, X, Play,
   Clock, Coins, TrendingUp, AlertCircle, FileCheck, Eye,
-  Heart, Globe, BookOpen, Layers, MapPin, Activity,
+  Heart, Globe, BookOpen, Layers, MapPin, Activity, CalendarRange,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
