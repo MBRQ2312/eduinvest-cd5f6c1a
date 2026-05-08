@@ -155,15 +155,15 @@ const Index = () => {
 
         {/* ROLLIVÄRAV */}
         <section className="section-alt border-b border-border">
-          <div className="max-w-[1180px] mx-auto px-4 sm:px-6 md:px-8 py-16 md:py-24">
-          <div className="text-[11px] font-semibold tracking-[0.22em] uppercase text-muted-foreground mb-6">
+          <div className="max-w-[1180px] mx-auto px-4 sm:px-6 md:px-8 py-12 md:py-16">
+          <div className="text-[11px] font-semibold tracking-[0.22em] uppercase text-muted-foreground mb-5">
             Organisatsioonivaated
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
             {[
               {
                 to: "/juht",
-                icon: <School className="size-6" strokeWidth={1.75} />,
+                icon: <School className="size-[18px]" strokeWidth={1.75} />,
                 name: "Kool",
                 desc: "Õpetaja · õppejuht · direktor",
                 detail: "Näevad korduvaid mustreid, juhivad tunniplaani ja õpetaja tööaega. Otsustavad, kas kooliväline õpe arvestatakse.",
@@ -171,7 +171,7 @@ const Index = () => {
               },
               {
                 to: "/huvikool",
-                icon: <Palette className="size-6" strokeWidth={1.75} />,
+                icon: <Palette className="size-[18px]" strokeWidth={1.75} />,
                 name: "Huvikool",
                 desc: "Juhendaja · treener · õppejuht · direktor",
                 detail: "Teevad õppe nähtavaks ja tõendatavaks. Kinnitavad mahud, oskused ja seose õppekavaga.",
@@ -182,34 +182,26 @@ const Index = () => {
                 r.tone === "success"
                   ? "bg-success-subtle text-success"
                   : "bg-accent-subtle text-accent";
-              const accentBar =
-                r.tone === "success" ? "bg-success" : "bg-accent";
               return (
                 <Link
                   key={r.to}
                   to={r.to}
-                  className="group relative overflow-hidden rounded-[20px] border-2 border-border-strong bg-card shadow-card hover:border-primary hover:shadow-elevated transition-smooth flex flex-col min-w-0"
+                  className="group rounded-2xl border border-border bg-card hover:border-primary hover:bg-card hover:shadow-card transition-smooth p-5 flex flex-col gap-3 min-w-0"
                 >
-                  <div className={`absolute top-0 left-0 right-0 h-1 ${accentBar}`} />
-                  <div className="p-6 md:p-8 flex flex-col gap-4 flex-1">
-                    <div className="flex items-start justify-between gap-3">
-                      <div className={`size-12 rounded-xl ${bg} flex items-center justify-center shrink-0`}>
-                        {r.icon}
-                      </div>
-                      <ArrowRight className="size-5 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-smooth mt-2" />
+                  <div className="flex items-center gap-3">
+                    <div className={`size-9 rounded-lg ${bg} flex items-center justify-center shrink-0`}>
+                      {r.icon}
                     </div>
-                    <div>
-                      <div className="text-[22px] font-semibold tracking-tight group-hover:text-primary transition-smooth leading-tight">
-                        {r.name}
-                      </div>
-                      <div className="mt-1.5 text-[13px] font-medium text-foreground/70">
-                        {r.desc}
-                      </div>
+                    <div className="text-[17px] font-semibold tracking-tight group-hover:text-primary transition-smooth">
+                      {r.name}
                     </div>
-                    <div className="h-px bg-border" />
-                    <div className="text-[14px] text-muted-foreground leading-relaxed">
-                      {r.detail}
-                    </div>
+                    <ArrowRight className="ml-auto size-4 text-muted-foreground/60 group-hover:text-primary group-hover:translate-x-0.5 transition-smooth" />
+                  </div>
+                  <div className="text-[12.5px] font-medium text-foreground/70">
+                    {r.desc}
+                  </div>
+                  <div className="text-[13px] text-muted-foreground leading-relaxed">
+                    {r.detail}
                   </div>
                 </Link>
               );
