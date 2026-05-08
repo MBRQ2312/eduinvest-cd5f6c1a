@@ -22,6 +22,7 @@ import { SectionLabel, InfoCard } from "@/components/demo/primitives";
 import { DEMO_CASE } from "@/components/demo/demoCase";
 import { Button } from "@/components/ui/button";
 import { MockDataNotice } from "@/components/MockDataNotice";
+import { PrincipalExtensions } from "@/components/principal/PrincipalExtensions";
 
 const Principal = () => {
   const s = DEMO_CASE.principalSummary;
@@ -286,6 +287,11 @@ const Principal = () => {
               <span className="text-left text-sm">Planeeri järgmise perioodi tunniplaan</span>
             </Button>
           </div>
+        </section>
+
+        <section className="mb-8">
+          <SectionLabel icon={ShieldCheck}>Standardid, ausus ja edasi</SectionLabel>
+          <PrincipalExtensions />
         </section>
 
         <InfoCard tone="primary">
