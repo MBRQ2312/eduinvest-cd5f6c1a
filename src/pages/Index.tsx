@@ -165,6 +165,9 @@ const Index = () => {
           </div>
         </section>
 
+        {/* Impact stats */}
+        <ImpactStats />
+
         {/* Stepper + flow */}
         <section ref={flowRef} className="mb-8">
           <StepIndicator current={step} />
