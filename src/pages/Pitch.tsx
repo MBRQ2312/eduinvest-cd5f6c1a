@@ -1187,7 +1187,7 @@ const SlideBusinessModel = () => (
     <Eyebrow color={C.purple}>Ärimudel</Eyebrow>
     <Title>Kes maksab ja miks?</Title>
 
-    <div className="mt-8 grid md:grid-cols-3 gap-4">
+    <div className="mt-8 grid md:grid-cols-2 lg:grid-cols-4 gap-3">
       <Card bg={`${C.teal}0D`} border={`${C.teal}40`}>
         <Eyebrow color={C.teal}>1 · Kool / koolijuht</Eyebrow>
         <p className="text-sm font-medium mb-2" style={{ color: C.text }}>Esimene klient</p>
@@ -1207,6 +1207,13 @@ const SlideBusinessModel = () => (
         <p className="text-sm font-medium mb-2" style={{ color: C.text }}>Teine kliendigrupp</p>
         <p className="text-xs sm:text-sm" style={{ color: "#4B5563" }}>
           Maksab kvaliteedimärgi või arvestatavuse profiili eest.
+        </p>
+      </Card>
+      <Card bg={`${C.purple}0D`} border={`${C.purple}40`}>
+        <Eyebrow color={C.purple}>4 · Integratsioonipartner</Eyebrow>
+        <p className="text-sm font-medium mb-2" style={{ color: C.text }}>Levikanal</p>
+        <p className="text-xs sm:text-sm" style={{ color: "#4B5563" }}>
+          eKool, Stuudium või ARNO võib olla plugin- või jaotuspartner.
         </p>
       </Card>
     </div>
