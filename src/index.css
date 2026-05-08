@@ -43,6 +43,7 @@
 
     /* Warning / accent — warm amber (highlights "decision") */
     --warning: 32 95% 48%;
+    --warning-foreground: 220 30% 10%;
     --warning-subtle: 38 92% 94%;
 
     /* Borders */
