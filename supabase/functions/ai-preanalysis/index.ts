@@ -1,4 +1,5 @@
 import { corsHeaders } from "https://esm.sh/@supabase/supabase-js@2.95.0/cors";
+import { SYSTEM_INSTRUCTIONS } from "./curriculum.ts";
 
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response("ok", { headers: corsHeaders });
@@ -15,8 +16,8 @@ Deno.serve(async (req) => {
     const { caseData } = await req.json().catch(() => ({ caseData: null }));
 
     const userInput = caseData
-      ? `Õppija juhtum (JSON):\n${JSON.stringify(caseData, null, 2)}`
-      : "Markus T., 8. klass. Jalgpall 3× nädalas Pärnu Spordikoolis, eestikeelne treeningkeskkond. Võistlused ja laagrid. Treeneri kinnitus olemas.";
+      ? `Õppija juhtum (JSON):\n${JSON.stringify(caseData, null, 2)}\n\nKoosta eelanalüüs vastavalt juhistele, kasutades riikliku õppekava väljavõtet ja arvestuse põhimõtteid.`
+      : "Nikita T., 8. klass. Jalgpall 3× nädalas Pärnu Spordikoolis, eestikeelne treeningkeskkond. Võistlused ja laagrid. Treeneri kinnitus olemas. Koosta eelanalüüs.";
 
     const resp = await fetch("https://api.openai.com/v1/responses", {
       method: "POST",
@@ -25,10 +26,8 @@ Deno.serve(async (req) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        prompt: {
-          id: "pmpt_69fd7fdb538c81969e6ba0658b1a728706c219e956173f7a",
-          version: "1",
-        },
+        model: "gpt-4.1-mini",
+        instructions: SYSTEM_INSTRUCTIONS,
         input: userInput,
       }),
     });
@@ -40,14 +39,13 @@ Deno.serve(async (req) => {
       if (resp.status === 401) msg = "OpenAI API key on vale või aegunud.";
       else if (resp.status === 429) msg = "OpenAI rate limit või krediit otsas.";
       else if (resp.status === 402) msg = "OpenAI krediit on otsas.";
-      return new Response(JSON.stringify({ error: msg, status: resp.status }), {
+      return new Response(JSON.stringify({ error: msg, status: resp.status, detail: errText.slice(0, 500) }), {
         status: resp.status,
         headers: { ...corsHeaders, "Content-Type": "application/json" },
       });
     }
 
     const data = await resp.json();
-    // Extract output_text (Responses API convenience field) or assemble from output
     let text: string = data.output_text ?? "";
     if (!text && Array.isArray(data.output)) {
       for (const item of data.output) {
