@@ -203,6 +203,58 @@ const Flow = () => {
   );
 };
 
+/* ============== Ülevaate plokk (kuvatakse 1. sammu kohal) ============== */
+const OVERVIEW_STEPS = [
+  { n: "01", title: "Taotlus perelt", text: "Lapsevanem või õppija annab tahteavalduse: palun hinnake, kas koolivälist õppimist saab arvestada.", color: C.teal },
+  { n: "02", title: "Kool seob õppekavaga", text: "Kool valib õppeaine, õpitulemused ja tingimused. Pere ei pea ise teadma, mis täpselt kattub.", color: C.green },
+  { n: "03", title: "Tõend partnerilt", text: "Treener, huvikool või juhendaja kinnitab osalemise, mahu, tegevuse sisu ja keele.", color: C.orange },
+  { n: "04", title: "AI eelanalüüs", text: "AI koondab tõendid, pakub võimalikke seoseid ja näitab, mis vajab õpetaja hinnangut.", color: C.purple },
+  { n: "05", title: "Otsus koolilt", text: "Õpetaja teeb otsuse: arvestan, arvestan osaliselt, vajan lisatõendit või ei arvesta.", color: C.green },
+  { n: "06", title: "Selgitus ja koondvaade", text: "Pere saab arusaadava selgituse. Koolijuht näeb korduvaid mustreid ja saab kujundada ühist praktikat.", color: C.lime },
+] as const;
+
+const FlowOverview = () => (
+  <section
+    className="mb-10 rounded-[20px] border p-6 sm:p-8"
+    style={{ background: C.cardBg, borderColor: C.border }}
+  >
+    <div className="text-[11px] uppercase font-semibold mb-2" style={{ color: C.teal, letterSpacing: "0.18em" }}>
+      Testjuhtum Nikita
+    </div>
+    <h2 className="text-2xl sm:text-3xl font-semibold leading-tight tracking-tight" style={{ color: C.text }}>
+      Üks otsustusvoog lõpuni
+    </h2>
+    <p className="mt-2 text-sm sm:text-base" style={{ color: "#4B5563" }}>
+      Taotlusest kooli põhjendatud otsuseni.
+    </p>
+
+    <ol className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+      {OVERVIEW_STEPS.map((s) => (
+        <li
+          key={s.n}
+          className="rounded-2xl border p-4 transition-shadow hover:shadow-sm"
+          style={{ background: C.bg, borderColor: C.border }}
+        >
+          <div className="flex items-center gap-3 mb-2">
+            <div
+              className="size-9 rounded-lg flex items-center justify-center text-[13px] font-bold"
+              style={{ background: `${s.color}18`, color: s.color }}
+            >
+              {s.n}
+            </div>
+            <h3 className="text-[15px] font-semibold tracking-tight" style={{ color: C.text }}>
+              {s.title}
+            </h3>
+          </div>
+          <p className="text-[13px] leading-relaxed" style={{ color: "#6B7280" }}>
+            {s.text}
+          </p>
+        </li>
+      ))}
+    </ol>
+  </section>
+);
+
 /* ============== Slaidid ============== */
 
 const Card = ({
