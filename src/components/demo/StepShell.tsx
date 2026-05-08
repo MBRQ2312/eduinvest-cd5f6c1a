@@ -9,7 +9,7 @@ interface Props {
 }
 
 export const StepShell = ({ step, title, question, badge, children }: Props) => (
-  <div className="bg-card rounded-2xl border border-border shadow-card overflow-hidden animate-in fade-in slide-in-from-bottom-4 duration-500">
+  <div className="bg-card rounded-2xl border-2 border-border-strong shadow-card overflow-hidden animate-in fade-in slide-in-from-bottom-4 duration-500">
     <header className="px-6 md:px-10 py-7 border-b border-border bg-gradient-to-b from-card to-muted/20">
       <div className="flex items-start justify-between gap-4 flex-wrap">
         <div>

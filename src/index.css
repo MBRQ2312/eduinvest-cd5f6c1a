@@ -133,6 +133,15 @@
   }
 }
 
+@layer components {
+  .section-alt {
+    background-color: hsl(var(--muted) / 0.45);
+  }
+  .section-divider {
+    border-top: 1px solid hsl(var(--border));
+  }
+}
+
 @layer utilities {
   .shadow-xs {
     box-shadow: var(--shadow-xs);

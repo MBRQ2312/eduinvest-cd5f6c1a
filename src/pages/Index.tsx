@@ -175,9 +175,10 @@ const Index = () => {
         </div>
       </header>
 
-      <main className="max-w-[1180px] mx-auto px-4 sm:px-6 md:px-8 py-12 md:py-20 relative">
+      <main className="relative">
         {/* HERO */}
-        <section className="grid md:grid-cols-2 gap-10 md:gap-14 items-center mb-20 md:mb-28">
+        <section className="border-b border-border">
+          <div className="max-w-[1180px] mx-auto px-4 sm:px-6 md:px-8 py-12 md:py-20 grid md:grid-cols-2 gap-10 md:gap-14 items-center">
           <div className="break-words min-w-0">
             <div className="text-[11px] font-semibold tracking-[0.22em] uppercase text-primary mb-5">
               Prototüüp
@@ -193,7 +194,7 @@ const Index = () => {
               {["Õpi üks kord.", "Tõenda selgelt.", "Kool otsustab."].map((t) => (
                 <span
                   key={t}
-                  className="inline-flex items-center px-3.5 py-1.5 rounded-full bg-card border border-border/70 text-[13px] font-medium text-foreground/85"
+                  className="inline-flex items-center px-3.5 py-1.5 rounded-full bg-card border border-border-strong text-[13px] font-medium text-foreground/85"
                 >
                   {t}
                 </span>
@@ -209,7 +210,7 @@ const Index = () => {
               <Button
                 size="lg"
                 onClick={scrollToTimeline}
-                className="bg-primary hover:bg-primary/90 text-primary-foreground shadow-sm h-12 px-6 text-[15px] rounded-xl"
+                className="rounded-xl"
               >
                 Vaata otsustusvoogu
                 <ArrowDown className="size-4 ml-1" />
@@ -220,10 +221,12 @@ const Index = () => {
           <div className="flex justify-center md:justify-end">
             <HeroIllustration />
           </div>
+          </div>
         </section>
 
         {/* ROLLIVÄRAV */}
-        <section className="mb-20 md:mb-28">
+        <section className="section-alt border-b border-border">
+          <div className="max-w-[1180px] mx-auto px-4 sm:px-6 md:px-8 py-16 md:py-24">
           <div className="text-[11px] font-semibold tracking-[0.22em] uppercase text-muted-foreground mb-5">
             Vali, kes sa oled
           </div>
@@ -244,7 +247,7 @@ const Index = () => {
                 <Link
                   key={r.to}
                   to={r.to}
-                  className="group rounded-[18px] border border-border/60 bg-card p-5 hover:border-primary/40 hover:shadow-sm transition-smooth flex flex-col gap-3 min-w-0"
+                  className="group rounded-[18px] border-2 border-border-strong bg-card p-5 shadow-card hover:border-primary hover:shadow-elevated transition-smooth flex flex-col gap-3 min-w-0"
                 >
                   <div className={`size-10 rounded-xl ${bg} flex items-center justify-center`}>
                     {r.icon}
@@ -259,10 +262,12 @@ const Index = () => {
               );
             })}
           </div>
+          </div>
         </section>
 
         {/* VERTIKAALNE OTSUSTUSVOOG */}
-        <section ref={timelineRef} className="mb-24 md:mb-32 scroll-mt-20">
+        <section ref={timelineRef} className="border-b border-border scroll-mt-20">
+          <div className="max-w-[1180px] mx-auto px-4 sm:px-6 md:px-8 py-16 md:py-24">
           <div className="max-w-2xl mb-10 md:mb-14">
             <h2 className="text-[28px] md:text-[40px] font-semibold tracking-tight leading-[1.1]">
               Üks otsustusvoog lõpuni
@@ -275,7 +280,7 @@ const Index = () => {
           <ol className="relative max-w-3xl">
             {/* vertical line */}
             <span
-              className="absolute left-[22px] md:left-[28px] top-2 bottom-2 w-px bg-border"
+              className="absolute left-[22px] md:left-[28px] top-2 bottom-2 w-px bg-border-strong"
               aria-hidden="true"
             />
             {FLOW.map((s, idx) => {
@@ -306,7 +311,7 @@ const Index = () => {
                     type="button"
                     onClick={() => setStep(isActive ? 0 : stepNum)}
                     aria-expanded={isActive}
-                    className={`w-full text-left rounded-[20px] bg-card border ${isActive ? "border-primary/40 shadow-sm" : "border-border/60"} p-5 md:p-6 transition-smooth hover:border-primary/30`}
+                    className={`w-full text-left rounded-[20px] bg-card border-2 ${isActive ? "border-primary shadow-elevated" : "border-border-strong shadow-card"} p-5 md:p-6 transition-smooth hover:border-primary`}
                   >
                     <div className="flex items-center gap-3 mb-1.5">
                       <span className="text-xs font-semibold tracking-widest text-muted-foreground tabular">
@@ -338,10 +343,12 @@ const Index = () => {
               );
             })}
           </ol>
+          </div>
         </section>
 
         {/* VÄÄRTUSKAARDID */}
-        <section className="mb-24 md:mb-32">
+        <section className="section-alt border-b border-border">
+          <div className="max-w-[1180px] mx-auto px-4 sm:px-6 md:px-8 py-16 md:py-24">
           <div className="max-w-2xl mb-8 md:mb-12">
             <h2 className="text-[26px] md:text-[36px] font-semibold tracking-tight leading-[1.15]">
               Mida iga osapool saab
@@ -377,7 +384,7 @@ const Index = () => {
               return (
                 <div
                   key={c.title}
-                  className="rounded-[20px] bg-card border border-border/60 p-6 md:p-7 shadow-sm"
+                  className="rounded-[20px] bg-card border-2 border-border-strong p-6 md:p-7 shadow-card hover:shadow-elevated transition-smooth"
                 >
                   <div className={`size-11 rounded-xl ${bg} flex items-center justify-center mb-5`}>
                     {c.icon}
@@ -388,11 +395,13 @@ const Index = () => {
               );
             })}
           </div>
+          </div>
         </section>
 
         {/* Loe lähemalt */}
-        <section className="mb-12">
-          <Accordion type="single" collapsible className="rounded-[20px] border border-border/60 bg-card divide-y divide-border/60">
+        <section>
+          <div className="max-w-[1180px] mx-auto px-4 sm:px-6 md:px-8 py-16 md:py-20">
+          <Accordion type="single" collapsible className="rounded-[20px] border-2 border-border-strong bg-card divide-y divide-border shadow-card">
             <AccordionItem value="vota" className="border-0 px-6">
               <AccordionTrigger className="text-sm font-semibold">
                 VÕTA üldhariduse kontekstis
@@ -414,12 +423,15 @@ const Index = () => {
               </AccordionContent>
             </AccordionItem>
           </Accordion>
+          </div>
         </section>
 
-        <footer className="mt-16 pt-8 border-t border-border/60 text-center">
-          <p className="text-[11px] text-muted-foreground tracking-[0.18em] uppercase font-semibold">
-            AI ei otsusta · Õpetaja otsustab · Pere saab selgituse
-          </p>
+        <footer className="border-t border-border">
+          <div className="max-w-[1180px] mx-auto px-4 sm:px-6 md:px-8 py-8 text-center">
+            <p className="text-[11px] text-muted-foreground tracking-[0.18em] uppercase font-semibold">
+              AI ei otsusta · Õpetaja otsustab · Pere saab selgituse
+            </p>
+          </div>
         </footer>
       </main>
     </div>
