@@ -75,6 +75,13 @@ const Index = () => {
               Lapsevanema vaade
             </Link>
             <Link
+              to="/treener"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-border hover:bg-muted transition-smooth text-foreground/80"
+            >
+              <UserCheck className="size-3.5" />
+              Treeneri vaade
+            </Link>
+            <Link
               to="/pitch"
               className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-primary text-primary-foreground hover:bg-primary/90 transition-smooth shadow-sm"
             >

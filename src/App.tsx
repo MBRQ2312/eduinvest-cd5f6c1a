@@ -7,6 +7,7 @@ import Index from "./pages/Index.tsx";
 import NotFound from "./pages/NotFound.tsx";
 import Parent from "./pages/Parent.tsx";
 import Pitch from "./pages/Pitch.tsx";
+import Coach from "./pages/Coach.tsx";
 
 const queryClient = new QueryClient();
 
@@ -20,6 +21,7 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/perele" element={<Parent />} />
           <Route path="/pitch" element={<Pitch />} />
+          <Route path="/treener" element={<Coach />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
