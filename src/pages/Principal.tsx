@@ -21,6 +21,7 @@ import {
 import { SectionLabel, InfoCard } from "@/components/demo/primitives";
 import { DEMO_CASE } from "@/components/demo/demoCase";
 import { Button } from "@/components/ui/button";
+import { MockDataNotice } from "@/components/MockDataNotice";
 
 const Principal = () => {
   const s = DEMO_CASE.principalSummary;
@@ -38,14 +39,36 @@ const Principal = () => {
           </div>
         </div>
 
-        <header className="mb-8">
+        <header className="mb-6">
           <div className="text-[11px] font-bold tracking-[0.22em] uppercase text-primary mb-2">
             Koolijuht · {DEMO_CASE.student.school} · 2025/26
           </div>
           <h1 className="text-2xl md:text-3xl font-semibold tracking-tight">
-            Koolijuhi koondvaade — õppija aeg, õpetaja eeltöö ja koolivälise õppe väärtus
+            Koolijuhi koondvaade
           </h1>
+          <p className="mt-3 text-sm md:text-base text-foreground/75 max-w-3xl leading-relaxed">
+            Näen, kus koolivälise õppimise arvestamise juhtumid korduvad ja kus kool saab
+            tunniplaani ning õpetaja tööaega targemalt juhtida. Kool ei vaja veel üht vormi —
+            kool vajab juhtimisinfot.
+          </p>
         </header>
+
+        <MockDataNotice className="mb-8" />
+
+        {/* Mida saan koolijuhina teha? */}
+        <section className="mb-8">
+          <SectionLabel icon={ShieldCheck}>Mida saan koolijuhina teha?</SectionLabel>
+          <div className="rounded-2xl border-2 border-primary/30 bg-primary-subtle/30 p-5">
+            <ul className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-2.5 text-sm text-foreground/85">
+              <li className="flex items-start gap-2"><CheckCircle2 className="size-4 text-primary mt-0.5 shrink-0" /> näha korduvaid mustreid;</li>
+              <li className="flex items-start gap-2"><CheckCircle2 className="size-4 text-primary mt-0.5 shrink-0" /> planeerida järgmise perioodi tunniplaani;</li>
+              <li className="flex items-start gap-2"><CheckCircle2 className="size-4 text-primary mt-0.5 shrink-0" /> suunata õpetaja tööaega põhiainetele;</li>
+              <li className="flex items-start gap-2"><CheckCircle2 className="size-4 text-primary mt-0.5 shrink-0" /> luua kooli arvestamise hea tava;</li>
+              <li className="flex items-start gap-2"><CheckCircle2 className="size-4 text-primary mt-0.5 shrink-0" /> eksportida koondraport koolipidajale;</li>
+              <li className="flex items-start gap-2"><CheckCircle2 className="size-4 text-primary mt-0.5 shrink-0" /> põhjendada perele otsuseid tõendite alusel.</li>
+            </ul>
+          </div>
+        </section>
 
         {/* Voo mõõdikud */}
         <section className="mb-8">
