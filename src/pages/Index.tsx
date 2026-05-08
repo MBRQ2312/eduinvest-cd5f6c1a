@@ -219,21 +219,21 @@ const Index = () => {
             <h2 className="text-[24px] md:text-[32px] font-semibold tracking-tight leading-[1.15] max-w-2xl">
               Töövoog on kahepoolne — algatada saab pere või huvikool.
             </h2>
-            <div className="mt-8 grid md:grid-cols-2 gap-4">
-              <div className="rounded-[20px] border-2 border-border-strong bg-card p-6 shadow-card">
+            <div className="mt-8 grid md:grid-cols-2 gap-3">
+              <div className="rounded-2xl border border-border bg-card p-5 hover:shadow-card transition-smooth">
                 <div className="text-[11px] font-bold tracking-[0.22em] uppercase text-primary mb-2">A · Pere algatab</div>
-                <div className="text-lg font-semibold mb-2">Lapsevanem esitab taotluse</div>
-                <p className="text-sm text-foreground/75 leading-relaxed">
+                <div className="text-[17px] font-semibold tracking-tight mb-2">Lapsevanem esitab taotluse</div>
+                <p className="text-[13px] text-muted-foreground leading-relaxed">
                   Pere kasutab kooli töövoogu ja lisab huvikooli/treeneri tõendi. Kool palub kinnitust
                   ja teeb otsuse.
                 </p>
               </div>
-              <div className="rounded-[20px] border-2 border-accent/40 bg-accent-subtle/40 p-6 shadow-card">
+              <div className="rounded-2xl border border-accent/40 bg-accent-subtle/30 p-5 hover:shadow-card transition-smooth">
                 <div className="text-[11px] font-bold tracking-[0.22em] uppercase text-accent mb-2">B · Huvikool algatab</div>
-                <div className="text-lg font-semibold mb-2">“Sinu lapse tegevus võib koolis arvestatav olla.”</div>
-                <p className="text-sm text-foreground/75 leading-relaxed">
+                <div className="text-[17px] font-semibold tracking-tight mb-2">"Sinu lapse tegevus võib koolis arvestatav olla."</div>
+                <p className="text-[13px] text-muted-foreground leading-relaxed">
                   Huvikool annab perele märku ja pakub taotluse esitamist. Kui kool ei kasuta süsteemi,
-                  saadab huvikool tõendi koos infopaketiga: <em>“Kuidas alustada koolivälise õppimise arvestamist?”</em>
+                  saadab huvikool tõendi koos infopaketiga: <em>"Kuidas alustada koolivälise õppimise arvestamist?"</em>
                 </p>
               </div>
             </div>
@@ -253,22 +253,22 @@ const Index = () => {
               Mida iga osapool saab
             </h2>
           </div>
-          <div className="grid md:grid-cols-3 gap-4 md:gap-6">
+          <div className="grid md:grid-cols-3 gap-3">
             {[
               {
-                icon: <Users className="size-5" />,
+                icon: <Users className="size-[18px]" strokeWidth={1.75} />,
                 title: "Perele",
                 text: "Selge, mida kool vajab ja miks otsus selline tuli.",
                 tone: "primary",
               },
               {
-                icon: <GraduationCap className="size-5" />,
+                icon: <GraduationCap className="size-[18px]" strokeWidth={1.75} />,
                 title: "Õpetajale",
                 text: "Tõendid ja võimalikud õppekava seosed on enne otsust koondatud.",
                 tone: "accent",
               },
               {
-                icon: <Building2 className="size-5" />,
+                icon: <Building2 className="size-[18px]" strokeWidth={1.75} />,
                 title: "Koolijuhile",
                 text: "Korduvad juhtumid muutuvad nähtavaks ja ühtseks praktikaks.",
                 tone: "success",
@@ -283,13 +283,13 @@ const Index = () => {
               return (
                 <div
                   key={c.title}
-                  className="rounded-[20px] bg-card border-2 border-border-strong p-6 md:p-7 shadow-card hover:shadow-elevated transition-smooth"
+                  className="rounded-2xl bg-card border border-border p-5 hover:shadow-card hover:border-primary/40 transition-smooth"
                 >
-                  <div className={`size-11 rounded-xl ${bg} flex items-center justify-center mb-5`}>
+                  <div className={`size-9 rounded-lg ${bg} flex items-center justify-center mb-4`}>
                     {c.icon}
                   </div>
-                  <h3 className="text-lg font-semibold tracking-tight mb-2">{c.title}</h3>
-                  <p className="text-[15px] text-foreground/70 leading-relaxed">{c.text}</p>
+                  <h3 className="text-[17px] font-semibold tracking-tight mb-1.5">{c.title}</h3>
+                  <p className="text-[13px] text-muted-foreground leading-relaxed">{c.text}</p>
                 </div>
               );
             })}
@@ -300,7 +300,7 @@ const Index = () => {
         {/* Loe lähemalt */}
         <section>
           <div className="max-w-[1180px] mx-auto px-4 sm:px-6 md:px-8 py-16 md:py-20">
-          <Accordion type="single" collapsible className="rounded-[20px] border-2 border-border-strong bg-card divide-y divide-border shadow-card">
+          <Accordion type="single" collapsible className="rounded-2xl border border-border bg-card divide-y divide-border">
             <AccordionItem value="vota" className="border-0 px-6">
               <AccordionTrigger className="text-sm font-semibold">
                 VÕTA üldhariduse kontekstis
