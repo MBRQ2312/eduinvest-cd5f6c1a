@@ -8,42 +8,43 @@
 
 @layer base {
   :root {
-    /* Surfaces — warm off-white paper */
-    --background: 36 30% 97%;            /* warm cream */
-    --foreground: 220 30% 10%;           /* deep ink */
+    /* Surfaces — soft Nordic paper */
+    --background: 45 35% 96%;            /* #FAF8F2 */
+    --foreground: 222 39% 11%;           /* #111827 */
 
     --card: 0 0% 100%;
-    --card-foreground: 220 30% 10%;
+    --card-foreground: 222 39% 11%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 220 30% 10%;
+    --popover-foreground: 222 39% 11%;
 
-    /* Brand: Deep teal — calm, distinctive, authoritative */
-    --primary: 188 78% 22%;
-    --primary-foreground: 36 30% 98%;
-    --primary-subtle: 186 50% 94%;
-    --primary-glow: 186 70% 38%;
+    /* Brand: calm teal */
+    --primary: 181 100% 22%;             /* #006D6F */
+    --primary-foreground: 45 35% 97%;
+    --primary-subtle: 181 40% 92%;
+    --primary-glow: 181 70% 32%;
 
-    --secondary: 36 20% 94%;
-    --secondary-foreground: 220 30% 10%;
+    --secondary: 45 25% 92%;
+    --secondary-foreground: 222 39% 11%;
 
-    --muted: 30 14% 92%;
-    --muted-foreground: 220 12% 38%;
+    --muted: 45 20% 90%;
+    --muted-foreground: 222 12% 38%;
 
-    --accent: 186 50% 94%;
-    --accent-foreground: 188 78% 22%;
+    --accent: 247 75% 67%;               /* #7C6BEA — soft purple */
+    --accent-foreground: 0 0% 100%;
+    --accent-subtle: 247 60% 95%;
 
     --destructive: 8 72% 46%;
     --destructive-foreground: 0 0% 100%;
 
-    /* Outcome / success — vivid impact green */
-    --success: 158 72% 26%;
-    --success-foreground: 36 30% 98%;
-    --success-subtle: 156 48% 92%;
+    /* Outcome / success — deep forest green */
+    --success: 168 84% 13%;              /* #053F35 */
+    --success-foreground: 45 35% 97%;
+    --success-subtle: 168 30% 90%;
 
-    /* Warning / accent — warm amber (highlights "decision") */
+    /* Warning / accent — warm amber (rare, decision only) */
     --warning: 32 95% 48%;
-    --warning-foreground: 220 30% 10%;
+    --warning-foreground: 222 39% 11%;
     --warning-subtle: 38 92% 94%;
 
     /* Borders */
