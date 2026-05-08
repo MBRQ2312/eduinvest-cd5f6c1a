@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ArrowRight, Check, Database, FileCheck2, Loader2, RotateCcw, ShieldCheck, Zap } from "lucide-react";
+import { ArrowRight, Check, Database, FileCheck2, GraduationCap, Loader2, RotateCcw, School, ShieldCheck, Sparkles, UserPlus, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { DemoShell } from "./DemoShell";
