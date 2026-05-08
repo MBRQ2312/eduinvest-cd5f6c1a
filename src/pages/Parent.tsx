@@ -17,7 +17,7 @@ const Parent = () => {
             >
               <ArrowLeft className="size-4" />
             </Link>
-            <div className="text-sm font-semibold">eKool · Markus T.</div>
+            <div className="text-sm font-semibold">eKool · Nikita T.</div>
             <Badge variant="outline" className="text-[10px]">8.A</Badge>
           </div>
         </header>
@@ -30,7 +30,7 @@ const Parent = () => {
               Uus otsus koolilt
             </div>
             <div className="text-lg font-semibold leading-snug">
-              Markuse jalgpallitreeninguid arvestati osaliselt kehalise kasvatuse õpitulemuste täitmisel.
+              Nikita jalgpallitreeninguid arvestati osaliselt kehalise kasvatuse õpitulemuste täitmisel.
             </div>
             <div className="mt-3 flex items-center gap-2 text-xs text-primary-foreground/80">
               <Clock className="size-3.5" />
@@ -58,7 +58,7 @@ const Parent = () => {
           </div>
           <div className="rounded-2xl border border-warning/30 bg-warning-subtle p-4 space-y-2 text-sm">
             <p className="text-foreground/90">
-              <strong>Markus:</strong> kirjuta 5–7 lausega eneseanalüüs eesti keeles —
+              <strong>Nikita:</strong> kirjuta 5–7 lausega eneseanalüüs eesti keeles —
               mida õppisid trennist sel veerandil?
             </p>
             <p className="text-foreground/90">
@@ -72,7 +72,7 @@ const Parent = () => {
           <div className="rounded-2xl border-l-4 border-primary bg-primary-subtle/50 p-4 text-sm leading-relaxed">
             <div className="font-semibold mb-1.5">Mida see otsus EI tähenda</div>
             <ul className="space-y-1.5 text-foreground/85">
-              <li className="flex gap-2"><span>·</span><span>Markus EI ole kehalise kasvatuse tunnist vabastatud</span></li>
+              <li className="flex gap-2"><span>·</span><span>Nikita EI ole kehalise kasvatuse tunnist vabastatud</span></li>
               <li className="flex gap-2"><span>·</span><span>Eesti keele hinnet EI asendata automaatselt</span></li>
               <li className="flex gap-2"><span>·</span><span>Õppekoormus on kohandatud, mitte vähendatud</span></li>
             </ul>

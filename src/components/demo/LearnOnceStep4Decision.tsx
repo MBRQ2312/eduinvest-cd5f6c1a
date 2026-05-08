@@ -91,9 +91,9 @@ export const LearnOnceStep4Decision = ({ onNext, onBack }: Props) => {
       <div className="rounded-2xl bg-gradient-to-br from-primary to-primary-glow text-primary-foreground p-7 shadow-elevated mb-6">
         <div className="text-[10px] font-bold tracking-[0.22em] uppercase text-primary-foreground/80 mb-3">Õpetaja otsus — näidissõnastus</div>
         <div className="space-y-4 text-sm leading-relaxed">
-          <p><strong>Kehaline kasvatus:</strong> Arvestan osaliselt. Markuse jalgpallitreening katab vastupidavuse ja regulaarse liikumisharjumuse osa. Liikumisoskuste koolipõhine osa vajab veel õpetaja vaatlust.</p>
+          <p><strong>Kehaline kasvatus:</strong> Arvestan osaliselt. Nikita jalgpallitreening katab vastupidavuse ja regulaarse liikumisharjumuse osa. Liikumisoskuste koolipõhine osa vajab veel õpetaja vaatlust.</p>
           <p><strong>Eesti keel:</strong> Ei arvesta eraldi aineosa asendusena, kuid märgin kogemuse tõendina eestikeelses keskkonnas suhtlemise ja juhiste mõistmise kohta. Õppija lisab lühikese eneseanalüüsi eesti keeles.</p>
-          <p className="border-l-2 border-white/40 pl-3 italic"><strong>Õppekorralduslik kokkulepe:</strong> Markus osaleb kehalise kasvatuse tundides valikuliselt. Tundides, kus käsitletakse juba kaetud osa, teeb ta iseseisva taastumise, liikumispäeviku või eneseanalüüsi ülesande.</p>
+          <p className="border-l-2 border-white/40 pl-3 italic"><strong>Õppekorralduslik kokkulepe:</strong> Nikita osaleb kehalise kasvatuse tundides valikuliselt. Tundides, kus käsitletakse juba kaetud osa, teeb ta iseseisva taastumise, liikumispäeviku või eneseanalüüsi ülesande.</p>
         </div>
         <div className="mt-5 inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/15 text-xs font-semibold">
           Õppekoormus kohandatud · mitte vabastatud

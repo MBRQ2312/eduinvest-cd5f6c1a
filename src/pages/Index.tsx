@@ -136,12 +136,12 @@ const Index = () => {
                   </div>
                 </div>
                 <h2 className="text-2xl md:text-3xl font-semibold tracking-tight leading-tight">
-                  Markus T., <span className="text-primary">8. klass</span>
+                  Nikita T., <span className="text-primary">8. klass</span>
                 </h2>
                 <p className="mt-4 text-sm md:text-base text-foreground/85 leading-relaxed text-pretty">
-                  Markus käib jalgpallitrennis <strong>3 korda nädalas</strong>. Treeningud
+                  Nikita käib jalgpallitrennis <strong>3 korda nädalas</strong>. Treeningud
                   toimuvad <strong>eesti keeles</strong>. Treener on eestikeelne ning
-                  tiimikaaslastega suhtleb Markus valdavalt eesti keeles.
+                  tiimikaaslastega suhtleb Nikita valdavalt eesti keeles.
                 </p>
               </div>
               <div className="lg:col-span-3 p-7 md:p-9">
@@ -149,7 +149,7 @@ const Index = () => {
                   Küsimus koolile
                 </div>
                 <p className="text-lg md:text-xl font-semibold tracking-tight leading-snug text-balance">
-                  Kas osa Markuse spordikoolis toimuvast õppimisest saab arvestada{" "}
+                  Kas osa Nikita spordikoolis toimuvast õppimisest saab arvestada{" "}
                   <span className="text-primary">kehalise kasvatuse</span> ja osaliselt ka{" "}
                   <span className="text-primary">eesti keele funktsionaalse kasutuse</span>{" "}
                   õpitulemuste tõendina?

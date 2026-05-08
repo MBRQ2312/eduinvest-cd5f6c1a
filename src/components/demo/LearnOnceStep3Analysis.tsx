@@ -9,7 +9,7 @@ import { toast } from "@/hooks/use-toast";
 interface Props { onNext: () => void; onBack: () => void; }
 
 const MARKUS_CASE = {
-  õppija: "Markus T.",
+  õppija: "Nikita T.",
   klass: "8. klass",
   tegevus: "Jalgpall, Pärnu Spordikool",
   sagedus: "3× nädalas",
@@ -116,7 +116,7 @@ export const LearnOnceStep3Analysis = ({ onNext, onBack }: Props) => {
           <div>
             <div className="text-sm font-semibold">Genereeri reaalne AI eelanalüüs</div>
             <div className="text-xs text-muted-foreground mt-0.5">
-              Saadab Markuse juhtumi OpenAI Responses API-sse (published prompt v1).
+              Saadab Nikita juhtumi OpenAI Responses API-sse (published prompt v1).
             </div>
           </div>
         </div>

@@ -29,7 +29,7 @@ const SLIDES: Slide[] = [
     eyebrow: "Demojuhtum",
     title: (
       <>
-        Markus T., 8. klass.<br />
+        Nikita T., 8. klass.<br />
         Jalgpallitrenn <span className="text-primary-glow">3× nädalas, eesti keeles</span>.
       </>
     ),
