@@ -230,10 +230,11 @@ const Index = () => {
           <div className="text-[11px] font-semibold tracking-[0.22em] uppercase text-muted-foreground mb-5">
             Vali, kes sa oled
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 md:gap-4">
             {[
               { to: "/perele", icon: <Users className="size-5" />, name: "Lapsevanem", desc: "Algatan taotluse", tone: "primary" as const },
               { to: "/treener", icon: <Trophy className="size-5" />, name: "Treener", desc: "Kinnitan tõendid", tone: "accent" as const },
+              { to: "/huvikool", icon: <Sparkles className="size-5" />, name: "Huvikool", desc: "Teen õppe nähtavaks", tone: "accent" as const },
               { to: "/opetaja", icon: <GraduationCap className="size-5" />, name: "Õpetaja", desc: "Teen otsuse", tone: "success" as const },
               { to: "/juht", icon: <Building2 className="size-5" />, name: "Koolijuht", desc: "Näen mustreid", tone: "primary" as const },
             ].map((r) => {
