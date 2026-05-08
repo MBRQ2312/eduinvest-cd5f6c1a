@@ -219,21 +219,21 @@ const Index = () => {
             <h2 className="text-[24px] md:text-[32px] font-semibold tracking-tight leading-[1.15] max-w-2xl">
               Töövoog on kahepoolne — algatada saab pere või huvikool.
             </h2>
-            <div className="mt-8 grid md:grid-cols-2 gap-4">
-              <div className="rounded-[20px] border-2 border-border-strong bg-card p-6 shadow-card">
+            <div className="mt-8 grid md:grid-cols-2 gap-3">
+              <div className="rounded-2xl border border-border bg-card p-5 hover:shadow-card transition-smooth">
                 <div className="text-[11px] font-bold tracking-[0.22em] uppercase text-primary mb-2">A · Pere algatab</div>
-                <div className="text-lg font-semibold mb-2">Lapsevanem esitab taotluse</div>
-                <p className="text-sm text-foreground/75 leading-relaxed">
+                <div className="text-[17px] font-semibold tracking-tight mb-2">Lapsevanem esitab taotluse</div>
+                <p className="text-[13px] text-muted-foreground leading-relaxed">
                   Pere kasutab kooli töövoogu ja lisab huvikooli/treeneri tõendi. Kool palub kinnitust
                   ja teeb otsuse.
                 </p>
               </div>
-              <div className="rounded-[20px] border-2 border-accent/40 bg-accent-subtle/40 p-6 shadow-card">
+              <div className="rounded-2xl border border-accent/40 bg-accent-subtle/30 p-5 hover:shadow-card transition-smooth">
                 <div className="text-[11px] font-bold tracking-[0.22em] uppercase text-accent mb-2">B · Huvikool algatab</div>
-                <div className="text-lg font-semibold mb-2">“Sinu lapse tegevus võib koolis arvestatav olla.”</div>
-                <p className="text-sm text-foreground/75 leading-relaxed">
+                <div className="text-[17px] font-semibold tracking-tight mb-2">"Sinu lapse tegevus võib koolis arvestatav olla."</div>
+                <p className="text-[13px] text-muted-foreground leading-relaxed">
                   Huvikool annab perele märku ja pakub taotluse esitamist. Kui kool ei kasuta süsteemi,
-                  saadab huvikool tõendi koos infopaketiga: <em>“Kuidas alustada koolivälise õppimise arvestamist?”</em>
+                  saadab huvikool tõendi koos infopaketiga: <em>"Kuidas alustada koolivälise õppimise arvestamist?"</em>
                 </p>
               </div>
             </div>
