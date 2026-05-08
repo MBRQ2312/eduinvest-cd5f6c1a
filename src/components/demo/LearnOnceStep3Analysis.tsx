@@ -3,6 +3,7 @@ import { ArrowRight, Sparkles, AlertCircle, CheckCircle2, XCircle, Languages, Tr
 import { Button } from "@/components/ui/button";
 import { DemoShell } from "./DemoShell";
 import { ParentNote } from "./ParentNote";
+import { CurriculumPrinciples } from "./CurriculumPrinciples";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "@/hooks/use-toast";
 
@@ -106,7 +107,9 @@ export const LearnOnceStep3Analysis = ({ onNext, onBack }: Props) => {
       title="AI eelanalüüs õpetajale"
       subtitle="AI seob õppija sisendi õppekava õpitulemustega — kontrollitavalt ja läbipaistvalt."
     >
-      <ParentNote text="AI ei pane hinnet ega vabasta tunnist. AI võrdleb sisendit kooli õppekavaga ja näitab õpetajale, kus on tugev seos, kus osaline ja millised tõendid puuduvad." />
+      <ParentNote text="AI ei pane hinnet ega vabasta tunnist. AI võrdleb sisendit RIIKLIKU ÕPPEKAVAGA ja kooli õppekava õpitulemustega ning näitab õpetajale, kus on tugev seos, kus osaline ja millised tõendid puuduvad." />
+
+      <CurriculumPrinciples />
 
       <div className="rounded-2xl border border-primary/30 bg-gradient-to-br from-primary/5 to-primary/10 p-5 mb-8 flex flex-col sm:flex-row sm:items-center gap-4 justify-between">
         <div className="flex items-start gap-3">
