@@ -93,7 +93,12 @@ const HeroIllustration = () => (
     {/* Family node */}
     <g transform="translate(40 80)">
       <circle cx="36" cy="36" r="36" fill="hsl(var(--primary-subtle))" />
-      <Users x="20" y="20" width="32" height="32" stroke="hsl(var(--primary))" strokeWidth="1.5" />
+    </g>
+    <g transform="translate(58 96)" stroke="hsl(var(--primary))" strokeWidth="1.5" fill="none">
+      <circle cx="12" cy="12" r="6" />
+      <circle cx="28" cy="14" r="5" />
+      <path d="M2 38 C 4 26, 22 26, 24 38" />
+      <path d="M22 38 C 24 30, 36 30, 38 38" />
     </g>
 
     {/* Coach node */}
