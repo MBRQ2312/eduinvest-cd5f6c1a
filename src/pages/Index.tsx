@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowDown, Users, GraduationCap, Building2, Sparkles, ShieldCheck, FileText, CheckCircle2, Trophy, ChevronDown } from "lucide-react";
+import { ArrowDown, ArrowRight, Users, GraduationCap, Building2, Sparkles, ShieldCheck, FileText, CheckCircle2, Trophy, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Accordion,
@@ -8,6 +8,14 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import { ApplicationStep } from "@/components/demo/steps/ApplicationStep";
 import { SchoolMappingStep } from "@/components/demo/steps/SchoolMappingStep";
 import { EvidenceStep } from "@/components/demo/steps/EvidenceStep";
@@ -154,6 +162,11 @@ const Index = () => {
     setTimeout(() => flowRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }), 50);
   };
 
+  const startCase = () => {
+    setStep(1 as Step);
+    setTimeout(() => timelineRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }), 50);
+  };
+
   return (
     <div className="min-h-screen bg-background relative overflow-x-hidden">
       <header className="border-b border-border/60 bg-background/80 sticky top-0 z-30 backdrop-blur-md">
@@ -181,57 +194,160 @@ const Index = () => {
           <div className="max-w-[1180px] mx-auto px-4 sm:px-6 md:px-8 py-12 md:py-20 grid md:grid-cols-2 gap-10 md:gap-14 items-center">
           <div className="break-words min-w-0">
             <div className="text-[11px] font-semibold tracking-[0.22em] uppercase text-primary mb-5">
-              Prototüüp
+              EduInvest LearnOnce
             </div>
-            <h1 className="text-[34px] leading-[1.08] sm:text-[42px] md:text-[52px] lg:text-[60px] font-semibold tracking-tight text-foreground break-words">
-              EduInvest <span className="text-primary">LearnOnce</span>
+            <h1 className="text-[32px] leading-[1.1] sm:text-[40px] md:text-[48px] lg:text-[54px] font-semibold tracking-tight text-foreground break-words">
+              Õppimine toimub juba.<br />
+              <span className="text-primary">LearnOnce</span> teeb selle koolile nähtavaks.
             </h1>
             <p className="mt-5 text-lg md:text-xl text-foreground/80 leading-snug">
-              Kooliväline õppimine kooli vaatesse.
+              Tõendid kokku. Seosed nähtavaks. Otsus koolile.
             </p>
 
-            <div className="mt-6 flex flex-wrap gap-2">
-              {["Õpi üks kord.", "Tõenda selgelt.", "Kool otsustab."].map((t) => (
-                <span
-                  key={t}
-                  className="inline-flex items-center px-3.5 py-1.5 rounded-full bg-card border border-border-strong text-[13px] font-medium text-foreground/85"
-                >
-                  {t}
-                </span>
-              ))}
+            <div className="mt-6 rounded-[16px] border border-border-strong bg-card p-4 md:p-5">
+              <div className="flex items-start gap-3">
+                <div className="size-8 rounded-lg bg-accent-subtle text-accent flex items-center justify-center shrink-0">
+                  <Sparkles className="size-4" />
+                </div>
+                <p className="text-[14.5px] md:text-[15px] text-foreground/80 leading-relaxed">
+                  AI teeb eeltöö: koondab tõendid, näitab võimalikud õppekava seosed ja toob välja puuduva info.
+                  <br />
+                  <span className="text-foreground/70">AI ei otsusta, ei anna hinnet ega vabasta tunnist.</span>
+                  <br />
+                  <span className="text-foreground/70">Otsuse teeb õpetaja või kooli määratud vastutaja.</span>
+                </p>
+              </div>
             </div>
-
-            <p className="mt-6 text-[15px] md:text-base text-foreground/70 leading-relaxed max-w-xl">
-              AI ei otsusta, ei anna hinnet ega vabasta tunnist. AI aitab tõendid ja
-              õppekava seosed õpetajale nähtavaks teha.
-            </p>
 
             <div className="mt-7 flex flex-wrap gap-3">
-              <Button
-                asChild
-                size="lg"
-                className="rounded-xl"
-              >
-                <Link to="/demo">
-                  Käivita 4-ekraani demo
-                  <ArrowDown className="size-4 ml-1 rotate-[-90deg]" />
-                </Link>
+              <Button size="lg" onClick={startCase} className="rounded-xl">
+                Alusta testjuhtumit
+                <ArrowRight className="size-4 ml-1" />
               </Button>
-              <Button
-                size="lg"
-                variant="outline"
-                onClick={scrollToTimeline}
-                className="rounded-xl"
-              >
-                Vaata täisotsustusvoogu
-                <ArrowDown className="size-4 ml-1" />
-              </Button>
+              <Dialog>
+                <DialogTrigger asChild>
+                  <Button size="lg" variant="outline" className="rounded-xl">
+                    Vaata taustainfot
+                  </Button>
+                </DialogTrigger>
+                <DialogContent className="max-w-2xl max-h-[85vh] overflow-y-auto">
+                  <DialogHeader>
+                    <DialogTitle>Taustainfo</DialogTitle>
+                    <DialogDescription>
+                      Miks see prototüüp on tehtud ja mis on selle piirangud.
+                    </DialogDescription>
+                  </DialogHeader>
+                  <div className="space-y-4 text-sm text-foreground/80 leading-relaxed">
+                    <div>
+                      <div className="font-semibold text-foreground mb-1">Miks see oluline on</div>
+                      <p>
+                        Kooliväline õppimine toimub iga päev — trennides, huvikoolides, kodus.
+                        Täna jääb see suures osas koolile nähtamatuks. LearnOnce teeb selle nähtavaks
+                        ja annab koolile selge otsustuspõhja.
+                      </p>
+                    </div>
+                    <div className="grid grid-cols-3 gap-3">
+                      <div className="rounded-lg border border-border bg-muted/40 p-3">
+                        <div className="text-xl font-semibold text-primary">849</div>
+                        <div className="text-[11px] text-muted-foreground">huvikooli</div>
+                      </div>
+                      <div className="rounded-lg border border-border bg-muted/40 p-3">
+                        <div className="text-xl font-semibold text-primary">153 263</div>
+                        <div className="text-[11px] text-muted-foreground">huvikooli õppijat</div>
+                      </div>
+                      <div className="rounded-lg border border-border bg-muted/40 p-3">
+                        <div className="text-xl font-semibold text-primary">3000+</div>
+                        <div className="text-[11px] text-muted-foreground">õppekava</div>
+                      </div>
+                    </div>
+                    <div>
+                      <div className="font-semibold text-foreground mb-1">AI roll</div>
+                      <p>AI ei otsusta. AI koondab tõendid, näitab võimalikud õppekava seosed ja toob välja puuduva info.</p>
+                    </div>
+                    <div>
+                      <div className="font-semibold text-foreground mb-1">Häki piirangud</div>
+                      <ul className="list-disc pl-5 space-y-1">
+                        <li>Häkil kasutame mock-andmeid.</li>
+                        <li>eKool / Stuudium / EHIS / ARNO liidestused vajavad valideerimist.</li>
+                        <li>Andmekaitse ja vanema nõusolek vajavad piloodis täpsustamist.</li>
+                      </ul>
+                    </div>
+                  </div>
+                </DialogContent>
+              </Dialog>
             </div>
+
+            <p className="mt-6 text-[13px] text-muted-foreground leading-relaxed max-w-xl">
+              Testjuhtum: Nikita Tamm, 8. klass, jalgpallitrenn 3× nädalas, treening eesti keeles.
+            </p>
           </div>
 
           <div className="flex justify-center md:justify-end">
             <HeroIllustration />
           </div>
+          </div>
+        </section>
+
+        {/* DEMO PLOKK */}
+        <section className="section-alt border-b border-border">
+          <div className="max-w-[1180px] mx-auto px-4 sm:px-6 md:px-8 py-14 md:py-20">
+            <div className="max-w-2xl mb-8 md:mb-10">
+              <div className="text-[11px] font-semibold tracking-[0.22em] uppercase text-muted-foreground mb-3">
+                Demo
+              </div>
+              <h2 className="text-[26px] md:text-[36px] font-semibold tracking-tight leading-[1.15]">
+                Demo: Nikita juhtum
+              </h2>
+              <p className="mt-3 text-base md:text-lg text-foreground/70">
+                Testi, kuidas üks koolivälise õppimise juhtum liigub tõendist kooli põhjendatud otsuseni.
+              </p>
+            </div>
+
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4 mb-8">
+              {[
+                { n: "1", title: "Pere taotlus", text: "Pere palub hinnata, kas Nikita jalgpallitrenni saab osaliselt arvestada.", icon: <Users className="size-4" />, tone: "primary" as const },
+                { n: "2", title: "Treeneri tõend", text: "Treener kinnitab osalemise, mahu, tegevuse sisu ja õppekeele.", icon: <ShieldCheck className="size-4" />, tone: "primary" as const },
+                { n: "3", title: "AI eelanalüüs", text: "AI koondab tõendid, pakub seosed ja näitab puuduolevat infot.", icon: <Sparkles className="size-4" />, tone: "accent" as const },
+                { n: "4", title: "Kooli otsus", text: "Õpetaja või õppejuht otsustab ja pere saab selgituse.", icon: <CheckCircle2 className="size-4" />, tone: "success" as const },
+              ].map((c) => {
+                const bg =
+                  c.tone === "accent"
+                    ? "bg-accent-subtle text-accent"
+                    : c.tone === "success"
+                    ? "bg-success-subtle text-success"
+                    : "bg-primary-subtle text-primary";
+                return (
+                  <div key={c.n} className="rounded-[18px] border-2 border-border-strong bg-card p-5 shadow-card flex flex-col gap-3">
+                    <div className="flex items-center gap-2">
+                      <div className={`size-9 rounded-xl ${bg} flex items-center justify-center`}>
+                        {c.icon}
+                      </div>
+                      <span className="text-xs font-semibold tracking-widest text-muted-foreground">
+                        {c.n}/4
+                      </span>
+                    </div>
+                    <div className="text-[15px] font-semibold tracking-tight">{c.title}</div>
+                    <p className="text-[13.5px] text-foreground/70 leading-relaxed">{c.text}</p>
+                  </div>
+                );
+              })}
+            </div>
+
+            <div className="flex flex-wrap items-center gap-4">
+              <Button asChild size="lg" className="rounded-xl">
+                <Link to="/demo">
+                  Käivita 4-ekraani demo
+                  <ArrowRight className="size-4 ml-1" />
+                </Link>
+              </Button>
+              <button
+                type="button"
+                onClick={scrollToTimeline}
+                className="text-sm font-medium text-primary hover:underline underline-offset-4"
+              >
+                Vaata täisotsustusvoogu →
+              </button>
+            </div>
           </div>
         </section>
 
