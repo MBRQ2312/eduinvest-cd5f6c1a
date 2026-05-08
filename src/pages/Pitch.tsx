@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { Link } from "react-router-dom";
 import {
   ArrowLeft, ArrowRight, Users, GraduationCap, Building2, Sparkles,
@@ -405,6 +405,20 @@ export default function Pitch() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, [i]);
 
+  const touchStartX = useRef<number | null>(null);
+  const onTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.changedTouches[0].screenX;
+  };
+  const onTouchEnd = (e: React.TouchEvent) => {
+    if (touchStartX.current === null) return;
+    const endX = e.changedTouches[0].screenX;
+    const diff = touchStartX.current - endX;
+    const threshold = 50;
+    if (diff > threshold) next();
+    else if (diff < -threshold) prev();
+    touchStartX.current = null;
+  };
+
   const Current = SLIDES[i];
 
   return (
@@ -415,55 +429,80 @@ export default function Pitch() {
           <Link to="/" className="text-sm font-semibold tracking-tight whitespace-nowrap">
             EduInvest LearnOnce
           </Link>
-          <div className="flex-1 flex items-center gap-2 min-w-0">
-            <span className="text-xs font-mono text-muted-foreground whitespace-nowrap">
-              {String(i + 1).padStart(2, "0")} / {String(total).padStart(2, "0")}
+          <div className="flex-1 flex items-center gap-3 min-w-0">
+            <span className="inline-flex items-center justify-center rounded-full bg-foreground text-background text-xs font-bold w-8 h-8 shrink-0">
+              {i + 1}
             </span>
-            <div className="flex-1 h-1 bg-muted rounded-full overflow-hidden">
+            <div className="flex-1 h-2 bg-muted rounded-full overflow-hidden">
               <div
-                className="h-full bg-foreground transition-all duration-300"
+                className="h-full bg-primary transition-all duration-300 rounded-full"
                 style={{ width: `${((i + 1) / total) * 100}%` }}
               />
             </div>
-            <span className="hidden sm:inline text-xs text-muted-foreground truncate">
-              {TITLES[i]}
+            <span className="text-xs font-mono text-muted-foreground whitespace-nowrap shrink-0">
+              {i + 1}/{total}
             </span>
           </div>
         </div>
       </header>
 
       {/* Slide */}
-      <main className="pb-28">
+      <main
+        className="pb-28 select-none"
+        onTouchStart={onTouchStart}
+        onTouchEnd={onTouchEnd}
+      >
         <Current />
       </main>
 
       {/* Bottom nav */}
-      <nav className="fixed bottom-0 inset-x-0 z-30 bg-background/90 backdrop-blur border-t border-border/50">
-        <div className="max-w-5xl mx-auto px-5 sm:px-8 py-3 flex items-center justify-between gap-3">
+      <nav className="fixed bottom-0 inset-x-0 z-30 bg-background/95 backdrop-blur border-t border-border/60">
+        <div className="max-w-5xl mx-auto px-4 sm:px-8 py-3 sm:py-4 flex items-center justify-between gap-3">
           <Button
             variant="outline"
+            size="lg"
             onClick={prev}
             disabled={i === 0}
-            className="rounded-full"
+            className="rounded-full h-12 px-6 shadow-sm"
           >
-            <ArrowLeft className="size-4" /> Tagasi
+            <ArrowLeft className="size-4" /> Eelmine
           </Button>
-          <div className="hidden sm:flex gap-1.5">
+
+          <div className="hidden sm:flex gap-2 items-center">
             {SLIDES.map((_, idx) => (
               <button
                 key={idx}
                 onClick={() => setI(idx)}
                 aria-label={`Slaid ${idx + 1}`}
-                className={`size-2 rounded-full transition-all ${
-                  idx === i ? "bg-foreground w-6" : "bg-border hover:bg-muted-foreground/40"
+                className={`rounded-full transition-all ${
+                  idx === i
+                    ? "bg-foreground text-background w-8 h-8 text-xs font-bold shadow-sm"
+                    : "bg-muted text-muted-foreground w-8 h-8 text-xs hover:bg-muted-foreground/20"
+                }`}
+              >
+                {idx + 1}
+              </button>
+            ))}
+          </div>
+
+          <div className="flex sm:hidden items-center gap-1.5">
+            {SLIDES.map((_, idx) => (
+              <button
+                key={idx}
+                onClick={() => setI(idx)}
+                aria-label={`Slaid ${idx + 1}`}
+                className={`size-2.5 rounded-full transition-all ${
+                  idx === i ? "bg-foreground w-5" : "bg-border hover:bg-muted-foreground/40"
                 }`}
               />
             ))}
           </div>
+
           <Button
+            size="lg"
             onClick={next}
             disabled={i === total - 1}
-            className="rounded-full"
+            className="rounded-full h-12 px-6 shadow-sm"
           >
             Järgmine <ArrowRight className="size-4" />
           </Button>
