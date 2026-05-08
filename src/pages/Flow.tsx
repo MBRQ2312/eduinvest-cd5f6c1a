@@ -394,8 +394,22 @@ const Field = ({ icon: Icon, label, value }: { icon: React.ElementType; label: s
   </div>
 );
 
-/* === Step 2: AI eelanalüüs === */
-const Step2 = ({ onNext }: { onNext: () => void }) => (
+/* === Step 2: AI eelanalüüs (käivitatav) === */
+const Step2 = ({
+  subjects,
+  aiRun,
+  onRun,
+  onNext,
+}: {
+  subjects: Subject[];
+  aiRun: "idle" | "running" | "done";
+  onRun: () => void;
+  onNext: () => void;
+}) => {
+  const includesPe = subjects.includes("pe");
+  const includesEst = subjects.includes("estonian");
+
+  return (
   <div>
     <Eyebrow color={C.purple}>2 / 4 · AI eelanalüüs</Eyebrow>
     <Title>AI koondab tõendid ja pakub seosed õppekavaga.</Title>
@@ -403,61 +417,110 @@ const Step2 = ({ onNext }: { onNext: () => void }) => (
       AI ei otsusta. AI näitab, mis on tugev, mis osaline ja mis vajab lisatõendit.
     </p>
 
-    <div className="mt-6 grid md:grid-cols-3 gap-3">
-      <Card bg={`${C.lime}25`} border={`${C.lime}80`}>
-        <Eyebrow color={C.green}>Tugev seos</Eyebrow>
-        <ul className="text-sm space-y-1.5 mt-2" style={{ color: C.text }}>
-          <li className="flex items-start gap-2"><CheckCircle2 className="size-4 mt-0.5 shrink-0" style={{ color: C.green }} /> regulaarne liikumine</li>
-          <li className="flex items-start gap-2"><CheckCircle2 className="size-4 mt-0.5 shrink-0" style={{ color: C.green }} /> vastupidavus</li>
-          <li className="flex items-start gap-2"><CheckCircle2 className="size-4 mt-0.5 shrink-0" style={{ color: C.green }} /> juhendatud treening</li>
-        </ul>
-      </Card>
-
-      <Card bg={`${C.teal}0D`} border={`${C.teal}40`}>
-        <Eyebrow color={C.teal}>Osaline seos</Eyebrow>
-        <ul className="text-sm space-y-1.5 mt-2" style={{ color: C.text }}>
-          <li className="flex items-start gap-2"><AlertCircle className="size-4 mt-0.5 shrink-0" style={{ color: C.teal }} /> koostöö</li>
-          <li className="flex items-start gap-2"><AlertCircle className="size-4 mt-0.5 shrink-0" style={{ color: C.teal }} /> enesejuhtimine</li>
-          <li className="flex items-start gap-2"><AlertCircle className="size-4 mt-0.5 shrink-0" style={{ color: C.teal }} /> eestikeelne suhtlus</li>
-        </ul>
-      </Card>
-
-      <Card bg={`${C.orange}10`} border={`${C.orange}50`}>
-        <Eyebrow color={C.orange}>Puudub tõend</Eyebrow>
-        <ul className="text-sm space-y-1.5 mt-2" style={{ color: C.text }}>
-          <li className="flex items-start gap-2"><AlertCircle className="size-4 mt-0.5 shrink-0" style={{ color: C.orange }} /> õppija eneseanalüüs</li>
-          <li className="flex items-start gap-2"><AlertCircle className="size-4 mt-0.5 shrink-0" style={{ color: C.orange }} /> õpetaja lühivestlus</li>
-        </ul>
-      </Card>
-    </div>
-
-    <div className="mt-6 grid md:grid-cols-2 gap-4">
-      <Card bg={`${C.purple}0D`} border={`${C.purple}40`}>
-        <div className="flex items-center gap-2 mb-3">
-          <Sparkles className="size-5" style={{ color: C.purple }} />
-          <div className="text-sm font-semibold" style={{ color: C.purple }}>AI mustand õpetajale</div>
+    {aiRun === "idle" && (
+      <Card className="mt-6" bg={`${C.purple}0D`} border={`${C.purple}40`}>
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div className="flex items-start gap-3">
+            <Sparkles className="size-6 shrink-0" style={{ color: C.purple }} />
+            <div>
+              <div className="font-semibold" style={{ color: C.text }}>Käivita AI eelanalüüs</div>
+              <p className="text-sm mt-1" style={{ color: "#4B5563" }}>
+                AI loeb tõendid, võrdleb õppekavaga ja koostab mustandi õpetajale.
+                Analüüsitavad ained: <strong>{[includesPe && "kehaline kasvatus", includesEst && "eesti keel"].filter(Boolean).join(", ") || "—"}</strong>.
+              </p>
+            </div>
+          </div>
+          <Button onClick={onRun} className="rounded-full" style={{ background: C.purple, color: "white" }}>
+            <Sparkles className="size-4" /> Käivita analüüs
+          </Button>
         </div>
-        <p className="text-sm leading-relaxed" style={{ color: C.text }}>
-          „Tõendid (treeneri kinnitus, maht, võistlused, keel) toetavad{" "}
-          <strong>täielikku arvestamist</strong> kehalise kasvatuse õpitulemustes
-          'regulaarne liikumine' ja 'vastupidavus'. Eesti keele osas on tõend{" "}
-          <strong>toetav</strong>, kuid mitte aluseks hinde asendamiseks. Soovitan
-          küsida õppija lühieneseanalüüsi.“
-        </p>
       </Card>
+    )}
 
-      <Card>
-        <Eyebrow>Mida AI ei tee</Eyebrow>
-        <ul className="text-sm space-y-1.5 mt-2" style={{ color: C.text }}>
-          <li>• ei anna hinnet</li>
-          <li>• ei vabasta tunnist</li>
-          <li>• ei tee lõppotsust</li>
-          <li>• ei asenda õpetaja hinnangut</li>
-        </ul>
+    {aiRun === "running" && (
+      <Card className="mt-6 text-center" bg={`${C.purple}0D`} border={`${C.purple}40`}>
+        <div className="flex flex-col items-center gap-3 py-6">
+          <div
+            className="size-12 rounded-full animate-spin"
+            style={{ border: `3px solid ${C.purple}30`, borderTopColor: C.purple }}
+          />
+          <div className="text-sm font-medium" style={{ color: C.purple }}>
+            AI loeb tõendeid ja seob õppekavaga…
+          </div>
+          <div className="text-xs" style={{ color: "#6B7280" }}>
+            Kestab paar sekundit. Häkil kasutame mock-andmeid.
+          </div>
+        </div>
       </Card>
-    </div>
+    )}
+
+    {aiRun === "done" && (
+      <div className="animate-in fade-in slide-in-from-bottom-2 duration-400">
+        <div className="mt-6 grid md:grid-cols-3 gap-3">
+          <Card bg={`${C.lime}25`} border={`${C.lime}80`}>
+            <Eyebrow color={C.green}>Tugev seos</Eyebrow>
+            <ul className="text-sm space-y-1.5 mt-2" style={{ color: C.text }}>
+              <li className="flex items-start gap-2"><CheckCircle2 className="size-4 mt-0.5 shrink-0" style={{ color: C.green }} /> regulaarne liikumine</li>
+              <li className="flex items-start gap-2"><CheckCircle2 className="size-4 mt-0.5 shrink-0" style={{ color: C.green }} /> vastupidavus</li>
+              <li className="flex items-start gap-2"><CheckCircle2 className="size-4 mt-0.5 shrink-0" style={{ color: C.green }} /> juhendatud treening</li>
+            </ul>
+          </Card>
+
+          <Card bg={`${C.teal}0D`} border={`${C.teal}40`}>
+            <Eyebrow color={C.teal}>Osaline seos</Eyebrow>
+            <ul className="text-sm space-y-1.5 mt-2" style={{ color: C.text }}>
+              <li className="flex items-start gap-2"><AlertCircle className="size-4 mt-0.5 shrink-0" style={{ color: C.teal }} /> koostöö</li>
+              <li className="flex items-start gap-2"><AlertCircle className="size-4 mt-0.5 shrink-0" style={{ color: C.teal }} /> enesejuhtimine</li>
+              {includesEst && (
+                <li className="flex items-start gap-2"><AlertCircle className="size-4 mt-0.5 shrink-0" style={{ color: C.teal }} /> eestikeelne suhtlus</li>
+              )}
+            </ul>
+          </Card>
+
+          <Card bg={`${C.orange}10`} border={`${C.orange}50`}>
+            <Eyebrow color={C.orange}>Puudub tõend</Eyebrow>
+            <ul className="text-sm space-y-1.5 mt-2" style={{ color: C.text }}>
+              <li className="flex items-start gap-2"><AlertCircle className="size-4 mt-0.5 shrink-0" style={{ color: C.orange }} /> õppija eneseanalüüs</li>
+              <li className="flex items-start gap-2"><AlertCircle className="size-4 mt-0.5 shrink-0" style={{ color: C.orange }} /> õpetaja lühivestlus</li>
+            </ul>
+          </Card>
+        </div>
+
+        <div className="mt-6 grid md:grid-cols-2 gap-4">
+          <Card bg={`${C.purple}0D`} border={`${C.purple}40`}>
+            <div className="flex items-center gap-2 mb-3">
+              <Sparkles className="size-5" style={{ color: C.purple }} />
+              <div className="text-sm font-semibold" style={{ color: C.purple }}>AI mustand õpetajale</div>
+            </div>
+            <p className="text-sm leading-relaxed" style={{ color: C.text }}>
+              „Tõendid (treeneri kinnitus, maht, võistlused, keel) toetavad{" "}
+              {includesPe && (<><strong>täielikku arvestamist</strong> kehalise kasvatuse õpitulemustes 'regulaarne liikumine' ja 'vastupidavus'. </>)}
+              {includesEst && (<>Eesti keele osas on tõend <strong>toetav</strong>, kuid mitte aluseks hinde asendamiseks. </>)}
+              Soovitan küsida õppija lühieneseanalüüsi.“
+            </p>
+          </Card>
+
+          <Card>
+            <Eyebrow>Mida AI ei tee</Eyebrow>
+            <ul className="text-sm space-y-1.5 mt-2" style={{ color: C.text }}>
+              <li>• ei anna hinnet</li>
+              <li>• ei vabasta tunnist</li>
+              <li>• ei tee lõppotsust</li>
+              <li>• ei asenda õpetaja hinnangut</li>
+            </ul>
+          </Card>
+        </div>
+
+        <div className="mt-6 flex justify-end">
+          <Button onClick={onNext} className="rounded-full" style={{ background: C.green, color: "white" }}>
+            Anna õpetajale otsustamiseks <ArrowRight className="size-4" />
+          </Button>
+        </div>
+      </div>
+    )}
   </div>
-);
+  );
+};
 
 /* === Step 3: Õpetaja otsus === */
 const Step3 = ({
