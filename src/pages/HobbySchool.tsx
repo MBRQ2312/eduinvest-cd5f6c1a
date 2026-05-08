@@ -18,6 +18,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { SectionLabel, InfoCard } from "@/components/demo/primitives";
+import { MockDataNotice } from "@/components/MockDataNotice";
 
 const PROFILE = {
   hobbySchool: "FC Levadia U16",
@@ -67,6 +68,8 @@ const HobbySchool = () => {
             Huvikool ei otsusta kooli eest. Huvikool teeb oma õppe koolile nähtavaks ja tõendatavaks.
           </p>
         </header>
+
+        <MockDataNotice className="mb-6" />
 
         {/* Quality mark hero */}
         <section className="mb-8">
