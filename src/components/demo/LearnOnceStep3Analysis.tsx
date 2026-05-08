@@ -1,9 +1,22 @@
-import { ArrowRight, Sparkles, AlertCircle, CheckCircle2, XCircle, Languages, Trophy, Users2, Brain } from "lucide-react";
+import { useState } from "react";
+import { ArrowRight, Sparkles, AlertCircle, CheckCircle2, XCircle, Languages, Trophy, Users2, Brain, Loader2, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { DemoShell } from "./DemoShell";
 import { ParentNote } from "./ParentNote";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "@/hooks/use-toast";
 
 interface Props { onNext: () => void; onBack: () => void; }
+
+const MARKUS_CASE = {
+  õppija: "Markus T.",
+  klass: "8. klass",
+  tegevus: "Jalgpall, Pärnu Spordikool",
+  sagedus: "3× nädalas",
+  keskkond: "Eestikeelne treeningkeskkond",
+  lisainfo: "Võistlused ja treeninglaagrid, treeneri kinnitus olemas",
+  eesmärk: "Seosta tegevus kehalise kasvatuse ja eesti keele õpitulemustega",
+};
 
 type Strength = "strong" | "partial" | "weak";
 
@@ -54,6 +67,39 @@ const MISSING = [
 ];
 
 export const LearnOnceStep3Analysis = ({ onNext, onBack }: Props) => {
+  const [loading, setLoading] = useState(false);
+  const [aiText, setAiText] = useState<string | null>(null);
+  const [aiId, setAiId] = useState<string | null>(null);
+
+  const handleGenerate = async () => {
+    setLoading(true);
+    try {
+      const { data, error } = await supabase.functions.invoke("ai-preanalysis", {
+        body: { caseData: MARKUS_CASE },
+      });
+      if (error) throw error;
+      if ((data as any)?.error) {
+        toast({
+          title: "AI eelanalüüsi ei õnnestunud genereerida",
+          description: (data as any).error + " — mock-vastus jääb alles.",
+          variant: "destructive",
+        });
+        return;
+      }
+      setAiText((data as any).text || "AI ei tagastanud sisu.");
+      setAiId((data as any).id || null);
+      toast({ title: "AI eelanalüüs valmis" });
+    } catch (e: any) {
+      toast({
+        title: "Viga AI päringul",
+        description: (e?.message || "Tundmatu viga") + " — mock-vastus jääb alles.",
+        variant: "destructive",
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <DemoShell
       stepLabel="03 — AI eelanalüüs"
@@ -61,6 +107,43 @@ export const LearnOnceStep3Analysis = ({ onNext, onBack }: Props) => {
       subtitle="AI seob õppija sisendi õppekava õpitulemustega — kontrollitavalt ja läbipaistvalt."
     >
       <ParentNote text="AI ei pane hinnet ega vabasta tunnist. AI võrdleb sisendit kooli õppekavaga ja näitab õpetajale, kus on tugev seos, kus osaline ja millised tõendid puuduvad." />
+
+      <div className="rounded-2xl border border-primary/30 bg-gradient-to-br from-primary/5 to-primary/10 p-5 mb-8 flex flex-col sm:flex-row sm:items-center gap-4 justify-between">
+        <div className="flex items-start gap-3">
+          <div className="size-10 rounded-xl bg-primary text-primary-foreground flex items-center justify-center shrink-0">
+            <Zap className="size-5" />
+          </div>
+          <div>
+            <div className="text-sm font-semibold">Genereeri reaalne AI eelanalüüs</div>
+            <div className="text-xs text-muted-foreground mt-0.5">
+              Saadab Markuse juhtumi OpenAI Responses API-sse (published prompt v1).
+            </div>
+          </div>
+        </div>
+        <Button onClick={handleGenerate} disabled={loading} size="lg" className="shrink-0">
+          {loading ? <><Loader2 className="size-4 animate-spin" /> Genereerin…</> : <><Sparkles className="size-4" /> Genereeri AI eelanalüüs</>}
+        </Button>
+      </div>
+
+      {aiText && (
+        <div className="rounded-2xl border-2 border-primary/40 bg-card p-6 mb-10 shadow-elevated">
+          <div className="flex items-center justify-between mb-4 pb-3 border-b border-border gap-3">
+            <div className="flex items-center gap-2 min-w-0">
+              <div className="size-8 rounded-lg bg-primary text-primary-foreground flex items-center justify-center shrink-0">
+                <Brain className="size-4" />
+              </div>
+              <div className="min-w-0">
+                <div className="text-sm font-semibold">AI eelanalüüs (OpenAI Responses API)</div>
+                {aiId && <div className="text-[10px] text-muted-foreground font-mono mt-0.5 truncate">{aiId}</div>}
+              </div>
+            </div>
+            <span className="text-[10px] font-bold tracking-[0.2em] uppercase text-success bg-success/10 border border-success/30 rounded-full px-2.5 py-1 shrink-0">Live</span>
+          </div>
+          <div className="text-sm leading-relaxed text-foreground/90 whitespace-pre-wrap">{aiText}</div>
+        </div>
+      )}
+
+      <div className="text-[11px] uppercase tracking-[0.18em] text-muted-foreground mb-3 font-semibold">Mock eelvaade — näide struktuurist</div>
 
       {/* A. Seosed */}
       <SectionTitle eyebrow="A" title="Võimalikud seosed õpitulemustega" />
