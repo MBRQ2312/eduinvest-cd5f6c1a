@@ -140,7 +140,7 @@ const Index = () => {
                 className="rounded-xl"
               >
                 <Link to="/demo">
-                  Käivita 4-ekraani demo
+                  Testjuhtum Nikita
                   <ArrowDown className="size-4 ml-1 rotate-[-90deg]" />
                 </Link>
               </Button>
