@@ -685,7 +685,7 @@ const Step4 = ({ decision, subjects }: { decision: "full" | "partial" | "more" |
           <div className="flex items-start gap-3">
             <div className="size-10 rounded-full flex items-center justify-center shrink-0"
               style={{ background: C.purple, color: "white" }}>
-              <Users className="size-5" />
+              <User className="size-5" />
             </div>
             <div className="min-w-0 flex-1">
               <div className="text-xs uppercase tracking-wider font-semibold mb-1" style={{ color: C.purple }}>
