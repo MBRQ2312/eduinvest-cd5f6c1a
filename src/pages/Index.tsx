@@ -245,10 +245,8 @@ const Index = () => {
         {/* VÄÄRTUSKAARDID */}
         <section className="section-alt border-b border-border">
           <div className="max-w-[1180px] mx-auto px-4 sm:px-6 md:px-8 py-16 md:py-24">
-          <div className="max-w-2xl mb-8 md:mb-12">
-            <h2 className="text-[26px] md:text-[36px] font-semibold tracking-tight leading-[1.15]">
-              Win Win tulemus
-            </h2>
+          <div className="text-[11px] font-semibold tracking-[0.22em] uppercase text-muted-foreground mb-5">
+            Win Win tulemus
           </div>
           <div className="grid md:grid-cols-3 gap-3">
             {[
