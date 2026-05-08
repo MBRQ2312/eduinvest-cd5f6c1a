@@ -871,10 +871,11 @@ const Slide14 = () => (
 
 /* ========== Deck ========== */
 
-const SLIDES = [Slide1, Slide2, Slide3, Slide4, Slide5, Slide6, Slide7, Slide8, Slide9, Slide10];
+const SLIDES = [Slide1, Slide2, Slide3, Slide4, Slide5, Slide6, Slide7, Slide8, Slide9, Slide10, Slide11, Slide12, Slide13, Slide14];
 const TITLES = [
   "Ava", "Miks nüüd?", "Probleem", "Demojuhtum", "Lahendus",
-  "AI roll", "Väärtus", "Testgrupp", "Kasu", "Skaleerimine",
+  "AI roll", "Väärtus", "Testgrupp", "Kasu", "Segmendid",
+  "Koolijuht", "Huvikool", "Ärimudel", "Skaleerimine",
 ];
 
 export default function Pitch() {
