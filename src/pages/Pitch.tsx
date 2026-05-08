@@ -95,27 +95,41 @@ const Footnote = ({ children, color = "#6B7280" }: { children: React.ReactNode; 
 
 /* ========== Slides ========== */
 
-/* 1 — Ava */
+/* 1 — Suur probleem (30 s) */
 const Slide1 = () => (
   <SlideShell>
-    <Eyebrow>Prototüüp · EduInvest LearnOnce</Eyebrow>
-    <Title>Kooliväline õppimine kooli vaatesse</Title>
+    <Eyebrow>EduInvest LearnOnce · 30 sekundit</Eyebrow>
+    <Title>Õpetajate ülekoormus, õppija väsimus, dubleeriv õppimine.</Title>
     <Lead>
-      Tõendid kokku. Seosed nähtavaks. Otsus koolile.
+      Samal ajal toimub suur osa õppimisest juba väljaspool kooli — trennis, muusika- ja kunstikoolis,
+      robootikas, kosmoseringis, keeleõppes ja projektides.
     </Lead>
 
-    <div className="mt-8 flex flex-wrap gap-2.5">
-      <Pill bg={`${C.teal}15`} fg={C.teal}>Tõendid kokku</Pill>
-      <Pill bg={`${C.green}15`} fg={C.green}>Seosed nähtavaks</Pill>
-      <Pill bg={`${C.lime}30`} fg={C.green}>Otsus koolile</Pill>
+    <div className="mt-8 grid md:grid-cols-2 gap-4">
+      <Card bg={C.subtle}>
+        <Eyebrow color={C.green}>Mis on koolil olemas</Eyebrow>
+        <p className="text-sm sm:text-base" style={{ color: C.text }}>
+          Seadusega antud paindlikkus koolivälist õppimist arvestada.
+        </p>
+      </Card>
+      <Card bg={`${C.orange}15`} border={`${C.orange}50`}>
+        <Eyebrow color={C.orange}>Mis koolil puudub</Eyebrow>
+        <p className="text-sm sm:text-base" style={{ color: C.text }}>
+          Analüütika- ja otsustustööriist, mis aitaks seda päriselt juhtida.
+        </p>
+      </Card>
     </div>
 
-    <div className="mt-10 flex items-start gap-3 rounded-2xl p-4 sm:p-5"
-      style={{ background: C.subtle, borderLeft: `4px solid ${C.teal}` }}>
-      <ShieldCheck className="size-5 mt-0.5 shrink-0" style={{ color: C.teal }} />
-      <p className="text-sm sm:text-base" style={{ color: C.text }}>
-        Kool ei vaja veel üht vormi. Kool vajab juhtimisinfot. AI teeb eeltöö. Kool otsustab.
+    <div className="mt-8 rounded-2xl p-5 sm:p-6"
+      style={{ background: C.green, color: "white" }}>
+      <p className="text-lg sm:text-2xl font-medium leading-snug">
+        Kool ei vaja veel üht vormi.<br />
+        Kool vajab <span style={{ color: C.lime }}>juhtimisinfot</span>.
       </p>
+      <div className="mt-3 inline-flex rounded-full px-3.5 py-1.5 text-xs font-semibold"
+        style={{ background: C.lime, color: C.green }}>
+        AI teeb eeltöö. Kool otsustab.
+      </div>
     </div>
   </SlideShell>
 );
