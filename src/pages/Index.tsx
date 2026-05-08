@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowDown, ArrowRight, Users, GraduationCap, Building2, Sparkles, ShieldCheck, FileText, CheckCircle2, Trophy, ChevronDown } from "lucide-react";
+import { ArrowDown, Users, GraduationCap, Building2, Sparkles, ShieldCheck, FileText, CheckCircle2, Trophy, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Accordion,
