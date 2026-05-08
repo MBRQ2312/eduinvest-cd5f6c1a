@@ -1,8 +1,8 @@
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { StepShell } from "./StepShell";
-import { DataBlock, DataRow, HelpPopup, SimpleNote } from "./primitives";
-import { DEMO_CASE } from "./demoCase";
+import { StepShell } from "../StepShell";
+import { DataBlock, DataRow, HelpPopup, SimpleNote } from "../primitives";
+import { DEMO_CASE } from "../demoCase";
 
 export const ApplicationStep = ({ onNext }: { onNext: () => void }) => {
   const c = DEMO_CASE;
