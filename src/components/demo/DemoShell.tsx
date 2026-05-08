@@ -9,7 +9,7 @@ interface DemoShellProps {
 
 export const DemoShell = ({ stepLabel, title, subtitle, children }: DemoShellProps) => {
   return (
-    <div className="bg-card rounded-2xl border border-border shadow-card overflow-hidden animate-in fade-in slide-in-from-bottom-4 duration-500">
+    <div className="bg-card rounded-2xl border-2 border-border-strong shadow-card overflow-hidden animate-in fade-in slide-in-from-bottom-4 duration-500">
       <header className="px-6 md:px-10 py-7 border-b border-border bg-gradient-to-b from-card to-muted/30">
         <div className="flex items-center gap-2 mb-3">
           <div className="h-1 w-8 bg-primary rounded-full" />

@@ -117,7 +117,7 @@ export const DataBlock = ({
   children: ReactNode;
   className?: string;
 }) => (
-  <div className={cn("rounded-2xl border border-border bg-card p-5 md:p-6", className)}>
+  <div className={cn("rounded-2xl border-2 border-border-strong bg-card p-5 md:p-6 shadow-card", className)}>
     {title && <div className="text-sm font-semibold tracking-tight mb-4">{title}</div>}
     <div className="space-y-2.5">{children}</div>
   </div>
@@ -215,7 +215,7 @@ export const RoleCard = ({
 }) => (
   <Link
     to={to}
-    className="group rounded-2xl border border-border bg-card p-6 hover:border-primary hover:shadow-elevated transition-smooth flex flex-col gap-3"
+    className="group rounded-2xl border-2 border-border-strong bg-card p-6 shadow-card hover:border-primary hover:shadow-elevated transition-smooth flex flex-col gap-3"
   >
     <div className="text-4xl">{emoji}</div>
     <div className="text-lg font-semibold tracking-tight group-hover:text-primary transition-smooth">
