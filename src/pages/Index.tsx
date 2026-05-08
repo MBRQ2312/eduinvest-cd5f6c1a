@@ -175,9 +175,10 @@ const Index = () => {
         </div>
       </header>
 
-      <main className="max-w-[1180px] mx-auto px-4 sm:px-6 md:px-8 py-12 md:py-20 relative">
+      <main className="relative">
         {/* HERO */}
-        <section className="grid md:grid-cols-2 gap-10 md:gap-14 items-center mb-20 md:mb-28">
+        <section className="border-b border-border">
+          <div className="max-w-[1180px] mx-auto px-4 sm:px-6 md:px-8 py-12 md:py-20 grid md:grid-cols-2 gap-10 md:gap-14 items-center">
           <div className="break-words min-w-0">
             <div className="text-[11px] font-semibold tracking-[0.22em] uppercase text-primary mb-5">
               Prototüüp
@@ -193,7 +194,7 @@ const Index = () => {
               {["Õpi üks kord.", "Tõenda selgelt.", "Kool otsustab."].map((t) => (
                 <span
                   key={t}
-                  className="inline-flex items-center px-3.5 py-1.5 rounded-full bg-card border border-border/70 text-[13px] font-medium text-foreground/85"
+                  className="inline-flex items-center px-3.5 py-1.5 rounded-full bg-card border border-border-strong text-[13px] font-medium text-foreground/85"
                 >
                   {t}
                 </span>
@@ -209,7 +210,7 @@ const Index = () => {
               <Button
                 size="lg"
                 onClick={scrollToTimeline}
-                className="bg-primary hover:bg-primary/90 text-primary-foreground shadow-sm h-12 px-6 text-[15px] rounded-xl"
+                className="rounded-xl"
               >
                 Vaata otsustusvoogu
                 <ArrowDown className="size-4 ml-1" />
@@ -219,6 +220,7 @@ const Index = () => {
 
           <div className="flex justify-center md:justify-end">
             <HeroIllustration />
+          </div>
           </div>
         </section>
 
