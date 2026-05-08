@@ -120,7 +120,13 @@ const Slide1 = () => (
       </Card>
     </div>
 
-    <div className="mt-8 rounded-2xl p-5 sm:p-6"
+    <p className="mt-8 text-base sm:text-lg font-medium pl-4 border-l-4"
+      style={{ color: C.text, borderColor: C.lime }}>
+      Probleem ei ole selles, et laps ei õpi. Probleem on selles, et kool ei näe seda
+      otsuse tegemiseks piisavalt selgelt.
+    </p>
+
+    <div className="mt-6 rounded-2xl p-5 sm:p-6"
       style={{ background: C.green, color: "white" }}>
       <p className="text-lg sm:text-2xl font-medium leading-snug">
         Kool ei vaja veel üht vormi.<br />
