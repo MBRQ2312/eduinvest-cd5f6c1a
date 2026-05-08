@@ -2,6 +2,7 @@ import { ArrowRight, FileCheck2, UserCheck, Calendar, Clock, Trophy, Languages, 
 import { Button } from "@/components/ui/button";
 import { DemoShell } from "./DemoShell";
 import { ParentNote } from "./ParentNote";
+import { HobbySchoolImport } from "./HobbySchoolImport";
 
 interface Props { onNext: () => void; }
 
