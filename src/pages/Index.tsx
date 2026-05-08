@@ -304,7 +304,7 @@ const Index = () => {
                   </span>
                   <button
                     type="button"
-                    onClick={() => setStep(isActive ? (0 as unknown as Step) : stepNum)}
+                    onClick={() => setStep(isActive ? 0 : stepNum)}
                     aria-expanded={isActive}
                     className={`w-full text-left rounded-[20px] bg-card border ${isActive ? "border-primary/40 shadow-sm" : "border-border/60"} p-5 md:p-6 transition-smooth hover:border-primary/30`}
                   >
