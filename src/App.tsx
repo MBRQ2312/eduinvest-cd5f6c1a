@@ -10,6 +10,7 @@ import Pitch from "./pages/Pitch.tsx";
 import Coach from "./pages/Coach.tsx";
 import Teacher from "./pages/Teacher.tsx";
 import Principal from "./pages/Principal.tsx";
+import HobbySchool from "./pages/HobbySchool.tsx";
 
 const queryClient = new QueryClient();
 
@@ -26,6 +27,7 @@ const App = () => (
           <Route path="/treener" element={<Coach />} />
           <Route path="/opetaja" element={<Teacher />} />
           <Route path="/juht" element={<Principal />} />
+          <Route path="/huvikool" element={<HobbySchool />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

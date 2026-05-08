@@ -101,7 +101,7 @@ const Slide1 = () => (
     <Eyebrow>Prototüüp · EduInvest LearnOnce</Eyebrow>
     <Title>Kooliväline õppimine kooli vaatesse</Title>
     <Lead>
-      AI teeb eeltöö. Õpetaja otsustab. Pere saab selgituse. Koolijuht näeb mustreid.
+      Tõendid kokku. Seosed nähtavaks. Otsus koolile.
     </Lead>
 
     <div className="mt-8 flex flex-wrap gap-2.5">
@@ -114,7 +114,7 @@ const Slide1 = () => (
       style={{ background: C.subtle, borderLeft: `4px solid ${C.teal}` }}>
       <ShieldCheck className="size-5 mt-0.5 shrink-0" style={{ color: C.teal }} />
       <p className="text-sm sm:text-base" style={{ color: C.text }}>
-        AI ei anna hinnet, ei vabasta tunnist ega tee lõppotsust.
+        Kool ei vaja veel üht vormi. Kool vajab juhtimisinfot. AI teeb eeltöö. Kool otsustab.
       </p>
     </div>
   </SlideShell>
@@ -440,79 +440,87 @@ const Slide8 = () => (
   </SlideShell>
 );
 
-/* 9 — Kasu */
+/* 9 — Mida Eesti haridusruum võidab? */
 const Slide9 = () => (
   <SlideShell>
     <Eyebrow>Mõju potentsiaal</Eyebrow>
-    <Title>Mida me mõõdame?</Title>
+    <Title>Mida Eesti haridusruum võidab?</Title>
+    <Lead>
+      Hüpoteesid kogu üldhariduse mahus. Need on piloodis kontrollitavad arvutused, mitte lubatud kokkuhoid.
+    </Lead>
 
-    <div className="mt-6 grid md:grid-cols-3 gap-3">
-      <Card>
-        <div className="text-xs uppercase tracking-wide" style={{ color: "#6B7280" }}>I aste</div>
-        <div className="text-2xl font-semibold mt-1" style={{ color: C.text }}>43 740</div>
-        <div className="text-xs" style={{ color: "#6B7280" }}>õppijat</div>
+    <div className="mt-6 grid md:grid-cols-2 gap-3">
+      <Card bg={`${C.lime}25`} border={`${C.lime}80`}>
+        <div className="text-xs uppercase tracking-wide font-semibold" style={{ color: C.green }}>Õppija aeg</div>
+        <div className="mt-2 grid grid-cols-2 gap-3">
+          <div>
+            <div className="text-[11px]" style={{ color: "#6B7280" }}>10% dubleerimist</div>
+            <div className="text-xl font-semibold" style={{ color: C.text }}>~11,7 mln</div>
+            <div className="text-[11px]" style={{ color: "#6B7280" }}>õpilas-õppetundi / a</div>
+          </div>
+          <div>
+            <div className="text-[11px]" style={{ color: "#6B7280" }}>30% dubleerimist</div>
+            <div className="text-xl font-semibold" style={{ color: C.text }}>~35,2 mln</div>
+            <div className="text-[11px]" style={{ color: "#6B7280" }}>õpilas-õppetundi / a</div>
+          </div>
+        </div>
       </Card>
-      <Card>
-        <div className="text-xs uppercase tracking-wide" style={{ color: "#6B7280" }}>II aste</div>
-        <div className="text-2xl font-semibold mt-1" style={{ color: C.text }}>43 570</div>
-        <div className="text-xs" style={{ color: "#6B7280" }}>õppijat</div>
-      </Card>
-      <Card>
-        <div className="text-xs uppercase tracking-wide" style={{ color: "#6B7280" }}>III aste</div>
-        <div className="text-2xl font-semibold mt-1" style={{ color: C.text }}>46 730</div>
-        <div className="text-xs" style={{ color: "#6B7280" }}>õppijat</div>
+
+      <Card bg={`${C.teal}0D`} border={`${C.teal}40`}>
+        <div className="text-xs uppercase tracking-wide font-semibold" style={{ color: C.teal }}>Tunniplaan</div>
+        <div className="mt-2 grid grid-cols-2 gap-3">
+          <div>
+            <div className="text-[11px]" style={{ color: "#6B7280" }}>10%</div>
+            <div className="text-xl font-semibold" style={{ color: C.text }}>~488 000</div>
+            <div className="text-[11px]" style={{ color: "#6B7280" }}>klassi/rühmatundi</div>
+          </div>
+          <div>
+            <div className="text-[11px]" style={{ color: "#6B7280" }}>30%</div>
+            <div className="text-xl font-semibold" style={{ color: C.text }}>~1,47 mln</div>
+            <div className="text-[11px]" style={{ color: "#6B7280" }}>klassi/rühmatundi</div>
+          </div>
+        </div>
       </Card>
     </div>
 
     <div className="mt-3 grid md:grid-cols-2 gap-3">
-      <Card>
-        <div className="flex items-center gap-2">
-          <Building2 className="size-4" style={{ color: C.teal }} />
-          <div className="text-sm" style={{ color: C.text }}>Põhikool I–III aste kokku</div>
+      <Card bg={`${C.green}0D`} border={`${C.green}40`}>
+        <div className="text-xs uppercase tracking-wide font-semibold" style={{ color: C.green }}>Õpetaja tööaeg</div>
+        <div className="mt-2 grid grid-cols-2 gap-3">
+          <div>
+            <div className="text-[11px]" style={{ color: "#6B7280" }}>10%</div>
+            <div className="text-xl font-semibold" style={{ color: C.text }}>~366 000 h</div>
+            <div className="text-[11px]" style={{ color: "#6B7280" }}>~200 õpetaja FTE</div>
+          </div>
+          <div>
+            <div className="text-[11px]" style={{ color: "#6B7280" }}>30%</div>
+            <div className="text-xl font-semibold" style={{ color: C.text }}>~1,1 mln h</div>
+            <div className="text-[11px]" style={{ color: "#6B7280" }}>~600 õpetaja FTE</div>
+          </div>
         </div>
-        <div className="text-2xl font-semibold mt-1" style={{ color: C.teal }}>~134 000 õppijat</div>
       </Card>
-      <Card>
-        <div className="flex items-center gap-2">
-          <Clock className="size-4" style={{ color: C.teal }} />
-          <div className="text-sm" style={{ color: C.text }}>Üldhariduskoolide õpetajad</div>
+
+      <Card bg={`${C.purple}0D`} border={`${C.purple}40`}>
+        <div className="text-xs uppercase tracking-wide font-semibold" style={{ color: C.purple }}>Rahaekvivalent (21–22 €/h)</div>
+        <div className="mt-2 grid grid-cols-2 gap-3">
+          <div>
+            <div className="text-[11px]" style={{ color: "#6B7280" }}>10%</div>
+            <div className="text-xl font-semibold" style={{ color: C.text }}>~7,7–8,1 mln €</div>
+          </div>
+          <div>
+            <div className="text-[11px]" style={{ color: "#6B7280" }}>30%</div>
+            <div className="text-xl font-semibold" style={{ color: C.text }}>~23–24 mln €</div>
+          </div>
         </div>
-        <div className="text-2xl font-semibold mt-1" style={{ color: C.teal }}>17 390</div>
       </Card>
     </div>
 
-    <div className="mt-4 rounded-2xl p-4" style={{ background: `${C.purple}0D`, border: `1px solid ${C.purple}40` }}>
-      <div className="text-xs uppercase tracking-wide font-semibold" style={{ color: C.purple }}>Meie hüpotees</div>
-      <p className="text-sm mt-1" style={{ color: C.text }}>
-        Osa õppija koolipäevast võib kuluda oskuste või õpitulemuste kordamisele,
-        mida ta on juba <strong>koolivälises keskkonnas</strong> juhendatud õppinud.
-      </p>
-    </div>
-
-    <div className="mt-3 grid md:grid-cols-2 gap-3">
-      <Card bg={`${C.lime}25`} border={`${C.lime}80`}>
-        <div className="text-xs uppercase tracking-wide" style={{ color: "#6B7280" }}>Kui dubleerimine 10%</div>
-        <div className="text-2xl font-semibold mt-1" style={{ color: C.text }}>~9–10 mln</div>
-        <div className="text-xs" style={{ color: "#6B7280" }}>õpilas-õppetundi aastas</div>
-      </Card>
-      <Card bg={`${C.lime}25`} border={`${C.lime}80`}>
-        <div className="text-xs uppercase tracking-wide" style={{ color: "#6B7280" }}>Kui dubleerimine 30%</div>
-        <div className="text-2xl font-semibold mt-1" style={{ color: C.text }}>~29 mln</div>
-        <div className="text-xs" style={{ color: "#6B7280" }}>õpilas-õppetundi aastas</div>
-      </Card>
-    </div>
-
-    <div className="mt-4 rounded-xl p-3 text-sm" style={{ background: `${C.teal}10`, borderLeft: `3px solid ${C.teal}`, color: C.text }}>
-      See ei ole lubatud rahaline kokkuhoid. See on märk sellest, kui suur võib olla
-      <strong> nähtamatu ajaressurss</strong>, mida täna ei mõõdeta ega juhita.
-    </div>
-
-    <div className="mt-3 flex items-start gap-2 rounded-xl p-3"
+    <div className="mt-4 flex items-start gap-2 rounded-xl p-3"
       style={{ background: `${C.orange}15`, borderLeft: `3px solid ${C.orange}` }}>
       <AlertCircle className="size-4 mt-0.5 shrink-0" style={{ color: C.orange }} />
       <p className="text-xs sm:text-sm" style={{ color: C.text }}>
-        Piloodis mõõdame väikest ja kontrollitavat osa: kas ühe arvestusotsuse ettevalmistus
-        väheneb õpetaja jaoks <strong>25–40 minutilt 5–10 minutile</strong>.
+        Need on piloodis kontrollitavad hüpoteesid, mitte lubatud kokkuhoid. Piloodis mõõdame:
+        ühe arvestusotsuse ettevalmistus väheneb õpetaja jaoks <strong>25–40 minutilt 5–10 minutile</strong>.
       </p>
     </div>
   </SlideShell>
@@ -862,13 +870,148 @@ const Slide14 = () => (
   </SlideShell>
 );
 
-/* ========== Deck ========== */
+/* === Lisa-slaidid 12-deck'ile === */
 
-const SLIDES = [Slide1, Slide2, Slide3, Slide4, Slide5, Slide6, Slide7, Slide8, Slide9, Slide10, Slide11, Slide12, Slide13, Slide14];
+/* Eesti haridusruumi mõõtkava */
+const SlideScale = () => (
+  <SlideShell>
+    <Eyebrow color={C.teal}>Eesti haridusruumi mõõtkava</Eyebrow>
+    <Title>Suur süsteem, käsitööna juhitud arvestamine.</Title>
+
+    <div className="mt-8 grid grid-cols-2 md:grid-cols-5 gap-3">
+      {[
+        { v: "473", l: "üldhariduskooli" },
+        { v: "849", l: "tegutsevat huvikooli" },
+        { v: "153 263", l: "huvikooli õppijat" },
+        { v: "3000+", l: "õppekava" },
+        { v: "17 390", l: "üldhariduskooli õpetajat" },
+      ].map((x) => (
+        <Card key={x.l}>
+          <div className="text-2xl sm:text-3xl font-semibold" style={{ color: C.text }}>{x.v}</div>
+          <div className="text-xs mt-1" style={{ color: "#6B7280" }}>{x.l}</div>
+        </Card>
+      ))}
+    </div>
+
+    <p className="mt-8 text-base sm:text-lg font-medium pl-4 border-l-4"
+      style={{ color: C.text, borderColor: C.lime }}>
+      Kooliväline õppimine on suur, aga arvestamise töövoog on käsitöö.
+    </p>
+  </SlideShell>
+);
+
+/* Kes maksab ja miks? */
+const SlidePayers = () => (
+  <SlideShell>
+    <Eyebrow color={C.purple}>Kliendisegmendid</Eyebrow>
+    <Title>Kes maksab ja miks?</Title>
+
+    <div className="mt-8 grid md:grid-cols-3 gap-4">
+      <Card bg={`${C.teal}0D`} border={`${C.teal}40`}>
+        <div className="size-10 rounded-full flex items-center justify-center mb-3"
+          style={{ background: C.teal, color: "white" }}>
+          <Building2 className="size-5" />
+        </div>
+        <Eyebrow color={C.teal}>Kool / koolijuht</Eyebrow>
+        <p className="text-sm" style={{ color: C.text }}>
+          Juhtimisinfo, tunniplaan, õpetaja tööaja parem kasutus.
+        </p>
+      </Card>
+
+      <Card bg={`${C.green}0D`} border={`${C.green}40`}>
+        <div className="size-10 rounded-full flex items-center justify-center mb-3"
+          style={{ background: C.green, color: "white" }}>
+          <Globe className="size-5" />
+        </div>
+        <Eyebrow color={C.green}>KOV / koolipidaja</Eyebrow>
+        <p className="text-sm" style={{ color: C.text }}>
+          Ühtne mudel, vähem vaidlusi, parem koolideülene praktika.
+        </p>
+      </Card>
+
+      <Card bg={`${C.lime}25`} border={`${C.lime}80`}>
+        <div className="size-10 rounded-full flex items-center justify-center mb-3"
+          style={{ background: C.green, color: "white" }}>
+          <Trophy className="size-5" />
+        </div>
+        <Eyebrow color={C.green}>Huvikool</Eyebrow>
+        <p className="text-sm" style={{ color: C.text }}>
+          Kvaliteedimärk — õpe muutub koolile nähtavaks ja võrreldavaks.
+        </p>
+      </Card>
+    </div>
+
+    <p className="mt-8 text-base sm:text-lg font-medium pl-4 border-l-4"
+      style={{ color: C.text, borderColor: C.lime }}>
+      Kool ei vaja veel üht vormi. Kool vajab juhtimisinfot.
+    </p>
+  </SlideShell>
+);
+
+/* Riskid ja ausus */
+const SlideRisks = () => (
+  <SlideShell>
+    <Eyebrow color={C.orange}>Riskid ja ausus</Eyebrow>
+    <Title>Mis võib valesti minna ja kuidas vastame?</Title>
+
+    <div className="mt-8 grid md:grid-cols-2 gap-5">
+      <Card>
+        <Eyebrow color={C.orange}>Riskid</Eyebrow>
+        <ul className="text-sm space-y-1.5 mt-2" style={{ color: C.text }}>
+          <li>• automaatotsus;</li>
+          <li>• piiripealsed juhtumid;</li>
+          <li>• andmekaitse;</li>
+          <li>• huvikoolide õppekavade ebaühtlane kvaliteet;</li>
+          <li>• õpilase järelevalve tunniplaanis.</li>
+        </ul>
+      </Card>
+
+      <Card bg={`${C.lime}25`} border={`${C.lime}80`}>
+        <Eyebrow color={C.green}>Vastus</Eyebrow>
+        <ul className="text-sm space-y-1.5 mt-2" style={{ color: C.text }}>
+          <li>• AI ei otsusta;</li>
+          <li>• piiripealsed juhtumid lähevad inimesele;</li>
+          <li>• häkil kasutame mock-andmeid;</li>
+          <li>• järgmises etapis valideerime andmemudeli ja integratsioonid;</li>
+          <li>• kvaliteedimärk standardiseerib huvikooli tõendi.</li>
+        </ul>
+      </Card>
+    </div>
+
+    <div className="mt-6 rounded-xl p-4 text-sm"
+      style={{ background: C.subtle, borderLeft: `3px solid ${C.teal}`, color: C.text }}>
+      <strong>Tunniplaani risk — vastus:</strong> osaline arvestamine ei tähenda, et õpilane jääb järelevalveta.
+      Kool otsustab, kas õpilane osaleb osas tundidest, teeb alternatiivse ülesande, liigub tugitegevusse,
+      kasutab aega juhendatud iseseisvaks tööks või võetakse info arvesse järgmise perioodi tunniplaani planeerimisel.
+    </div>
+
+    <Footnote color={C.orange}>
+      Tehniline märkus: häkil kasutame mock-andmeid. Pärislahenduses võib andmeid tuua eKoolist,
+      Stuudiumist, EHISest, ARNOst või kooli/KOV-i süsteemidest. Integratsioon ei ole häki põhieesmärk —
+      eesmärk on tõestada üks otsustusvoog lõpuni.
+    </Footnote>
+  </SlideShell>
+);
+
+/* === 12-slaidiline järjekord === */
+const SLIDES = [
+  Slide1,        // 1 Ava
+  Slide2,        // 2 Miks nüüd?
+  SlideScale,    // 3 Eesti haridusruumi mõõtkava
+  Slide3,        // 4 Probleem
+  SlidePayers,   // 5 Kes maksab ja miks?
+  Slide4,        // 6 Demojuhtum
+  Slide5,        // 7 Lahendus
+  Slide6,        // 8 AI roll
+  Slide9,        // 9 Mida Eesti haridusruum võidab?
+  Slide8,        // 10 Valideerimine
+  SlideRisks,    // 11 Riskid ja ausus
+  Slide14,       // 12 Skaleerimine ja lõpp
+];
 const TITLES = [
-  "Ava", "Miks nüüd?", "Probleem", "Demojuhtum", "Lahendus",
-  "AI roll", "Väärtus", "Testgrupp", "Kasu", "Segmendid",
-  "Koolijuht", "Huvikool", "Ärimudel", "Skaleerimine",
+  "Ava", "Miks nüüd?", "Mõõtkava", "Probleem", "Kes maksab",
+  "Demojuhtum", "Lahendus", "AI roll", "Mõju", "Valideerimine",
+  "Riskid", "Skaleerimine",
 ];
 
 export default function Pitch() {
