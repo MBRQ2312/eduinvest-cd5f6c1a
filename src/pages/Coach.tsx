@@ -11,7 +11,7 @@ import {
   Send,
   Sparkles,
   Calendar,
-  Whistle,
+  
   ShieldCheck,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -87,7 +87,7 @@ const Coach = () => {
               <ArrowLeft className="size-4" />
             </Link>
             <div className="text-sm font-semibold flex items-center gap-1.5">
-              <Whistle className="size-4 text-primary" />
+              <Trophy className="size-4 text-primary" />
               Treeneri vaade
             </div>
             <Badge variant="outline" className="text-[10px]">FC Demo</Badge>
