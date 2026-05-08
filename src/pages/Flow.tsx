@@ -36,8 +36,13 @@ const STEPS: {
   { id: 3, short: "Mõju", title: "Mõju ja koolijuhi vaade", icon: <TrendingUp className="size-4" />, color: C.lime },
 ];
 
+type Subject = "pe" | "estonian";
+
 const Flow = () => {
   const [step, setStep] = useState<StepId>(0);
+  const [submitted, setSubmitted] = useState(false);
+  const [subjects, setSubjects] = useState<Subject[]>(["pe", "estonian"]);
+  const [aiRun, setAiRun] = useState<"idle" | "running" | "done">("idle");
   const [decision, setDecision] = useState<"full" | "partial" | "more" | null>(null);
 
   // keyboard nav
@@ -53,6 +58,13 @@ const Flow = () => {
   const next = () => step < 3 && setStep((s) => (s + 1) as StepId);
   const prev = () => step > 0 && setStep((s) => (s - 1) as StepId);
 
+  // Edasi nupu lukustus, kuni kasutaja on sammu "läbi mänginud"
+  const canAdvance =
+    (step === 0 && submitted) ||
+    (step === 1 && aiRun === "done") ||
+    (step === 2 && decision !== null) ||
+    step === 3;
+
   const progressPct = ((step + 1) / STEPS.length) * 100;
 
   return (
@@ -65,7 +77,7 @@ const Flow = () => {
             <ArrowLeft className="size-4" /> Tagasi
           </Link>
           <div className="text-[11px] font-semibold tracking-[0.2em] uppercase" style={{ color: C.teal }}>
-            4-ekraani demo
+            Nikita juhtum · täis-simulatsioon
           </div>
           <Link to="/pitch" className="text-sm hover:underline" style={{ color: C.teal }}>
             Pitch →
@@ -130,10 +142,28 @@ const Flow = () => {
       {/* Slide content with transition */}
       <main className="max-w-5xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
         <div key={step} className="animate-in fade-in slide-in-from-right-4 duration-300">
-          {step === 0 && <Step1 onNext={next} />}
-          {step === 1 && <Step2 onNext={next} />}
+          {step === 0 && (
+            <Step1
+              subjects={subjects}
+              setSubjects={setSubjects}
+              submitted={submitted}
+              onSubmit={() => setSubmitted(true)}
+              onNext={next}
+            />
+          )}
+          {step === 1 && (
+            <Step2
+              subjects={subjects}
+              aiRun={aiRun}
+              onRun={() => {
+                setAiRun("running");
+                setTimeout(() => setAiRun("done"), 1600);
+              }}
+              onNext={next}
+            />
+          )}
           {step === 2 && <Step3 decision={decision} setDecision={setDecision} onNext={next} />}
-          {step === 3 && <Step4 decision={decision} />}
+          {step === 3 && <Step4 decision={decision} subjects={subjects} />}
         </div>
 
         {/* Footer nav */}
@@ -152,7 +182,8 @@ const Flow = () => {
           {step < 3 ? (
             <Button
               onClick={next}
-              className="rounded-full"
+              disabled={!canAdvance}
+              className="rounded-full disabled:opacity-50"
               style={{ background: STEPS[step].color, color: "white" }}
             >
               Edasi <ArrowRight className="size-4" />
@@ -206,13 +237,29 @@ const Title = ({ children }: { children: React.ReactNode }) => (
   </h2>
 );
 
-/* === Step 1: Õppija sisend === */
-const Step1 = ({ onNext }: { onNext: () => void }) => (
+/* === Step 1: Õppija sisend (interaktiivne taotlus) === */
+const Step1 = ({
+  subjects,
+  setSubjects,
+  submitted,
+  onSubmit,
+  onNext,
+}: {
+  subjects: Subject[];
+  setSubjects: (fn: (s: Subject[]) => Subject[]) => void;
+  submitted: boolean;
+  onSubmit: () => void;
+  onNext: () => void;
+}) => {
+  const toggle = (s: Subject) =>
+    setSubjects((prev) => (prev.includes(s) ? prev.filter((x) => x !== s) : [...prev, s]));
+
+  return (
   <div>
     <Eyebrow>1 / 4 · Õppija ja pere sisend</Eyebrow>
     <Title>Nikita Tamm, 8.A — taotlus arvestamiseks</Title>
     <p className="mt-3 text-base sm:text-lg" style={{ color: "#4B5563" }}>
-      Pere algatab taotluse. Sisestab koolivälise tegevuse ja lisab treeneri kinnituse.
+      Pere algatab taotluse. Vali ained, mille puhul kool peaks koolivälist õppimist hindama.
     </p>
 
     <div className="mt-6 grid md:grid-cols-2 gap-4">
@@ -234,45 +281,108 @@ const Step1 = ({ onNext }: { onNext: () => void }) => (
       </Card>
 
       <Card bg={`${C.green}0D`} border={`${C.green}40`}>
-        <Eyebrow color={C.green}>Pere küsimus koolile</Eyebrow>
-        <p className="text-sm sm:text-base leading-relaxed mt-2" style={{ color: C.text }}>
-          Kas Nikita osa spordikoolis toimuvast õppimisest saab arvestada{" "}
-          <strong>kehalise kasvatuse</strong> õpitulemuste täitmisel ja kas eestikeelne
-          treening saab olla <strong>eesti keele praktilise kasutuse</strong> toetav tõend?
-        </p>
+        <Eyebrow color={C.green}>Vali ained, mille kohta küsida arvestamist</Eyebrow>
 
-        <div className="mt-5 flex flex-wrap gap-2">
+        <div className="mt-3 space-y-2">
           {[
-            { i: <FileCheck className="size-3.5" />, t: "Treeneri kinnitus" },
-            { i: <FileCheck className="size-3.5" />, t: "Treeninggraafik" },
-            { i: <FileCheck className="size-3.5" />, t: "Võistlusinfo" },
-            { i: <AlertCircle className="size-3.5" />, t: "Õppija eneseanalüüs (puudu)" },
-          ].map((e) => (
-            <span
-              key={e.t}
-              className="inline-flex items-center gap-1.5 text-xs px-2.5 py-1 rounded-full"
-              style={{
-                background: e.t.includes("puudu") ? `${C.orange}20` : `${C.green}15`,
-                color: e.t.includes("puudu") ? C.orange : C.green,
-              }}
-            >
-              {e.i} {e.t}
-            </span>
-          ))}
+            { id: "pe" as const, t: "Kehaline kasvatus", d: "regulaarne liikumine, vastupidavus, koostöö" },
+            { id: "estonian" as const, t: "Eesti keele praktiline kasutus", d: "treeningu juhised ja suhtlus eesti keeles" },
+          ].map((opt) => {
+            const checked = subjects.includes(opt.id);
+            return (
+              <button
+                key={opt.id}
+                type="button"
+                disabled={submitted}
+                onClick={() => toggle(opt.id)}
+                className="w-full text-left rounded-xl border-2 p-3 transition-all disabled:opacity-70 disabled:cursor-not-allowed"
+                style={{
+                  background: checked ? `${C.green}15` : C.cardBg,
+                  borderColor: checked ? C.green : C.border,
+                }}
+              >
+                <div className="flex items-start gap-3">
+                  <span
+                    className="size-5 rounded-md flex items-center justify-center shrink-0 mt-0.5"
+                    style={{
+                      background: checked ? C.green : "white",
+                      border: `1.5px solid ${checked ? C.green : C.border}`,
+                      color: "white",
+                    }}
+                  >
+                    {checked && <Check className="size-3.5" />}
+                  </span>
+                  <div className="min-w-0">
+                    <div className="text-sm font-semibold" style={{ color: C.text }}>{opt.t}</div>
+                    <div className="text-xs mt-0.5" style={{ color: "#6B7280" }}>{opt.d}</div>
+                  </div>
+                </div>
+              </button>
+            );
+          })}
+        </div>
+
+        <div className="mt-5">
+          <div className="text-[11px] uppercase tracking-wider mb-2" style={{ color: "#6B7280" }}>
+            Lisatud tõendid
+          </div>
+          <div className="flex flex-wrap gap-2">
+            {[
+              { i: <FileCheck className="size-3.5" />, t: "Treeneri kinnitus" },
+              { i: <FileCheck className="size-3.5" />, t: "Treeninggraafik" },
+              { i: <FileCheck className="size-3.5" />, t: "Võistlusinfo" },
+              { i: <AlertCircle className="size-3.5" />, t: "Õppija eneseanalüüs (puudu)" },
+            ].map((e) => (
+              <span
+                key={e.t}
+                className="inline-flex items-center gap-1.5 text-xs px-2.5 py-1 rounded-full"
+                style={{
+                  background: e.t.includes("puudu") ? `${C.orange}20` : `${C.green}15`,
+                  color: e.t.includes("puudu") ? C.orange : C.green,
+                }}
+              >
+                {e.i} {e.t}
+              </span>
+            ))}
+          </div>
         </div>
       </Card>
     </div>
 
-    <div className="mt-6 rounded-xl p-3 flex items-start gap-2"
-      style={{ background: C.subtle, borderLeft: `3px solid ${C.teal}` }}>
-      <AlertCircle className="size-4 mt-0.5 shrink-0" style={{ color: C.teal }} />
-      <p className="text-xs sm:text-sm" style={{ color: C.text }}>
-        Pere ei pea ise teadma, millised õpitulemused võivad katta. AI teeb seose-ettepaneku
-        järgmises sammus.
-      </p>
-    </div>
+    {!submitted ? (
+      <div className="mt-6 flex flex-col sm:flex-row sm:items-center justify-between gap-3 rounded-xl p-4"
+        style={{ background: C.subtle, borderLeft: `3px solid ${C.teal}` }}>
+        <p className="text-sm" style={{ color: C.text }}>
+          {subjects.length === 0
+            ? "Vali vähemalt üks aine, et taotlust esitada."
+            : `Esitad taotluse ${subjects.length} aine kohta. Kool saab selle koheselt töövoogu.`}
+        </p>
+        <Button
+          onClick={onSubmit}
+          disabled={subjects.length === 0}
+          className="rounded-full disabled:opacity-50"
+          style={{ background: C.teal, color: "white" }}
+        >
+          Esita taotlus koolile <ArrowRight className="size-4" />
+        </Button>
+      </div>
+    ) : (
+      <div className="mt-6 rounded-xl p-4 flex items-start gap-3 animate-in fade-in slide-in-from-bottom-2"
+        style={{ background: `${C.green}15`, borderLeft: `3px solid ${C.green}` }}>
+        <CheckCircle2 className="size-5 mt-0.5 shrink-0" style={{ color: C.green }} />
+        <div className="flex-1">
+          <p className="text-sm font-medium" style={{ color: C.text }}>
+            Taotlus esitatud. Kool sai sisendi ja AI alustab eelanalüüsi.
+          </p>
+        </div>
+        <Button onClick={onNext} className="rounded-full" style={{ background: C.purple, color: "white" }}>
+          AI eelanalüüsi <ArrowRight className="size-4" />
+        </Button>
+      </div>
+    )}
   </div>
-);
+  );
+};
 
 const Field = ({ icon: Icon, label, value }: { icon: React.ElementType; label: string; value: string }) => (
   <div className="flex items-start gap-3 py-2 border-t" style={{ borderColor: `${C.border}80` }}>
@@ -284,8 +394,22 @@ const Field = ({ icon: Icon, label, value }: { icon: React.ElementType; label: s
   </div>
 );
 
-/* === Step 2: AI eelanalüüs === */
-const Step2 = ({ onNext }: { onNext: () => void }) => (
+/* === Step 2: AI eelanalüüs (käivitatav) === */
+const Step2 = ({
+  subjects,
+  aiRun,
+  onRun,
+  onNext,
+}: {
+  subjects: Subject[];
+  aiRun: "idle" | "running" | "done";
+  onRun: () => void;
+  onNext: () => void;
+}) => {
+  const includesPe = subjects.includes("pe");
+  const includesEst = subjects.includes("estonian");
+
+  return (
   <div>
     <Eyebrow color={C.purple}>2 / 4 · AI eelanalüüs</Eyebrow>
     <Title>AI koondab tõendid ja pakub seosed õppekavaga.</Title>
@@ -293,61 +417,110 @@ const Step2 = ({ onNext }: { onNext: () => void }) => (
       AI ei otsusta. AI näitab, mis on tugev, mis osaline ja mis vajab lisatõendit.
     </p>
 
-    <div className="mt-6 grid md:grid-cols-3 gap-3">
-      <Card bg={`${C.lime}25`} border={`${C.lime}80`}>
-        <Eyebrow color={C.green}>Tugev seos</Eyebrow>
-        <ul className="text-sm space-y-1.5 mt-2" style={{ color: C.text }}>
-          <li className="flex items-start gap-2"><CheckCircle2 className="size-4 mt-0.5 shrink-0" style={{ color: C.green }} /> regulaarne liikumine</li>
-          <li className="flex items-start gap-2"><CheckCircle2 className="size-4 mt-0.5 shrink-0" style={{ color: C.green }} /> vastupidavus</li>
-          <li className="flex items-start gap-2"><CheckCircle2 className="size-4 mt-0.5 shrink-0" style={{ color: C.green }} /> juhendatud treening</li>
-        </ul>
-      </Card>
-
-      <Card bg={`${C.teal}0D`} border={`${C.teal}40`}>
-        <Eyebrow color={C.teal}>Osaline seos</Eyebrow>
-        <ul className="text-sm space-y-1.5 mt-2" style={{ color: C.text }}>
-          <li className="flex items-start gap-2"><AlertCircle className="size-4 mt-0.5 shrink-0" style={{ color: C.teal }} /> koostöö</li>
-          <li className="flex items-start gap-2"><AlertCircle className="size-4 mt-0.5 shrink-0" style={{ color: C.teal }} /> enesejuhtimine</li>
-          <li className="flex items-start gap-2"><AlertCircle className="size-4 mt-0.5 shrink-0" style={{ color: C.teal }} /> eestikeelne suhtlus</li>
-        </ul>
-      </Card>
-
-      <Card bg={`${C.orange}10`} border={`${C.orange}50`}>
-        <Eyebrow color={C.orange}>Puudub tõend</Eyebrow>
-        <ul className="text-sm space-y-1.5 mt-2" style={{ color: C.text }}>
-          <li className="flex items-start gap-2"><AlertCircle className="size-4 mt-0.5 shrink-0" style={{ color: C.orange }} /> õppija eneseanalüüs</li>
-          <li className="flex items-start gap-2"><AlertCircle className="size-4 mt-0.5 shrink-0" style={{ color: C.orange }} /> õpetaja lühivestlus</li>
-        </ul>
-      </Card>
-    </div>
-
-    <div className="mt-6 grid md:grid-cols-2 gap-4">
-      <Card bg={`${C.purple}0D`} border={`${C.purple}40`}>
-        <div className="flex items-center gap-2 mb-3">
-          <Sparkles className="size-5" style={{ color: C.purple }} />
-          <div className="text-sm font-semibold" style={{ color: C.purple }}>AI mustand õpetajale</div>
+    {aiRun === "idle" && (
+      <Card className="mt-6" bg={`${C.purple}0D`} border={`${C.purple}40`}>
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div className="flex items-start gap-3">
+            <Sparkles className="size-6 shrink-0" style={{ color: C.purple }} />
+            <div>
+              <div className="font-semibold" style={{ color: C.text }}>Käivita AI eelanalüüs</div>
+              <p className="text-sm mt-1" style={{ color: "#4B5563" }}>
+                AI loeb tõendid, võrdleb õppekavaga ja koostab mustandi õpetajale.
+                Analüüsitavad ained: <strong>{[includesPe && "kehaline kasvatus", includesEst && "eesti keel"].filter(Boolean).join(", ") || "—"}</strong>.
+              </p>
+            </div>
+          </div>
+          <Button onClick={onRun} className="rounded-full" style={{ background: C.purple, color: "white" }}>
+            <Sparkles className="size-4" /> Käivita analüüs
+          </Button>
         </div>
-        <p className="text-sm leading-relaxed" style={{ color: C.text }}>
-          „Tõendid (treeneri kinnitus, maht, võistlused, keel) toetavad{" "}
-          <strong>täielikku arvestamist</strong> kehalise kasvatuse õpitulemustes
-          'regulaarne liikumine' ja 'vastupidavus'. Eesti keele osas on tõend{" "}
-          <strong>toetav</strong>, kuid mitte aluseks hinde asendamiseks. Soovitan
-          küsida õppija lühieneseanalüüsi.“
-        </p>
       </Card>
+    )}
 
-      <Card>
-        <Eyebrow>Mida AI ei tee</Eyebrow>
-        <ul className="text-sm space-y-1.5 mt-2" style={{ color: C.text }}>
-          <li>• ei anna hinnet</li>
-          <li>• ei vabasta tunnist</li>
-          <li>• ei tee lõppotsust</li>
-          <li>• ei asenda õpetaja hinnangut</li>
-        </ul>
+    {aiRun === "running" && (
+      <Card className="mt-6 text-center" bg={`${C.purple}0D`} border={`${C.purple}40`}>
+        <div className="flex flex-col items-center gap-3 py-6">
+          <div
+            className="size-12 rounded-full animate-spin"
+            style={{ border: `3px solid ${C.purple}30`, borderTopColor: C.purple }}
+          />
+          <div className="text-sm font-medium" style={{ color: C.purple }}>
+            AI loeb tõendeid ja seob õppekavaga…
+          </div>
+          <div className="text-xs" style={{ color: "#6B7280" }}>
+            Kestab paar sekundit. Häkil kasutame mock-andmeid.
+          </div>
+        </div>
       </Card>
-    </div>
+    )}
+
+    {aiRun === "done" && (
+      <div className="animate-in fade-in slide-in-from-bottom-2 duration-400">
+        <div className="mt-6 grid md:grid-cols-3 gap-3">
+          <Card bg={`${C.lime}25`} border={`${C.lime}80`}>
+            <Eyebrow color={C.green}>Tugev seos</Eyebrow>
+            <ul className="text-sm space-y-1.5 mt-2" style={{ color: C.text }}>
+              <li className="flex items-start gap-2"><CheckCircle2 className="size-4 mt-0.5 shrink-0" style={{ color: C.green }} /> regulaarne liikumine</li>
+              <li className="flex items-start gap-2"><CheckCircle2 className="size-4 mt-0.5 shrink-0" style={{ color: C.green }} /> vastupidavus</li>
+              <li className="flex items-start gap-2"><CheckCircle2 className="size-4 mt-0.5 shrink-0" style={{ color: C.green }} /> juhendatud treening</li>
+            </ul>
+          </Card>
+
+          <Card bg={`${C.teal}0D`} border={`${C.teal}40`}>
+            <Eyebrow color={C.teal}>Osaline seos</Eyebrow>
+            <ul className="text-sm space-y-1.5 mt-2" style={{ color: C.text }}>
+              <li className="flex items-start gap-2"><AlertCircle className="size-4 mt-0.5 shrink-0" style={{ color: C.teal }} /> koostöö</li>
+              <li className="flex items-start gap-2"><AlertCircle className="size-4 mt-0.5 shrink-0" style={{ color: C.teal }} /> enesejuhtimine</li>
+              {includesEst && (
+                <li className="flex items-start gap-2"><AlertCircle className="size-4 mt-0.5 shrink-0" style={{ color: C.teal }} /> eestikeelne suhtlus</li>
+              )}
+            </ul>
+          </Card>
+
+          <Card bg={`${C.orange}10`} border={`${C.orange}50`}>
+            <Eyebrow color={C.orange}>Puudub tõend</Eyebrow>
+            <ul className="text-sm space-y-1.5 mt-2" style={{ color: C.text }}>
+              <li className="flex items-start gap-2"><AlertCircle className="size-4 mt-0.5 shrink-0" style={{ color: C.orange }} /> õppija eneseanalüüs</li>
+              <li className="flex items-start gap-2"><AlertCircle className="size-4 mt-0.5 shrink-0" style={{ color: C.orange }} /> õpetaja lühivestlus</li>
+            </ul>
+          </Card>
+        </div>
+
+        <div className="mt-6 grid md:grid-cols-2 gap-4">
+          <Card bg={`${C.purple}0D`} border={`${C.purple}40`}>
+            <div className="flex items-center gap-2 mb-3">
+              <Sparkles className="size-5" style={{ color: C.purple }} />
+              <div className="text-sm font-semibold" style={{ color: C.purple }}>AI mustand õpetajale</div>
+            </div>
+            <p className="text-sm leading-relaxed" style={{ color: C.text }}>
+              „Tõendid (treeneri kinnitus, maht, võistlused, keel) toetavad{" "}
+              {includesPe && (<><strong>täielikku arvestamist</strong> kehalise kasvatuse õpitulemustes 'regulaarne liikumine' ja 'vastupidavus'. </>)}
+              {includesEst && (<>Eesti keele osas on tõend <strong>toetav</strong>, kuid mitte aluseks hinde asendamiseks. </>)}
+              Soovitan küsida õppija lühieneseanalüüsi.“
+            </p>
+          </Card>
+
+          <Card>
+            <Eyebrow>Mida AI ei tee</Eyebrow>
+            <ul className="text-sm space-y-1.5 mt-2" style={{ color: C.text }}>
+              <li>• ei anna hinnet</li>
+              <li>• ei vabasta tunnist</li>
+              <li>• ei tee lõppotsust</li>
+              <li>• ei asenda õpetaja hinnangut</li>
+            </ul>
+          </Card>
+        </div>
+
+        <div className="mt-6 flex justify-end">
+          <Button onClick={onNext} className="rounded-full" style={{ background: C.green, color: "white" }}>
+            Anna õpetajale otsustamiseks <ArrowRight className="size-4" />
+          </Button>
+        </div>
+      </div>
+    )}
   </div>
-);
+  );
+};
 
 /* === Step 3: Õpetaja otsus === */
 const Step3 = ({
@@ -423,7 +596,7 @@ const Step3 = ({
 };
 
 /* === Step 4: Mõju === */
-const Step4 = ({ decision }: { decision: "full" | "partial" | "more" | null }) => {
+const Step4 = ({ decision, subjects }: { decision: "full" | "partial" | "more" | null; subjects: Subject[] }) => {
   const summary =
     decision === "full"
       ? { t: "Täielik arvestamine", c: C.green, msg: "Õpetaja kinnitas tõendite alusel." }
@@ -432,6 +605,15 @@ const Step4 = ({ decision }: { decision: "full" | "partial" | "more" | null }) =
       : decision === "more"
       ? { t: "Vajab lisatõendit", c: C.orange, msg: "Pere täiendab tõendit, otsus tuleb hiljem." }
       : { t: "Otsus tegemata", c: "#9CA3AF", msg: "Mine tagasi ja vali variant." };
+
+  const familyLetter =
+    decision === "full"
+      ? "Tere! Tõendid (treeneri kinnitus, treeningmaht, võistlused, eestikeelne keskkond) on piisavad. Arvestasime Nikita jalgpallitreeningut kehalise kasvatuse õpitulemuste 'regulaarne liikumine' ja 'vastupidavus' täitmisel. Nikita ei pea neis osades kooli kehalise kasvatuse tunnis täiendavalt tõendama."
+      : decision === "partial"
+      ? "Tere! Arvestasime Nikita jalgpallitreeningut kehalise kasvatuse osas (regulaarne liikumine, vastupidavus). Eesti keele osas jääb treening toetavaks tõendiks, kuid ei asenda hindamist. Palume Nikitalt lühikest eneseanalüüsi (5–7 lauset) järgmise nädala lõpuks."
+      : decision === "more"
+      ? "Tere! Tõendid on head, kuid otsuse tegemiseks vajame veel: (1) Nikita lühieneseanalüüs (5–7 lauset), (2) lühivestlus klassijuhatajaga. Pärast nende lisamist teeb õpetaja lõppotsuse 5 tööpäeva jooksul."
+      : "";
 
   return (
     <div>
@@ -496,6 +678,29 @@ const Step4 = ({ decision }: { decision: "full" | "partial" | "more" | null }) =
           </div>
         </div>
       </div>
+
+      {familyLetter && (
+        <div className="mt-6 rounded-2xl border p-5 sm:p-6"
+          style={{ background: `${C.purple}08`, borderColor: `${C.purple}40` }}>
+          <div className="flex items-start gap-3">
+            <div className="size-10 rounded-full flex items-center justify-center shrink-0"
+              style={{ background: C.purple, color: "white" }}>
+              <User className="size-5" />
+            </div>
+            <div className="min-w-0 flex-1">
+              <div className="text-xs uppercase tracking-wider font-semibold mb-1" style={{ color: C.purple }}>
+                Selgitus perele {subjects.length > 0 && `· ${subjects.length} ainet`}
+              </div>
+              <p className="text-sm leading-relaxed" style={{ color: C.text }}>
+                {familyLetter}
+              </p>
+              <div className="mt-3 text-[11px]" style={{ color: "#6B7280" }}>
+                AI mustand · Saadetakse perele alles pärast õpetaja kinnitust.
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
 
       <div className="mt-6 rounded-2xl p-5 sm:p-6 text-center"
         style={{ background: C.green, color: "white" }}>
