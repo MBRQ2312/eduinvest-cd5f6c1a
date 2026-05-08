@@ -8,7 +8,7 @@ import { ParentNote } from "./ParentNote";
 interface Props { onBack: () => void; onRestart: () => void; }
 
 const PAYLOAD = {
-  oppija: { id: "EHIS-2010-1142", nimi: "Markus T.", klass: "8.A" },
+  oppija: { id: "EHIS-2010-1142", nimi: "Nikita T.", klass: "8.A" },
   arvestus: {
     aine: "Kehaline kasvatus",
     periood: "2025/2026 II veerand",
@@ -172,7 +172,7 @@ export const LearnOnceStep7Integration = ({ onBack, onRestart }: Props) => {
             weeks="2 päeva"
             title="Mock-andmed + AI eelanalüüs"
             items={[
-              "Markuse juhtum lõpuni",
+              "Nikita juhtum lõpuni",
               "OpenAI Responses API päris",
               "Otsuse JSON struktuur valmis",
             ]}

@@ -71,7 +71,7 @@ export const PartnerConfirmationStep = ({
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-10 gap-y-6">
-        <PField icon={User} label="Õppija nimi" value="Markus Tamm" hint="Mai Kool · 8. klass" />
+        <PField icon={User} label="Õppija nimi" value="Nikita Tamm" hint="Mai Kool · 8. klass" />
         <PField icon={Trophy} label="Tegevusala" value="Jalgpall" hint="Noortekool U16" />
         <PField icon={Clock} label="Treeningute sagedus" value="3× nädalas" hint="à 90 minutit" />
         <PField
@@ -98,7 +98,7 @@ export const PartnerConfirmationStep = ({
           <PField
             icon={ClipboardCheck}
             label="Juhendaja / treeneri kommentaar"
-            value="Markus on järjepidev ja pühendunud. Ta võtab vastutuse meeskonnas, juhib pingutust pikkades mängudes ja aitab nooremaid mängijaid. Areng vastupidavuses ja taktikalises mõtlemises on selgelt näha."
+            value="Nikita on järjepidev ja pühendunud. Ta võtab vastutuse meeskonnas, juhib pingutust pikkades mängudes ja aitab nooremaid mängijaid. Areng vastupidavuses ja taktikalises mõtlemises on selgelt näha."
           />
         </div>
 

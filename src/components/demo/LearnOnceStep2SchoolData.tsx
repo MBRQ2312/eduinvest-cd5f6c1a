@@ -16,7 +16,7 @@ export const LearnOnceStep2SchoolData = ({ onNext, onBack }: Props) => {
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
         <Block icon={BookOpen} title="Õppija kooliandmed">
-          <Row k="Õppija" v="Markus Tamm" />
+          <Row k="Õppija" v="Nikita Tamm" />
           <Row k="Klass" v="8.A" />
           <Row k="Kool" v="Mai Kool" />
           <Row k="Õppeained" v="Kehaline kasvatus, eesti keel, klassijuhatajatund" />

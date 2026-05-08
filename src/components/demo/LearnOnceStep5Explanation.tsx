@@ -20,7 +20,7 @@ export const LearnOnceStep5Explanation = ({ onNext, onBack }: Props) => {
         </div>
         <div className="space-y-4 text-base leading-relaxed text-foreground/90">
           <p>
-            Markuse jalgpallitreeninguid <strong>arvestati osaliselt</strong> kehalise kasvatuse
+            Nikita jalgpallitreeninguid <strong>arvestati osaliselt</strong> kehalise kasvatuse
             õpitulemuste täitmisel, sest treeningud on regulaarsed, juhendatud ja seotud
             vastupidavuse ning liikumisharjumuse arendamisega.
           </p>
@@ -30,7 +30,7 @@ export const LearnOnceStep5Explanation = ({ onNext, onBack }: Props) => {
           </p>
           <p>
             <strong>Eesti keele puhul</strong> märgiti treening kui <em>toetav tõend</em>, sest
-            Markus kasutab trennis eesti keelt juhiste mõistmiseks, suhtlemiseks ja koostööks.
+            Nikita kasutab trennis eesti keelt juhiste mõistmiseks, suhtlemiseks ja koostööks.
             See <strong>ei asenda automaatselt eesti keele hinnet</strong>, kuid aitab koolil näha
             õppija tegelikku eestikeelset õpikeskkonda.
           </p>
@@ -43,7 +43,7 @@ export const LearnOnceStep5Explanation = ({ onNext, onBack }: Props) => {
         </div>
         <ul className="space-y-2.5">
           {[
-            "Markus lisab 5–7 lausega eneseanalüüsi eesti keeles",
+            "Nikita lisab 5–7 lausega eneseanalüüsi eesti keeles",
             "Treener kinnitab treeningmahu",
             "Õpetaja teeb lõpliku märke õppeinfosüsteemi (eKool / Stuudium)",
           ].map((s) => (
