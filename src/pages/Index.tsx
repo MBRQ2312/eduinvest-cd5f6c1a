@@ -80,17 +80,6 @@ const HeroIllustration = () => (
 );
 
 const Index = () => {
-  const [step, setStep] = useState<Step>(0);
-  const flowRef = useRef<HTMLDivElement>(null);
-  const timelineRef = useRef<HTMLDivElement>(null);
-
-  const scrollToTimeline = () =>
-    timelineRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
-
-  const go = (s: number) => {
-    setStep(s as Step);
-    setTimeout(() => flowRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }), 50);
-  };
 
   return (
     <div className="min-h-screen bg-background relative overflow-x-hidden">
