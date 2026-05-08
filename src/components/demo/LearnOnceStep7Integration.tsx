@@ -58,8 +58,6 @@ export const LearnOnceStep7Integration = ({ onBack, onRestart }: Props) => {
         text="Kool ei pea midagi käsitsi üle kandma. Otsus, tõendid ja viited õpitulemustele liiguvad turvalise liidese kaudu otse õppeinfosüsteemi."
       />
 
-      <HobbySchoolImport />
-
       <div className="grid grid-cols-1 lg:grid-cols-5 gap-4 mb-8">
         {/* Left: payload */}
         <div className="lg:col-span-2 rounded-2xl border border-border bg-card overflow-hidden">
