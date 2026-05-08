@@ -163,7 +163,7 @@ const Index = () => {
             {[
               {
                 to: "/juht",
-                icon: <GraduationCap className="size-6" />,
+                icon: <School className="size-6" strokeWidth={1.75} />,
                 name: "Kool",
                 desc: "Õpetaja · õppejuht · direktor",
                 detail: "Näevad korduvaid mustreid, juhivad tunniplaani ja õpetaja tööaega. Otsustavad, kas kooliväline õpe arvestatakse.",
@@ -171,7 +171,7 @@ const Index = () => {
               },
               {
                 to: "/huvikool",
-                icon: <Sparkles className="size-6" />,
+                icon: <Palette className="size-6" strokeWidth={1.75} />,
                 name: "Huvikool",
                 desc: "Juhendaja · treener · õppejuht · direktor",
                 detail: "Teevad õppe nähtavaks ja tõendatavaks. Kinnitavad mahud, oskused ja seose õppekavaga.",
