@@ -216,9 +216,6 @@ const Index = () => {
             <div className="text-[11px] font-semibold tracking-[0.22em] uppercase text-muted-foreground mb-4">
               Kaks algusstsenaariumi
             </div>
-            <h2 className="text-[24px] md:text-[32px] font-semibold tracking-tight leading-[1.15] max-w-2xl">
-              Töövoog on kahepoolne — algatada saab pere või huvikool.
-            </h2>
             <div className="mt-8 grid md:grid-cols-2 gap-3">
               <div className="rounded-2xl border border-border bg-card p-5 hover:shadow-card transition-smooth">
                 <div className="text-[11px] font-bold tracking-[0.22em] uppercase text-primary mb-2">A · Pere algatab</div>
