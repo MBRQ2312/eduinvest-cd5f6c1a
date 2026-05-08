@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { ArrowDown, ArrowRight, Users, GraduationCap, Building2, Sparkles, Trophy, School, Palette, HeartHandshake, ClipboardCheck, LayoutDashboard } from "lucide-react";
+import { ArrowDown, ArrowRight, Users, GraduationCap, Building2, Sparkles, Trophy, School, Palette, Lightbulb, Layers, Telescope } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Accordion,
