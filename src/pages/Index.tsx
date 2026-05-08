@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { ArrowDown, Users, GraduationCap, Building2, Sparkles, Trophy } from "lucide-react";
+import { ArrowDown, ArrowRight, Users, GraduationCap, Building2, Sparkles, Trophy } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Accordion,
@@ -182,23 +182,34 @@ const Index = () => {
                 r.tone === "success"
                   ? "bg-success-subtle text-success"
                   : "bg-accent-subtle text-accent";
+              const accentBar =
+                r.tone === "success" ? "bg-success" : "bg-accent";
               return (
                 <Link
                   key={r.to}
                   to={r.to}
-                  className="group rounded-[20px] border-2 border-border-strong bg-card p-6 md:p-7 shadow-card hover:border-primary hover:shadow-elevated transition-smooth flex flex-col gap-3 min-w-0"
+                  className="group relative overflow-hidden rounded-[20px] border-2 border-border-strong bg-card shadow-card hover:border-primary hover:shadow-elevated transition-smooth flex flex-col min-w-0"
                 >
-                  <div className={`size-12 rounded-xl ${bg} flex items-center justify-center`}>
-                    {r.icon}
-                  </div>
-                  <div className="text-[20px] font-semibold tracking-tight group-hover:text-primary transition-smooth">
-                    {r.name}
-                  </div>
-                  <div className="text-[13px] font-medium text-foreground/80">
-                    {r.desc}
-                  </div>
-                  <div className="text-[13px] text-muted-foreground leading-relaxed">
-                    {r.detail}
+                  <div className={`absolute top-0 left-0 right-0 h-1 ${accentBar}`} />
+                  <div className="p-6 md:p-8 flex flex-col gap-4 flex-1">
+                    <div className="flex items-start justify-between gap-3">
+                      <div className={`size-12 rounded-xl ${bg} flex items-center justify-center shrink-0`}>
+                        {r.icon}
+                      </div>
+                      <ArrowRight className="size-5 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-smooth mt-2" />
+                    </div>
+                    <div>
+                      <div className="text-[22px] font-semibold tracking-tight group-hover:text-primary transition-smooth leading-tight">
+                        {r.name}
+                      </div>
+                      <div className="mt-1.5 text-[13px] font-medium text-foreground/70">
+                        {r.desc}
+                      </div>
+                    </div>
+                    <div className="h-px bg-border" />
+                    <div className="text-[14px] text-muted-foreground leading-relaxed">
+                      {r.detail}
+                    </div>
                   </div>
                 </Link>
               );
