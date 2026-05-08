@@ -1,535 +1,698 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import {
-  ArrowLeft, ArrowRight, Check, User, Sparkles, GraduationCap, TrendingUp,
-  Trophy, Building2, Languages, Clock, ShieldCheck, FileCheck, AlertCircle,
-  CheckCircle2, Eye, CalendarRange, Coins,
+  ArrowLeft, ArrowRight, Check, Sparkles, ShieldCheck, AlertCircle,
+  CheckCircle2, FileText, Users, GraduationCap, Building2, Trophy, MessageSquare, Send,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-/* ===== Brand palette (sama mis pitch'is) ===== */
-const C = {
-  bg: "#F7F5EF",
-  text: "#111827",
-  green: "#053F35",
-  teal: "#006D6F",
-  purple: "#7C6BEA",
-  lime: "#D6D04A",
-  orange: "#E07A3C",
-  cardBg: "#FFFFFF",
-  subtle: "#EEEAE0",
-  border: "#E2DCCC",
-} as const;
+/* ============================== Step model ============================== */
 
-type StepId = 0 | 1 | 2 | 3;
+type StepId = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
 
-const STEPS: {
-  id: StepId;
-  short: string;
-  title: string;
-  icon: React.ReactNode;
-  color: string;
-}[] = [
-  { id: 0, short: "Õppija sisend", title: "Õppija ja pere sisend", icon: <User className="size-4" />, color: C.teal },
-  { id: 1, short: "AI eelanalüüs", title: "AI eelanalüüs", icon: <Sparkles className="size-4" />, color: C.purple },
-  { id: 2, short: "Õpetaja otsus", title: "Õpetaja otsus", icon: <GraduationCap className="size-4" />, color: C.green },
-  { id: 3, short: "Mõju", title: "Mõju ja koolijuhi vaade", icon: <TrendingUp className="size-4" />, color: C.lime },
+const STEPS: { id: StepId; short: string }[] = [
+  { id: 1, short: "Avaleht" },
+  { id: 2, short: "Juhtum" },
+  { id: 3, short: "Pere taotlus" },
+  { id: 4, short: "Treeneri tõend" },
+  { id: 5, short: "Õppekava" },
+  { id: 6, short: "AI eelanalüüs" },
+  { id: 7, short: "Kooli otsus" },
+  { id: 8, short: "Pere selgitus" },
+  { id: 9, short: "Koondvaade" },
 ];
 
-const Flow = () => {
-  const [step, setStep] = useState<StepId>(0);
-  const [decision, setDecision] = useState<"full" | "partial" | "more" | null>(null);
+/* ================================ Helpers =============================== */
 
-  // keyboard nav
+const Eyebrow = ({ children }: { children: React.ReactNode }) => (
+  <div className="text-[11px] font-semibold tracking-[0.22em] uppercase text-primary mb-3">
+    {children}
+  </div>
+);
+
+const StepCard = ({
+  title,
+  subtitle,
+  children,
+}: {
+  title: string;
+  subtitle?: string;
+  children: React.ReactNode;
+}) => (
+  <div className="rounded-3xl border-2 border-border-strong bg-card shadow-card p-6 md:p-8">
+    <h1 className="text-[24px] md:text-[32px] font-semibold tracking-tight text-success leading-[1.1]">
+      {title}
+    </h1>
+    {subtitle && (
+      <p className="mt-3 text-[15px] md:text-base text-foreground/75 leading-relaxed max-w-2xl">
+        {subtitle}
+      </p>
+    )}
+    <div className="mt-6">{children}</div>
+  </div>
+);
+
+/* Toggle field — checkbox-like */
+const ToggleField = ({
+  checked,
+  onChange,
+  label,
+  hint,
+  tone = "primary",
+}: {
+  checked: boolean;
+  onChange: () => void;
+  label: string;
+  hint?: string;
+  tone?: "primary" | "success";
+}) => {
+  const ring =
+    tone === "success"
+      ? checked
+        ? "border-success bg-success-subtle/60"
+        : "border-border-strong bg-card"
+      : checked
+      ? "border-primary bg-primary-subtle/40"
+      : "border-border-strong bg-card";
+  const dot =
+    tone === "success"
+      ? "bg-success text-success-foreground"
+      : "bg-primary text-primary-foreground";
+  return (
+    <button
+      type="button"
+      onClick={onChange}
+      className={`w-full text-left rounded-xl border-2 ${ring} p-3.5 flex items-start gap-3 transition-smooth hover:border-primary`}
+    >
+      <span
+        className={`size-5 rounded-md border-2 ${
+          checked ? `${dot} border-transparent` : "border-border-strong bg-background"
+        } flex items-center justify-center shrink-0 mt-0.5`}
+      >
+        {checked && <Check className="size-3.5" />}
+      </span>
+      <div className="min-w-0">
+        <div className="text-[14px] font-medium leading-snug">{label}</div>
+        {hint && <div className="text-[12px] text-muted-foreground mt-0.5">{hint}</div>}
+      </div>
+    </button>
+  );
+};
+
+const RadioField = ({
+  checked,
+  onChange,
+  label,
+  tone = "primary",
+}: {
+  checked: boolean;
+  onChange: () => void;
+  label: string;
+  tone?: "primary" | "success" | "warning" | "muted";
+}) => {
+  const styles =
+    tone === "success"
+      ? checked ? "border-success bg-success-subtle/60" : "border-border-strong bg-card"
+      : tone === "warning"
+      ? checked ? "border-warning bg-warning-subtle/60" : "border-border-strong bg-card"
+      : tone === "muted"
+      ? checked ? "border-foreground/40 bg-muted/60" : "border-border-strong bg-card"
+      : checked ? "border-primary bg-primary-subtle/40" : "border-border-strong bg-card";
+  const dotColor =
+    tone === "success" ? "bg-success" : tone === "warning" ? "bg-warning" : tone === "muted" ? "bg-foreground" : "bg-primary";
+  return (
+    <button
+      type="button"
+      onClick={onChange}
+      className={`w-full text-left rounded-xl border-2 ${styles} p-3.5 flex items-center gap-3 transition-smooth hover:border-primary`}
+    >
+      <span className="size-5 rounded-full border-2 border-border-strong bg-background flex items-center justify-center shrink-0">
+        {checked && <span className={`size-2.5 rounded-full ${dotColor}`} />}
+      </span>
+      <div className="text-[14px] font-medium">{label}</div>
+    </button>
+  );
+};
+
+/* ================================ Steps ================================ */
+
+const Step1Start = ({ onNext }: { onNext: () => void }) => (
+  <StepCard
+    title="Testi ühte arvestusotsust"
+    subtitle="Sa läbid 9-sammulise voo: pere taotlusest treeneri tõendini, AI eelanalüüsist kooli otsuseni ja pere selgituseni. Lõpus näed koolijuhi koondvaadet."
+  >
+    <div className="rounded-2xl border border-accent/30 bg-accent-subtle/40 p-4 flex items-start gap-3">
+      <Sparkles className="size-4 text-accent shrink-0 mt-0.5" />
+      <div className="text-[13.5px] leading-snug">
+        <strong className="text-accent">AI teeb eelanalüüsi. Kool otsustab.</strong> AI ei anna
+        hinnet, ei vabasta tunnist ega tee lõppotsust.
+      </div>
+    </div>
+
+    <Button onClick={onNext} size="lg" className="rounded-xl mt-6 h-12 px-6">
+      Alusta testjuhtumit
+      <ArrowRight className="size-4 ml-1.5" />
+    </Button>
+  </StepCard>
+);
+
+const Step2Case = ({ onNext }: { onNext: () => void }) => (
+  <StepCard title="Juhtum: Nikita Tamm" subtitle="Vaata juhtumi põhiandmeid enne taotluse esitamist.">
+    <div className="grid sm:grid-cols-2 gap-3">
+      {[
+        { k: "Õppija", v: "Nikita Tamm" },
+        { k: "Klass", v: "8. klass" },
+        { k: "Tegevus", v: "Jalgpallitrenn" },
+        { k: "Maht", v: "3× nädalas" },
+        { k: "Õppekeel", v: "Eesti keel" },
+        { k: "Tõendi andja", v: "FC Demo / treener" },
+      ].map((r) => (
+        <div key={r.k} className="rounded-xl border border-border-strong bg-background p-3.5">
+          <div className="text-[11px] font-semibold tracking-[0.18em] uppercase text-muted-foreground">
+            {r.k}
+          </div>
+          <div className="text-[15px] font-medium mt-1">{r.v}</div>
+        </div>
+      ))}
+    </div>
+
+    <div className="mt-5 rounded-xl border-2 border-primary/30 bg-primary-subtle/30 p-4">
+      <div className="text-[11px] font-bold tracking-[0.18em] uppercase text-primary mb-1">
+        Kooli otsuse küsimus
+      </div>
+      <p className="text-[14.5px] leading-snug">
+        Kas tegevust saab osaliselt arvestada kehalise kasvatuse õpitulemuste täitmisel?
+      </p>
+    </div>
+
+    <div className="mt-3 rounded-xl border border-accent/30 bg-accent-subtle/40 p-4">
+      <div className="text-[11px] font-bold tracking-[0.18em] uppercase text-accent mb-1">
+        Lisatõend
+      </div>
+      <p className="text-[14px] leading-snug">Eesti keele praktiline kasutus treeningul.</p>
+    </div>
+  </StepCard>
+);
+
+const Step3Family = ({ onNext, state, setState }: any) => (
+  <StepCard
+    title="Pere taotlus"
+    subtitle="Pere ei pea teadma õppekava kattuvust. Pere kirjeldab tegevust ja annab tahteavalduse."
+  >
+    <div className="text-[13px] font-semibold text-foreground/80 mb-2">Mida soovin arvestada?</div>
+    <div className="space-y-2.5">
+      <ToggleField
+        checked={state.askPE}
+        onChange={() => setState({ ...state, askPE: !state.askPE })}
+        label="Kehaline kasvatus"
+      />
+      <ToggleField
+        checked={state.askEst}
+        onChange={() => setState({ ...state, askEst: !state.askEst })}
+        label="Eesti keele praktiline kasutus toetava tõendina"
+      />
+    </div>
+
+    <div className="mt-5">
+      <div className="text-[13px] font-semibold text-foreground/80 mb-2">Kirjeldus</div>
+      <div className="rounded-xl border border-border-strong bg-background p-3.5 text-[14px] text-foreground/85 leading-snug">
+        Nikita osaleb FC Demo jalgpallitrennis 3× nädalas. Treening toimub eesti keeles.
+      </div>
+    </div>
+
+    <div className="mt-4">
+      <div className="text-[13px] font-semibold text-foreground/80 mb-2">Tõendi andja</div>
+      <div className="rounded-xl border border-border-strong bg-background p-3.5 flex items-center gap-3">
+        <div className="size-9 rounded-lg bg-primary-subtle text-primary flex items-center justify-center">
+          <Trophy className="size-4" />
+        </div>
+        <div>
+          <div className="text-[14px] font-medium">FC Demo</div>
+          <div className="text-[12px] text-muted-foreground">Treener · Mart Mets</div>
+        </div>
+      </div>
+    </div>
+
+    <Button
+      onClick={onNext}
+      disabled={!state.askPE && !state.askEst}
+      size="lg"
+      className="rounded-xl mt-6 h-12 px-6 w-full sm:w-auto"
+    >
+      <Send className="size-4 mr-1.5" />
+      Saada tõendipäring treenerile
+    </Button>
+  </StepCard>
+);
+
+const Step4Coach = ({ onNext, state, setState }: any) => {
+  const flags: ("osa" | "maht" | "sisu" | "keel" | "juh" | "log")[] = ["osa", "maht", "sisu", "keel", "juh", "log"];
+  const allConfirmed = flags.every((k) => state.coach[k]);
+  const labels: Record<string, string> = {
+    osa: "Kinnitan osalemise",
+    maht: "Kinnitan mahu",
+    sisu: "Kinnitan tegevuse sisu",
+    keel: "Kinnitan õppekeele",
+    juh: "Kinnitan juhendaja andmed",
+    log: "Lisan kohaloleku / päeviku tõendi",
+  };
+  return (
+    <StepCard
+      title="Treeneri tõend"
+      subtitle="Treener ei otsusta kooli õpitulemuste täitmist. Treener kinnitab tegelikku tegevust."
+    >
+      <div className="rounded-2xl border-2 border-border-strong bg-background p-4 md:p-5">
+        <div className="grid sm:grid-cols-2 gap-3 text-[13.5px]">
+          <div>
+            <div className="text-[11px] font-semibold tracking-[0.18em] uppercase text-muted-foreground">Osalemine</div>
+            <div className="font-medium mt-0.5">32 / 38 treeningut</div>
+          </div>
+          <div>
+            <div className="text-[11px] font-semibold tracking-[0.18em] uppercase text-muted-foreground">Maht</div>
+            <div className="font-medium mt-0.5">3 treeningut nädalas</div>
+          </div>
+          <div className="sm:col-span-2">
+            <div className="text-[11px] font-semibold tracking-[0.18em] uppercase text-muted-foreground">Sisu</div>
+            <div className="font-medium mt-0.5">üldkehaline ettevalmistus, jalgpallitehnika, meeskonnatöö</div>
+          </div>
+          <div>
+            <div className="text-[11px] font-semibold tracking-[0.18em] uppercase text-muted-foreground">Õppekeel</div>
+            <div className="font-medium mt-0.5">Eesti keel</div>
+          </div>
+          <div>
+            <div className="text-[11px] font-semibold tracking-[0.18em] uppercase text-muted-foreground">Juhendaja</div>
+            <div className="font-medium mt-0.5">Mart Mets</div>
+          </div>
+        </div>
+        <div className="mt-3 pt-3 border-t border-border text-[13px] text-foreground/75 italic">
+          „Nikita mõistab eestikeelseid juhiseid ja suhtleb treeningul tiimikaaslastega eesti keeles.”
+        </div>
+      </div>
+
+      <div className="text-[13px] font-semibold text-foreground/80 mt-6 mb-2">Treeneri kinnitused</div>
+      <div className="space-y-2">
+        {flags.map((k) => (
+          <ToggleField
+            key={k}
+            checked={state.coach[k]}
+            onChange={() => setState({ ...state, coach: { ...state.coach, [k]: !state.coach[k] } })}
+            label={labels[k]}
+            tone="success"
+          />
+        ))}
+      </div>
+
+      <Button
+        onClick={onNext}
+        disabled={!allConfirmed}
+        size="lg"
+        className="rounded-xl mt-6 h-12 px-6 w-full sm:w-auto"
+      >
+        <ShieldCheck className="size-4 mr-1.5" />
+        Kinnita ja saada koolile
+      </Button>
+      {!allConfirmed && (
+        <div className="text-[12px] text-muted-foreground mt-2">Kinnita kõik väljad enne saatmist.</div>
+      )}
+    </StepCard>
+  );
+};
+
+const Step5Curriculum = ({ onNext, state, setState }: any) => {
+  const outcomes = [
+    { k: "lia", l: "liikumisaktiivsus ja kehaline võimekus" },
+    { k: "ko", l: "koostöö ja fair play" },
+    { k: "es", l: "eneseregulatsioon ja ohutus" },
+    { k: "mlo", l: "mängulised liikumisoskused" },
+  ];
+  const anySelected = outcomes.some((o) => state.outcomes[o.k]) || state.estSupport;
+  return (
+    <StepCard
+      title="Kool määrab, mida võrreldakse"
+      subtitle="Pere ei vali õpitulemusi. Kool määrab, millise õppeaine ja õpitulemustega tegevust võrreldakse."
+    >
+      <div className="rounded-xl border border-border-strong bg-background p-4 mb-5">
+        <div className="text-[11px] font-semibold tracking-[0.18em] uppercase text-muted-foreground">
+          Õppeaine
+        </div>
+        <div className="text-[16px] font-semibold mt-1">Kehaline kasvatus</div>
+      </div>
+
+      <div className="text-[13px] font-semibold text-foreground/80 mb-2">Valitavad õpitulemused</div>
+      <div className="space-y-2">
+        {outcomes.map((o) => (
+          <ToggleField
+            key={o.k}
+            checked={state.outcomes[o.k]}
+            onChange={() => setState({ ...state, outcomes: { ...state.outcomes, [o.k]: !state.outcomes[o.k] } })}
+            label={o.l}
+          />
+        ))}
+      </div>
+
+      <div className="text-[13px] font-semibold text-foreground/80 mt-6 mb-2">Lisatõendina</div>
+      <ToggleField
+        checked={state.estSupport}
+        onChange={() => setState({ ...state, estSupport: !state.estSupport })}
+        label="Eesti keele praktiline kasutus"
+      />
+
+      <Button
+        onClick={onNext}
+        disabled={!anySelected}
+        size="lg"
+        className="rounded-xl mt-6 h-12 px-6 w-full sm:w-auto"
+      >
+        <Sparkles className="size-4 mr-1.5" />
+        Käivita AI eelanalüüs
+      </Button>
+    </StepCard>
+  );
+};
+
+const Step6AI = ({ onNext }: { onNext: () => void }) => (
+  <StepCard
+    title="AI eelanalüüs"
+    subtitle="AI koondab tõendid ja pakub võimalikke seoseid. Otsuse teeb õpetaja või õppejuht."
+  >
+    <div className="grid md:grid-cols-2 gap-4">
+      <div>
+        <div className="text-[11px] font-semibold tracking-[0.18em] uppercase text-success mb-2">
+          Tõendid
+        </div>
+        <ul className="space-y-2">
+          {[
+            "treeneri kinnitus olemas",
+            "osalemise maht olemas",
+            "õppekeel kinnitatud",
+            "kohalolek 32/38",
+          ].map((t) => (
+            <li key={t} className="flex items-center gap-2 text-[13.5px]">
+              <CheckCircle2 className="size-4 text-success shrink-0" />
+              {t}
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div>
+        <div className="text-[11px] font-semibold tracking-[0.18em] uppercase text-accent mb-2">
+          Võimalik seos
+        </div>
+        <div className="space-y-2">
+          <div className="rounded-xl border-2 border-success/30 bg-success-subtle/40 p-3">
+            <div className="text-[13px] font-semibold">Kehaline kasvatus</div>
+            <div className="text-[12px] text-foreground/70 mt-0.5">osaline / tugev seos</div>
+          </div>
+          <div className="rounded-xl border-2 border-accent/30 bg-accent-subtle/40 p-3">
+            <div className="text-[13px] font-semibold">Eesti keele praktiline kasutus</div>
+            <div className="text-[12px] text-foreground/70 mt-0.5">toetav tõend, mitte hinde asendus</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div className="mt-5 rounded-xl border border-warning/30 bg-warning-subtle/40 p-4">
+      <div className="text-[11px] font-bold tracking-[0.18em] uppercase text-warning mb-1">
+        Puuduolev info
+      </div>
+      <ul className="list-disc pl-5 text-[13px] space-y-1">
+        <li>kooli otsus, kas maht on piisav</li>
+        <li>õpetaja hinnang, kas seos katab valitud õpitulemused</li>
+      </ul>
+    </div>
+
+    <div className="mt-4 rounded-2xl border-2 border-accent/30 bg-accent-subtle/30 p-4">
+      <div className="flex items-center gap-2 mb-1.5">
+        <Sparkles className="size-4 text-accent" />
+        <div className="text-[11px] font-bold tracking-[0.18em] uppercase text-accent">AI soovitus</div>
+      </div>
+      <p className="text-[14px] leading-snug">
+        Sobib osaliseks arvestamiseks kehalises kasvatuses. Eesti keelt käsitleda toetava
+        tõendina, mitte automaatse arvestusena.
+      </p>
+    </div>
+
+    <div className="mt-3 flex items-start gap-2 text-[12.5px] text-muted-foreground">
+      <AlertCircle className="size-3.5 shrink-0 mt-0.5" />
+      AI ei tee otsust. Õpetaja või õppejuht kontrollib ja otsustab.
+    </div>
+
+    <Button onClick={onNext} size="lg" className="rounded-xl mt-6 h-12 px-6 w-full sm:w-auto">
+      <GraduationCap className="size-4 mr-1.5" />
+      Jätka otsuse vaatesse
+    </Button>
+  </StepCard>
+);
+
+const Step7Decision = ({ onNext, state, setState }: any) => {
+  const opts: { v: string; l: string; tone: any }[] = [
+    { v: "full", l: "Arvestan täielikult", tone: "success" },
+    { v: "partial", l: "Arvestan osaliselt", tone: "success" },
+    { v: "more", l: "Vajan lisatõendit", tone: "warning" },
+    { v: "no", l: "Ei arvesta", tone: "muted" },
+    { v: "head", l: "Suunan õppejuhile", tone: "primary" },
+  ];
+  return (
+    <StepCard
+      title="Kooli otsus"
+      subtitle="Õpetaja või õppejuht teeb põhjendatud otsuse tõendite ja AI eelanalüüsi alusel."
+    >
+      <div className="space-y-2">
+        {opts.map((o) => (
+          <RadioField
+            key={o.v}
+            checked={state.decision === o.v}
+            onChange={() => setState({ ...state, decision: o.v })}
+            label={o.l}
+            tone={o.tone}
+          />
+        ))}
+      </div>
+
+      <div className="mt-6">
+        <div className="text-[13px] font-semibold text-foreground/80 mb-2">Põhjenduse mustand</div>
+        <div className="rounded-2xl border-2 border-border-strong bg-background p-4 text-[13.5px] leading-relaxed text-foreground/85 space-y-3">
+          <p>
+            Nikita Tamme jalgpallitreeningul on tõendatud regulaarne osalemine, piisav maht ja
+            seos kehalise kasvatuse õpitulemustega. Kool arvestab treeningut osaliselt
+            kehalise kasvatuse õpitulemuste täitmisel.
+          </p>
+          <p>
+            Eestikeelne treening arvestatakse eesti keele praktilise kasutuse toetava tõendina,
+            kuid see ei asenda eesti keele hinnet ega vabasta õppijat automaatselt eesti keele
+            tundidest.
+          </p>
+        </div>
+      </div>
+
+      <Button
+        onClick={onNext}
+        disabled={!state.decision}
+        size="lg"
+        className="rounded-xl mt-6 h-12 px-6 w-full sm:w-auto"
+      >
+        <Send className="size-4 mr-1.5" />
+        Kinnita otsus ja saada perele selgitus
+      </Button>
+    </StepCard>
+  );
+};
+
+const Step8Family = ({ onNext }: { onNext: () => void }) => (
+  <StepCard title="Selgitus perele" subtitle="Pere saab arusaadava selgituse, mida arvestati ja mida mitte.">
+    <div className="rounded-2xl border-2 border-success/30 bg-success-subtle/40 p-5">
+      <div className="text-[11px] font-bold tracking-[0.18em] uppercase text-success mb-1">Otsus</div>
+      <div className="text-xl font-semibold">Arvestame osaliselt.</div>
+    </div>
+
+    <div className="mt-4 space-y-3">
+      <div>
+        <div className="text-[11px] font-semibold tracking-[0.18em] uppercase text-success mb-1.5">
+          Mida arvestati?
+        </div>
+        <p className="text-[14px] leading-snug">
+          Nikita regulaarne osalemine jalgpallitreeningul toetab kehalise kasvatuse õpitulemuste täitmist.
+        </p>
+      </div>
+
+      <div>
+        <div className="text-[11px] font-semibold tracking-[0.18em] uppercase text-warning mb-1.5">
+          Mida ei arvestatud automaatselt?
+        </div>
+        <p className="text-[14px] leading-snug">
+          Eestikeelne treening ei asenda eesti keele hinnet ega vabasta automaatselt eesti keele tundidest.
+        </p>
+      </div>
+
+      <div>
+        <div className="text-[11px] font-semibold tracking-[0.18em] uppercase text-primary mb-1.5">
+          Miks?
+        </div>
+        <p className="text-[14px] leading-snug">
+          Treening annab praktilise keelekasutuse tõendi, kuid ainehinde otsustab kool eesti keele
+          õpitulemuste alusel.
+        </p>
+      </div>
+
+      <div>
+        <div className="text-[11px] font-semibold tracking-[0.18em] uppercase text-muted-foreground mb-1.5">
+          Järgmine samm
+        </div>
+        <p className="text-[14px] leading-snug">
+          Kool määrab, kuidas osaline arvestamine kajastub õppija õppetöös ja tunniplaanis.
+        </p>
+      </div>
+    </div>
+
+    <Button onClick={onNext} size="lg" className="rounded-xl mt-6 h-12 px-6 w-full sm:w-auto">
+      <Building2 className="size-4 mr-1.5" />
+      Vaata koolijuhi koondvaadet
+    </Button>
+  </StepCard>
+);
+
+const Step9Principal = () => (
+  <StepCard title="Koolijuhi koondvaade" subtitle="Üksikotsusest tekib juhtimisinfo.">
+    <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
+      {[
+        { v: "12", l: "sarnast juhtumit", tone: "primary" },
+        { v: "3", l: "korduvat ainet (KK, muusika, kunst)", tone: "primary" },
+        { v: "4", l: "vajab lisatõendit", tone: "warning" },
+        { v: "3", l: "korduvat partnerit (FC Demo, muusikakool, kunstiring)", tone: "primary" },
+        { v: "8–12 h", l: "potentsiaalne tööaja võit perioodis", tone: "success" },
+      ].map((m) => {
+        const bg =
+          m.tone === "warning"
+            ? "border-warning/30 bg-warning-subtle/50"
+            : m.tone === "success"
+            ? "border-success/30 bg-success-subtle/50"
+            : "border-primary/20 bg-card";
+        const num =
+          m.tone === "warning" ? "text-warning" : m.tone === "success" ? "text-success" : "text-primary";
+        return (
+          <div key={m.l} className={`rounded-2xl border-2 ${bg} p-4 shadow-card`}>
+            <div className={`text-2xl font-semibold tabular ${num}`}>{m.v}</div>
+            <div className="text-[12.5px] text-foreground/75 mt-1 leading-snug">{m.l}</div>
+          </div>
+        );
+      })}
+    </div>
+
+    <div className="mt-5 rounded-2xl border-2 border-primary/25 bg-primary-subtle/30 p-5">
+      <div className="text-[11px] font-bold tracking-[0.18em] uppercase text-primary mb-1.5">
+        Tunniplaani märkus
+      </div>
+      <p className="text-[14px] leading-snug">
+        Kui sarnased juhtumid korduvad ühes klassis või lennus, saab järgmise perioodi tunniplaani
+        paindlikumalt planeerida.
+      </p>
+    </div>
+
+    <div className="mt-6 flex flex-wrap gap-3">
+      <Button size="lg" className="rounded-xl">Ekspordi koondraport</Button>
+      <Button size="lg" variant="outline" className="rounded-xl">Loo kooli arvestamise hea tava</Button>
+      <Button asChild size="lg" variant="ghost" className="rounded-xl">
+        <Link to="/">Lõpeta test</Link>
+      </Button>
+    </div>
+  </StepCard>
+);
+
+/* ================================ Page ================================= */
+
+const Flow = () => {
+  const [step, setStep] = useState<StepId>(1);
+  const [state, setState] = useState({
+    askPE: true,
+    askEst: true,
+    coach: { osa: false, maht: false, sisu: false, keel: false, juh: false, log: false },
+    outcomes: { lia: true, ko: true, es: false, mlo: true } as Record<string, boolean>,
+    estSupport: true,
+    decision: "partial" as "full" | "partial" | "more" | "no" | "head" | "",
+  });
+
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "ArrowRight" && step < 3) setStep((s) => (s + 1) as StepId);
-      if (e.key === "ArrowLeft" && step > 0) setStep((s) => (s - 1) as StepId);
+      if ((e.target as HTMLElement)?.tagName === "INPUT") return;
+      if (e.key === "ArrowRight" && step < 9) setStep((s) => (s + 1) as StepId);
+      if (e.key === "ArrowLeft" && step > 1) setStep((s) => (s - 1) as StepId);
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, [step]);
 
-  const next = () => step < 3 && setStep((s) => (s + 1) as StepId);
-  const prev = () => step > 0 && setStep((s) => (s - 1) as StepId);
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [step]);
 
-  const progressPct = ((step + 1) / STEPS.length) * 100;
+  const next = () => step < 9 && setStep((s) => (s + 1) as StepId);
+  const prev = () => step > 1 && setStep((s) => (s - 1) as StepId);
+
+  const progressPct = useMemo(() => (step / 9) * 100, [step]);
+  const currentShort = STEPS.find((s) => s.id === step)?.short ?? "";
 
   return (
-    <div className="min-h-screen" style={{ background: C.bg }}>
-      {/* Top bar */}
-      <header className="sticky top-0 z-30 backdrop-blur-md border-b"
-        style={{ background: `${C.bg}E6`, borderColor: C.border }}>
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between gap-4">
-          <Link to="/" className="inline-flex items-center gap-2 text-sm" style={{ color: "#6B7280" }}>
-            <ArrowLeft className="size-4" /> Tagasi
+    <div className="min-h-screen bg-background">
+      <header className="sticky top-0 z-30 backdrop-blur-md bg-background/80 border-b border-border">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between gap-4">
+          <Link to="/" className="inline-flex items-center gap-1.5 text-xs text-muted-foreground hover:text-primary">
+            <ArrowLeft className="size-3.5" /> Avaleht
           </Link>
-          <div className="text-[11px] font-semibold tracking-[0.2em] uppercase" style={{ color: C.teal }}>
-            4-ekraani demo
+          <div className="text-[11px] font-semibold tracking-[0.2em] uppercase text-primary">
+            Samm {step}/9 · {currentShort}
           </div>
-          <Link to="/pitch" className="text-sm hover:underline" style={{ color: C.teal }}>
-            Pitch →
-          </Link>
+          <div className="text-[11px] text-muted-foreground tabular">{Math.round(progressPct)}%</div>
         </div>
-
-        {/* Progress indicator */}
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 pb-4">
-          <div className="flex items-center gap-2 sm:gap-3">
-            {STEPS.map((s, i) => {
-              const done = i < step;
-              const active = i === step;
-              return (
-                <div key={s.id} className="flex items-center gap-2 sm:gap-3 flex-1">
-                  <button
-                    type="button"
-                    onClick={() => setStep(s.id)}
-                    className="flex items-center gap-2 min-w-0 group"
-                  >
-                    <span
-                      className="size-8 rounded-full flex items-center justify-center shrink-0 transition-all"
-                      style={{
-                        background: active ? s.color : done ? s.color : C.cardBg,
-                        color: active || done ? "white" : "#9CA3AF",
-                        border: active || done ? "none" : `1.5px solid ${C.border}`,
-                        transform: active ? "scale(1.1)" : "scale(1)",
-                        boxShadow: active ? `0 0 0 4px ${s.color}25` : "none",
-                      }}
-                    >
-                      {done ? <Check className="size-4" /> : s.icon}
-                    </span>
-                    <span
-                      className={`text-xs sm:text-sm font-medium hidden sm:block transition-colors ${
-                        active ? "" : done ? "" : "text-muted-foreground"
-                      }`}
-                      style={{ color: active ? C.text : done ? C.text : "#9CA3AF" }}
-                    >
-                      {s.short}
-                    </span>
-                  </button>
-                  {i < STEPS.length - 1 && (
-                    <div className="flex-1 h-[2px] rounded-full overflow-hidden" style={{ background: C.border }}>
-                      <div
-                        className="h-full transition-all duration-500"
-                        style={{ width: i < step ? "100%" : "0%", background: s.color }}
-                      />
-                    </div>
-                  )}
-                </div>
-              );
-            })}
-          </div>
-          <div className="mt-3 h-1 rounded-full overflow-hidden" style={{ background: C.border }}>
-            <div
-              className="h-full transition-all duration-500"
-              style={{ width: `${progressPct}%`, background: STEPS[step].color }}
-            />
-          </div>
+        <div className="h-1 bg-muted">
+          <div
+            className="h-full bg-primary transition-all duration-300"
+            style={{ width: `${progressPct}%` }}
+          />
         </div>
       </header>
 
-      {/* Slide content with transition */}
-      <main className="max-w-5xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
-        <div key={step} className="animate-in fade-in slide-in-from-right-4 duration-300">
-          {step === 0 && <Step1 onNext={next} />}
-          {step === 1 && <Step2 onNext={next} />}
-          {step === 2 && <Step3 decision={decision} setDecision={setDecision} onNext={next} />}
-          {step === 3 && <Step4 decision={decision} />}
-        </div>
+      <main className="max-w-3xl mx-auto px-4 sm:px-6 py-6 md:py-10">
+        {step === 1 && <Step1Start onNext={next} />}
+        {step === 2 && <Step2Case onNext={next} />}
+        {step === 3 && <Step3Family onNext={next} state={state} setState={setState} />}
+        {step === 4 && <Step4Coach onNext={next} state={state} setState={setState} />}
+        {step === 5 && <Step5Curriculum onNext={next} state={state} setState={setState} />}
+        {step === 6 && <Step6AI onNext={next} />}
+        {step === 7 && <Step7Decision onNext={next} state={state} setState={setState} />}
+        {step === 8 && <Step8Family onNext={next} />}
+        {step === 9 && <Step9Principal />}
 
-        {/* Footer nav */}
-        <div className="mt-8 flex items-center justify-between gap-3">
+        {/* Bottom nav */}
+        <div className="mt-6 flex items-center justify-between">
           <Button
-            variant="outline"
             onClick={prev}
-            disabled={step === 0}
-            className="rounded-full"
+            disabled={step === 1}
+            variant="outline"
+            className="rounded-xl"
           >
-            <ArrowLeft className="size-4" /> Tagasi
+            <ArrowLeft className="size-4 mr-1.5" />
+            Tagasi
           </Button>
-          <div className="text-xs hidden sm:block" style={{ color: "#9CA3AF" }}>
-            ← → klahvid navigeerimiseks
-          </div>
-          {step < 3 ? (
-            <Button
-              onClick={next}
-              className="rounded-full"
-              style={{ background: STEPS[step].color, color: "white" }}
-            >
-              Edasi <ArrowRight className="size-4" />
+          {step < 9 ? (
+            <Button onClick={next} variant="ghost" className="rounded-xl text-muted-foreground">
+              Edasi
+              <ArrowRight className="size-4 ml-1.5" />
             </Button>
           ) : (
-            <Button asChild className="rounded-full" style={{ background: C.green, color: "white" }}>
-              <Link to="/juht">
-                <Eye className="size-4" /> Vaata koolijuhi vaadet
-              </Link>
+            <Button asChild variant="ghost" className="rounded-xl text-muted-foreground">
+              <Link to="/">Avalehele</Link>
             </Button>
           )}
+        </div>
+
+        {/* Mock data note */}
+        <div className="mt-8 text-center text-[11px] text-muted-foreground tracking-wider uppercase">
+          Häki prototüüp · mock-andmed
         </div>
       </main>
     </div>
   );
 };
-
-/* ============== Slaidid ============== */
-
-const Card = ({
-  children,
-  bg = C.cardBg,
-  border = C.border,
-  className = "",
-}: {
-  children: React.ReactNode;
-  bg?: string;
-  border?: string;
-  className?: string;
-}) => (
-  <div
-    className={`rounded-[20px] border p-5 sm:p-6 shadow-sm ${className}`}
-    style={{ background: bg, borderColor: border }}
-  >
-    {children}
-  </div>
-);
-
-const Eyebrow = ({ children, color = C.teal }: { children: React.ReactNode; color?: string }) => (
-  <div
-    className="text-[11px] uppercase font-semibold mb-2"
-    style={{ color, letterSpacing: "0.18em" }}
-  >
-    {children}
-  </div>
-);
-
-const Title = ({ children }: { children: React.ReactNode }) => (
-  <h2 className="text-2xl sm:text-4xl font-semibold leading-[1.1] tracking-tight" style={{ color: C.text }}>
-    {children}
-  </h2>
-);
-
-/* === Step 1: Õppija sisend === */
-const Step1 = ({ onNext }: { onNext: () => void }) => (
-  <div>
-    <Eyebrow>1 / 4 · Õppija ja pere sisend</Eyebrow>
-    <Title>Nikita Tamm, 8.A — taotlus arvestamiseks</Title>
-    <p className="mt-3 text-base sm:text-lg" style={{ color: "#4B5563" }}>
-      Pere algatab taotluse. Sisestab koolivälise tegevuse ja lisab treeneri kinnituse.
-    </p>
-
-    <div className="mt-6 grid md:grid-cols-2 gap-4">
-      <Card bg={`${C.teal}0D`} border={`${C.teal}40`}>
-        <div className="flex items-center gap-3 mb-4">
-          <div className="size-12 rounded-full flex items-center justify-center"
-            style={{ background: C.teal, color: "white" }}>
-            <Trophy className="size-6" />
-          </div>
-          <div>
-            <div className="text-xs" style={{ color: "#6B7280" }}>Koolivälise õppe liik</div>
-            <div className="font-semibold text-lg" style={{ color: C.text }}>Spordikool</div>
-          </div>
-        </div>
-        <Field icon={Building2} label="Huvikool" value="FC Levadia U16" />
-        <Field icon={Clock} label="Maht" value="3× nädalas, à 90 min" />
-        <Field icon={Languages} label="Tegevuse keel" value="Eesti keel" />
-        <Field icon={ShieldCheck} label="Treener" value="Mart Kask · UEFA B litsents" />
-      </Card>
-
-      <Card bg={`${C.green}0D`} border={`${C.green}40`}>
-        <Eyebrow color={C.green}>Pere küsimus koolile</Eyebrow>
-        <p className="text-sm sm:text-base leading-relaxed mt-2" style={{ color: C.text }}>
-          Kas Nikita osa spordikoolis toimuvast õppimisest saab arvestada{" "}
-          <strong>kehalise kasvatuse</strong> õpitulemuste täitmisel ja kas eestikeelne
-          treening saab olla <strong>eesti keele praktilise kasutuse</strong> toetav tõend?
-        </p>
-
-        <div className="mt-5 flex flex-wrap gap-2">
-          {[
-            { i: <FileCheck className="size-3.5" />, t: "Treeneri kinnitus" },
-            { i: <FileCheck className="size-3.5" />, t: "Treeninggraafik" },
-            { i: <FileCheck className="size-3.5" />, t: "Võistlusinfo" },
-            { i: <AlertCircle className="size-3.5" />, t: "Õppija eneseanalüüs (puudu)" },
-          ].map((e) => (
-            <span
-              key={e.t}
-              className="inline-flex items-center gap-1.5 text-xs px-2.5 py-1 rounded-full"
-              style={{
-                background: e.t.includes("puudu") ? `${C.orange}20` : `${C.green}15`,
-                color: e.t.includes("puudu") ? C.orange : C.green,
-              }}
-            >
-              {e.i} {e.t}
-            </span>
-          ))}
-        </div>
-      </Card>
-    </div>
-
-    <div className="mt-6 rounded-xl p-3 flex items-start gap-2"
-      style={{ background: C.subtle, borderLeft: `3px solid ${C.teal}` }}>
-      <AlertCircle className="size-4 mt-0.5 shrink-0" style={{ color: C.teal }} />
-      <p className="text-xs sm:text-sm" style={{ color: C.text }}>
-        Pere ei pea ise teadma, millised õpitulemused võivad katta. AI teeb seose-ettepaneku
-        järgmises sammus.
-      </p>
-    </div>
-  </div>
-);
-
-const Field = ({ icon: Icon, label, value }: { icon: React.ElementType; label: string; value: string }) => (
-  <div className="flex items-start gap-3 py-2 border-t" style={{ borderColor: `${C.border}80` }}>
-    <Icon className="size-4 mt-0.5 shrink-0" style={{ color: C.teal }} />
-    <div className="min-w-0 flex-1">
-      <div className="text-[11px] uppercase tracking-wider" style={{ color: "#6B7280" }}>{label}</div>
-      <div className="text-sm font-medium" style={{ color: C.text }}>{value}</div>
-    </div>
-  </div>
-);
-
-/* === Step 2: AI eelanalüüs === */
-const Step2 = ({ onNext }: { onNext: () => void }) => (
-  <div>
-    <Eyebrow color={C.purple}>2 / 4 · AI eelanalüüs</Eyebrow>
-    <Title>AI koondab tõendid ja pakub seosed õppekavaga.</Title>
-    <p className="mt-3 text-base sm:text-lg" style={{ color: "#4B5563" }}>
-      AI ei otsusta. AI näitab, mis on tugev, mis osaline ja mis vajab lisatõendit.
-    </p>
-
-    <div className="mt-6 grid md:grid-cols-3 gap-3">
-      <Card bg={`${C.lime}25`} border={`${C.lime}80`}>
-        <Eyebrow color={C.green}>Tugev seos</Eyebrow>
-        <ul className="text-sm space-y-1.5 mt-2" style={{ color: C.text }}>
-          <li className="flex items-start gap-2"><CheckCircle2 className="size-4 mt-0.5 shrink-0" style={{ color: C.green }} /> regulaarne liikumine</li>
-          <li className="flex items-start gap-2"><CheckCircle2 className="size-4 mt-0.5 shrink-0" style={{ color: C.green }} /> vastupidavus</li>
-          <li className="flex items-start gap-2"><CheckCircle2 className="size-4 mt-0.5 shrink-0" style={{ color: C.green }} /> juhendatud treening</li>
-        </ul>
-      </Card>
-
-      <Card bg={`${C.teal}0D`} border={`${C.teal}40`}>
-        <Eyebrow color={C.teal}>Osaline seos</Eyebrow>
-        <ul className="text-sm space-y-1.5 mt-2" style={{ color: C.text }}>
-          <li className="flex items-start gap-2"><AlertCircle className="size-4 mt-0.5 shrink-0" style={{ color: C.teal }} /> koostöö</li>
-          <li className="flex items-start gap-2"><AlertCircle className="size-4 mt-0.5 shrink-0" style={{ color: C.teal }} /> enesejuhtimine</li>
-          <li className="flex items-start gap-2"><AlertCircle className="size-4 mt-0.5 shrink-0" style={{ color: C.teal }} /> eestikeelne suhtlus</li>
-        </ul>
-      </Card>
-
-      <Card bg={`${C.orange}10`} border={`${C.orange}50`}>
-        <Eyebrow color={C.orange}>Puudub tõend</Eyebrow>
-        <ul className="text-sm space-y-1.5 mt-2" style={{ color: C.text }}>
-          <li className="flex items-start gap-2"><AlertCircle className="size-4 mt-0.5 shrink-0" style={{ color: C.orange }} /> õppija eneseanalüüs</li>
-          <li className="flex items-start gap-2"><AlertCircle className="size-4 mt-0.5 shrink-0" style={{ color: C.orange }} /> õpetaja lühivestlus</li>
-        </ul>
-      </Card>
-    </div>
-
-    <div className="mt-6 grid md:grid-cols-2 gap-4">
-      <Card bg={`${C.purple}0D`} border={`${C.purple}40`}>
-        <div className="flex items-center gap-2 mb-3">
-          <Sparkles className="size-5" style={{ color: C.purple }} />
-          <div className="text-sm font-semibold" style={{ color: C.purple }}>AI mustand õpetajale</div>
-        </div>
-        <p className="text-sm leading-relaxed" style={{ color: C.text }}>
-          „Tõendid (treeneri kinnitus, maht, võistlused, keel) toetavad{" "}
-          <strong>täielikku arvestamist</strong> kehalise kasvatuse õpitulemustes
-          'regulaarne liikumine' ja 'vastupidavus'. Eesti keele osas on tõend{" "}
-          <strong>toetav</strong>, kuid mitte aluseks hinde asendamiseks. Soovitan
-          küsida õppija lühieneseanalüüsi.“
-        </p>
-      </Card>
-
-      <Card>
-        <Eyebrow>Mida AI ei tee</Eyebrow>
-        <ul className="text-sm space-y-1.5 mt-2" style={{ color: C.text }}>
-          <li>• ei anna hinnet</li>
-          <li>• ei vabasta tunnist</li>
-          <li>• ei tee lõppotsust</li>
-          <li>• ei asenda õpetaja hinnangut</li>
-        </ul>
-      </Card>
-    </div>
-  </div>
-);
-
-/* === Step 3: Õpetaja otsus === */
-const Step3 = ({
-  decision,
-  setDecision,
-  onNext,
-}: {
-  decision: "full" | "partial" | "more" | null;
-  setDecision: (d: "full" | "partial" | "more") => void;
-  onNext: () => void;
-}) => {
-  const opts = [
-    { id: "full" as const, t: "Arvestan täielikult", d: "Kehalise kasvatuse õpitulemused 'regulaarne liikumine' ja 'vastupidavus' loetakse täidetuks.", c: C.green },
-    { id: "partial" as const, t: "Arvestan osaliselt", d: "Kehaline kasvatus arvestatakse, eesti keel jääb toetavaks tõendiks.", c: C.teal },
-    { id: "more" as const, t: "Vajan lisatõendit", d: "Palun õppija lühieneseanalüüs ja õpetaja vestlus.", c: C.orange },
-  ];
-
-  return (
-    <div>
-      <Eyebrow color={C.green}>3 / 4 · Õpetaja otsus</Eyebrow>
-      <Title>Õpetaja teeb otsuse AI eeltöö põhjal.</Title>
-      <p className="mt-3 text-base sm:text-lg" style={{ color: "#4B5563" }}>
-        Vali variant — see määrab, mida pere ja koolijuht järgmises sammus näevad.
-      </p>
-
-      <div className="mt-6 grid md:grid-cols-3 gap-3">
-        {opts.map((o) => {
-          const active = decision === o.id;
-          return (
-            <button
-              key={o.id}
-              type="button"
-              onClick={() => setDecision(o.id)}
-              className="text-left rounded-[20px] border-2 p-5 transition-all"
-              style={{
-                background: active ? `${o.c}15` : C.cardBg,
-                borderColor: active ? o.c : C.border,
-                boxShadow: active ? `0 8px 24px -10px ${o.c}50` : "none",
-                transform: active ? "translateY(-2px)" : "none",
-              }}
-            >
-              <div
-                className="size-10 rounded-full flex items-center justify-center mb-3"
-                style={{ background: active ? o.c : `${o.c}15`, color: active ? "white" : o.c }}
-              >
-                {active ? <Check className="size-5" /> : <CheckCircle2 className="size-5" />}
-              </div>
-              <div className="font-semibold text-base" style={{ color: C.text }}>{o.t}</div>
-              <p className="text-sm mt-2" style={{ color: "#4B5563" }}>{o.d}</p>
-            </button>
-          );
-        })}
-      </div>
-
-      <div className="mt-6 rounded-xl p-4 flex items-start gap-3"
-        style={{ background: C.subtle, borderLeft: `3px solid ${C.green}` }}>
-        <ShieldCheck className="size-5 mt-0.5 shrink-0" style={{ color: C.green }} />
-        <p className="text-sm" style={{ color: C.text }}>
-          <strong>Otsus jääb kooli.</strong> AI eeltöö on tugi, mitte asendaja.
-          Otsus salvestub koos põhjendusega ja jõuab perele selgituse vormis.
-        </p>
-      </div>
-
-      {decision && (
-        <div className="mt-4 animate-in fade-in slide-in-from-bottom-2 duration-300 text-center">
-          <div className="inline-flex items-center gap-2 text-sm" style={{ color: C.green }}>
-            <Check className="size-4" /> Valik tehtud — vaata mõju järgmisel ekraanil
-          </div>
-        </div>
-      )}
-    </div>
-  );
-};
-
-/* === Step 4: Mõju === */
-const Step4 = ({ decision }: { decision: "full" | "partial" | "more" | null }) => {
-  const summary =
-    decision === "full"
-      ? { t: "Täielik arvestamine", c: C.green, msg: "Õpetaja kinnitas tõendite alusel." }
-      : decision === "partial"
-      ? { t: "Osaline arvestamine", c: C.teal, msg: "Kehaline kasvatus arvestatud, eesti keel toetav tõend." }
-      : decision === "more"
-      ? { t: "Vajab lisatõendit", c: C.orange, msg: "Pere täiendab tõendit, otsus tuleb hiljem." }
-      : { t: "Otsus tegemata", c: "#9CA3AF", msg: "Mine tagasi ja vali variant." };
-
-  return (
-    <div>
-      <Eyebrow>4 / 4 · Mõju ja koolijuhi vaade</Eyebrow>
-      <Title>Üks otsus — kolm tasandit mõju.</Title>
-
-      <div className="mt-6 rounded-2xl p-5 sm:p-6 flex items-center gap-4"
-        style={{ background: `${summary.c}15`, borderLeft: `4px solid ${summary.c}` }}>
-        <div className="size-12 rounded-full flex items-center justify-center shrink-0"
-          style={{ background: summary.c, color: "white" }}>
-          <Check className="size-6" />
-        </div>
-        <div>
-          <div className="text-xs uppercase tracking-wider font-semibold" style={{ color: summary.c }}>
-            Otsus
-          </div>
-          <div className="text-lg sm:text-xl font-semibold" style={{ color: C.text }}>{summary.t}</div>
-          <div className="text-sm" style={{ color: "#4B5563" }}>{summary.msg}</div>
-        </div>
-      </div>
-
-      <div className="mt-6 grid md:grid-cols-3 gap-3">
-        <ImpactCard
-          icon={<Clock />}
-          color={C.teal}
-          title="Õpetaja eeltöö"
-          big="25–40 min → 5–10 min"
-          note="Ühe arvestusotsuse ettevalmistus."
-        />
-        <ImpactCard
-          icon={<CalendarRange />}
-          color={C.green}
-          title="Tunniplaan"
-          big="3 sarnast juhtumit"
-          note="Saab grupeerida 1. või 7. tundi."
-        />
-        <ImpactCard
-          icon={<Coins />}
-          color={C.purple}
-          title="Mõju mõõtkava"
-          big="~7,7–24 mln €"
-          note="Eesti haridusruumi rahaekvivalent (10–30% dubleerimist)."
-        />
-      </div>
-
-      <div className="mt-6 rounded-2xl border p-5 sm:p-6"
-        style={{ background: C.cardBg, borderColor: C.border }}>
-        <div className="flex items-start gap-3">
-          <div className="size-10 rounded-full flex items-center justify-center shrink-0"
-            style={{ background: `${C.teal}15`, color: C.teal }}>
-            <Building2 className="size-5" />
-          </div>
-          <div className="min-w-0 flex-1">
-            <div className="text-xs uppercase tracking-wider font-semibold mb-1" style={{ color: C.teal }}>
-              Koolijuhi koondvaade
-            </div>
-            <p className="text-sm" style={{ color: "#4B5563" }}>
-              Nikita juhtum lisandub mustrisse. Koolijuht näeb, et 8.A klassis on{" "}
-              <strong>14 / 22 õpilast</strong> seotud huviharidusega ja{" "}
-              <strong>jalgpall → kehaline kasvatus</strong> muster kordub 5 koolis 34 õpilasega.
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <div className="mt-6 rounded-2xl p-5 sm:p-6 text-center"
-        style={{ background: C.green, color: "white" }}>
-        <p className="text-base sm:text-lg font-medium">
-          Me ei lisa õppimist juurde.{" "}
-          <span style={{ color: C.lime }}>Me teeme juba toimunu nähtavaks.</span>
-        </p>
-      </div>
-    </div>
-  );
-};
-
-const ImpactCard = ({
-  icon,
-  color,
-  title,
-  big,
-  note,
-}: {
-  icon: React.ReactNode;
-  color: string;
-  title: string;
-  big: string;
-  note: string;
-}) => (
-  <div className="rounded-[20px] border p-5 shadow-sm" style={{ background: C.cardBg, borderColor: C.border }}>
-    <div className="size-10 rounded-full flex items-center justify-center mb-3"
-      style={{ background: `${color}15`, color }}>
-      {icon}
-    </div>
-    <div className="text-xs uppercase tracking-wider font-semibold" style={{ color }}>{title}</div>
-    <div className="text-xl font-bold mt-1.5" style={{ color: C.text }}>{big}</div>
-    <p className="text-xs mt-2" style={{ color: "#6B7280" }}>{note}</p>
-  </div>
-);
 
 export default Flow;
