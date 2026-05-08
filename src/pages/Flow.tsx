@@ -246,7 +246,7 @@ const Step3Family = ({ onNext, state, setState }: any) => (
 );
 
 const Step4Coach = ({ onNext, state, setState }: any) => {
-  const flags: (keyof typeof state.coach)[] = ["osa", "maht", "sisu", "keel", "juh", "log"];
+  const flags: ("osa" | "maht" | "sisu" | "keel" | "juh" | "log")[] = ["osa", "maht", "sisu", "keel", "juh", "log"];
   const allConfirmed = flags.every((k) => state.coach[k]);
   const labels: Record<string, string> = {
     osa: "Kinnitan osalemise",
