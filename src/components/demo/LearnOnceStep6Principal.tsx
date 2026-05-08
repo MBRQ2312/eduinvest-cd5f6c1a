@@ -1,11 +1,20 @@
-import { RotateCcw, Trophy, Music, Languages, CheckCircle2, CircleDashed, FileSearch, Timer, Repeat, Layers, School } from "lucide-react";
+import { ArrowRight, Trophy, Music, Languages, CheckCircle2, CircleDashed, FileSearch, Timer, Repeat, Layers, School } from "lucide-react";
+import { Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import { Button } from "@/components/ui/button";
 import { DemoShell } from "./DemoShell";
 import { ParentNote } from "./ParentNote";
 
-interface Props { onRestart: () => void; onBack: () => void; }
+interface Props { onNext: () => void; onBack: () => void; }
 
-export const LearnOnceStep6Principal = ({ onRestart, onBack }: Props) => {
+const CHART_DATA = [
+  { aine: "Kehaline", juhtumeid: 24, dubleerimine: 16 },
+  { aine: "Eesti k.", juhtumeid: 14, dubleerimine: 8 },
+  { aine: "Muusika", juhtumeid: 9, dubleerimine: 5 },
+  { aine: "Loodus", juhtumeid: 7, dubleerimine: 2 },
+  { aine: "Tehnoloogia", juhtumeid: 5, dubleerimine: 1 },
+];
+
+export const LearnOnceStep6Principal = ({ onNext, onBack }: Props) => {
   return (
     <DemoShell
       stepLabel="06 — Koolijuhi vaade"
