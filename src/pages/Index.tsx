@@ -142,7 +142,7 @@ const HeroIllustration = () => (
 );
 
 const Index = () => {
-  const [step, setStep] = useState<Step>(1);
+  const [step, setStep] = useState<Step>(0);
   const flowRef = useRef<HTMLDivElement>(null);
   const timelineRef = useRef<HTMLDivElement>(null);
 
