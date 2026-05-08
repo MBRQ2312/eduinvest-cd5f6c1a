@@ -53,7 +53,56 @@ const Principal = () => {
           </p>
         </header>
 
-        <MockDataNotice className="mb-8" />
+        <MockDataNotice className="mb-6" />
+
+        {/* Kus tekib õhk? — keskne plokk Tõnu Peki tagasiside põhjal */}
+        <section className="mb-8">
+          <div className="rounded-[24px] border-2 border-success/40 bg-gradient-to-br from-success-subtle/40 to-primary-subtle/30 p-6 md:p-7">
+            <div className="flex items-center gap-2 mb-4">
+              <TrendingUp className="size-5 text-success" />
+              <div className="text-[11px] font-bold tracking-[0.22em] uppercase text-success">
+                Kus tekib õhk?
+              </div>
+            </div>
+            <h2 className="text-xl md:text-2xl font-semibold tracking-tight mb-2">
+              Koolijuht ei osta taotlust. Koolijuht ostab nähtavust, kus tekib õhk.
+            </h2>
+            <p className="text-sm text-foreground/75 mb-5 max-w-3xl">
+              Konkreetsed mustrid, mille põhjal saab tunniplaani, õpetaja tööaega ja
+              valikaineid järgmiseks perioodiks targemini juhtida.
+            </p>
+
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+              <AirStat value="12" label="sarnast taotlust" />
+              <AirStat value="3" label="korduvat ainet" />
+              <AirStat value="7" label="õppijat 8.A-st spordikoolis" />
+              <AirStat value="5" label="muusika osaline kate" />
+              <AirStat value={`${m.repeatingHobbySchools}`} label="korduvat huvikooli" />
+              <AirStat value={`${m.needsMoreEvidence}`} label="vajab lisatõendit" />
+              <AirStat value={`~${m.teacherPrepHoursSavedPerMonth} h`} label="potentsiaalne eeltöö võit / kuus" />
+              <AirStat value={`${m.scheduleReshuffleSlots}`} label="tunniplaani ümberkorralduse kohta" />
+            </div>
+
+            <div className="mt-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2.5">
+              <Button className="h-auto py-3 justify-start gap-2 rounded-xl">
+                <CalendarRange className="size-4" />
+                <span className="text-left text-sm">Planeeri järgmine periood</span>
+              </Button>
+              <Button variant="outline" className="h-auto py-3 justify-start gap-2 rounded-xl">
+                <BookOpenCheck className="size-4" />
+                <span className="text-left text-sm">Loo kooli arvestamise hea tava</span>
+              </Button>
+              <Button variant="outline" className="h-auto py-3 justify-start gap-2 rounded-xl">
+                <FileDown className="size-4" />
+                <span className="text-left text-sm">Ekspordi koondraport KOV-ile</span>
+              </Button>
+              <Button variant="outline" className="h-auto py-3 justify-start gap-2 rounded-xl">
+                <Eye className="size-4" />
+                <span className="text-left text-sm">Vaata korduvaid juhtumeid</span>
+              </Button>
+            </div>
+          </div>
+        </section>
 
         {/* Mida saan koolijuhina teha? */}
         <section className="mb-8">
@@ -273,6 +322,13 @@ const Metric = ({
     </div>
   );
 };
+
+const AirStat = ({ value, label }: { value: string; label: string }) => (
+  <div className="rounded-xl bg-card border border-border/60 p-3">
+    <div className="text-xl md:text-2xl font-bold tabular text-success leading-none">{value}</div>
+    <div className="text-[11px] text-muted-foreground mt-1.5 leading-tight">{label}</div>
+  </div>
+);
 
 const MiniStat = ({ icon: Icon, label, value }: { icon: LucideIcon; label: string; value: number | string }) => (
   <div className="rounded-xl bg-muted/40 p-3">
