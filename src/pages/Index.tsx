@@ -15,7 +15,7 @@ import { AiAnalysisStep } from "@/components/demo/steps/AiAnalysisStep";
 import { DecisionStep } from "@/components/demo/steps/DecisionStep";
 import { ExplanationStep } from "@/components/demo/steps/ExplanationStep";
 
-type Step = 1 | 2 | 3 | 4 | 5 | 6;
+type Step = 0 | 1 | 2 | 3 | 4 | 5 | 6;
 
 type FlowStep = {
   n: string;
