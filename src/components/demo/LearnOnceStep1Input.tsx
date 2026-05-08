@@ -32,6 +32,8 @@ export const LearnOnceStep1Input = ({ onNext }: Props) => {
     >
       <ParentNote text="Õppija või lapsevanem kirjeldab, mida ja kus on koolivälisel ajal õpitud. Eraldi märgitakse tegevuse keel ja juhendaja keel — see aitab koolil näha, kus õppija eesti keelt päriselt kasutab." />
 
+      <HobbySchoolImport />
+
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-10 gap-y-6">
         <Field label="Õppija nimi" value="Markus Tamm" />
         <Field label="Klass" value="8.A" hint="Mai Kool" />
