@@ -8,6 +8,8 @@ import NotFound from "./pages/NotFound.tsx";
 import Parent from "./pages/Parent.tsx";
 import Pitch from "./pages/Pitch.tsx";
 import Coach from "./pages/Coach.tsx";
+import Teacher from "./pages/Teacher.tsx";
+import Principal from "./pages/Principal.tsx";
 
 const queryClient = new QueryClient();
 
@@ -22,6 +24,8 @@ const App = () => (
           <Route path="/perele" element={<Parent />} />
           <Route path="/pitch" element={<Pitch />} />
           <Route path="/treener" element={<Coach />} />
+          <Route path="/opetaja" element={<Teacher />} />
+          <Route path="/juht" element={<Principal />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
