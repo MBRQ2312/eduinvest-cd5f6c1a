@@ -5,10 +5,10 @@ Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response("ok", { headers: corsHeaders });
 
   try {
-    const apiKey = Deno.env.get("OPENAI_API_KEY");
+    const apiKey = Deno.env.get("LOVABLE_API_KEY");
     if (!apiKey) {
       return new Response(
-        JSON.stringify({ error: "OPENAI_API_KEY puudub serveris. Lisa Lovable Cloud secret." }),
+        JSON.stringify({ error: "LOVABLE_API_KEY puudub. Luba Lovable Cloud / AI Gateway." }),
         { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } },
       );
     }
@@ -19,26 +19,27 @@ Deno.serve(async (req) => {
       ? `Õppija juhtum (JSON):\n${JSON.stringify(caseData, null, 2)}\n\nKoosta eelanalüüs vastavalt juhistele, kasutades riikliku õppekava väljavõtet ja arvestuse põhimõtteid.`
       : "Nikita T., 8. klass. Jalgpall 3× nädalas Pärnu Spordikoolis, eestikeelne treeningkeskkond. Võistlused ja laagrid. Treeneri kinnitus olemas. Koosta eelanalüüs.";
 
-    const resp = await fetch("https://api.openai.com/v1/responses", {
+    const resp = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
       method: "POST",
       headers: {
         Authorization: `Bearer ${apiKey}`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        model: "gpt-4.1-mini",
-        instructions: SYSTEM_INSTRUCTIONS,
-        input: userInput,
+        model: "google/gemini-3-flash-preview",
+        messages: [
+          { role: "system", content: SYSTEM_INSTRUCTIONS },
+          { role: "user", content: userInput },
+        ],
       }),
     });
 
     if (!resp.ok) {
       const errText = await resp.text();
-      console.error("OpenAI error", resp.status, errText);
-      let msg = "OpenAI päring ebaõnnestus.";
-      if (resp.status === 401) msg = "OpenAI API key on vale või aegunud.";
-      else if (resp.status === 429) msg = "OpenAI rate limit või krediit otsas.";
-      else if (resp.status === 402) msg = "OpenAI krediit on otsas.";
+      console.error("AI gateway error", resp.status, errText);
+      let msg = "AI päring ebaõnnestus.";
+      if (resp.status === 429) msg = "Liiga palju päringuid, proovi hetke pärast uuesti.";
+      else if (resp.status === 402) msg = "Lovable AI krediit on otsas. Lisa krediiti Settings → Workspace → Usage.";
       return new Response(JSON.stringify({ error: msg, status: resp.status, detail: errText.slice(0, 500) }), {
         status: resp.status,
         headers: { ...corsHeaders, "Content-Type": "application/json" },
@@ -46,17 +47,7 @@ Deno.serve(async (req) => {
     }
 
     const data = await resp.json();
-    let text: string = data.output_text ?? "";
-    if (!text && Array.isArray(data.output)) {
-      for (const item of data.output) {
-        if (item?.content) {
-          for (const c of item.content) {
-            if (typeof c?.text === "string") text += c.text;
-            else if (c?.text?.value) text += c.text.value;
-          }
-        }
-      }
-    }
+    const text: string = data.choices?.[0]?.message?.content ?? "";
 
     return new Response(JSON.stringify({ text, id: data.id }), {
       headers: { ...corsHeaders, "Content-Type": "application/json" },
