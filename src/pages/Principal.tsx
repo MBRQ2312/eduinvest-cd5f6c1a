@@ -323,6 +323,13 @@ const Metric = ({
   );
 };
 
+const AirStat = ({ value, label }: { value: string; label: string }) => (
+  <div className="rounded-xl bg-card border border-border/60 p-3">
+    <div className="text-xl md:text-2xl font-bold tabular text-success leading-none">{value}</div>
+    <div className="text-[11px] text-muted-foreground mt-1.5 leading-tight">{label}</div>
+  </div>
+);
+
 const MiniStat = ({ icon: Icon, label, value }: { icon: LucideIcon; label: string; value: number | string }) => (
   <div className="rounded-xl bg-muted/40 p-3">
     <Icon className="size-4 text-primary mb-1.5" />
