@@ -176,7 +176,8 @@ const Index = () => {
           {step === 3 && <LearnOnceStep3Analysis onBack={() => go(2)} onNext={() => go(4)} />}
           {step === 4 && <LearnOnceStep4Decision onBack={() => go(3)} onNext={() => go(5)} />}
           {step === 5 && <LearnOnceStep5Explanation onBack={() => go(4)} onNext={() => go(6)} />}
-          {step === 6 && <LearnOnceStep6Principal onBack={() => go(5)} onRestart={() => go(1)} />}
+          {step === 6 && <LearnOnceStep6Principal onBack={() => go(5)} onNext={() => go(7)} />}
+          {step === 7 && <LearnOnceStep7Integration onBack={() => go(6)} onRestart={() => go(1)} />}
         </section>
 
         {/* VÕTA */}
