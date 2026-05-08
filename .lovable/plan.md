@@ -1,73 +1,63 @@
-# Plan — selgemad nupud, kaardid ja sektsioonide eristatavus
 
-## Eesmärk
-Praegune disain on visuaalselt liiga "vaikne": primary-nupp on okei, aga sekundaarsed nupud ja sektsioonid sulanduvad taustaga. Tahame, et kasutaja näeks kohe (a) mis on klikitav nupp, (b) kus üks sektsioon lõppeb ja teine algab. Kõik värvid juba olemasolevatest tokenitest (`--primary`, `--accent`, `--success`, `--muted`, `--border`, `--card`) — uusi värve EI lisa.
+# Pitch + prototüüp: Luukas Ilvese tagasiside
 
-## 1. Disainisüsteemi laiendused (`src/index.css` + `src/components/ui/button.tsx`)
+**Põhimuutus:** ärge müüge taotluse menetlust — müüge kooliressursi juhtimist. Koolijuht on peakangelane, demo on näide, mitte toode.
 
-**Button variandid** — selge 3-tasandiline hierarhia:
-- `default` (primary): täidetud `bg-primary`, `shadow-sm`, hover `bg-primary/90`, focus-visible ring nähtav (juba olemas, tugevdame).
-- `secondary`: täidetud `bg-secondary` + `border border-border-strong` (uus token, vt allpool), tume tekst.
-- `outline`: tausta-värv `bg-card`, `border-2 border-border-strong`, hover `bg-muted`. Praegu on `border` (1px) — tõstame nähtavusele.
-- `ghost`: jääb õhuline, AGA ainult ikoonidele/navi-linkidele; lisame focus-ringi.
-- Min kõrgus: `default` 40px, `lg` 48px (praegu 44px → 48px), kõikidel `px` suuremaks 1 sammu võrra.
-- Focus-visible: kõikidel `ring-2 ring-ring ring-offset-2` — juba CVA-s, kontrollime et töötab kõikide variantidega.
+## 1. Pitch (`src/pages/Pitch.tsx`) — slaidide ümberkorraldus
 
-**Uus border token** `--border-strong` on juba `index.css`-is defineeritud (`30 14% 74%`), aga Tailwindi configis pole välja toodud. Lisame `tailwind.config.ts`-sse `borderColor.strong` vms, et saaks `border-border-strong` kasutada.
+Uus 12-slaidi järjekord (asendab praeguse):
 
-**Sektsiooni utility** (`@layer components` `index.css`-is):
-- `.section-alt` → `background-color: hsl(var(--muted) / 0.4)` — õrn vahelduv taust.
-- `.section-divider` → `border-top: 1px solid hsl(var(--border))` — kasutame lehte raamistavate sektsioonide vahel.
+| # | Slaid | Sisu lühidalt |
+|---|-------|---------------|
+| 1 | **Suur probleem (30 s)** | Õpetajate ülekoormus, pikad koolipäevad, dubleeriv õppimine. "Kool ei vaja veel üht vormi. Kool vajab juhtimisinfot." |
+| 2 | **Miks nüüd?** | Seaduslik paindlikkus on olemas, tööriist puudub |
+| 3 | **Mida koolijuht tegelikult ostab?** | 5 kaarti: korduvad mustrid · tunniplaani õhk · õpetaja tööaja suunamine · põhjendatud otsus perele · huvihariduse väärtus |
+| 4 | **Lahendus üldiselt** | Tõendid kokku · seosed nähtavaks · otsus koolile. Loetelu kasutusjuhtudest (muusika, kunst, robootika, kosmosering, eesti keele trenn, olümpiaadid) |
+| 5 | **Demojuhtum (Nikita — näide)** | Selge tähistus: "üks näide paljudest" |
+| 6 | **AI roll** | Eeltöö, ei otsusta |
+| 7 | **Koolijuhi vaade — peamine** | Screenshot/mock dashboardist, lingitakse `/juht`-i |
+| 8 | **Mõju ja kuidas raha realiseerub** | Eesti mõõtkava + uus plokk: "Raha realiseerub kooli töökorralduses" |
+| 9 | **Valideerimine** | Praegused 69/320/4.64 mõõdikud |
+| 10 | **Ärimudel — kes maksab?** | 3 veergu (kool / KOV / huvikool) + hinnastamise hüpoteesid + aus märkus |
+| 11 | **Tehniline ausus + riskid** | Mock vs valideerimine järgmises etapis |
+| 12 | **Mai → september 2026 teekaart + lõppsõnum** | "Me ei digitaliseeri vana bürokraatiat. Me loome koolile otsustustoe." |
 
-## 2. `src/pages/Index.tsx` muudatused
+Konkreetsed muudatused:
+- **Uus Slide1** — suur probleem ja tugev lause asendab praegust ava
+- **Uus slaid "Mida koolijuht ostab?"** (5 kaarti) enne demojuhtumit
+- **Uus slaid "Kuidas raha realiseerub kooli töökorralduses"** (lisatud Slide9 alla või eraldi)
+- **Uuendatud SlidePayers** — lisatud hinnastamise hüpoteesid + aus märkus maksevalmiduse kohta
+- **Uuendatud SlideRisks** — selgem mock-andmete ausus (EHIS/eKool/Stuudium pole valmis liidestus)
+- **Uus teekaart-slaid** mai/juuni/august/september 2026 verstapostidega
+- **Lõppsõnum-blokk** Slide14 lõppu
 
-Toon iga `<section>` sisse selge piir/taust. Wrap'in iga sektsiooni täislaiuses div'i, mis annab vahelduva tausta; sisemine `max-w-[1180px]` jääb. Praegu on kõik `<main>` sees ühe maxwidth alusel — refaktoorin nii, et taustakihid on `<section>` enda külge ja sisu jääb keskele containeris.
+## 2. Prototüüp
 
-Vaheldumise kava (top → bottom):
-1. HERO — `bg-background` (paber)
-2. ROLLIVÄRAV — `bg-muted/40` (õrn)
-3. OTSUSTUSVOOG — `bg-background`
-4. VÄÄRTUSKAARDID — `bg-muted/40`
-5. Loe lähemalt — `bg-background`
+### `src/pages/Index.tsx`
+- Tõsta **koolijuht** rolli kaardide esimeseks ja visuaalselt suurimaks
+- Lisa rolli alla silt "Pitch'i põhidemo"
+- Õpetaja/lapsevanem/treener jäävad alla "tugivaadetena"
 
-Iga sektsiooni vahel `border-t border-border` joon.
+### `src/pages/Principal.tsx`
+- Uus pealkiri + alatekst (Luukase sõnastus)
+- Uus plokk **"Mida saan koolijuhina teha?"** (5 punkti) enne CTA-sid
+- Olemasolevad mõõdikud säilivad
 
-Kaardid (rollivärav + väärtuskaardid + timeline-card):
-- `border` → `border` + tugevam `border-border-strong`
-- lisada `shadow-card` kõikidele (mitte `shadow-sm`)
-- hover: `border-primary` (mitte `border-primary/40`) + `shadow-elevated`
+### Uus märkus mock-andmete kohta
+- Lisa väike `MockDataNotice` komponent (badge/banner) Principal + HobbySchool lehtedele:
+  > "Häkil mock-andmed. EHIS / eKool / Stuudium liidestus järgmises etapis."
 
-CTA "Vaata otsustusvoogu": jääb primary, aga lisada teine `outline`-variant ("Loe taustaks") POLE — kasutaja ütles, ära lisa uusi nuppe. Jäta üks.
+### `src/pages/HobbySchool.tsx`
+- Lisa MockDataNotice ülaossa
 
-## 3. `src/pages/Pitch.tsx` muudatused
+## Tehniline plaan
 
-`SlideShell` → `border-border/60` asendada `border-border-strong`-iga, säilitada `shadow-[…]`. Slaide eristab juba "kaart"-stiil, seega seal sektsiooni-vahelduvat tausta ei vaja.
-
-`SoftCard` toonid jäävad, aga `border-*/15` → `border-*/30` selgemaks.
-
-Nupud (`<Button>`) saavad uue variandi-süsteemi automaatselt.
-
-## 4. Muud lehed
-`Parent.tsx`, `Coach.tsx`, `Teacher.tsx`, `Principal.tsx` ja `demo/StepShell.tsx`, `DemoShell.tsx`, `primitives.tsx` saavad nuppude / kaartide muudatused automaatselt CVA ja tokenite kaudu. Käsitsi puudutame ainult kui leiame kohtades, kus on hardcoded `border-border/60` — vahetame `border-border` või `border-border-strong`.
-
-## 5. Ligipääsetavus & responsive
-- Kontrastid: `--foreground` (#111827) `--muted` (kerge beež) taustal — AAA. `--primary` (#006D6F) valgel — AAA. Säilitame.
-- Focus-ring on alati `ring-2 ring-ring` (teal) — nähtav nii valgel kui muted taustal.
-- Mobiil: vahelduv taust töötab täislaiuses; sisemine padding jääb `px-4 sm:px-6`. Testin 360px laiusel.
-
-## 6. Tehniline kokkuvõte (failid)
 ```text
-src/index.css                       — uus .section-alt utility, --border-strong kinnitus
-tailwind.config.ts                  — borderColor.strong, võimalik bg.alt
-src/components/ui/button.tsx        — variandid: outline/secondary tugevamaks, sizing
-src/pages/Index.tsx                 — sektsioonide vahelduv taust + dividerid, kaardid
-src/pages/Pitch.tsx                 — kaardi-bordereid tugevamaks
-src/components/demo/StepShell.tsx   — kaardi border tugevamaks
-src/components/demo/DemoShell.tsx   — sama
-src/components/demo/primitives.tsx  — DataBlock / RoleCard borderid
+src/pages/Pitch.tsx           — restructure SLIDES array; add 3-4 new slide components, update existing
+src/pages/Index.tsx           — reorder roles, emphasize Principal
+src/pages/Principal.tsx       — new header copy, new "Mida saan teha?" block, MockDataNotice
+src/pages/HobbySchool.tsx     — MockDataNotice
+src/components/MockDataNotice.tsx  — new tiny shared component
 ```
 
-## Ei muuda
-- värvipalett (kõik tokenid jäävad)
-- sisu, copy, struktuur, sammude arv, AI roll
-- sektsioonide järjekord
+Hoiame sama värvipaleti (`C.green/teal/purple/lime/orange`) ja `SlideShell`/`Card`/`Title` primitiivid — ainult sisu ja järjekord muutub.
