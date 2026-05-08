@@ -10,7 +10,7 @@ import { Button } from "@/components/ui/button";
 
 const SlideShell = ({ children }: { children: React.ReactNode }) => (
   <div className="w-full max-w-5xl mx-auto px-5 sm:px-8 py-8 sm:py-12">
-    <div className="rounded-[28px] border border-border/60 bg-card shadow-[0_8px_30px_-12px_hsl(var(--foreground)/0.08)] p-6 sm:p-12 min-h-[70vh] flex flex-col justify-center">
+    <div className="rounded-[28px] border-2 border-border-strong bg-card shadow-elevated p-6 sm:p-12 min-h-[70vh] flex flex-col justify-center">
       {children}
     </div>
   </div>
@@ -38,13 +38,13 @@ const SoftCard = ({
   tone?: "default" | "primary" | "accent" | "success" | "warm";
 }) => {
   const toneCls = {
-    default: "bg-background border-border/60",
-    primary: "bg-primary-subtle border-primary/15",
-    accent: "bg-accent-subtle border-accent/15",
-    success: "bg-success-subtle border-success/15",
-    warm: "bg-[hsl(var(--muted))] border-border/60",
+    default: "bg-card border-border-strong",
+    primary: "bg-primary-subtle border-primary/30",
+    accent: "bg-accent-subtle border-accent/30",
+    success: "bg-success-subtle border-success/30",
+    warm: "bg-[hsl(var(--muted))] border-border-strong",
   }[tone];
-  return <div className={`rounded-[20px] border ${toneCls} p-5 sm:p-6`}>{children}</div>;
+  return <div className={`rounded-[20px] border-2 ${toneCls} p-5 sm:p-6 shadow-card`}>{children}</div>;
 };
 
 /* ---------- Slides ---------- */
