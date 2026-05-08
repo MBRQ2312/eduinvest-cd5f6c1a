@@ -1313,25 +1313,123 @@ const SlideRoadmap = () => {
   );
 };
 
-/* === 12-slaidiline järjekord (Luukase tagasiside) === */
+/* === Dubleerimise lugu (Tõnu Pekk) === */
+const SlideDuplication = () => {
+  const examples = [
+    { i: <Trophy />, t: "Tippsportlane", d: "istub kehalises kasvatuses, kuigi treenib päevas tunde." },
+    { i: <Heart />, t: "Muusikakooli õpilane", d: "kordab muusikatunnis seda, mida juba juhendatult mängib." },
+    { i: <Sparkles />, t: "Kunstikooli õpilane", d: "teeb sama tüüpi tööd koolis uuesti." },
+    { i: <Globe />, t: "Eestikeelne trenn", d: "õppija kasutab keelt iga päev — kool ei näe seda tõendina." },
+  ];
+  return (
+    <SlideShell>
+      <Eyebrow color={C.orange}>Dubleerimise lugu</Eyebrow>
+      <Title>Kui kool seda ei näe, dubleerime õppija aega ja õpetaja tööaega.</Title>
+      <Lead>
+        Kui koolivälist õppimist ei arvestata, võib kool õpetada üle seda, mida laps
+        juba juhendatud keskkonnas teeb.
+      </Lead>
+
+      <div className="mt-8 grid md:grid-cols-2 gap-3">
+        {examples.map((e) => (
+          <Card key={e.t} bg={`${C.orange}0D`} border={`${C.orange}40`}>
+            <div className="flex items-start gap-3">
+              <div className="size-10 rounded-full flex items-center justify-center shrink-0"
+                style={{ background: `${C.orange}20`, color: C.orange }}>
+                {e.i}
+              </div>
+              <div className="min-w-0">
+                <div className="font-semibold text-sm sm:text-base" style={{ color: C.text }}>{e.t}</div>
+                <p className="text-sm mt-1" style={{ color: "#4B5563" }}>{e.d}</p>
+              </div>
+            </div>
+          </Card>
+        ))}
+      </div>
+
+      <p className="mt-8 text-base sm:text-lg font-medium pl-4 border-l-4"
+        style={{ color: C.text, borderColor: C.lime }}>
+        Kui sama õpitulemust on juba juhendatud keskkonnas tõendatult saavutatud,
+        ei pea kool seda uuesti õpetama.
+      </p>
+    </SlideShell>
+  );
+};
+
+/* === Mock-andmete tehniline kaart === */
+const SlideMockData = () => (
+  <SlideShell>
+    <Eyebrow color={C.purple}>Tehniline ausus</Eyebrow>
+    <Title>Mis on täna mock ja mis tuleb järgmises etapis valideerida?</Title>
+
+    <div className="mt-6 grid md:grid-cols-2 gap-4">
+      <Card bg={C.subtle}>
+        <Eyebrow color={C.teal}>Täna häkil</Eyebrow>
+        <ul className="text-sm space-y-1.5 mt-2" style={{ color: C.text }}>
+          <li>• klikitav prototüüp</li>
+          <li>• mock-andmed</li>
+          <li>• Nikita näidisjuhtum</li>
+          <li>• AI eelanalüüsi loogika</li>
+          <li>• koolijuhi koondvaate demo</li>
+        </ul>
+      </Card>
+
+      <Card bg={`${C.lime}25`} border={`${C.lime}80`}>
+        <Eyebrow color={C.green}>Mock-andmete näide (Nikita)</Eyebrow>
+        <ul className="text-sm space-y-1.5 mt-2" style={{ color: C.text }}>
+          <li><strong>eKool / Stuudium:</strong> osales 32/38 treeningul</li>
+          <li><strong>EHIS:</strong> huvikooli õppekava registreeritud</li>
+          <li><strong>Kooli õppekava:</strong> 8. kl kehalise kasv. õpitulemused</li>
+          <li><strong>Treeneri kinnitus:</strong> 3× nädalas, eesti keeles, regulaarne</li>
+        </ul>
+      </Card>
+    </div>
+
+    <div className="mt-5">
+      <Eyebrow color={C.orange}>Järgmises etapis valideerime</Eyebrow>
+      <div className="mt-2 grid sm:grid-cols-2 lg:grid-cols-5 gap-2.5">
+        {[
+          { t: "EHIS", d: "millised andmed on kättesaadavad" },
+          { t: "Kooli õppekava", d: "kodulehel / siseses süsteemis" },
+          { t: "eKool / Stuudium", d: "millised väljad on liidestatavad" },
+          { t: "Vanema nõusolek", d: "kuidas korraldame andmevoo" },
+          { t: "Tehniline tee", d: "SaaS / KOV / plugin" },
+        ].map((x) => (
+          <Card key={x.t} className="!p-3">
+            <div className="text-xs font-semibold" style={{ color: C.text }}>{x.t}</div>
+            <div className="text-[11px] mt-1" style={{ color: "#6B7280" }}>{x.d}</div>
+          </Card>
+        ))}
+      </div>
+    </div>
+
+    <Footnote color={C.orange}>
+      Ära jäta muljet, et eKooli / Stuudiumi / EHISe liidestus on valmis.
+      Häki eesmärk on tõestada üks otsustusvoog lõpuni.
+    </Footnote>
+  </SlideShell>
+);
+
+/* === 13-slaidiline järjekord (Luukas + Tõnu) === */
 const SLIDES = [
   Slide1,                // 1  Suur probleem (30 s)
   Slide2,                // 2  Miks nüüd?
-  SlidePrincipalValue,   // 3  Mida koolijuht tegelikult ostab?
-  SlideSolution,         // 4  Lahendus + kasutusjuhud
-  Slide4,                // 5  Demojuhtum (Nikita — näide)
-  Slide6,                // 6  AI roll
-  SlidePrincipalView,    // 7  Koolijuhi vaade (peamine demo)
-  SlideRealize,          // 8  Kuidas raha realiseerub
-  Slide8,                // 9  Valideerimine
-  SlideBusinessModel,    // 10 Ärimudel — kes maksab?
-  SlideRisks,            // 11 Riskid ja tehniline ausus
-  SlideRoadmap,          // 12 Mai → september 2026 + lõppsõnum
+  SlideDuplication,      // 3  Dubleerimise lugu
+  SlidePrincipalValue,   // 4  Mida koolijuht tegelikult ostab?
+  SlideSolution,         // 5  Lahendus + kasutusjuhud
+  Slide4,                // 6  Demojuhtum (Nikita — näide)
+  Slide6,                // 7  AI roll
+  SlidePrincipalView,    // 8  Koolijuhi vaade (peamine demo)
+  SlideRealize,          // 9  Kuidas raha realiseerub
+  Slide8,                // 10 Valideerimine
+  SlideBusinessModel,    // 11 Ärimudel — kes maksab?
+  SlideMockData,         // 12 Mock-andmed ja tehniline ausus
+  SlideRoadmap,          // 13 Mai → september 2026 + lõppsõnum
 ];
 const TITLES = [
-  "Ava", "Miks nüüd?", "Mõõtkava", "Probleem", "Kes maksab",
-  "Demojuhtum", "Lahendus", "AI roll", "Mõju", "Valideerimine",
-  "Riskid", "Skaleerimine",
+  "Ava", "Miks nüüd?", "Dubleerimine", "Väärtus", "Lahendus",
+  "Demojuhtum", "AI roll", "Koolijuhi vaade", "Mõju", "Valideerimine",
+  "Ärimudel", "Mock-andmed", "Teekaart",
 ];
 
 export default function Pitch() {
