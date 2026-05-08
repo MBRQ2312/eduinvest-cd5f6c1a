@@ -1,0 +1,535 @@
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import {
+  ArrowLeft, ArrowRight, Check, User, Sparkles, GraduationCap, TrendingUp,
+  Trophy, Building2, Languages, Clock, ShieldCheck, FileCheck, AlertCircle,
+  CheckCircle2, Eye, CalendarRange, Coins,
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
+
+/* ===== Brand palette (sama mis pitch'is) ===== */
+const C = {
+  bg: "#F7F5EF",
+  text: "#111827",
+  green: "#053F35",
+  teal: "#006D6F",
+  purple: "#7C6BEA",
+  lime: "#D6D04A",
+  orange: "#E07A3C",
+  cardBg: "#FFFFFF",
+  subtle: "#EEEAE0",
+  border: "#E2DCCC",
+} as const;
+
+type StepId = 0 | 1 | 2 | 3;
+
+const STEPS: {
+  id: StepId;
+  short: string;
+  title: string;
+  icon: React.ReactNode;
+  color: string;
+}[] = [
+  { id: 0, short: "Õppija sisend", title: "Õppija ja pere sisend", icon: <User className="size-4" />, color: C.teal },
+  { id: 1, short: "AI eelanalüüs", title: "AI eelanalüüs", icon: <Sparkles className="size-4" />, color: C.purple },
+  { id: 2, short: "Õpetaja otsus", title: "Õpetaja otsus", icon: <GraduationCap className="size-4" />, color: C.green },
+  { id: 3, short: "Mõju", title: "Mõju ja koolijuhi vaade", icon: <TrendingUp className="size-4" />, color: C.lime },
+];
+
+const Flow = () => {
+  const [step, setStep] = useState<StepId>(0);
+  const [decision, setDecision] = useState<"full" | "partial" | "more" | null>(null);
+
+  // keyboard nav
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "ArrowRight" && step < 3) setStep((s) => (s + 1) as StepId);
+      if (e.key === "ArrowLeft" && step > 0) setStep((s) => (s - 1) as StepId);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [step]);
+
+  const next = () => step < 3 && setStep((s) => (s + 1) as StepId);
+  const prev = () => step > 0 && setStep((s) => (s - 1) as StepId);
+
+  const progressPct = ((step + 1) / STEPS.length) * 100;
+
+  return (
+    <div className="min-h-screen" style={{ background: C.bg }}>
+      {/* Top bar */}
+      <header className="sticky top-0 z-30 backdrop-blur-md border-b"
+        style={{ background: `${C.bg}E6`, borderColor: C.border }}>
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between gap-4">
+          <Link to="/" className="inline-flex items-center gap-2 text-sm" style={{ color: "#6B7280" }}>
+            <ArrowLeft className="size-4" /> Tagasi
+          </Link>
+          <div className="text-[11px] font-semibold tracking-[0.2em] uppercase" style={{ color: C.teal }}>
+            4-ekraani demo
+          </div>
+          <Link to="/pitch" className="text-sm hover:underline" style={{ color: C.teal }}>
+            Pitch →
+          </Link>
+        </div>
+
+        {/* Progress indicator */}
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 pb-4">
+          <div className="flex items-center gap-2 sm:gap-3">
+            {STEPS.map((s, i) => {
+              const done = i < step;
+              const active = i === step;
+              return (
+                <div key={s.id} className="flex items-center gap-2 sm:gap-3 flex-1">
+                  <button
+                    type="button"
+                    onClick={() => setStep(s.id)}
+                    className="flex items-center gap-2 min-w-0 group"
+                  >
+                    <span
+                      className="size-8 rounded-full flex items-center justify-center shrink-0 transition-all"
+                      style={{
+                        background: active ? s.color : done ? s.color : C.cardBg,
+                        color: active || done ? "white" : "#9CA3AF",
+                        border: active || done ? "none" : `1.5px solid ${C.border}`,
+                        transform: active ? "scale(1.1)" : "scale(1)",
+                        boxShadow: active ? `0 0 0 4px ${s.color}25` : "none",
+                      }}
+                    >
+                      {done ? <Check className="size-4" /> : s.icon}
+                    </span>
+                    <span
+                      className={`text-xs sm:text-sm font-medium hidden sm:block transition-colors ${
+                        active ? "" : done ? "" : "text-muted-foreground"
+                      }`}
+                      style={{ color: active ? C.text : done ? C.text : "#9CA3AF" }}
+                    >
+                      {s.short}
+                    </span>
+                  </button>
+                  {i < STEPS.length - 1 && (
+                    <div className="flex-1 h-[2px] rounded-full overflow-hidden" style={{ background: C.border }}>
+                      <div
+                        className="h-full transition-all duration-500"
+                        style={{ width: i < step ? "100%" : "0%", background: s.color }}
+                      />
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+          <div className="mt-3 h-1 rounded-full overflow-hidden" style={{ background: C.border }}>
+            <div
+              className="h-full transition-all duration-500"
+              style={{ width: `${progressPct}%`, background: STEPS[step].color }}
+            />
+          </div>
+        </div>
+      </header>
+
+      {/* Slide content with transition */}
+      <main className="max-w-5xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
+        <div key={step} className="animate-in fade-in slide-in-from-right-4 duration-300">
+          {step === 0 && <Step1 onNext={next} />}
+          {step === 1 && <Step2 onNext={next} />}
+          {step === 2 && <Step3 decision={decision} setDecision={setDecision} onNext={next} />}
+          {step === 3 && <Step4 decision={decision} />}
+        </div>
+
+        {/* Footer nav */}
+        <div className="mt-8 flex items-center justify-between gap-3">
+          <Button
+            variant="outline"
+            onClick={prev}
+            disabled={step === 0}
+            className="rounded-full"
+          >
+            <ArrowLeft className="size-4" /> Tagasi
+          </Button>
+          <div className="text-xs hidden sm:block" style={{ color: "#9CA3AF" }}>
+            ← → klahvid navigeerimiseks
+          </div>
+          {step < 3 ? (
+            <Button
+              onClick={next}
+              className="rounded-full"
+              style={{ background: STEPS[step].color, color: "white" }}
+            >
+              Edasi <ArrowRight className="size-4" />
+            </Button>
+          ) : (
+            <Button asChild className="rounded-full" style={{ background: C.green, color: "white" }}>
+              <Link to="/juht">
+                <Eye className="size-4" /> Vaata koolijuhi vaadet
+              </Link>
+            </Button>
+          )}
+        </div>
+      </main>
+    </div>
+  );
+};
+
+/* ============== Slaidid ============== */
+
+const Card = ({
+  children,
+  bg = C.cardBg,
+  border = C.border,
+  className = "",
+}: {
+  children: React.ReactNode;
+  bg?: string;
+  border?: string;
+  className?: string;
+}) => (
+  <div
+    className={`rounded-[20px] border p-5 sm:p-6 shadow-sm ${className}`}
+    style={{ background: bg, borderColor: border }}
+  >
+    {children}
+  </div>
+);
+
+const Eyebrow = ({ children, color = C.teal }: { children: React.ReactNode; color?: string }) => (
+  <div
+    className="text-[11px] uppercase font-semibold mb-2"
+    style={{ color, letterSpacing: "0.18em" }}
+  >
+    {children}
+  </div>
+);
+
+const Title = ({ children }: { children: React.ReactNode }) => (
+  <h2 className="text-2xl sm:text-4xl font-semibold leading-[1.1] tracking-tight" style={{ color: C.text }}>
+    {children}
+  </h2>
+);
+
+/* === Step 1: Õppija sisend === */
+const Step1 = ({ onNext }: { onNext: () => void }) => (
+  <div>
+    <Eyebrow>1 / 4 · Õppija ja pere sisend</Eyebrow>
+    <Title>Nikita Tamm, 8.A — taotlus arvestamiseks</Title>
+    <p className="mt-3 text-base sm:text-lg" style={{ color: "#4B5563" }}>
+      Pere algatab taotluse. Sisestab koolivälise tegevuse ja lisab treeneri kinnituse.
+    </p>
+
+    <div className="mt-6 grid md:grid-cols-2 gap-4">
+      <Card bg={`${C.teal}0D`} border={`${C.teal}40`}>
+        <div className="flex items-center gap-3 mb-4">
+          <div className="size-12 rounded-full flex items-center justify-center"
+            style={{ background: C.teal, color: "white" }}>
+            <Trophy className="size-6" />
+          </div>
+          <div>
+            <div className="text-xs" style={{ color: "#6B7280" }}>Koolivälise õppe liik</div>
+            <div className="font-semibold text-lg" style={{ color: C.text }}>Spordikool</div>
+          </div>
+        </div>
+        <Field icon={Building2} label="Huvikool" value="FC Levadia U16" />
+        <Field icon={Clock} label="Maht" value="3× nädalas, à 90 min" />
+        <Field icon={Languages} label="Tegevuse keel" value="Eesti keel" />
+        <Field icon={ShieldCheck} label="Treener" value="Mart Kask · UEFA B litsents" />
+      </Card>
+
+      <Card bg={`${C.green}0D`} border={`${C.green}40`}>
+        <Eyebrow color={C.green}>Pere küsimus koolile</Eyebrow>
+        <p className="text-sm sm:text-base leading-relaxed mt-2" style={{ color: C.text }}>
+          Kas Nikita osa spordikoolis toimuvast õppimisest saab arvestada{" "}
+          <strong>kehalise kasvatuse</strong> õpitulemuste täitmisel ja kas eestikeelne
+          treening saab olla <strong>eesti keele praktilise kasutuse</strong> toetav tõend?
+        </p>
+
+        <div className="mt-5 flex flex-wrap gap-2">
+          {[
+            { i: <FileCheck className="size-3.5" />, t: "Treeneri kinnitus" },
+            { i: <FileCheck className="size-3.5" />, t: "Treeninggraafik" },
+            { i: <FileCheck className="size-3.5" />, t: "Võistlusinfo" },
+            { i: <AlertCircle className="size-3.5" />, t: "Õppija eneseanalüüs (puudu)" },
+          ].map((e) => (
+            <span
+              key={e.t}
+              className="inline-flex items-center gap-1.5 text-xs px-2.5 py-1 rounded-full"
+              style={{
+                background: e.t.includes("puudu") ? `${C.orange}20` : `${C.green}15`,
+                color: e.t.includes("puudu") ? C.orange : C.green,
+              }}
+            >
+              {e.i} {e.t}
+            </span>
+          ))}
+        </div>
+      </Card>
+    </div>
+
+    <div className="mt-6 rounded-xl p-3 flex items-start gap-2"
+      style={{ background: C.subtle, borderLeft: `3px solid ${C.teal}` }}>
+      <AlertCircle className="size-4 mt-0.5 shrink-0" style={{ color: C.teal }} />
+      <p className="text-xs sm:text-sm" style={{ color: C.text }}>
+        Pere ei pea ise teadma, millised õpitulemused võivad katta. AI teeb seose-ettepaneku
+        järgmises sammus.
+      </p>
+    </div>
+  </div>
+);
+
+const Field = ({ icon: Icon, label, value }: { icon: React.ElementType; label: string; value: string }) => (
+  <div className="flex items-start gap-3 py-2 border-t" style={{ borderColor: `${C.border}80` }}>
+    <Icon className="size-4 mt-0.5 shrink-0" style={{ color: C.teal }} />
+    <div className="min-w-0 flex-1">
+      <div className="text-[11px] uppercase tracking-wider" style={{ color: "#6B7280" }}>{label}</div>
+      <div className="text-sm font-medium" style={{ color: C.text }}>{value}</div>
+    </div>
+  </div>
+);
+
+/* === Step 2: AI eelanalüüs === */
+const Step2 = ({ onNext }: { onNext: () => void }) => (
+  <div>
+    <Eyebrow color={C.purple}>2 / 4 · AI eelanalüüs</Eyebrow>
+    <Title>AI koondab tõendid ja pakub seosed õppekavaga.</Title>
+    <p className="mt-3 text-base sm:text-lg" style={{ color: "#4B5563" }}>
+      AI ei otsusta. AI näitab, mis on tugev, mis osaline ja mis vajab lisatõendit.
+    </p>
+
+    <div className="mt-6 grid md:grid-cols-3 gap-3">
+      <Card bg={`${C.lime}25`} border={`${C.lime}80`}>
+        <Eyebrow color={C.green}>Tugev seos</Eyebrow>
+        <ul className="text-sm space-y-1.5 mt-2" style={{ color: C.text }}>
+          <li className="flex items-start gap-2"><CheckCircle2 className="size-4 mt-0.5 shrink-0" style={{ color: C.green }} /> regulaarne liikumine</li>
+          <li className="flex items-start gap-2"><CheckCircle2 className="size-4 mt-0.5 shrink-0" style={{ color: C.green }} /> vastupidavus</li>
+          <li className="flex items-start gap-2"><CheckCircle2 className="size-4 mt-0.5 shrink-0" style={{ color: C.green }} /> juhendatud treening</li>
+        </ul>
+      </Card>
+
+      <Card bg={`${C.teal}0D`} border={`${C.teal}40`}>
+        <Eyebrow color={C.teal}>Osaline seos</Eyebrow>
+        <ul className="text-sm space-y-1.5 mt-2" style={{ color: C.text }}>
+          <li className="flex items-start gap-2"><AlertCircle className="size-4 mt-0.5 shrink-0" style={{ color: C.teal }} /> koostöö</li>
+          <li className="flex items-start gap-2"><AlertCircle className="size-4 mt-0.5 shrink-0" style={{ color: C.teal }} /> enesejuhtimine</li>
+          <li className="flex items-start gap-2"><AlertCircle className="size-4 mt-0.5 shrink-0" style={{ color: C.teal }} /> eestikeelne suhtlus</li>
+        </ul>
+      </Card>
+
+      <Card bg={`${C.orange}10`} border={`${C.orange}50`}>
+        <Eyebrow color={C.orange}>Puudub tõend</Eyebrow>
+        <ul className="text-sm space-y-1.5 mt-2" style={{ color: C.text }}>
+          <li className="flex items-start gap-2"><AlertCircle className="size-4 mt-0.5 shrink-0" style={{ color: C.orange }} /> õppija eneseanalüüs</li>
+          <li className="flex items-start gap-2"><AlertCircle className="size-4 mt-0.5 shrink-0" style={{ color: C.orange }} /> õpetaja lühivestlus</li>
+        </ul>
+      </Card>
+    </div>
+
+    <div className="mt-6 grid md:grid-cols-2 gap-4">
+      <Card bg={`${C.purple}0D`} border={`${C.purple}40`}>
+        <div className="flex items-center gap-2 mb-3">
+          <Sparkles className="size-5" style={{ color: C.purple }} />
+          <div className="text-sm font-semibold" style={{ color: C.purple }}>AI mustand õpetajale</div>
+        </div>
+        <p className="text-sm leading-relaxed" style={{ color: C.text }}>
+          „Tõendid (treeneri kinnitus, maht, võistlused, keel) toetavad{" "}
+          <strong>täielikku arvestamist</strong> kehalise kasvatuse õpitulemustes
+          'regulaarne liikumine' ja 'vastupidavus'. Eesti keele osas on tõend{" "}
+          <strong>toetav</strong>, kuid mitte aluseks hinde asendamiseks. Soovitan
+          küsida õppija lühieneseanalüüsi.“
+        </p>
+      </Card>
+
+      <Card>
+        <Eyebrow>Mida AI ei tee</Eyebrow>
+        <ul className="text-sm space-y-1.5 mt-2" style={{ color: C.text }}>
+          <li>• ei anna hinnet</li>
+          <li>• ei vabasta tunnist</li>
+          <li>• ei tee lõppotsust</li>
+          <li>• ei asenda õpetaja hinnangut</li>
+        </ul>
+      </Card>
+    </div>
+  </div>
+);
+
+/* === Step 3: Õpetaja otsus === */
+const Step3 = ({
+  decision,
+  setDecision,
+  onNext,
+}: {
+  decision: "full" | "partial" | "more" | null;
+  setDecision: (d: "full" | "partial" | "more") => void;
+  onNext: () => void;
+}) => {
+  const opts = [
+    { id: "full" as const, t: "Arvestan täielikult", d: "Kehalise kasvatuse õpitulemused 'regulaarne liikumine' ja 'vastupidavus' loetakse täidetuks.", c: C.green },
+    { id: "partial" as const, t: "Arvestan osaliselt", d: "Kehaline kasvatus arvestatakse, eesti keel jääb toetavaks tõendiks.", c: C.teal },
+    { id: "more" as const, t: "Vajan lisatõendit", d: "Palun õppija lühieneseanalüüs ja õpetaja vestlus.", c: C.orange },
+  ];
+
+  return (
+    <div>
+      <Eyebrow color={C.green}>3 / 4 · Õpetaja otsus</Eyebrow>
+      <Title>Õpetaja teeb otsuse AI eeltöö põhjal.</Title>
+      <p className="mt-3 text-base sm:text-lg" style={{ color: "#4B5563" }}>
+        Vali variant — see määrab, mida pere ja koolijuht järgmises sammus näevad.
+      </p>
+
+      <div className="mt-6 grid md:grid-cols-3 gap-3">
+        {opts.map((o) => {
+          const active = decision === o.id;
+          return (
+            <button
+              key={o.id}
+              type="button"
+              onClick={() => setDecision(o.id)}
+              className="text-left rounded-[20px] border-2 p-5 transition-all"
+              style={{
+                background: active ? `${o.c}15` : C.cardBg,
+                borderColor: active ? o.c : C.border,
+                boxShadow: active ? `0 8px 24px -10px ${o.c}50` : "none",
+                transform: active ? "translateY(-2px)" : "none",
+              }}
+            >
+              <div
+                className="size-10 rounded-full flex items-center justify-center mb-3"
+                style={{ background: active ? o.c : `${o.c}15`, color: active ? "white" : o.c }}
+              >
+                {active ? <Check className="size-5" /> : <CheckCircle2 className="size-5" />}
+              </div>
+              <div className="font-semibold text-base" style={{ color: C.text }}>{o.t}</div>
+              <p className="text-sm mt-2" style={{ color: "#4B5563" }}>{o.d}</p>
+            </button>
+          );
+        })}
+      </div>
+
+      <div className="mt-6 rounded-xl p-4 flex items-start gap-3"
+        style={{ background: C.subtle, borderLeft: `3px solid ${C.green}` }}>
+        <ShieldCheck className="size-5 mt-0.5 shrink-0" style={{ color: C.green }} />
+        <p className="text-sm" style={{ color: C.text }}>
+          <strong>Otsus jääb kooli.</strong> AI eeltöö on tugi, mitte asendaja.
+          Otsus salvestub koos põhjendusega ja jõuab perele selgituse vormis.
+        </p>
+      </div>
+
+      {decision && (
+        <div className="mt-4 animate-in fade-in slide-in-from-bottom-2 duration-300 text-center">
+          <div className="inline-flex items-center gap-2 text-sm" style={{ color: C.green }}>
+            <Check className="size-4" /> Valik tehtud — vaata mõju järgmisel ekraanil
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
+
+/* === Step 4: Mõju === */
+const Step4 = ({ decision }: { decision: "full" | "partial" | "more" | null }) => {
+  const summary =
+    decision === "full"
+      ? { t: "Täielik arvestamine", c: C.green, msg: "Õpetaja kinnitas tõendite alusel." }
+      : decision === "partial"
+      ? { t: "Osaline arvestamine", c: C.teal, msg: "Kehaline kasvatus arvestatud, eesti keel toetav tõend." }
+      : decision === "more"
+      ? { t: "Vajab lisatõendit", c: C.orange, msg: "Pere täiendab tõendit, otsus tuleb hiljem." }
+      : { t: "Otsus tegemata", c: "#9CA3AF", msg: "Mine tagasi ja vali variant." };
+
+  return (
+    <div>
+      <Eyebrow>4 / 4 · Mõju ja koolijuhi vaade</Eyebrow>
+      <Title>Üks otsus — kolm tasandit mõju.</Title>
+
+      <div className="mt-6 rounded-2xl p-5 sm:p-6 flex items-center gap-4"
+        style={{ background: `${summary.c}15`, borderLeft: `4px solid ${summary.c}` }}>
+        <div className="size-12 rounded-full flex items-center justify-center shrink-0"
+          style={{ background: summary.c, color: "white" }}>
+          <Check className="size-6" />
+        </div>
+        <div>
+          <div className="text-xs uppercase tracking-wider font-semibold" style={{ color: summary.c }}>
+            Otsus
+          </div>
+          <div className="text-lg sm:text-xl font-semibold" style={{ color: C.text }}>{summary.t}</div>
+          <div className="text-sm" style={{ color: "#4B5563" }}>{summary.msg}</div>
+        </div>
+      </div>
+
+      <div className="mt-6 grid md:grid-cols-3 gap-3">
+        <ImpactCard
+          icon={<Clock />}
+          color={C.teal}
+          title="Õpetaja eeltöö"
+          big="25–40 min → 5–10 min"
+          note="Ühe arvestusotsuse ettevalmistus."
+        />
+        <ImpactCard
+          icon={<CalendarRange />}
+          color={C.green}
+          title="Tunniplaan"
+          big="3 sarnast juhtumit"
+          note="Saab grupeerida 1. või 7. tundi."
+        />
+        <ImpactCard
+          icon={<Coins />}
+          color={C.purple}
+          title="Mõju mõõtkava"
+          big="~7,7–24 mln €"
+          note="Eesti haridusruumi rahaekvivalent (10–30% dubleerimist)."
+        />
+      </div>
+
+      <div className="mt-6 rounded-2xl border p-5 sm:p-6"
+        style={{ background: C.cardBg, borderColor: C.border }}>
+        <div className="flex items-start gap-3">
+          <div className="size-10 rounded-full flex items-center justify-center shrink-0"
+            style={{ background: `${C.teal}15`, color: C.teal }}>
+            <Building2 className="size-5" />
+          </div>
+          <div className="min-w-0 flex-1">
+            <div className="text-xs uppercase tracking-wider font-semibold mb-1" style={{ color: C.teal }}>
+              Koolijuhi koondvaade
+            </div>
+            <p className="text-sm" style={{ color: "#4B5563" }}>
+              Nikita juhtum lisandub mustrisse. Koolijuht näeb, et 8.A klassis on{" "}
+              <strong>14 / 22 õpilast</strong> seotud huviharidusega ja{" "}
+              <strong>jalgpall → kehaline kasvatus</strong> muster kordub 5 koolis 34 õpilasega.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div className="mt-6 rounded-2xl p-5 sm:p-6 text-center"
+        style={{ background: C.green, color: "white" }}>
+        <p className="text-base sm:text-lg font-medium">
+          Me ei lisa õppimist juurde.{" "}
+          <span style={{ color: C.lime }}>Me teeme juba toimunu nähtavaks.</span>
+        </p>
+      </div>
+    </div>
+  );
+};
+
+const ImpactCard = ({
+  icon,
+  color,
+  title,
+  big,
+  note,
+}: {
+  icon: React.ReactNode;
+  color: string;
+  title: string;
+  big: string;
+  note: string;
+}) => (
+  <div className="rounded-[20px] border p-5 shadow-sm" style={{ background: C.cardBg, borderColor: C.border }}>
+    <div className="size-10 rounded-full flex items-center justify-center mb-3"
+      style={{ background: `${color}15`, color }}>
+      {icon}
+    </div>
+    <div className="text-xs uppercase tracking-wider font-semibold" style={{ color }}>{title}</div>
+    <div className="text-xl font-bold mt-1.5" style={{ color: C.text }}>{big}</div>
+    <p className="text-xs mt-2" style={{ color: "#6B7280" }}>{note}</p>
+  </div>
+);
+
+export default Flow;
