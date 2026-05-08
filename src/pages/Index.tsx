@@ -118,7 +118,7 @@ const Index = () => {
             </p>
 
             <div className="mt-6 flex flex-wrap gap-2">
-              {["Õpi üks kord.", "Tõenda selgelt.", "Kool otsustab."].map((t) => (
+              {["Nähtavus", "Tõend", "Otsus"].map((t) => (
                 <span
                   key={t}
                   className="inline-flex items-center px-3.5 py-1.5 rounded-full bg-card border border-border-strong text-[13px] font-medium text-foreground/85"
