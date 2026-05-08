@@ -157,35 +157,51 @@ const Index = () => {
         <section className="section-alt border-b border-border">
           <div className="max-w-[1180px] mx-auto px-4 sm:px-6 md:px-8 py-16 md:py-24">
           <div className="text-[11px] font-semibold tracking-[0.22em] uppercase text-muted-foreground mb-3">
-            Rollivaated
+            Organisatsioonivaated
           </div>
-          <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
+          <p className="text-[14px] text-muted-foreground mb-6 max-w-2xl">
+            Me ei tee igale inimesele eraldi vaadet. Näitame kahte organisatsiooni — ja nende sees rolle.
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5">
             {[
-              { to: "/perele", icon: <Users className="size-5" />, name: "Lapsevanem", desc: "Algatan taotluse", tone: "primary" as const },
-              { to: "/treener", icon: <Trophy className="size-5" />, name: "Treener", desc: "Kinnitan tõendid", tone: "accent" as const },
-              { to: "/huvikool", icon: <Sparkles className="size-5" />, name: "Huvikool", desc: "Teen õppe nähtavaks", tone: "accent" as const },
-              { to: "/opetaja", icon: <GraduationCap className="size-5" />, name: "Õpetaja", desc: "Teen otsuse", tone: "success" as const },
+              {
+                to: "/juht",
+                icon: <GraduationCap className="size-6" />,
+                name: "Kool",
+                desc: "Õpetaja · õppejuht · direktor",
+                detail: "Näevad korduvaid mustreid, juhivad tunniplaani ja õpetaja tööaega. Otsustavad, kas kooliväline õpe arvestatakse.",
+                tone: "success" as const,
+              },
+              {
+                to: "/huvikool",
+                icon: <Sparkles className="size-6" />,
+                name: "Huvikool",
+                desc: "Juhendaja · treener · õppejuht · direktor",
+                detail: "Teevad õppe nähtavaks ja tõendatavaks. Kinnitavad mahud, oskused ja seose õppekavaga.",
+                tone: "accent" as const,
+              },
             ].map((r) => {
               const bg =
-                r.tone === "accent"
-                  ? "bg-accent-subtle text-accent"
-                  : r.tone === "success"
+                r.tone === "success"
                   ? "bg-success-subtle text-success"
-                  : "bg-primary-subtle text-primary";
+                  : "bg-accent-subtle text-accent";
               return (
                 <Link
                   key={r.to}
                   to={r.to}
-                  className="group rounded-[18px] border-2 border-border-strong bg-card p-5 shadow-card hover:border-primary hover:shadow-elevated transition-smooth flex flex-col gap-3 min-w-0"
+                  className="group rounded-[20px] border-2 border-border-strong bg-card p-6 md:p-7 shadow-card hover:border-primary hover:shadow-elevated transition-smooth flex flex-col gap-3 min-w-0"
                 >
-                  <div className={`size-10 rounded-xl ${bg} flex items-center justify-center`}>
+                  <div className={`size-12 rounded-xl ${bg} flex items-center justify-center`}>
                     {r.icon}
                   </div>
-                  <div className="text-[15px] font-semibold tracking-tight group-hover:text-primary transition-smooth break-words">
+                  <div className="text-[20px] font-semibold tracking-tight group-hover:text-primary transition-smooth">
                     {r.name}
                   </div>
-                  <div className="text-[13px] text-muted-foreground leading-relaxed break-words">
+                  <div className="text-[13px] font-medium text-foreground/80">
                     {r.desc}
+                  </div>
+                  <div className="text-[13px] text-muted-foreground leading-relaxed">
+                    {r.detail}
                   </div>
                 </Link>
               );
