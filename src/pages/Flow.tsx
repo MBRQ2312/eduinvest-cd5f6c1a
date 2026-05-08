@@ -141,7 +141,9 @@ const Flow = () => {
 
       {/* Slide content with transition */}
       <main className="max-w-5xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
+        {step === 0 && <FlowOverview />}
         <div key={step} className="animate-in fade-in slide-in-from-right-4 duration-300">
+
           {step === 0 && (
             <Step1
               subjects={subjects}
