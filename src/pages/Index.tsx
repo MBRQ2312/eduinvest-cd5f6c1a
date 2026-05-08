@@ -300,7 +300,7 @@ const Index = () => {
         {/* Loe lähemalt */}
         <section>
           <div className="max-w-[1180px] mx-auto px-4 sm:px-6 md:px-8 py-16 md:py-20">
-          <Accordion type="single" collapsible className="rounded-[20px] border-2 border-border-strong bg-card divide-y divide-border shadow-card">
+          <Accordion type="single" collapsible className="rounded-2xl border border-border bg-card divide-y divide-border">
             <AccordionItem value="vota" className="border-0 px-6">
               <AccordionTrigger className="text-sm font-semibold">
                 VÕTA üldhariduse kontekstis
