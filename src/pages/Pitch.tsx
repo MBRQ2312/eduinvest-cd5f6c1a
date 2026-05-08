@@ -809,6 +809,26 @@ const Slide14 = () => (
       </Card>
     </div>
 
+    <div className="mt-6 grid md:grid-cols-2 gap-3">
+      <Card bg={`${C.purple}0D`} border={`${C.purple}40`}>
+        <Eyebrow color={C.purple}>Integratsioonid</Eyebrow>
+        <p className="text-sm" style={{ color: C.text }}>
+          eKool, Stuudium, ARNO, EHIS või kooli/KOV-i enda süsteemid.
+        </p>
+      </Card>
+      <Card bg={`${C.lime}25`} border={`${C.lime}80`}>
+        <Eyebrow color={C.green}>Rahvusvaheline skaleerimine</Eyebrow>
+        <p className="text-sm" style={{ color: C.text }}>
+          Skandinaavia, Läti ja Leedu — sama probleem: tugev huviharidus, pikad
+          koolipäevad, õpetajate puudus, vajadus formaalset ja mitteformaalset õppimist siduda.
+        </p>
+      </Card>
+    </div>
+
+    <Footnote color={C.orange}>
+      Iga riigi puhul tuleb lokaliseerida õppekavad, rahastusmudel, andmekaitse ja koolipidaja vastutus.
+    </Footnote>
+
     <div className="mt-6 flex items-center justify-center gap-2 sm:gap-4 flex-wrap">
       {["kool", "KOV", "riik", "rahvusvaheline"].map((x, i, arr) => (
         <div key={x} className="flex items-center gap-2 sm:gap-4">
