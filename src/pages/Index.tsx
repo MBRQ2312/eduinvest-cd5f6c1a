@@ -208,11 +208,22 @@ const Index = () => {
 
             <div className="mt-7 flex flex-wrap gap-3">
               <Button
+                asChild
                 size="lg"
+                className="rounded-xl"
+              >
+                <Link to="/demo">
+                  Käivita 4-ekraani demo
+                  <ArrowDown className="size-4 ml-1 rotate-[-90deg]" />
+                </Link>
+              </Button>
+              <Button
+                size="lg"
+                variant="outline"
                 onClick={scrollToTimeline}
                 className="rounded-xl"
               >
-                Vaata otsustusvoogu
+                Vaata täisotsustusvoogu
                 <ArrowDown className="size-4 ml-1" />
               </Button>
             </div>
