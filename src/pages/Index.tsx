@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowDown, Users, GraduationCap, Building2, Sparkles, ShieldCheck, FileText, CheckCircle2, Trophy, ChevronDown } from "lucide-react";
+import { ArrowDown, ArrowRight, Users, GraduationCap, Building2, Sparkles, ShieldCheck, FileText, CheckCircle2, Trophy, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Accordion,
@@ -8,6 +8,14 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import { ApplicationStep } from "@/components/demo/steps/ApplicationStep";
 import { SchoolMappingStep } from "@/components/demo/steps/SchoolMappingStep";
 import { EvidenceStep } from "@/components/demo/steps/EvidenceStep";
