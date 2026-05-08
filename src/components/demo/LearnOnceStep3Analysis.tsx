@@ -1,9 +1,22 @@
-import { ArrowRight, Sparkles, AlertCircle, CheckCircle2, XCircle, Languages, Trophy, Users2, Brain } from "lucide-react";
+import { useState } from "react";
+import { ArrowRight, Sparkles, AlertCircle, CheckCircle2, XCircle, Languages, Trophy, Users2, Brain, Loader2, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { DemoShell } from "./DemoShell";
 import { ParentNote } from "./ParentNote";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "@/hooks/use-toast";
 
 interface Props { onNext: () => void; onBack: () => void; }
+
+const MARKUS_CASE = {
+  õppija: "Markus T.",
+  klass: "8. klass",
+  tegevus: "Jalgpall, Pärnu Spordikool",
+  sagedus: "3× nädalas",
+  keskkond: "Eestikeelne treeningkeskkond",
+  lisainfo: "Võistlused ja treeninglaagrid, treeneri kinnitus olemas",
+  eesmärk: "Seosta tegevus kehalise kasvatuse ja eesti keele õpitulemustega",
+};
 
 type Strength = "strong" | "partial" | "weak";
 
