@@ -1,6 +1,5 @@
-import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowDown, Users, GraduationCap, Building2, Sparkles, ShieldCheck, FileText, CheckCircle2, Trophy, ChevronDown } from "lucide-react";
+import { ArrowDown, Users, GraduationCap, Building2, Sparkles, Trophy } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Accordion,
@@ -8,67 +7,6 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { ApplicationStep } from "@/components/demo/steps/ApplicationStep";
-import { SchoolMappingStep } from "@/components/demo/steps/SchoolMappingStep";
-import { EvidenceStep } from "@/components/demo/steps/EvidenceStep";
-import { AiAnalysisStep } from "@/components/demo/steps/AiAnalysisStep";
-import { DecisionStep } from "@/components/demo/steps/DecisionStep";
-import { ExplanationStep } from "@/components/demo/steps/ExplanationStep";
-
-type Step = 0 | 1 | 2 | 3 | 4 | 5 | 6;
-
-type FlowStep = {
-  n: string;
-  title: string;
-  text: string;
-  tone: "default" | "ai" | "decision";
-  icon: React.ReactNode;
-};
-
-const FLOW: FlowStep[] = [
-  {
-    n: "01",
-    title: "Taotlus perelt",
-    text: "Lapsevanem või õppija annab tahteavalduse: palun hinnake, kas koolivälist õppimist saab arvestada.",
-    tone: "default",
-    icon: <Users className="size-4" />,
-  },
-  {
-    n: "02",
-    title: "Kool seob õppekavaga",
-    text: "Kool valib õppeaine, õpitulemused ja tingimused. Pere ei pea ise teadma, mis täpselt kattub.",
-    tone: "default",
-    icon: <FileText className="size-4" />,
-  },
-  {
-    n: "03",
-    title: "Tõend partnerilt",
-    text: "Treener, huvikool või juhendaja kinnitab osalemise, mahu, tegevuse sisu ja keele.",
-    tone: "default",
-    icon: <ShieldCheck className="size-4" />,
-  },
-  {
-    n: "04",
-    title: "AI eelanalüüs",
-    text: "AI koondab tõendid, pakub võimalikke seoseid ja näitab, mis vajab õpetaja hinnangut.",
-    tone: "ai",
-    icon: <Sparkles className="size-4" />,
-  },
-  {
-    n: "05",
-    title: "Otsus koolilt",
-    text: "Õpetaja teeb otsuse: arvestan, arvestan osaliselt, vajan lisatõendit või ei arvesta.",
-    tone: "decision",
-    icon: <CheckCircle2 className="size-4" />,
-  },
-  {
-    n: "06",
-    title: "Selgitus ja koondvaade",
-    text: "Pere saab arusaadava selgituse. Koolijuht näeb korduvaid mustreid ja saab kujundada ühist praktikat.",
-    tone: "default",
-    icon: <Building2 className="size-4" />,
-  },
-];
 
 const HeroIllustration = () => (
   <svg viewBox="0 0 420 420" className="w-full h-auto max-w-[440px]" fill="none" aria-hidden="true">
