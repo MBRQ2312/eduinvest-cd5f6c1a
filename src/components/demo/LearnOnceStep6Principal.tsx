@@ -1,11 +1,20 @@
-import { RotateCcw, Trophy, Music, Languages, CheckCircle2, CircleDashed, FileSearch, Timer, Repeat, Layers, School } from "lucide-react";
+import { ArrowRight, Trophy, Music, Languages, CheckCircle2, CircleDashed, FileSearch, Timer, Repeat, Layers, School } from "lucide-react";
+import { Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import { Button } from "@/components/ui/button";
 import { DemoShell } from "./DemoShell";
 import { ParentNote } from "./ParentNote";
 
-interface Props { onRestart: () => void; onBack: () => void; }
+interface Props { onNext: () => void; onBack: () => void; }
 
-export const LearnOnceStep6Principal = ({ onRestart, onBack }: Props) => {
+const CHART_DATA = [
+  { aine: "Kehaline", juhtumeid: 24, dubleerimine: 16 },
+  { aine: "Eesti k.", juhtumeid: 14, dubleerimine: 8 },
+  { aine: "Muusika", juhtumeid: 9, dubleerimine: 5 },
+  { aine: "Loodus", juhtumeid: 7, dubleerimine: 2 },
+  { aine: "Tehnoloogia", juhtumeid: 5, dubleerimine: 1 },
+];
+
+export const LearnOnceStep6Principal = ({ onNext, onBack }: Props) => {
   return (
     <DemoShell
       stepLabel="06 — Koolijuhi vaade"
@@ -32,6 +41,35 @@ export const LearnOnceStep6Principal = ({ onRestart, onBack }: Props) => {
         <BigStat icon={Layers} eyebrow="Korduvkasutatava reegliga" value="68%" hint="juhtumitest saaks lahendada ühise hea tavaga" />
       </div>
 
+      {/* Chart */}
+      <div className="rounded-2xl border border-border bg-card p-5 mb-6">
+        <div className="flex items-center justify-between mb-3">
+          <div>
+            <div className="text-[10px] font-bold tracking-[0.22em] uppercase text-primary">Kordusmustrid ainete kaupa</div>
+            <div className="text-sm font-semibold text-foreground/90 mt-0.5">Kus dubleerimine semestri jooksul tekkis</div>
+          </div>
+        </div>
+        <div className="h-56 w-full">
+          <ResponsiveContainer width="100%" height="100%">
+            <BarChart data={CHART_DATA} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
+              <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
+              <XAxis dataKey="aine" stroke="hsl(var(--muted-foreground))" fontSize={11} />
+              <YAxis stroke="hsl(var(--muted-foreground))" fontSize={11} />
+              <Tooltip
+                contentStyle={{
+                  background: "hsl(var(--card))",
+                  border: "1px solid hsl(var(--border))",
+                  borderRadius: 12,
+                  fontSize: 12,
+                }}
+              />
+              <Bar dataKey="juhtumeid" fill="hsl(var(--primary))" radius={[6, 6, 0, 0]} name="Juhtumeid" />
+              <Bar dataKey="dubleerimine" fill="hsl(var(--warning))" radius={[6, 6, 0, 0]} name="Korduvad" />
+            </BarChart>
+          </ResponsiveContainer>
+        </div>
+      </div>
+
       {/* Kooli juhtimisotsus */}
       <div className="rounded-2xl border border-border bg-card overflow-hidden shadow-card">
         <div className="bg-gradient-to-br from-primary to-primary-glow text-primary-foreground p-6">
@@ -52,9 +90,9 @@ export const LearnOnceStep6Principal = ({ onRestart, onBack }: Props) => {
 
       <div className="mt-8 pt-7 border-t border-border flex items-center justify-between">
         <Button variant="ghost" onClick={onBack}>← Tagasi</Button>
-        <Button size="lg" onClick={onRestart} variant="outline">
-          <RotateCcw className="size-4" />
-          Alusta demo uuesti
+        <Button size="lg" onClick={onNext} className="shadow-elevated group">
+          Edasi: ÕIS sünkroonimine
+          <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
         </Button>
       </div>
     </DemoShell>

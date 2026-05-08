@@ -13,6 +13,7 @@ const STEPS: Step[] = [
   { id: 4, label: "Õpetaja otsus", short: "Inimene" },
   { id: 5, label: "Selgitus perele", short: "Arusaadav" },
   { id: 6, label: "Koolijuhi vaade", short: "Mustrid" },
+  { id: 7, label: "ÕIS sünk", short: "eKool / Stuudium" },
 ];
 
 interface StepIndicatorProps {

@@ -1,4 +1,5 @@
 import { useRef, useState } from "react";
+import { Link } from "react-router-dom";
 import {
   ArrowDown,
   ArrowRight,
@@ -19,6 +20,8 @@ import {
   HandHelping,
   BookOpenCheck,
   Layers,
+  Presentation,
+  Phone,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { StepIndicator } from "@/components/demo/StepIndicator";
@@ -28,8 +31,10 @@ import { LearnOnceStep3Analysis } from "@/components/demo/LearnOnceStep3Analysis
 import { LearnOnceStep4Decision } from "@/components/demo/LearnOnceStep4Decision";
 import { LearnOnceStep5Explanation } from "@/components/demo/LearnOnceStep5Explanation";
 import { LearnOnceStep6Principal } from "@/components/demo/LearnOnceStep6Principal";
+import { LearnOnceStep7Integration } from "@/components/demo/LearnOnceStep7Integration";
+import { ImpactStats } from "@/components/landing/ImpactStats";
 
-type Step = 1 | 2 | 3 | 4 | 5 | 6;
+type Step = 1 | 2 | 3 | 4 | 5 | 6 | 7;
 
 const Index = () => {
   const [step, setStep] = useState<Step>(1);
@@ -61,11 +66,21 @@ const Index = () => {
               </div>
             </div>
           </div>
-          <div className="hidden md:flex items-center gap-3 text-xs">
-            <div className="flex items-center gap-2 text-muted-foreground">
-              <div className="size-1.5 rounded-full bg-success animate-pulse" />
-              <span>Häkatoni demo · Markus T., 8.A</span>
-            </div>
+          <div className="hidden md:flex items-center gap-2 text-xs">
+            <Link
+              to="/perele"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-border hover:bg-muted transition-smooth text-foreground/80"
+            >
+              <Phone className="size-3.5" />
+              Lapsevanema vaade
+            </Link>
+            <Link
+              to="/pitch"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-primary text-primary-foreground hover:bg-primary/90 transition-smooth shadow-sm"
+            >
+              <Presentation className="size-3.5" />
+              Pitch
+            </Link>
           </div>
         </div>
       </header>
@@ -150,6 +165,9 @@ const Index = () => {
           </div>
         </section>
 
+        {/* Impact stats */}
+        <ImpactStats />
+
         {/* Stepper + flow */}
         <section ref={flowRef} className="mb-8">
           <StepIndicator current={step} />
@@ -161,7 +179,8 @@ const Index = () => {
           {step === 3 && <LearnOnceStep3Analysis onBack={() => go(2)} onNext={() => go(4)} />}
           {step === 4 && <LearnOnceStep4Decision onBack={() => go(3)} onNext={() => go(5)} />}
           {step === 5 && <LearnOnceStep5Explanation onBack={() => go(4)} onNext={() => go(6)} />}
-          {step === 6 && <LearnOnceStep6Principal onBack={() => go(5)} onRestart={() => go(1)} />}
+          {step === 6 && <LearnOnceStep6Principal onBack={() => go(5)} onNext={() => go(7)} />}
+          {step === 7 && <LearnOnceStep7Integration onBack={() => go(6)} onRestart={() => go(1)} />}
         </section>
 
         {/* VÕTA */}
