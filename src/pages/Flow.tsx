@@ -36,8 +36,13 @@ const STEPS: {
   { id: 3, short: "Mõju", title: "Mõju ja koolijuhi vaade", icon: <TrendingUp className="size-4" />, color: C.lime },
 ];
 
+type Subject = "pe" | "estonian";
+
 const Flow = () => {
   const [step, setStep] = useState<StepId>(0);
+  const [submitted, setSubmitted] = useState(false);
+  const [subjects, setSubjects] = useState<Subject[]>(["pe", "estonian"]);
+  const [aiRun, setAiRun] = useState<"idle" | "running" | "done">("idle");
   const [decision, setDecision] = useState<"full" | "partial" | "more" | null>(null);
 
   // keyboard nav
@@ -53,6 +58,13 @@ const Flow = () => {
   const next = () => step < 3 && setStep((s) => (s + 1) as StepId);
   const prev = () => step > 0 && setStep((s) => (s - 1) as StepId);
 
+  // Edasi nupu lukustus, kuni kasutaja on sammu "läbi mänginud"
+  const canAdvance =
+    (step === 0 && submitted) ||
+    (step === 1 && aiRun === "done") ||
+    (step === 2 && decision !== null) ||
+    step === 3;
+
   const progressPct = ((step + 1) / STEPS.length) * 100;
 
   return (
@@ -65,7 +77,7 @@ const Flow = () => {
             <ArrowLeft className="size-4" /> Tagasi
           </Link>
           <div className="text-[11px] font-semibold tracking-[0.2em] uppercase" style={{ color: C.teal }}>
-            4-ekraani demo
+            Nikita juhtum · täis-simulatsioon
           </div>
           <Link to="/pitch" className="text-sm hover:underline" style={{ color: C.teal }}>
             Pitch →
@@ -130,10 +142,28 @@ const Flow = () => {
       {/* Slide content with transition */}
       <main className="max-w-5xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
         <div key={step} className="animate-in fade-in slide-in-from-right-4 duration-300">
-          {step === 0 && <Step1 onNext={next} />}
-          {step === 1 && <Step2 onNext={next} />}
+          {step === 0 && (
+            <Step1
+              subjects={subjects}
+              setSubjects={setSubjects}
+              submitted={submitted}
+              onSubmit={() => setSubmitted(true)}
+              onNext={next}
+            />
+          )}
+          {step === 1 && (
+            <Step2
+              subjects={subjects}
+              aiRun={aiRun}
+              onRun={() => {
+                setAiRun("running");
+                setTimeout(() => setAiRun("done"), 1600);
+              }}
+              onNext={next}
+            />
+          )}
           {step === 2 && <Step3 decision={decision} setDecision={setDecision} onNext={next} />}
-          {step === 3 && <Step4 decision={decision} />}
+          {step === 3 && <Step4 decision={decision} subjects={subjects} />}
         </div>
 
         {/* Footer nav */}
@@ -152,7 +182,8 @@ const Flow = () => {
           {step < 3 ? (
             <Button
               onClick={next}
-              className="rounded-full"
+              disabled={!canAdvance}
+              className="rounded-full disabled:opacity-50"
               style={{ background: STEPS[step].color, color: "white" }}
             >
               Edasi <ArrowRight className="size-4" />
