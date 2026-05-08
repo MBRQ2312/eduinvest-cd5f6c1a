@@ -266,6 +266,40 @@ const Index = () => {
           </div>
         </section>
 
+        {/* KAKS ALGUSSTSENAARIUMI */}
+        <section className="border-b border-border">
+          <div className="max-w-[1180px] mx-auto px-4 sm:px-6 md:px-8 py-14 md:py-20">
+            <div className="text-[11px] font-semibold tracking-[0.22em] uppercase text-muted-foreground mb-4">
+              Kaks algusstsenaariumi
+            </div>
+            <h2 className="text-[24px] md:text-[32px] font-semibold tracking-tight leading-[1.15] max-w-2xl">
+              Töövoog on kahepoolne — algatada saab pere või huvikool.
+            </h2>
+            <div className="mt-8 grid md:grid-cols-2 gap-4">
+              <div className="rounded-[20px] border-2 border-border-strong bg-card p-6 shadow-card">
+                <div className="text-[11px] font-bold tracking-[0.22em] uppercase text-primary mb-2">A · Pere algatab</div>
+                <div className="text-lg font-semibold mb-2">Lapsevanem esitab taotluse</div>
+                <p className="text-sm text-foreground/75 leading-relaxed">
+                  Pere kasutab kooli töövoogu ja lisab huvikooli/treeneri tõendi. Kool palub kinnitust
+                  ja teeb otsuse.
+                </p>
+              </div>
+              <div className="rounded-[20px] border-2 border-accent/40 bg-accent-subtle/40 p-6 shadow-card">
+                <div className="text-[11px] font-bold tracking-[0.22em] uppercase text-accent mb-2">B · Huvikool algatab</div>
+                <div className="text-lg font-semibold mb-2">“Sinu lapse tegevus võib koolis arvestatav olla.”</div>
+                <p className="text-sm text-foreground/75 leading-relaxed">
+                  Huvikool annab perele märku ja pakub taotluse esitamist. Kui kool ei kasuta süsteemi,
+                  saadab huvikool tõendi koos infopaketiga: <em>“Kuidas alustada koolivälise õppimise arvestamist?”</em>
+                </p>
+              </div>
+            </div>
+            <p className="mt-5 text-xs text-muted-foreground max-w-2xl">
+              Tehniline märkus: häkil kasutame mock-andmeid. Pärislahenduses võib andmeid tuua eKoolist,
+              Stuudiumist, EHISest, ARNOst või kooli/KOV-i süsteemidest. Häki eesmärk on tõestada üks otsustusvoog lõpuni.
+            </p>
+          </div>
+        </section>
+
         {/* VERTIKAALNE OTSUSTUSVOOG */}
         <section ref={timelineRef} className="border-b border-border scroll-mt-20">
           <div className="max-w-[1180px] mx-auto px-4 sm:px-6 md:px-8 py-16 md:py-24">
