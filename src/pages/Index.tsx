@@ -156,12 +156,6 @@ const Index = () => {
         {/* ROLLIVÄRAV */}
         <section className="section-alt border-b border-border">
           <div className="max-w-[1180px] mx-auto px-4 sm:px-6 md:px-8 py-16 md:py-24">
-          <div className="text-[11px] font-semibold tracking-[0.22em] uppercase text-muted-foreground mb-3">
-            Organisatsioonivaated
-          </div>
-          <p className="text-[14px] text-muted-foreground mb-6 max-w-2xl">
-            Me ei tee igale inimesele eraldi vaadet. Näitame kahte organisatsiooni — ja nende sees rolle.
-          </p>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-5">
             {[
               {
