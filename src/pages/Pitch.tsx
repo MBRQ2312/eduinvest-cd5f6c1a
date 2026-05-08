@@ -870,13 +870,148 @@ const Slide14 = () => (
   </SlideShell>
 );
 
-/* ========== Deck ========== */
+/* === Lisa-slaidid 12-deck'ile === */
 
-const SLIDES = [Slide1, Slide2, Slide3, Slide4, Slide5, Slide6, Slide7, Slide8, Slide9, Slide10, Slide11, Slide12, Slide13, Slide14];
+/* Eesti haridusruumi mõõtkava */
+const SlideScale = () => (
+  <SlideShell>
+    <Eyebrow color={C.teal}>Eesti haridusruumi mõõtkava</Eyebrow>
+    <Title>Suur süsteem, käsitööna juhitud arvestamine.</Title>
+
+    <div className="mt-8 grid grid-cols-2 md:grid-cols-5 gap-3">
+      {[
+        { v: "473", l: "üldhariduskooli" },
+        { v: "849", l: "tegutsevat huvikooli" },
+        { v: "153 263", l: "huvikooli õppijat" },
+        { v: "3000+", l: "õppekava" },
+        { v: "17 390", l: "üldhariduskooli õpetajat" },
+      ].map((x) => (
+        <Card key={x.l}>
+          <div className="text-2xl sm:text-3xl font-semibold" style={{ color: C.text }}>{x.v}</div>
+          <div className="text-xs mt-1" style={{ color: "#6B7280" }}>{x.l}</div>
+        </Card>
+      ))}
+    </div>
+
+    <p className="mt-8 text-base sm:text-lg font-medium pl-4 border-l-4"
+      style={{ color: C.text, borderColor: C.lime }}>
+      Kooliväline õppimine on suur, aga arvestamise töövoog on käsitöö.
+    </p>
+  </SlideShell>
+);
+
+/* Kes maksab ja miks? */
+const SlidePayers = () => (
+  <SlideShell>
+    <Eyebrow color={C.purple}>Kliendisegmendid</Eyebrow>
+    <Title>Kes maksab ja miks?</Title>
+
+    <div className="mt-8 grid md:grid-cols-3 gap-4">
+      <Card bg={`${C.teal}0D`} border={`${C.teal}40`}>
+        <div className="size-10 rounded-full flex items-center justify-center mb-3"
+          style={{ background: C.teal, color: "white" }}>
+          <Building2 className="size-5" />
+        </div>
+        <Eyebrow color={C.teal}>Kool / koolijuht</Eyebrow>
+        <p className="text-sm" style={{ color: C.text }}>
+          Juhtimisinfo, tunniplaan, õpetaja tööaja parem kasutus.
+        </p>
+      </Card>
+
+      <Card bg={`${C.green}0D`} border={`${C.green}40`}>
+        <div className="size-10 rounded-full flex items-center justify-center mb-3"
+          style={{ background: C.green, color: "white" }}>
+          <Globe className="size-5" />
+        </div>
+        <Eyebrow color={C.green}>KOV / koolipidaja</Eyebrow>
+        <p className="text-sm" style={{ color: C.text }}>
+          Ühtne mudel, vähem vaidlusi, parem koolideülene praktika.
+        </p>
+      </Card>
+
+      <Card bg={`${C.lime}25`} border={`${C.lime}80`}>
+        <div className="size-10 rounded-full flex items-center justify-center mb-3"
+          style={{ background: C.green, color: "white" }}>
+          <Trophy className="size-5" />
+        </div>
+        <Eyebrow color={C.green}>Huvikool</Eyebrow>
+        <p className="text-sm" style={{ color: C.text }}>
+          Kvaliteedimärk — õpe muutub koolile nähtavaks ja võrreldavaks.
+        </p>
+      </Card>
+    </div>
+
+    <p className="mt-8 text-base sm:text-lg font-medium pl-4 border-l-4"
+      style={{ color: C.text, borderColor: C.lime }}>
+      Kool ei vaja veel üht vormi. Kool vajab juhtimisinfot.
+    </p>
+  </SlideShell>
+);
+
+/* Riskid ja ausus */
+const SlideRisks = () => (
+  <SlideShell>
+    <Eyebrow color={C.orange}>Riskid ja ausus</Eyebrow>
+    <Title>Mis võib valesti minna ja kuidas vastame?</Title>
+
+    <div className="mt-8 grid md:grid-cols-2 gap-5">
+      <Card>
+        <Eyebrow color={C.orange}>Riskid</Eyebrow>
+        <ul className="text-sm space-y-1.5 mt-2" style={{ color: C.text }}>
+          <li>• automaatotsus;</li>
+          <li>• piiripealsed juhtumid;</li>
+          <li>• andmekaitse;</li>
+          <li>• huvikoolide õppekavade ebaühtlane kvaliteet;</li>
+          <li>• õpilase järelevalve tunniplaanis.</li>
+        </ul>
+      </Card>
+
+      <Card bg={`${C.lime}25`} border={`${C.lime}80`}>
+        <Eyebrow color={C.green}>Vastus</Eyebrow>
+        <ul className="text-sm space-y-1.5 mt-2" style={{ color: C.text }}>
+          <li>• AI ei otsusta;</li>
+          <li>• piiripealsed juhtumid lähevad inimesele;</li>
+          <li>• häkil kasutame mock-andmeid;</li>
+          <li>• järgmises etapis valideerime andmemudeli ja integratsioonid;</li>
+          <li>• kvaliteedimärk standardiseerib huvikooli tõendi.</li>
+        </ul>
+      </Card>
+    </div>
+
+    <div className="mt-6 rounded-xl p-4 text-sm"
+      style={{ background: C.subtle, borderLeft: `3px solid ${C.teal}`, color: C.text }}>
+      <strong>Tunniplaani risk — vastus:</strong> osaline arvestamine ei tähenda, et õpilane jääb järelevalveta.
+      Kool otsustab, kas õpilane osaleb osas tundidest, teeb alternatiivse ülesande, liigub tugitegevusse,
+      kasutab aega juhendatud iseseisvaks tööks või võetakse info arvesse järgmise perioodi tunniplaani planeerimisel.
+    </div>
+
+    <Footnote color={C.orange}>
+      Tehniline märkus: häkil kasutame mock-andmeid. Pärislahenduses võib andmeid tuua eKoolist,
+      Stuudiumist, EHISest, ARNOst või kooli/KOV-i süsteemidest. Integratsioon ei ole häki põhieesmärk —
+      eesmärk on tõestada üks otsustusvoog lõpuni.
+    </Footnote>
+  </SlideShell>
+);
+
+/* === 12-slaidiline järjekord === */
+const SLIDES = [
+  Slide1,        // 1 Ava
+  Slide2,        // 2 Miks nüüd?
+  SlideScale,    // 3 Eesti haridusruumi mõõtkava
+  Slide3,        // 4 Probleem
+  SlidePayers,   // 5 Kes maksab ja miks?
+  Slide4,        // 6 Demojuhtum
+  Slide5,        // 7 Lahendus
+  Slide6,        // 8 AI roll
+  Slide9,        // 9 Mida Eesti haridusruum võidab?
+  Slide8,        // 10 Valideerimine
+  SlideRisks,    // 11 Riskid ja ausus
+  Slide14,       // 12 Skaleerimine ja lõpp
+];
 const TITLES = [
-  "Ava", "Miks nüüd?", "Probleem", "Demojuhtum", "Lahendus",
-  "AI roll", "Väärtus", "Testgrupp", "Kasu", "Segmendid",
-  "Koolijuht", "Huvikool", "Ärimudel", "Skaleerimine",
+  "Ava", "Miks nüüd?", "Mõõtkava", "Probleem", "Kes maksab",
+  "Demojuhtum", "Lahendus", "AI roll", "Mõju", "Valideerimine",
+  "Riskid", "Skaleerimine",
 ];
 
 export default function Pitch() {
