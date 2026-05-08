@@ -53,16 +53,64 @@ const Index = () => {
         </div>
       </header>
 
-      <main className="max-w-6xl mx-auto px-6 py-12 md:py-16 relative">
+      <main className="max-w-6xl mx-auto px-5 md:px-6 py-10 md:py-16 relative">
         {/* Hero */}
-        <section className="mb-12 max-w-3xl">
-          <h1 className="text-3xl md:text-5xl font-semibold tracking-tight leading-[1.05]">
-            Tee koolivälist õppimist <span className="text-primary">nähtavaks</span>.
-          </h1>
-          <p className="mt-5 text-base md:text-lg text-foreground/85 leading-relaxed">
-            Õpetaja otsustustugi koolivälise õppimise arvestamiseks. AI teeb eeltöö —
-            otsuse teeb õpetaja.
-          </p>
+        <section className="mb-10 md:mb-14">
+          <div className="max-w-3xl text-center md:text-left break-words">
+            {/* 1. Brand / pealkiri */}
+            <h1 className="text-[34px] leading-[1.05] md:text-5xl lg:text-[56px] font-bold tracking-tight">
+              EduInvest <span className="text-primary">LearnOnce</span>
+            </h1>
+
+            {/* 2. Selgitav lause */}
+            <p className="mt-3 md:mt-4 text-lg md:text-[22px] lg:text-[26px] font-normal text-foreground/80 leading-snug">
+              Kooliväline õppimine kooli vaatesse.
+            </p>
+
+            {/* 3. Slogan — visuaalne pill/riba */}
+            <div className="mt-5 md:mt-6 inline-flex flex-wrap justify-center md:justify-start gap-x-2 gap-y-1">
+              <span className="inline-block rounded-full px-4 py-2 text-sm md:text-base lg:text-lg font-semibold bg-gradient-to-r from-primary to-primary-glow text-primary-foreground shadow-sm">
+                Õpi üks kord.
+              </span>
+              <span className="inline-block rounded-full px-4 py-2 text-sm md:text-base lg:text-lg font-semibold bg-gradient-to-r from-success to-success-foreground/80 text-success-foreground shadow-sm">
+                Tõenda selgelt.
+              </span>
+              <span className="inline-block rounded-full px-4 py-2 text-sm md:text-base lg:text-lg font-semibold bg-gradient-to-r from-warning to-warning-foreground/80 text-warning-foreground shadow-sm">
+                Kool otsustab.
+              </span>
+            </div>
+
+            {/* Usaldusmärkus */}
+            <p className="mt-5 md:mt-6 text-xs md:text-sm text-muted-foreground max-w-xl leading-relaxed">
+              AI ei otsusta, ei anna hinnet ega vabasta tunnist. AI aitab tõendid ja õppekava seosed
+              õpetajale nähtavaks teha.
+            </p>
+
+            {/* CTA */}
+            <div className="mt-7 md:mt-8 flex flex-col items-center md:items-start gap-4">
+              <Button size="lg" onClick={scrollToFlow} className="shadow-elevated group text-base px-7 py-5 h-auto">
+                Vaata otsustusvoogu
+                <ArrowDown className="size-4 transition-transform group-hover:translate-y-0.5" />
+              </Button>
+
+              {/* 4 sammu */}
+              <ol className="flex flex-wrap justify-center md:justify-start gap-2 md:gap-3 text-[11px] md:text-xs text-muted-foreground">
+                {[
+                  { n: 1, t: "Taotlus perelt" },
+                  { n: 2, t: "Tõend treenerilt" },
+                  { n: 3, t: "AI eelanalüüs" },
+                  { n: 4, t: "Otsus koolilt" },
+                ].map((s) => (
+                  <li key={s.n} className="flex items-center gap-1.5 shrink-0">
+                    <span className="inline-flex items-center justify-center size-5 rounded-full bg-muted font-bold text-muted-foreground">
+                      {s.n}
+                    </span>
+                    <span className="font-medium">{s.t}</span>
+                  </li>
+                ))}
+              </ol>
+            </div>
+          </div>
         </section>
 
         {/* Rollivärav */}
@@ -98,8 +146,8 @@ const Index = () => {
           </div>
         </section>
 
-        {/* Demo CTA */}
-        <section className="mb-10 text-center">
+        {/* Demo CTA — kompaktne viide */}
+        <section className="mb-10 text-center md:text-left">
           <div className="text-sm text-muted-foreground mb-3">või vaata kogu lugu</div>
           <Button size="lg" onClick={scrollToFlow} className="shadow-elevated group">
             Käivita 6-sammuline demo
