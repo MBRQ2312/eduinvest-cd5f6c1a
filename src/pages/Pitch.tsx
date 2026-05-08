@@ -1,324 +1,474 @@
+import { useState, useEffect, useCallback } from "react";
 import { Link } from "react-router-dom";
-import { ArrowLeft, ArrowRight, Users, GraduationCap, Building2, Sparkles, ShieldCheck, FileText, CheckCircle2, Home as HomeIcon } from "lucide-react";
+import {
+  ArrowLeft, ArrowRight, Users, GraduationCap, Building2, Sparkles,
+  ShieldCheck, FileText, CheckCircle2, Home as HomeIcon, Trophy, X, Play,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-type FlowStep = {
-  n: string;
-  title: string;
-  text: string;
-  tone: "default" | "ai" | "decision";
-  icon: React.ReactNode;
+/* ---------- Reusable bits ---------- */
+
+const SlideShell = ({ children }: { children: React.ReactNode }) => (
+  <div className="w-full max-w-5xl mx-auto px-5 sm:px-8 py-8 sm:py-12">
+    <div className="rounded-[28px] border border-border/60 bg-card shadow-[0_8px_30px_-12px_hsl(var(--foreground)/0.08)] p-6 sm:p-12 min-h-[70vh] flex flex-col justify-center">
+      {children}
+    </div>
+  </div>
+);
+
+const Eyebrow = ({ children }: { children: React.ReactNode }) => (
+  <div className="text-xs uppercase tracking-[0.18em] text-muted-foreground mb-3">{children}</div>
+);
+
+const SlideTitle = ({ children }: { children: React.ReactNode }) => (
+  <h2 className="text-3xl sm:text-5xl font-semibold leading-tight tracking-tight text-foreground break-words">
+    {children}
+  </h2>
+);
+
+const Lead = ({ children }: { children: React.ReactNode }) => (
+  <p className="text-lg sm:text-xl text-muted-foreground leading-relaxed mt-4 break-words">{children}</p>
+);
+
+const SoftCard = ({
+  children,
+  tone = "default",
+}: {
+  children: React.ReactNode;
+  tone?: "default" | "primary" | "accent" | "success" | "warm";
+}) => {
+  const toneCls = {
+    default: "bg-background border-border/60",
+    primary: "bg-primary-subtle border-primary/15",
+    accent: "bg-accent-subtle border-accent/15",
+    success: "bg-success-subtle border-success/15",
+    warm: "bg-[hsl(var(--muted))] border-border/60",
+  }[tone];
+  return <div className={`rounded-[20px] border ${toneCls} p-5 sm:p-6`}>{children}</div>;
 };
 
-const FLOW: FlowStep[] = [
-  { n: "01", title: "Taotlus perelt", text: "Lapsevanem või õppija palub hinnata, kas koolivälist õppimist saab arvestada.", tone: "default", icon: <Users className="size-4" /> },
-  { n: "02", title: "Kool seob õppekavaga", text: "Kool valib õppeaine, õpitulemused ja tingimused. Pere ei pea ise teadma, mis täpselt kattub.", tone: "default", icon: <FileText className="size-4" /> },
-  { n: "03", title: "Tõend partnerilt", text: "Treener, huvikool või juhendaja kinnitab osalemise, mahu, sisu ja keele.", tone: "default", icon: <ShieldCheck className="size-4" /> },
-  { n: "04", title: "AI eelanalüüs", text: "AI koondab tõendid, pakub võimalikke seoseid ja näitab puuduvaid tõendeid.", tone: "ai", icon: <Sparkles className="size-4" /> },
-  { n: "05", title: "Otsus koolilt", text: "Õpetaja või kooli määratud vastutaja otsustab: arvestan, arvestan osaliselt, vajan lisatõendit või ei arvesta.", tone: "decision", icon: <CheckCircle2 className="size-4" /> },
-  { n: "06", title: "Selgitus ja koondvaade", text: "Pere saab selgituse. Koolijuht näeb korduvaid mustreid.", tone: "default", icon: <Building2 className="size-4" /> },
+/* ---------- Slides ---------- */
+
+const Slide1 = () => (
+  <SlideShell>
+    <Eyebrow>EduInvest LearnOnce · Pitch</Eyebrow>
+    <SlideTitle>Kooliväline õppimine kooli vaatesse.</SlideTitle>
+    <Lead>Õpi üks kord. Tõenda selgelt. Kool otsustab.</Lead>
+    <div className="mt-8 grid sm:grid-cols-[1fr_auto] gap-4 items-center">
+      <SoftCard tone="warm">
+        <div className="flex items-start gap-3">
+          <ShieldCheck className="size-5 text-success mt-0.5 shrink-0" />
+          <p className="text-sm sm:text-base text-foreground">
+            <strong>AI ei otsusta</strong>, ei anna hinnet ega vabasta tunnist.
+            AI teeb eelanalüüsi. <strong>Otsuse teeb kool.</strong>
+          </p>
+        </div>
+      </SoftCard>
+      <Button asChild size="lg" className="rounded-full">
+        <Link to="/parent"><Play className="size-4" /> Vaata demo</Link>
+      </Button>
+    </div>
+  </SlideShell>
+);
+
+const Slide2 = () => (
+  <SlideShell>
+    <Eyebrow>Probleem</Eyebrow>
+    <SlideTitle>Õppimine toimub mitmel pool, aga kool näeb ainult osa.</SlideTitle>
+    <div className="mt-10 grid md:grid-cols-3 gap-4">
+      {[
+        { t: "Õppija", d: "Võib sama oskust mitu korda tõestada.", tone: "primary" as const, icon: <Users className="size-5 text-primary" /> },
+        { t: "Õpetaja", d: "Peab iga juhtumit nullist tõlgendama.", tone: "accent" as const, icon: <GraduationCap className="size-5 text-accent" /> },
+        { t: "Koolijuht", d: "Ei näe, kus õppija aeg ja õpetaja töö dubleeruvad.", tone: "success" as const, icon: <Building2 className="size-5 text-success" /> },
+      ].map((c) => (
+        <SoftCard key={c.t} tone={c.tone}>
+          {c.icon}
+          <h3 className="font-semibold text-lg mt-3">{c.t}</h3>
+          <p className="text-sm text-muted-foreground mt-2">{c.d}</p>
+        </SoftCard>
+      ))}
+    </div>
+    <p className="mt-8 text-lg sm:text-xl font-medium text-foreground border-l-4 border-success pl-4">
+      Probleem ei ole õppimises. Probleem on nähtavuses ja otsustusvoos.
+    </p>
+  </SlideShell>
+);
+
+const Slide3 = () => (
+  <SlideShell>
+    <Eyebrow>Demojuhtum</Eyebrow>
+    <SlideTitle>Testime ühte konkreetset arvestusotsust.</SlideTitle>
+    <div className="mt-8 grid md:grid-cols-2 gap-5">
+      <SoftCard tone="primary">
+        <div className="flex items-center gap-3 mb-3">
+          <Trophy className="size-5 text-primary" />
+          <h3 className="font-semibold text-lg">Nikita T., 8. klass</h3>
+        </div>
+        <ul className="space-y-2 text-sm text-foreground/80">
+          <li>• Jalgpallitrenn 3× nädalas</li>
+          <li>• Treening toimub eesti keeles</li>
+          <li>• Treener saab kinnitada osalemise, mahu, sisu ja keele</li>
+        </ul>
+      </SoftCard>
+      <SoftCard tone="accent">
+        <Eyebrow>Küsimus koolile</Eyebrow>
+        <p className="text-base text-foreground leading-relaxed">
+          Kas osa sellest õppimisest saab arvestada kehalises kasvatuses ja kas eestikeelset trenni
+          saab kasutada eesti keele praktilise kasutuse toetava tõendina?
+        </p>
+      </SoftCard>
+    </div>
+    <p className="mt-6 text-sm text-muted-foreground italic">
+      See ei tähenda automaatset hinnet ega tunnist vabastamist.
+    </p>
+  </SlideShell>
+);
+
+const FLOW = [
+  { n: "01", t: "Taotlus perelt", tone: "default" },
+  { n: "02", t: "Kool seob õppekavaga", tone: "default" },
+  { n: "03", t: "Tõend partnerilt", tone: "default" },
+  { n: "04", t: "AI eelanalüüs", tone: "ai" },
+  { n: "05", t: "Otsus koolilt", tone: "decision" },
+  { n: "06", t: "Selgitus ja koondvaade", tone: "default" },
+] as const;
+
+const Slide4 = () => (
+  <SlideShell>
+    <Eyebrow>Lahendus</Eyebrow>
+    <SlideTitle>Üks otsustusvoog lõpuni.</SlideTitle>
+    <div className="mt-8 grid md:grid-cols-[1.1fr_1fr] gap-8 items-start">
+      <div className="relative pl-6">
+        <div className="absolute left-[11px] top-2 bottom-2 w-px bg-border" />
+        {FLOW.map((s) => {
+          const dot =
+            s.tone === "ai" ? "bg-accent" : s.tone === "decision" ? "bg-success" : "bg-foreground/40";
+          return (
+            <div key={s.n} className="relative mb-5 last:mb-0">
+              <span className={`absolute -left-[18px] top-2 size-3 rounded-full ${dot} ring-4 ring-card`} />
+              <div className="text-xs font-mono text-muted-foreground">{s.n}</div>
+              <div className="text-base sm:text-lg font-medium text-foreground">{s.t}</div>
+            </div>
+          );
+        })}
+      </div>
+      <SoftCard tone="warm">
+        <p className="text-base sm:text-lg text-foreground leading-relaxed">
+          Lapsevanem ei pea teadma õppekava kattuvust. <strong>Kool määrab</strong>, mida võrrelda.
+          <strong> Partner kinnitab</strong>, mis päriselt toimus. <strong>AI teeb eeltöö.</strong>{" "}
+          <strong>Õpetaja otsustab.</strong>
+        </p>
+      </SoftCard>
+    </div>
+  </SlideShell>
+);
+
+const Slide5 = () => (
+  <SlideShell>
+    <Eyebrow>AI roll</Eyebrow>
+    <SlideTitle>AI ei otsusta. AI teeb õpetajale eeltöö.</SlideTitle>
+    <div className="mt-8 grid md:grid-cols-2 gap-5">
+      <div>
+        <div className="flex items-center gap-2 mb-3">
+          <Sparkles className="size-4 text-accent" />
+          <span className="text-sm font-semibold text-accent uppercase tracking-wide">AI teeb</span>
+        </div>
+        <div className="space-y-2.5">
+          {["Koondab tõendid", "Näitab võimalikud õppekava seosed", "Toob välja puuduva info"].map((x) => (
+            <SoftCard key={x} tone="accent">
+              <div className="flex items-center gap-2">
+                <CheckCircle2 className="size-4 text-accent" />
+                <span className="text-sm sm:text-base">{x}</span>
+              </div>
+            </SoftCard>
+          ))}
+        </div>
+      </div>
+      <div>
+        <div className="flex items-center gap-2 mb-3">
+          <X className="size-4 text-muted-foreground" />
+          <span className="text-sm font-semibold text-muted-foreground uppercase tracking-wide">AI ei tee</span>
+        </div>
+        <div className="space-y-2.5">
+          {["Ei anna hinnet", "Ei vabasta tunnist", "Ei tee lõppotsust"].map((x) => (
+            <SoftCard key={x}>
+              <div className="flex items-center gap-2">
+                <X className="size-4 text-muted-foreground" />
+                <span className="text-sm sm:text-base">{x}</span>
+              </div>
+            </SoftCard>
+          ))}
+        </div>
+      </div>
+    </div>
+    <p className="mt-6 text-base sm:text-lg font-medium border-l-4 border-success pl-4">
+      Arvestamise aluseks ei ole ainult õpilase väide, vaid <strong>tõendite kogum</strong>.
+    </p>
+  </SlideShell>
+);
+
+const Slide6 = () => (
+  <SlideShell>
+    <Eyebrow>Kellele ja mis väärtus</Eyebrow>
+    <SlideTitle>Kellele see väärtust loob?</SlideTitle>
+    <div className="mt-8 grid md:grid-cols-2 gap-4">
+      {[
+        { t: "Õppija ja pere", d: "Saavad aru, mida kool vajab, mida arvestati ja miks otsus selline tuli.", tone: "primary" as const, icon: <Users className="size-5 text-primary" /> },
+        { t: "Õpetaja", d: "Ei alusta tühjalt lehelt. Tõendid ja võimalikud seosed on enne otsust koondatud.", tone: "accent" as const, icon: <GraduationCap className="size-5 text-accent" /> },
+        { t: "Treener / huvikool", d: "Ei otsusta kooli eest. Kinnitab tegeliku tegevuse, mahu, sisu ja keele.", tone: "warm" as const, icon: <Trophy className="size-5 text-foreground" /> },
+        { t: "Koolijuht / koolipidaja", d: "Näeb korduvaid mustreid ja saab luua ühtse koolipraktika.", tone: "success" as const, icon: <Building2 className="size-5 text-success" /> },
+      ].map((c) => (
+        <SoftCard key={c.t} tone={c.tone}>
+          {c.icon}
+          <h3 className="font-semibold text-lg mt-2">{c.t}</h3>
+          <p className="text-sm text-muted-foreground mt-1.5">{c.d}</p>
+        </SoftCard>
+      ))}
+    </div>
+    <div className="mt-6 rounded-[20px] bg-foreground text-background p-5 sm:p-6">
+      <p className="text-sm sm:text-base">
+        <strong>Esimene klient:</strong> kool või koolipidaja.<br />
+        <strong>Kasutajad:</strong> õppija, pere, õpetaja, treener, koolijuht.
+      </p>
+    </div>
+  </SlideShell>
+);
+
+const Metric = ({ v, l }: { v: string; l: string }) => (
+  <SoftCard>
+    <div className="text-2xl sm:text-3xl font-semibold text-foreground">{v}</div>
+    <div className="text-xs sm:text-sm text-muted-foreground mt-1">{l}</div>
+  </SoftCard>
+);
+
+const Slide7 = () => (
+  <SlideShell>
+    <Eyebrow>Testgrupp ja valideerimine</Eyebrow>
+    <SlideTitle>Me ei testinud ainult ideed. Testisime prototüüpi.</SlideTitle>
+    <div className="mt-8 grid grid-cols-2 sm:grid-cols-5 gap-3">
+      <Metric v="49" l="külastajat" />
+      <Metric v="138" l="lehevaatamist" />
+      <Metric v="2.82" l="vaadet / külastus" />
+      <Metric v="2:19" l="keskmine külastus" />
+      <Metric v="69%" l="mobiilist" />
+    </div>
+    <div className="mt-6 grid md:grid-cols-2 gap-4">
+      <SoftCard tone="primary">
+        <h4 className="font-semibold mb-2">Õpilased</h4>
+        <ul className="text-sm space-y-1 text-foreground/80">
+          <li>• Pelgulinna Riigigümnaasiumi 10. klass</li>
+          <li>• Tallinna Kuristiku Gümnaasiumi 8. klass</li>
+          <li>• Pärnu Mai Kooli 8.c pilootgrupp</li>
+        </ul>
+      </SoftCard>
+      <SoftCard tone="success">
+        <h4 className="font-semibold mb-2">Koolijuhid</h4>
+        <ul className="text-sm space-y-1 text-foreground/80">
+          <li>• Alustava koolijuhi arenguprogrammi XI lend 2025</li>
+          <li>• tagasiside koolijuhtidelt ja haridusjuhtidelt</li>
+        </ul>
+      </SoftCard>
+    </div>
+    <p className="mt-5 text-sm sm:text-base text-muted-foreground">
+      Testimine näitas, et töövoog peab olema väga lihtne, mobiilis loetav ja rollide vastutus
+      peab olema selgelt eristatud.
+    </p>
+  </SlideShell>
+);
+
+const Slide8 = () => (
+  <SlideShell>
+    <Eyebrow>Testgrupi sisend</Eyebrow>
+    <SlideTitle>Mida testgrupilt küsisime?</SlideTitle>
+    <div className="mt-8 grid sm:grid-cols-2 gap-3">
+      {[
+        "Kas probleem on päris?",
+        "Kelle lauale selline juhtum koolis jõuaks?",
+        "Milliseid tõendeid oleks otsustamiseks vaja?",
+        "Kas töövoog “tõendid → AI eelanalüüs → õpetaja otsus → pere selgitus” oleks kasutatav?",
+        "Kas seda võiks testida ühe klassi ja ühe ainega?",
+      ].map((q, i) => (
+        <SoftCard key={q}>
+          <div className="flex gap-3">
+            <span className="text-sm font-mono text-muted-foreground">{i + 1}.</span>
+            <span className="text-sm sm:text-base">{q}</span>
+          </div>
+        </SoftCard>
+      ))}
+    </div>
+    <SoftCard tone="warm">
+      <Eyebrow>Vastuste koond</Eyebrow>
+      <p className="text-base text-foreground">Esimesed vastused kinnitasid kolme vajadust:</p>
+      <ul className="mt-2 space-y-1 text-sm sm:text-base">
+        <li>• rollid peavad olema selged;</li>
+        <li>• tõendid peavad olema kontrollitavad;</li>
+        <li>• kool peab saama otsuse ise teha ja põhjendada.</li>
+      </ul>
+    </SoftCard>
+  </SlideShell>
+);
+
+const Slide9 = () => (
+  <SlideShell>
+    <Eyebrow>Piloot</Eyebrow>
+    <SlideTitle>Esimene realistlik piloot.</SlideTitle>
+    <div className="mt-8 grid grid-cols-2 md:grid-cols-4 gap-3">
+      {["Üks kool", "Üks klass", "Üks aine", "Üks koolivälise õppimise liik"].map((x, i) => {
+        const tones = ["primary", "accent", "success", "warm"] as const;
+        return (
+          <SoftCard key={x} tone={tones[i]}>
+            <div className="text-xs font-mono text-muted-foreground">0{i + 1}</div>
+            <div className="font-semibold mt-1">{x}</div>
+          </SoftCard>
+        );
+      })}
+    </div>
+    <SoftCard tone="warm">
+      <Eyebrow>Näide</Eyebrow>
+      <p className="text-base text-foreground">
+        <strong>Spordikool → kehaline kasvatus.</strong>
+      </p>
+      <p className="text-sm text-muted-foreground mt-2">
+        Lisavaade: eestikeelne treening kui eesti keele praktilise kasutuse toetav tõend.
+      </p>
+    </SoftCard>
+    <div className="mt-4">
+      <Eyebrow>Mida mõõdame</Eyebrow>
+      <ul className="text-sm sm:text-base space-y-1 text-foreground/85">
+        <li>• kui kaua võtab ühe otsuse ettevalmistamine;</li>
+        <li>• kas õpetaja peab vähem infot käsitsi koguma;</li>
+        <li>• kas pere saab otsusest aru;</li>
+        <li>• kas tõendid on piisavad;</li>
+        <li>• kas koolijuht näeb korduvat mustrit.</li>
+      </ul>
+    </div>
+  </SlideShell>
+);
+
+const Slide10 = () => (
+  <SlideShell>
+    <Eyebrow>Lõpp</Eyebrow>
+    <SlideTitle>Me ei lisa õppimist juurde.</SlideTitle>
+    <p className="mt-6 text-2xl sm:text-3xl font-medium text-foreground leading-snug break-words">
+      Teeme juba toimunu <span className="text-success">nähtavaks</span>,{" "}
+      <span className="text-accent">tõendatuks</span> ja kooli otsusel{" "}
+      <span className="text-primary">arvestatavaks</span>.
+    </p>
+    <div className="mt-10 grid md:grid-cols-3 gap-3">
+      {[
+        { t: "Tõendid kokku.", tone: "accent" as const },
+        { t: "Seosed nähtavaks.", tone: "primary" as const },
+        { t: "Otsus koolile.", tone: "success" as const },
+      ].map((x) => (
+        <SoftCard key={x.t} tone={x.tone}>
+          <div className="text-lg font-semibold">{x.t}</div>
+        </SoftCard>
+      ))}
+    </div>
+    <div className="mt-10 rounded-[20px] bg-foreground text-background p-6 sm:p-8 text-center">
+      <p className="text-xl sm:text-2xl font-semibold">AI teeb eeltöö. Kool otsustab.</p>
+    </div>
+    <div className="mt-6 flex flex-wrap gap-3 justify-center">
+      <Button asChild size="lg" className="rounded-full">
+        <Link to="/parent"><Play className="size-4" /> Käivita demo</Link>
+      </Button>
+      <Button asChild variant="outline" size="lg" className="rounded-full">
+        <Link to="/"><HomeIcon className="size-4" /> Avalehele</Link>
+      </Button>
+    </div>
+  </SlideShell>
+);
+
+const SLIDES = [Slide1, Slide2, Slide3, Slide4, Slide5, Slide6, Slide7, Slide8, Slide9, Slide10];
+const TITLES = [
+  "Ava", "Probleem", "Demojuhtum", "Lahendus", "AI roll",
+  "Huvigrupid", "Testgrupp", "Sisend", "Piloot", "Lõpp",
 ];
 
-const HeroIllustration = () => (
-  <svg viewBox="0 0 420 420" className="w-full h-auto max-w-[440px]" fill="none" aria-hidden="true">
-    <path d="M70 110 C 160 60, 260 360, 350 300" stroke="hsl(var(--primary))" strokeWidth="1.5" strokeDasharray="3 6" opacity="0.6" />
-    <path d="M90 320 C 180 280, 240 140, 340 130" stroke="hsl(var(--accent))" strokeWidth="1.5" strokeDasharray="3 6" opacity="0.5" />
-    <g transform="translate(40 80)"><circle cx="36" cy="36" r="36" fill="hsl(var(--primary-subtle))" /></g>
-    <g transform="translate(58 96)" stroke="hsl(var(--primary))" strokeWidth="1.5" fill="none">
-      <circle cx="12" cy="12" r="6" /><circle cx="28" cy="14" r="5" />
-      <path d="M2 38 C 4 26, 22 26, 24 38" /><path d="M22 38 C 24 30, 36 30, 38 38" />
-    </g>
-    <g transform="translate(50 290)"><circle cx="36" cy="36" r="36" fill="hsl(var(--accent-subtle))" /></g>
-    <g transform="translate(70 310)" stroke="hsl(var(--accent))" strokeWidth="1.5" fill="none">
-      <circle cx="16" cy="10" r="6" /><path d="M4 32 C 6 20, 26 20, 28 32" /><path d="M22 18 L 30 26" />
-    </g>
-    <g transform="translate(180 170)">
-      <circle cx="40" cy="40" r="44" fill="hsl(var(--background))" stroke="hsl(var(--accent))" strokeWidth="1.5" strokeDasharray="2 4" />
-      <circle cx="40" cy="40" r="6" fill="hsl(var(--accent))" />
-      <circle cx="14" cy="22" r="3" fill="hsl(var(--primary))" /><circle cx="66" cy="18" r="3" fill="hsl(var(--primary))" />
-      <circle cx="68" cy="62" r="3" fill="hsl(var(--success))" /><circle cx="12" cy="60" r="3" fill="hsl(var(--success))" />
-      <line x1="14" y1="22" x2="40" y2="40" stroke="hsl(var(--foreground))" strokeWidth="0.8" opacity="0.4" />
-      <line x1="66" y1="18" x2="40" y2="40" stroke="hsl(var(--foreground))" strokeWidth="0.8" opacity="0.4" />
-      <line x1="68" y1="62" x2="40" y2="40" stroke="hsl(var(--foreground))" strokeWidth="0.8" opacity="0.4" />
-      <line x1="12" y1="60" x2="40" y2="40" stroke="hsl(var(--foreground))" strokeWidth="0.8" opacity="0.4" />
-    </g>
-    <g transform="translate(310 100)"><circle cx="36" cy="36" r="36" fill="hsl(var(--success-subtle))" /></g>
-    <g transform="translate(326 116)" stroke="hsl(var(--success))" strokeWidth="1.5" fill="none">
-      <path d="M4 32 L 4 14 L 20 4 L 36 14 L 36 32 Z" />
-      <rect x="14" y="20" width="12" height="12" /><line x1="20" y1="20" x2="20" y2="32" />
-    </g>
-    <g transform="translate(320 290)">
-      <circle cx="36" cy="36" r="36" fill="hsl(var(--success-subtle))" />
-      <path d="M22 36 L 32 46 L 50 26" stroke="hsl(var(--success))" strokeWidth="2.5" fill="none" strokeLinecap="round" strokeLinejoin="round" />
-    </g>
-  </svg>
-);
+export default function Pitch() {
+  const [i, setI] = useState(0);
+  const total = SLIDES.length;
 
-const SectionEyebrow = ({ children }: { children: React.ReactNode }) => (
-  <div className="text-[11px] font-semibold tracking-[0.22em] uppercase text-primary mb-4">{children}</div>
-);
+  const next = useCallback(() => setI((x) => Math.min(x + 1, total - 1)), [total]);
+  const prev = useCallback(() => setI((x) => Math.max(x - 1, 0)), []);
 
-const Quote = ({ role, text }: { role: string; text: string }) => (
-  <div className="rounded-[20px] bg-card border border-border/60 p-6 shadow-sm h-full">
-    <div className="text-[11px] font-semibold tracking-[0.2em] uppercase text-muted-foreground mb-3">{role}</div>
-    <p className="text-[17px] md:text-lg text-foreground leading-snug font-medium">"{text}"</p>
-  </div>
-);
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "ArrowRight" || e.key === " ") next();
+      if (e.key === "ArrowLeft") prev();
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [next, prev]);
 
-const Metric = ({ value, label }: { value: string; label: string }) => (
-  <div className="rounded-[20px] bg-card border border-border/60 p-5 md:p-6 shadow-sm">
-    <div className="text-[28px] md:text-[36px] font-semibold tracking-tight text-foreground tabular leading-none">{value}</div>
-    <div className="mt-2 text-[13px] md:text-sm text-muted-foreground">{label}</div>
-  </div>
-);
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [i]);
 
-const Pitch = () => {
+  const Current = SLIDES[i];
+
   return (
-    <div className="min-h-screen bg-background relative overflow-x-hidden">
-      <header className="border-b border-border/60 bg-background/80 sticky top-0 z-30 backdrop-blur-md">
-        <div className="max-w-[1180px] mx-auto px-5 md:px-8 py-4 flex items-center justify-between gap-6">
-          <Link to="/" className="flex items-center gap-3 min-w-0">
-            <div className="size-9 rounded-xl bg-primary text-primary-foreground flex items-center justify-center font-semibold text-sm shrink-0">EI</div>
-            <div className="font-medium tracking-tight text-sm truncate">
-              EduInvest <span className="text-primary">LearnOnce</span>
+    <div className="min-h-screen bg-background overflow-x-hidden">
+      {/* Top bar */}
+      <header className="sticky top-0 z-30 bg-background/85 backdrop-blur border-b border-border/50">
+        <div className="max-w-5xl mx-auto px-5 sm:px-8 py-3 flex items-center gap-3">
+          <Link to="/" className="text-sm font-semibold tracking-tight whitespace-nowrap">
+            EduInvest LearnOnce
+          </Link>
+          <div className="flex-1 flex items-center gap-2 min-w-0">
+            <span className="text-xs font-mono text-muted-foreground whitespace-nowrap">
+              {String(i + 1).padStart(2, "0")} / {String(total).padStart(2, "0")}
+            </span>
+            <div className="flex-1 h-1 bg-muted rounded-full overflow-hidden">
+              <div
+                className="h-full bg-foreground transition-all duration-300"
+                style={{ width: `${((i + 1) / total) * 100}%` }}
+              />
             </div>
-          </Link>
-          <Link to="/" className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-border/70 hover:bg-muted text-xs text-foreground/80">
-            <HomeIcon className="size-3.5" /> Avalehele
-          </Link>
+            <span className="hidden sm:inline text-xs text-muted-foreground truncate">
+              {TITLES[i]}
+            </span>
+          </div>
         </div>
       </header>
 
-      <main className="max-w-[1180px] mx-auto px-5 md:px-8 py-12 md:py-20 relative">
-        {/* HERO */}
-        <section className="grid md:grid-cols-2 gap-10 md:gap-14 items-center mb-24 md:mb-32">
-          <div className="break-words">
-            <SectionEyebrow>EduInvest LearnOnce</SectionEyebrow>
-            <h1 className="text-[38px] leading-[1.08] md:text-[48px] lg:text-[58px] font-semibold tracking-tight">
-              Kooliväline õppimine <span className="text-primary">kooli vaatesse</span>
-            </h1>
-            <p className="mt-5 md:mt-6 text-lg md:text-xl text-foreground/80 leading-snug">
-              Õpi üks kord. Tõenda selgelt. Kool otsustab.
-            </p>
-            <p className="mt-5 text-[15px] md:text-base text-foreground/70 leading-relaxed max-w-xl">
-              LearnOnce aitab koolil näha, milline õppimine on juba toimunud, millised tõendid on
-              olemas ja milliseid õppekava seoseid õpetaja saab kontrollida.
-            </p>
-            <div className="mt-7 inline-flex items-start gap-3 rounded-2xl border border-border/70 bg-card px-4 py-3 max-w-xl">
-              <ShieldCheck className="size-4 text-primary mt-0.5 shrink-0" />
-              <p className="text-[13px] text-foreground/75 leading-relaxed">
-                AI ei otsusta, ei anna hinnet ega vabasta tunnist. AI teeb eelanalüüsi.
-                Otsuse teeb kool.
-              </p>
-            </div>
-          </div>
-          <div className="flex justify-center md:justify-end"><HeroIllustration /></div>
-        </section>
+      {/* Slide */}
+      <main className="pb-28">
+        <Current />
+      </main>
 
-        {/* PROBLEEM */}
-        <section className="mb-24 md:mb-32">
-          <SectionEyebrow>Probleem</SectionEyebrow>
-          <h2 className="text-[28px] md:text-[40px] font-semibold tracking-tight leading-[1.1] max-w-3xl">
-            Õppimine toimub mitmel pool, aga kool näeb ainult osa
-          </h2>
-          <div className="grid md:grid-cols-3 gap-4 md:gap-6 mt-10">
-            <Quote role="Õppija" text="Võib sama oskust mitu korda tõestada." />
-            <Quote role="Õpetaja" text="Peab iga juhtumit nullist tõlgendama." />
-            <Quote role="Koolijuht" text="Ei näe, kus dubleerimine kordub." />
-          </div>
-          <p className="mt-8 text-base md:text-lg text-foreground/70 max-w-2xl leading-relaxed">
-            Praegu on koolivälise õppimise arvestamine sageli juhtumipõhine, ajamahukas ja ebaühtlane.
-          </p>
-        </section>
-
-        {/* LAHENDUS — vertikaalne timeline */}
-        <section className="mb-24 md:mb-32">
-          <SectionEyebrow>Lahendus</SectionEyebrow>
-          <h2 className="text-[28px] md:text-[40px] font-semibold tracking-tight leading-[1.1] max-w-3xl">
-            Üks otsustusvoog lõpuni
-          </h2>
-          <p className="mt-3 text-base md:text-lg text-foreground/70">Taotlusest kooli põhjendatud otsuseni.</p>
-
-          <ol className="relative max-w-3xl mt-12">
-            <span className="absolute left-[22px] md:left-[28px] top-2 bottom-2 w-px bg-border" aria-hidden="true" />
-            {FLOW.map((s) => {
-              const dot =
-                s.tone === "ai" ? "bg-accent text-accent-foreground"
-                : s.tone === "decision" ? "bg-success text-success-foreground"
-                : "bg-primary text-primary-foreground";
-              const ring =
-                s.tone === "ai" ? "ring-accent/20"
-                : s.tone === "decision" ? "ring-success/20"
-                : "ring-primary/20";
-              return (
-                <li key={s.n} className="relative pl-14 md:pl-20 pb-8 last:pb-0">
-                  <span className={`absolute left-0 top-1 size-11 md:size-14 rounded-full ${dot} ring-8 ${ring} bg-background flex items-center justify-center`}>
-                    <span className={`size-7 md:size-8 rounded-full ${dot} flex items-center justify-center`}>{s.icon}</span>
-                  </span>
-                  <div className="rounded-[20px] bg-card border border-border/60 shadow-sm p-5 md:p-6">
-                    <div className="flex items-center gap-3 mb-1.5">
-                      <span className="text-xs font-semibold tracking-widest text-muted-foreground tabular">{s.n}</span>
-                      <h3 className="text-[17px] md:text-lg font-semibold tracking-tight">{s.title}</h3>
-                    </div>
-                    <p className="text-[14.5px] md:text-[15px] text-foreground/75 leading-relaxed">{s.text}</p>
-                  </div>
-                </li>
-              );
-            })}
-          </ol>
-        </section>
-
-        {/* TESTIMINE */}
-        <section className="mb-24 md:mb-32">
-          <SectionEyebrow>Testimine</SectionEyebrow>
-          <h2 className="text-[28px] md:text-[40px] font-semibold tracking-tight leading-[1.1] max-w-3xl">
-            Me ei testinud ainult ideed. Testisime prototüüpi.
-          </h2>
-
-          <div className="grid grid-cols-2 md:grid-cols-5 gap-3 md:gap-4 mt-10">
-            <Metric value="49" label="külastajat" />
-            <Metric value="138" label="lehevaatamist" />
-            <Metric value="2.82" label="vaadet külastuse kohta" />
-            <Metric value="2 min 19 s" label="keskmine külastus" />
-            <Metric value="69%" label="mobiilist" />
-          </div>
-
-          <div className="mt-6 rounded-[20px] bg-card border border-border/60 p-6 md:p-7 shadow-sm max-w-2xl">
-            <div className="text-[11px] font-semibold tracking-[0.2em] uppercase text-muted-foreground mb-4">Vaadatud lehed</div>
-            <ul className="space-y-2.5 text-[15px] text-foreground/80">
-              {["Avaleht", "Treeneri vaade", "Pere vaade", "Õpetaja vaade", "Koolijuhi vaade", "Pitch"].map((p) => (
-                <li key={p} className="flex items-center gap-3">
-                  <span className="size-1.5 rounded-full bg-primary" />{p}
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <p className="mt-8 text-base md:text-lg text-foreground/70 max-w-2xl leading-relaxed">
-            Prototüüpi jagati õppijatele ja koolijuhtidele. Esimene testimine aitas täpsustada
-            töövoogu ja mobiilikasutust.
-          </p>
-        </section>
-
-        {/* SIHTRÜHM */}
-        <section className="mb-24 md:mb-32">
-          <SectionEyebrow>Sihtrühm</SectionEyebrow>
-          <h2 className="text-[28px] md:text-[40px] font-semibold tracking-tight leading-[1.1] max-w-3xl">
-            Kellele see väärtust loob?
-          </h2>
-
-          <div className="grid md:grid-cols-2 gap-4 md:gap-6 mt-10">
-            {[
-              { icon: <Users className="size-5" />, title: "Pere", text: "Saab aru, mida kool vajab ja miks otsus tehti.", tone: "primary" },
-              { icon: <ShieldCheck className="size-5" />, title: "Treener / huvikool", text: "Kinnitab tegeliku tegevuse, mitte ei otsusta kooli eest.", tone: "accent" },
-              { icon: <GraduationCap className="size-5" />, title: "Õpetaja", text: "Saab tõendid ja õppekava seosed enne otsust ühte vaatesse.", tone: "primary" },
-              { icon: <Building2 className="size-5" />, title: "Koolijuht / koolipidaja", text: "Näeb korduvaid mustreid ja saab luua ühtse praktika.", tone: "success" },
-            ].map((c) => {
-              const bg =
-                c.tone === "accent" ? "bg-accent-subtle text-accent"
-                : c.tone === "success" ? "bg-success-subtle text-success"
-                : "bg-primary-subtle text-primary";
-              return (
-                <div key={c.title} className="rounded-[20px] bg-card border border-border/60 p-6 md:p-7 shadow-sm">
-                  <div className={`size-11 rounded-xl ${bg} flex items-center justify-center mb-5`}>{c.icon}</div>
-                  <h3 className="text-lg font-semibold tracking-tight mb-2">{c.title}</h3>
-                  <p className="text-[15px] text-foreground/70 leading-relaxed">{c.text}</p>
-                </div>
-              );
-            })}
-          </div>
-
-          <div className="mt-8 rounded-[20px] bg-success-subtle border border-success/20 p-6 md:p-7">
-            <p className="text-base md:text-lg text-success font-medium leading-relaxed">
-              Esimene klient: kool või koolipidaja.
-            </p>
-            <p className="mt-2 text-[14.5px] text-foreground/70 leading-relaxed">
-              Partnerid: huvikoolid, spordiklubid, eKool, Stuudium, KOV süsteemid.
-            </p>
-          </div>
-        </section>
-
-        {/* PILOOT */}
-        <section className="mb-24 md:mb-32">
-          <SectionEyebrow>Äriloogika · Piloot</SectionEyebrow>
-          <h2 className="text-[28px] md:text-[40px] font-semibold tracking-tight leading-[1.1] max-w-3xl">
-            Esimene realistlik piloot
-          </h2>
-
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 mt-10">
-            {["Üks kool", "Üks klass", "Üks aine", "Üks õppimise liik"].map((l) => (
-              <div key={l} className="rounded-[20px] bg-card border border-border/60 p-5 md:p-6 shadow-sm text-center">
-                <div className="text-base md:text-lg font-semibold tracking-tight text-foreground">{l}</div>
-              </div>
+      {/* Bottom nav */}
+      <nav className="fixed bottom-0 inset-x-0 z-30 bg-background/90 backdrop-blur border-t border-border/50">
+        <div className="max-w-5xl mx-auto px-5 sm:px-8 py-3 flex items-center justify-between gap-3">
+          <Button
+            variant="outline"
+            onClick={prev}
+            disabled={i === 0}
+            className="rounded-full"
+          >
+            <ArrowLeft className="size-4" /> Tagasi
+          </Button>
+          <div className="hidden sm:flex gap-1.5">
+            {SLIDES.map((_, idx) => (
+              <button
+                key={idx}
+                onClick={() => setI(idx)}
+                aria-label={`Slaid ${idx + 1}`}
+                className={`size-2 rounded-full transition-all ${
+                  idx === i ? "bg-foreground w-6" : "bg-border hover:bg-muted-foreground/40"
+                }`}
+              />
             ))}
           </div>
-
-          <div className="mt-6 rounded-[20px] bg-card border border-border/60 p-6 md:p-7 shadow-sm max-w-2xl">
-            <div className="text-[11px] font-semibold tracking-[0.2em] uppercase text-muted-foreground mb-3">Näide</div>
-            <p className="text-[15px] md:text-base text-foreground/85 leading-relaxed">
-              Spordikool → kehaline kasvatus.
-            </p>
-            <p className="mt-2 text-[14.5px] text-foreground/70 leading-relaxed">
-              Lisavaade: eestikeelne trenn kui eesti keele praktilise kasutuse toetav tõend.
-            </p>
-          </div>
-
-          <div className="mt-8 max-w-2xl">
-            <div className="text-[11px] font-semibold tracking-[0.2em] uppercase text-muted-foreground mb-4">Mida mõõdame</div>
-            <ul className="space-y-3 text-[15px] text-foreground/80">
-              {[
-                "Kui kaua võtab ühe otsuse ettevalmistamine",
-                "Kas õpetaja peab vähem infot käsitsi koguma",
-                "Kas pere saab otsusest aru",
-                "Kas tõendid on piisavad",
-                "Kas koolijuht näeb korduvat mustrit",
-              ].map((m) => (
-                <li key={m} className="flex items-start gap-3">
-                  <span className="mt-2 size-1.5 rounded-full bg-primary shrink-0" />
-                  <span className="leading-relaxed">{m}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </section>
-
-        {/* LÕPP */}
-        <section className="mb-16">
-          <div className="rounded-[24px] bg-foreground text-background p-7 md:p-14 relative overflow-hidden">
-            <div className="absolute -top-16 -right-16 size-64 rounded-full bg-accent/15 blur-2xl pointer-events-none" aria-hidden="true" />
-            <div className="absolute bottom-0 right-1/3 size-40 rounded-full bg-primary/20 blur-2xl pointer-events-none" aria-hidden="true" />
-            <div className="relative max-w-3xl">
-              <h2 className="text-[30px] md:text-[46px] font-semibold tracking-tight leading-[1.1]">
-                Me ei lisa õppimist juurde.<br />
-                <span className="text-background/70">Me teeme juba toimunu koolile nähtavaks.</span>
-              </h2>
-              <ul className="mt-8 space-y-3 text-lg md:text-xl text-background/85">
-                <li>· Tõendid kokku.</li>
-                <li>· Seosed nähtavaks.</li>
-                <li>· Otsus koolile.</li>
-              </ul>
-              <p className="mt-10 text-[13px] font-semibold tracking-[0.22em] uppercase text-background/60">
-                AI teeb eeltöö · Kool otsustab
-              </p>
-
-              <div className="mt-8 flex flex-wrap gap-3">
-                <Button asChild size="lg" className="bg-background text-foreground hover:bg-background/90 h-12 px-6 text-[15px] rounded-xl">
-                  <Link to="/">
-                    Vaata demot <ArrowRight className="size-4 ml-1" />
-                  </Link>
-                </Button>
-                <Button asChild variant="outline" size="lg" className="border-background/30 bg-transparent text-background hover:bg-background/10 h-12 px-6 text-[15px] rounded-xl">
-                  <Link to="/">
-                    <ArrowLeft className="size-4 mr-1" /> Avalehele
-                  </Link>
-                </Button>
-              </div>
-            </div>
-          </div>
-        </section>
-      </main>
+          <Button
+            onClick={next}
+            disabled={i === total - 1}
+            className="rounded-full"
+          >
+            Järgmine <ArrowRight className="size-4" />
+          </Button>
+        </div>
+      </nav>
     </div>
   );
-};
-
-export default Pitch;
+}
