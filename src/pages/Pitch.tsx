@@ -447,7 +447,11 @@ export default function Pitch() {
       </header>
 
       {/* Slide */}
-      <main className="pb-28">
+      <main
+        className="pb-28 select-none"
+        onTouchStart={onTouchStart}
+        onTouchEnd={onTouchEnd}
+      >
         <Current />
       </main>
 
