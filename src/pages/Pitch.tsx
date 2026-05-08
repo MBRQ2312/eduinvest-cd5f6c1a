@@ -450,70 +450,76 @@ const Slide8 = () => (
 /* 9 — Kasu */
 const Slide9 = () => (
   <SlideShell>
-    <Eyebrow>Käega katsutav kasu</Eyebrow>
-    <Title>Mida kool päriselt võidab?</Title>
+    <Eyebrow>Mõju potentsiaal</Eyebrow>
+    <Title>Mida me mõõdame?</Title>
 
-    <div className="mt-8 grid md:grid-cols-2 gap-4">
+    <div className="mt-6 grid md:grid-cols-3 gap-3">
       <Card>
-        <div className="flex items-center gap-2 mb-3">
-          <Clock className="size-5" style={{ color: C.teal }} />
-          <div className="font-semibold" style={{ color: C.text }}>Üks juhtum</div>
-        </div>
-        <div className="space-y-1.5 text-sm" style={{ color: C.text }}>
-          <div>Täna hinnanguliselt <strong>25–40 min</strong> käsitsi eeltööd.</div>
-          <div>Piloodis mõõdame eesmärki: <strong>5–10 min</strong>.</div>
-          <div className="pt-2 mt-2 border-t" style={{ borderColor: C.border, color: C.green }}>
-            <strong>Võit: ~20–30 min õpetaja aega.</strong>
-          </div>
-        </div>
+        <div className="text-xs uppercase tracking-wide" style={{ color: "#6B7280" }}>I aste</div>
+        <div className="text-2xl font-semibold mt-1" style={{ color: C.text }}>43 740</div>
+        <div className="text-xs" style={{ color: "#6B7280" }}>õppijat</div>
       </Card>
-
       <Card>
-        <div className="flex items-center gap-2 mb-3">
-          <Building2 className="size-5" style={{ color: C.green }} />
-          <div className="font-semibold" style={{ color: C.text }}>Üks kool</div>
-        </div>
-        <div className="text-sm" style={{ color: C.text }}>
-          30 sarnast juhtumit aastas =
-          <div className="text-xl sm:text-2xl font-semibold mt-2" style={{ color: C.green }}>
-            ~10–15 tundi
-          </div>
-          <div className="text-xs" style={{ color: "#6B7280" }}>õpetaja tööaega</div>
-        </div>
+        <div className="text-xs uppercase tracking-wide" style={{ color: "#6B7280" }}>II aste</div>
+        <div className="text-2xl font-semibold mt-1" style={{ color: C.text }}>43 570</div>
+        <div className="text-xs" style={{ color: "#6B7280" }}>õppijat</div>
       </Card>
-
-      <Card bg={`${C.purple}0D`} border={`${C.purple}40`}>
-        <div className="flex items-center gap-2 mb-3">
-          <Globe className="size-5" style={{ color: C.purple }} />
-          <div className="font-semibold" style={{ color: C.text }}>Koolipidaja / KOV</div>
-        </div>
-        <div className="text-sm" style={{ color: C.text }}>
-          20 kooli =
-          <div className="text-xl sm:text-2xl font-semibold mt-2" style={{ color: C.purple }}>
-            ~200–300 tundi
-          </div>
-          <div className="text-xs" style={{ color: "#6B7280" }}>tööaega aastas</div>
-        </div>
-      </Card>
-
-      <Card bg={`${C.lime}25`} border={`${C.lime}80`}>
-        <div className="flex items-center gap-2 mb-3">
-          <Coins className="size-5" style={{ color: C.green }} />
-          <div className="font-semibold" style={{ color: C.text }}>Rahaline hüpotees</div>
-        </div>
-        <div className="text-sm space-y-1.5" style={{ color: C.text }}>
-          <div>Õpetaja tööaja kogukulu <strong>25–35 €/h</strong>:</div>
-          <div>• üks kool: <strong>~250–525 €/a</strong></div>
-          <div>• 20 kooli: <strong>~5 000–10 500 €/a</strong></div>
-        </div>
+      <Card>
+        <div className="text-xs uppercase tracking-wide" style={{ color: "#6B7280" }}>III aste</div>
+        <div className="text-2xl font-semibold mt-1" style={{ color: C.text }}>46 730</div>
+        <div className="text-xs" style={{ color: "#6B7280" }}>õppijat</div>
       </Card>
     </div>
 
-    <div className="mt-5 flex items-start gap-2 rounded-xl p-3"
+    <div className="mt-3 grid md:grid-cols-2 gap-3">
+      <Card>
+        <div className="flex items-center gap-2">
+          <Building2 className="size-4" style={{ color: C.teal }} />
+          <div className="text-sm" style={{ color: C.text }}>Põhikool I–III aste kokku</div>
+        </div>
+        <div className="text-2xl font-semibold mt-1" style={{ color: C.teal }}>~134 000 õppijat</div>
+      </Card>
+      <Card>
+        <div className="flex items-center gap-2">
+          <Clock className="size-4" style={{ color: C.teal }} />
+          <div className="text-sm" style={{ color: C.text }}>Üldhariduskoolide õpetajad</div>
+        </div>
+        <div className="text-2xl font-semibold mt-1" style={{ color: C.teal }}>17 390</div>
+      </Card>
+    </div>
+
+    <div className="mt-4 rounded-2xl p-4" style={{ background: `${C.purple}0D`, border: `1px solid ${C.purple}40` }}>
+      <div className="text-xs uppercase tracking-wide font-semibold" style={{ color: C.purple }}>Meie hüpotees</div>
+      <p className="text-sm mt-1" style={{ color: C.text }}>
+        Osa õppija koolipäevast võib kuluda oskuste või õpitulemuste kordamisele,
+        mida ta on juba <strong>koolivälises keskkonnas</strong> juhendatud õppinud.
+      </p>
+    </div>
+
+    <div className="mt-3 grid md:grid-cols-2 gap-3">
+      <Card bg={`${C.lime}25`} border={`${C.lime}80`}>
+        <div className="text-xs uppercase tracking-wide" style={{ color: "#6B7280" }}>Kui dubleerimine 10%</div>
+        <div className="text-2xl font-semibold mt-1" style={{ color: C.text }}>~9–10 mln</div>
+        <div className="text-xs" style={{ color: "#6B7280" }}>õpilas-õppetundi aastas</div>
+      </Card>
+      <Card bg={`${C.lime}25`} border={`${C.lime}80`}>
+        <div className="text-xs uppercase tracking-wide" style={{ color: "#6B7280" }}>Kui dubleerimine 30%</div>
+        <div className="text-2xl font-semibold mt-1" style={{ color: C.text }}>~29 mln</div>
+        <div className="text-xs" style={{ color: "#6B7280" }}>õpilas-õppetundi aastas</div>
+      </Card>
+    </div>
+
+    <div className="mt-4 rounded-xl p-3 text-sm" style={{ background: `${C.teal}10`, borderLeft: `3px solid ${C.teal}`, color: C.text }}>
+      See ei ole lubatud rahaline kokkuhoid. See on märk sellest, kui suur võib olla
+      <strong> nähtamatu ajaressurss</strong>, mida täna ei mõõdeta ega juhita.
+    </div>
+
+    <div className="mt-3 flex items-start gap-2 rounded-xl p-3"
       style={{ background: `${C.orange}15`, borderLeft: `3px solid ${C.orange}` }}>
       <AlertCircle className="size-4 mt-0.5 shrink-0" style={{ color: C.orange }} />
       <p className="text-xs sm:text-sm" style={{ color: C.text }}>
-        Need on <strong>piloodis kontrollitavad hüpoteesid</strong>, mitte lubatud kokkuhoid.
+        Piloodis mõõdame väikest ja kontrollitavat osa: kas ühe arvestusotsuse ettevalmistus
+        väheneb õpetaja jaoks <strong>25–40 minutilt 5–10 minutile</strong>.
       </p>
     </div>
   </SlideShell>
