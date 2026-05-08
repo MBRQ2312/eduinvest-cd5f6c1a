@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { ArrowDown, ArrowRight, Users, GraduationCap, Building2, Sparkles, Trophy, School, Palette, HeartHandshake, ClipboardCheck, LayoutDashboard } from "lucide-react";
+import { ArrowDown, ArrowRight, Users, GraduationCap, Building2, Sparkles, Trophy, School, Palette, Lightbulb, Layers, Telescope } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Accordion,
@@ -251,19 +251,19 @@ const Index = () => {
           <div className="grid md:grid-cols-3 gap-3">
             {[
               {
-                icon: <HeartHandshake className="size-[18px]" strokeWidth={1.75} />,
+                icon: <Lightbulb className="size-[18px]" strokeWidth={1.75} />,
                 title: "Perele",
                 text: "Selge, mida kool vajab ja miks otsus selline tuli.",
                 tone: "primary",
               },
               {
-                icon: <ClipboardCheck className="size-[18px]" strokeWidth={1.75} />,
+                icon: <Layers className="size-[18px]" strokeWidth={1.75} />,
                 title: "Õpetajale",
                 text: "Tõendid ja võimalikud õppekava seosed on enne otsust koondatud.",
                 tone: "accent",
               },
               {
-                icon: <LayoutDashboard className="size-[18px]" strokeWidth={1.75} />,
+                icon: <Telescope className="size-[18px]" strokeWidth={1.75} />,
                 title: "Koolijuhile",
                 text: "Korduvad juhtumid muutuvad nähtavaks ja ühtseks praktikaks.",
                 tone: "success",
