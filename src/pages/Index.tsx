@@ -128,10 +128,6 @@ const Index = () => {
               ))}
             </div>
 
-            <p className="mt-6 text-[15px] md:text-base text-foreground/70 leading-relaxed max-w-xl">
-              AI ei otsusta, ei anna hinnet ega vabasta tunnist. AI aitab tõendid ja
-              õppekava seosed õpetajale nähtavaks teha.
-            </p>
 
             <div className="mt-7 flex flex-wrap gap-3">
               <Button
