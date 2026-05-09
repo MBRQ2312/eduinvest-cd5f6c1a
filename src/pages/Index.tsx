@@ -229,7 +229,7 @@ const PillarMood = ({ mood }: { mood: PillarSectionProps["mood"] }) => {
 };
 
 const PillarSection = ({
-  id, index, label, tagline, statement, icon, outcomes, variant, mood,
+  id, index, label, tagline, statement, icon, outcomes = [], variant, mood,
 }: PillarSectionProps) => {
   const isDark = variant === "dark";
   return (
