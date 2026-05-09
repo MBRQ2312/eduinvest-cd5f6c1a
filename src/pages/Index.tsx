@@ -229,7 +229,7 @@ const PillarMood = ({ mood }: { mood: PillarSectionProps["mood"] }) => {
 };
 
 const PillarSection = ({
-  id, index, label, tagline, statement, bullets, variant, mood,
+  id, index, label, tagline, statement, icon, outcomes, variant, mood,
 }: PillarSectionProps) => {
   const isDark = variant === "dark";
   return (
@@ -242,17 +242,26 @@ const PillarSection = ({
       <PillarMood mood={mood} />
       <div className="relative max-w-[1180px] mx-auto px-5 md:px-8 py-20 md:py-28">
         <div className="grid lg:grid-cols-12 gap-10 items-start">
-          <div className="lg:col-span-7">
-            <div className={`text-[11px] font-semibold tracking-[0.28em] mb-4 ${
-              isDark ? "text-[#00D5D5]" : "text-[#6D4DFF]"
-            }`}>
-              0{index} · {label}
+          <div className="lg:col-span-6">
+            <div className="flex items-center gap-4 mb-6">
+              <div className={`size-16 md:size-20 rounded-2xl flex items-center justify-center ${
+                isDark ? "bg-white/5 border border-white/10" : "bg-white border border-border shadow-sm"
+              }`}>
+                <img src={icon} alt={`${label} ikoon`} className="h-12 md:h-14 w-auto object-contain" />
+              </div>
+              <div>
+                <div className={`text-[11px] font-semibold tracking-[0.28em] ${
+                  isDark ? "text-[#00D5D5]" : "text-[#6D4DFF]"
+                }`}>
+                  0{index} · {label}
+                </div>
+                <p className={`text-[12px] tracking-[0.18em] uppercase font-semibold mt-1 ${
+                  isDark ? "text-white/55" : "text-muted-foreground"
+                }`}>
+                  {tagline}
+                </p>
+              </div>
             </div>
-            <p className={`text-[13px] tracking-[0.18em] uppercase font-semibold mb-5 ${
-              isDark ? "text-white/55" : "text-muted-foreground"
-            }`}>
-              {tagline}
-            </p>
             <h2 className={`text-3xl md:text-5xl font-semibold tracking-tight leading-[1.08] ${
               isDark ? "text-white" : "text-foreground"
             }`}>
@@ -260,29 +269,46 @@ const PillarSection = ({
             </h2>
           </div>
 
-          <div className="lg:col-span-5">
-            <ul className="space-y-2.5">
-              {bullets.map((b, i) => (
-                <li
-                  key={b}
-                  className={`flex items-start gap-3 rounded-xl px-4 py-3 border ${
+          <div className="lg:col-span-6">
+            <div className={`text-[11px] font-semibold tracking-[0.22em] uppercase mb-4 ${
+              isDark ? "text-white/50" : "text-muted-foreground"
+            }`}>
+              Nähtavad tulemused
+            </div>
+            <div className="grid sm:grid-cols-2 gap-3">
+              {outcomes.map((o, i) => (
+                <div
+                  key={o.role + o.label}
+                  className={`relative rounded-2xl p-5 border overflow-hidden ${
                     isDark
-                      ? "glass-dark border-white/10 text-white/85"
-                      : "bg-white border-border text-foreground/85"
+                      ? "glass-dark border-white/10"
+                      : "bg-white border-border shadow-sm"
                   }`}
-                  style={{ animationDelay: `${i * 0.05}s` }}
                 >
-                  <span
-                    className="mt-1 size-1.5 rounded-full shrink-0"
+                  <div
+                    className="absolute top-0 left-0 right-0 h-[2px]"
                     style={{
-                      background: i % 2 === 0 ? "#00D5D5" : "#6D4DFF",
-                      boxShadow: `0 0 10px ${i % 2 === 0 ? "#00D5D5" : "#6D4DFF"}`,
+                      background: i % 2 === 0
+                        ? "linear-gradient(90deg, #00D5D5, #6D4DFF)"
+                        : "linear-gradient(90deg, #6D4DFF, #00D5D5)",
                     }}
                   />
-                  <span className="text-[14px] leading-snug">{b}</span>
-                </li>
+                  <div className={`text-[10.5px] font-bold tracking-[0.22em] uppercase mb-2 ${
+                    isDark ? "text-[#7CE8E8]" : "text-[#6D4DFF]"
+                  }`}>
+                    {o.role}
+                  </div>
+                  <div className="text-2xl md:text-3xl font-semibold tabular tracking-tight text-gradient-brand leading-none">
+                    {o.metric}
+                  </div>
+                  <div className={`mt-2 text-[13px] leading-snug ${
+                    isDark ? "text-white/75" : "text-foreground/80"
+                  }`}>
+                    {o.label}
+                  </div>
+                </div>
               ))}
-            </ul>
+            </div>
           </div>
         </div>
       </div>
