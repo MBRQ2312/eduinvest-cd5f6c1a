@@ -51,7 +51,7 @@ const Title = ({ children }: { children: React.ReactNode }) => (
 );
 
 const Lead = ({ children }: { children: React.ReactNode }) => (
-  <p className="text-base sm:text-xl leading-relaxed mt-4" style={{ color: "#4B5563" }}>
+  <p className="text-base sm:text-xl leading-relaxed mt-4" style={{ color: C.muted }}>
     {children}
   </p>
 );
@@ -122,7 +122,7 @@ const Slide2 = () => {
             <div className="font-semibold text-base sm:text-lg" style={{ color: C.text }}>
               {c.t} {c.lead && <span className="text-xs font-medium ml-2" style={{ color: c.c }}>· peategelane</span>}
             </div>
-            <p className="text-sm mt-2" style={{ color: "#4B5563" }}>{c.d}</p>
+            <p className="text-sm mt-2" style={{ color: C.muted }}>{c.d}</p>
           </Card>
         ))}
       </div>
@@ -149,7 +149,7 @@ const Slide3 = () => {
             <div className="size-10 rounded-full flex items-center justify-center mb-3"
               style={{ background: `${C.green}12`, color: C.green }}>{c.i}</div>
             <div className="font-semibold text-base" style={{ color: C.text }}>{c.t}</div>
-            <p className="text-sm mt-2" style={{ color: "#4B5563" }}>{c.d}</p>
+            <p className="text-sm mt-2" style={{ color: C.muted }}>{c.d}</p>
           </Card>
         ))}
       </div>
@@ -178,7 +178,7 @@ const Slide4 = () => (
           <div key={s.n} className="relative mb-5 last:mb-0">
             <span className="absolute -left-[22px] top-1.5 size-4 rounded-full ring-4"
               style={{ background: s.color, boxShadow: `0 0 0 4px ${C.cardBg}` }} />
-            <div className="text-[11px] font-mono" style={{ color: "#6B7280" }}>{s.n}</div>
+            <div className="text-[11px] font-mono" style={{ color: C.mutedSoft }}>{s.n}</div>
             <div className="text-base sm:text-lg font-medium" style={{ color: C.text }}>{s.t}</div>
           </div>
         ))}
@@ -269,7 +269,7 @@ const Slide6 = () => (
           ["Huvikooli töö nähtamatu", "Tõendatud ja arvestatav"],
         ].map(([a, b], i) => (
           <div key={i} className="contents">
-            <div className="p-4 sm:p-5 border-t" style={{ borderColor: C.border, color: "#4B5563" }}>{a}</div>
+            <div className="p-4 sm:p-5 border-t" style={{ borderColor: C.border, color: C.muted }}>{a}</div>
             <div className="p-4 sm:p-5 border-t" style={{ borderColor: C.border, color: C.text, background: `${C.green}06` }}>{b}</div>
           </div>
         ))}
@@ -288,21 +288,21 @@ const Slide7 = () => (
       <Card bg={`${C.lime}20`} border={`${C.lime}80`}>
         <Eyebrow color={C.green}>Õpetaja aeg</Eyebrow>
         <div className="text-2xl font-semibold" style={{ color: C.text }}>~15 h / kuus</div>
-        <p className="text-xs mt-2" style={{ color: "#4B5563" }}>
+        <p className="text-xs mt-2" style={{ color: C.muted }}>
           Ühe arvestusotsuse eeltöö 25–40 min → 5–10 min ühes pilootkoolis.
         </p>
       </Card>
       <Card bg={`${C.lime}20`} border={`${C.lime}80`}>
         <Eyebrow color={C.green}>Tunniplaani õhk</Eyebrow>
         <div className="text-2xl font-semibold" style={{ color: C.text }}>3–6 slotti</div>
-        <p className="text-xs mt-2" style={{ color: "#4B5563" }}>
+        <p className="text-xs mt-2" style={{ color: C.muted }}>
           Korduvate ainete grupeerimine vabastab tunde valikainetele.
         </p>
       </Card>
       <Card bg={`${C.lime}20`} border={`${C.lime}80`}>
         <Eyebrow color={C.green}>Huvihariduse väärtus</Eyebrow>
         <div className="text-2xl font-semibold" style={{ color: C.text }}>nähtav</div>
-        <p className="text-xs mt-2" style={{ color: "#4B5563" }}>
+        <p className="text-xs mt-2" style={{ color: C.muted }}>
           Huvikoolide töö muutub mõõdetavaks ja kooli jaoks arvestatavaks.
         </p>
       </Card>
@@ -317,7 +317,7 @@ const Slide7 = () => (
       ].map((b) => (
         <Card key={b.t} bg={C.subtle}>
           <div className="font-semibold text-sm" style={{ color: C.text }}>{b.t}</div>
-          <div className="text-xs mt-1.5" style={{ color: "#4B5563" }}>{b.d}</div>
+          <div className="text-xs mt-1.5" style={{ color: C.muted }}>{b.d}</div>
         </Card>
       ))}
     </div>
@@ -430,7 +430,7 @@ const Pitch = () => {
               </button>
             ))}
           </div>
-          <div className="text-xs font-mono tabular-nums hidden sm:block" style={{ color: "#6B7280" }}>
+          <div className="text-xs font-mono tabular-nums hidden sm:block" style={{ color: C.mutedSoft }}>
             {i + 1} / {total}
           </div>
         </div>
