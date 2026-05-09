@@ -57,8 +57,16 @@ const Header = () => (
         <a href="#voimalused" className="px-3 py-1.5 rounded-lg hover:text-white hover:bg-white/5">Võimalused</a>
         <a href="#ruum" className="px-3 py-1.5 rounded-lg hover:text-white hover:bg-white/5">Ruum</a>
         <Link
+          to="/pitch"
+          title="Pitch"
+          aria-label="Ava pitch"
+          className="ml-2 p-1.5 rounded-lg text-white/70 hover:text-white hover:bg-white/5 transition"
+        >
+          <Presentation className="size-4" />
+        </Link>
+        <Link
           to="/demo"
-          className="ml-2 px-3.5 py-1.5 rounded-lg bg-gradient-brand text-white text-[13px] font-medium"
+          className="ml-1 px-3.5 py-1.5 rounded-lg bg-gradient-brand text-white text-[13px] font-medium"
         >
           Käivita demo
         </Link>
