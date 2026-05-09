@@ -7,6 +7,8 @@ import {
   MapPin, Activity, CalendarRange, FileCheck, Award, Database,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Hourglass } from "@/components/Hourglass";
+import { PILLARS } from "@/components/PillarIcons";
 
 /* ========== Brand palette (unified with landing) ========== */
 const C = {
