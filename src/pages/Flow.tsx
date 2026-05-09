@@ -7,18 +7,20 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-/* ===== Brand palette — EduInvest unified ===== */
+/* ===== Brand palette — EduInvest dark unified ===== */
 const C = {
-  bg: "#FFFFFF",
-  text: "#0B1220",
-  green: "#00BFBF",   // deep teal (sama mis landing accent)
-  teal: "#00BFBF",    // primary accent
-  purple: "#6D4DFF",  // brand purple
-  lime: "#00D5D5",    // brand cyan
-  orange: "#E07A3C",  // hoiatus / puuduv
-  cardBg: "#FFFFFF",
-  subtle: "#F1F5F9",
-  border: "#E2E8F0",
+  bg: "#0D1020",          // dark navy hero
+  text: "#FFFFFF",
+  green: "#00D5D5",       // teal (sama mis brändilogo)
+  teal: "#00D5D5",
+  purple: "#6D4DFF",      // brändi lilla
+  lime: "#7CE8E8",        // hele cyan aktsent
+  orange: "#F2A66B",      // hoiatus / puuduv
+  cardBg: "#141833",      // glass-dark sarnane pind
+  subtle: "#1A1F3D",
+  border: "#2A2F52",
+  muted: "#B8BED1",       // body text dark bg peal
+  mutedSoft: "#8A91AB",   // sekundaarne tekst
 } as const;
 
 type StepId = 0 | 1 | 2 | 3;
