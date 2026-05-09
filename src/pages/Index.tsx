@@ -29,6 +29,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Hourglass, ParticleField } from "@/components/Hourglass";
+import brandBoard from "@/assets/eduinvest-brand.jpg";
 
 /* ---------------- HEADER ---------------- */
 const Header = () => (
@@ -46,10 +47,10 @@ const Header = () => (
         </div>
       </Link>
       <nav className="hidden md:flex items-center gap-1 text-[13px] text-white/70">
-        <a href="#probleem" className="px-3 py-1.5 rounded-lg hover:text-white hover:bg-white/5">Probleem</a>
-        <a href="#demo" className="px-3 py-1.5 rounded-lg hover:text-white hover:bg-white/5">Demo</a>
-        <a href="#juht" className="px-3 py-1.5 rounded-lg hover:text-white hover:bg-white/5">Koolijuht</a>
-        <a href="#valideerimine" className="px-3 py-1.5 rounded-lg hover:text-white hover:bg-white/5">Valideerimine</a>
+        <a href="#aeg" className="px-3 py-1.5 rounded-lg hover:text-white hover:bg-white/5">Aeg</a>
+        <a href="#tark-kasutus" className="px-3 py-1.5 rounded-lg hover:text-white hover:bg-white/5">Tark kasutus</a>
+        <a href="#voimalused" className="px-3 py-1.5 rounded-lg hover:text-white hover:bg-white/5">Võimalused</a>
+        <a href="#ruum" className="px-3 py-1.5 rounded-lg hover:text-white hover:bg-white/5">Ruum</a>
         <Link
           to="/demo"
           className="ml-2 px-3.5 py-1.5 rounded-lg bg-gradient-brand text-white text-[13px] font-medium"
@@ -61,155 +62,305 @@ const Header = () => (
   </header>
 );
 
-/* ---------------- HERO ---------------- */
+/* ---------------- HERO (brand board as centerpiece) ---------------- */
+const PILLARS = [
+  {
+    id: "aeg",
+    label: "AEG",
+    line: "Aeg on piiratud ressurss.",
+  },
+  {
+    id: "tark-kasutus",
+    label: "TARK KASUTUS",
+    line: "Targad valikud loovad väärtust.",
+  },
+  {
+    id: "voimalused",
+    label: "VÕIMALUSED",
+    line: "Iga hetk investeerituna toob rohkem võimalusi.",
+  },
+  {
+    id: "ruum",
+    label: "RUUM",
+    line: "Vabaneb ruum kasvuks ja arenguks.",
+  },
+] as const;
+
 const Hero = () => (
   <section className="relative bg-hero-dark overflow-hidden">
     <ParticleField density={36} />
-    <div className="relative max-w-[1180px] mx-auto px-5 md:px-8 pt-16 md:pt-24 pb-20 md:pb-28 text-center">
-      <div className="flex justify-center mb-8 animate-fade-up">
-        <div className="relative">
-          <div className="absolute inset-0 blur-3xl bg-gradient-brand opacity-30 rounded-full" />
-          <div className="relative">
-            <Hourglass size={104} />
-          </div>
+    <div className="relative max-w-[1180px] mx-auto px-5 md:px-8 pt-12 md:pt-16 pb-16 md:pb-20 text-center">
+      {/* Brand board image — sacred, untouched */}
+      <div className="flex justify-center animate-fade-up">
+        <div className="relative w-full max-w-[640px]">
+          <div className="absolute inset-0 blur-3xl bg-gradient-brand opacity-25 rounded-full" />
+          <img
+            src={brandBoard}
+            alt="EduInvest — Aeg loob ruumi. Aeg, Tark kasutus, Võimalused, Ruum."
+            className="relative w-full h-auto rounded-3xl border border-white/10 shadow-[0_30px_80px_-20px_rgba(109,77,255,0.55)]"
+          />
         </div>
       </div>
 
-      <div
-        className="inline-flex items-center gap-2 px-3 py-1 rounded-full glass-dark text-[11px] tracking-[0.22em] uppercase text-white/70 font-semibold mb-6 animate-fade-up"
-        style={{ animationDelay: "0.05s" }}
-      >
-        <span className="size-1.5 rounded-full bg-[#00D5D5] animate-glow-pulse" />
-        EduInvest · LearnOnce
-      </div>
-
-      <h1
-        className="text-[34px] sm:text-5xl md:text-6xl lg:text-7xl font-semibold tracking-tight text-white leading-[1.05] max-w-4xl mx-auto animate-fade-up"
-        style={{ animationDelay: "0.1s" }}
-      >
-        Kool ei vaja rohkem dubleerimist.
-        <br />
-        <span className="text-gradient-brand">Ta vajab rohkem ruumi.</span>
-      </h1>
-
       <p
-        className="mt-6 md:mt-7 text-[16px] md:text-xl text-white/70 max-w-2xl mx-auto leading-relaxed animate-fade-up"
-        style={{ animationDelay: "0.2s" }}
+        className="mt-8 text-[15px] md:text-lg text-white/75 max-w-xl mx-auto leading-relaxed animate-fade-up"
+        style={{ animationDelay: "0.15s" }}
       >
-        EduInvest aitab koolil näha juba toimunud õppimist, et vähendada käsitööd,
-        õppija ülekoormust ja topeltõpetamist.
+        Kooliväline õppimine kooli vaatesse.
       </p>
 
       <div
-        className="mt-8 flex flex-wrap justify-center gap-2.5 animate-fade-up"
-        style={{ animationDelay: "0.3s" }}
+        className="mt-7 flex flex-col sm:flex-row gap-3 justify-center animate-fade-up"
+        style={{ animationDelay: "0.25s" }}
       >
-        {[
-          { t: "Õpi targemalt", i: <Sparkles className="size-3.5" /> },
-          { t: "Tõenda selgelt", i: <ShieldCheck className="size-3.5" /> },
-          { t: "Kool otsustab", i: <CheckCircle2 className="size-3.5" /> },
-        ].map((p) => (
-          <span
-            key={p.t}
-            className="pill-value inline-flex items-center gap-2 px-4 py-2 rounded-full text-[13px] font-medium"
-          >
-            {p.i}
-            {p.t}
-          </span>
-        ))}
-      </div>
-
-      <div
-        className="mt-8 mx-auto max-w-md glass-dark rounded-2xl px-4 py-3 flex items-center gap-3 animate-fade-up"
-        style={{ animationDelay: "0.4s" }}
-      >
-        <div className="size-9 shrink-0 rounded-xl bg-gradient-brand flex items-center justify-center">
-          <ShieldCheck className="size-4 text-white" />
-        </div>
-        <p className="text-[13px] text-white/85 text-left leading-snug">
-          <strong className="text-white">AI ei otsusta.</strong> Õpetaja ja kool otsustavad.
-        </p>
-      </div>
-
-      <div
-        className="mt-9 flex flex-col sm:flex-row gap-3 justify-center animate-fade-up"
-        style={{ animationDelay: "0.5s" }}
-      >
-        <Button asChild size="lg" className="rounded-xl bg-gradient-brand text-white hover:opacity-95 border-0 px-7 h-12 text-[15px] shadow-[0_18px_40px_-14px_rgba(109,77,255,0.6)]">
+        <Button
+          asChild
+          size="lg"
+          className="rounded-xl bg-gradient-brand text-white hover:opacity-95 border-0 px-7 h-12 text-[15px] shadow-[0_18px_40px_-14px_rgba(109,77,255,0.6)]"
+        >
           <Link to="/demo">
             Käivita demo
             <ArrowRight className="size-4 ml-1.5" />
           </Link>
         </Button>
-        <Button asChild size="lg" variant="outline" className="rounded-xl border-white/15 bg-white/5 text-white hover:bg-white/10 hover:text-white px-7 h-12 text-[15px]">
-          <a href="#demo">
-            Vaata otsustusvoogu
-          </a>
+        <Button
+          asChild
+          size="lg"
+          variant="outline"
+          className="rounded-xl border-white/15 bg-white/5 text-white hover:bg-white/10 hover:text-white px-7 h-12 text-[15px]"
+        >
+          <Link to="/flow">Vaata otsustusvoogu</Link>
         </Button>
       </div>
 
-      <p className="mt-10 text-[12px] tracking-[0.18em] uppercase text-white/40 font-semibold">
-        Aeg loob ruumi
-      </p>
+      {/* 4 clickable portals — same order as brand board */}
+      <div
+        className="mt-14 grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4 animate-fade-up"
+        style={{ animationDelay: "0.35s" }}
+      >
+        {PILLARS.map((p, i) => (
+          <a
+            key={p.id}
+            href={`#${p.id}`}
+            className="group relative text-left rounded-2xl glass-dark border border-white/10 p-5 hover:border-[#00D5D5]/40 hover:-translate-y-0.5 transition-smooth overflow-hidden"
+          >
+            <div className="absolute -inset-px rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity"
+              style={{ background: "linear-gradient(135deg, rgba(0,213,213,0.12), rgba(109,77,255,0.12))" }}
+            />
+            <div className="relative">
+              <div className="flex items-center justify-between mb-3">
+                <span className="text-[10px] tabular tracking-[0.22em] text-white/40 font-semibold">
+                  0{i + 1}
+                </span>
+                <ArrowRight className="size-4 text-white/40 group-hover:text-[#00D5D5] group-hover:translate-x-0.5 transition-all" />
+              </div>
+              <div className="text-[13px] tracking-[0.22em] font-bold text-gradient-brand mb-2">
+                {p.label}
+              </div>
+              <div className="text-[13px] text-white/70 leading-snug">{p.line}</div>
+            </div>
+          </a>
+        ))}
+      </div>
     </div>
   </section>
 );
 
-/* ---------------- PROBLEM ---------------- */
-const Problem = () => {
-  const items = [
-    { i: <Clock className="size-5" />, t: "Pikad koolipäevad", d: "Õppija päev venib õhtusse, ruumi taastumiseks jääb vähe." },
-    { i: <Users className="size-5" />, t: "Õpetajate ülekoormus", d: "Käsitöö ja korduv hindamine söövad pedagoogilist aega." },
-    { i: <Activity className="size-5" />, t: "Õppijate väsimus", d: "Sama oskust harjutatakse mitmel pool — motivatsioon kaob." },
-    { i: <UserMinus className="size-5" />, t: "Õpetajate puudus", d: "Vähem inimesi peab katma rohkem tunde ja rolle." },
-    { i: <Layers className="size-5" />, t: "Ressursi dubleerimine", d: "Kool, KOV ja huvikool maksavad sama tegevuse eest mitu korda." },
-    { i: <EyeOff className="size-5" />, t: "Kool ei näe koolivälist õppimist", d: "Treeningud, huvitegevus ja keelepraktika jäävad otsustest välja." },
-  ];
+/* ---------------- 4 PILLAR SECTIONS ---------------- */
+type PillarSectionProps = {
+  id: string;
+  index: number;
+  label: string;
+  tagline: string;
+  statement: string;
+  bullets: string[];
+  variant: "dark" | "light";
+  mood: "particles" | "nodes" | "expand" | "calm";
+};
+
+const PillarMood = ({ mood }: { mood: PillarSectionProps["mood"] }) => {
+  if (mood === "particles") return <ParticleField density={24} />;
+  if (mood === "calm")
+    return (
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        {[0, 1, 2, 3].map((i) => (
+          <div
+            key={i}
+            className="absolute rounded-full border border-[#00D5D5]/20 animate-glow-pulse"
+            style={{
+              width: `${200 + i * 140}px`,
+              height: `${200 + i * 140}px`,
+              right: `-${60 + i * 20}px`,
+              bottom: `-${60 + i * 20}px`,
+              animationDelay: `${i * 0.6}s`,
+            }}
+          />
+        ))}
+      </div>
+    );
+  if (mood === "expand")
+    return (
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        <div className="absolute -top-32 -right-20 size-[420px] rounded-full bg-[#6D4DFF]/25 blur-3xl" />
+        <div className="absolute bottom-0 -left-24 size-[380px] rounded-full bg-[#00D5D5]/25 blur-3xl" />
+      </div>
+    );
+  // nodes
   return (
-    <section id="probleem" className="relative bg-[#F7F8FA] border-t border-border">
-      <div className="max-w-[1180px] mx-auto px-5 md:px-8 py-20 md:py-28">
-        <div className="max-w-2xl">
-          <div className="text-[11px] font-semibold tracking-[0.22em] uppercase text-[#6D4DFF] mb-4">
-            Probleem
-          </div>
-          <h2 className="text-3xl md:text-5xl font-semibold tracking-tight text-foreground leading-[1.1]">
-            Miks see probleem enam oodata ei saa?
-          </h2>
-        </div>
+    <div className="absolute inset-0 pointer-events-none opacity-50">
+      <svg className="absolute inset-0 w-full h-full" preserveAspectRatio="none" viewBox="0 0 800 600">
+        <defs>
+          <linearGradient id="node-line" x1="0" x2="1">
+            <stop offset="0%" stopColor="#00D5D5" stopOpacity="0.6" />
+            <stop offset="100%" stopColor="#6D4DFF" stopOpacity="0.6" />
+          </linearGradient>
+        </defs>
+        {[
+          [120, 120, 380, 240], [380, 240, 660, 140], [380, 240, 280, 460],
+          [380, 240, 600, 460], [120, 120, 280, 460], [660, 140, 600, 460],
+        ].map(([x1, y1, x2, y2], i) => (
+          <line key={i} x1={x1} y1={y1} x2={x2} y2={y2} stroke="url(#node-line)" strokeWidth="1" />
+        ))}
+        {[[120, 120], [380, 240], [660, 140], [280, 460], [600, 460]].map(([cx, cy], i) => (
+          <circle key={i} cx={cx} cy={cy} r="5" fill="#00D5D5">
+            <animate attributeName="opacity" values="0.4;1;0.4" dur="3s" begin={`${i * 0.3}s`} repeatCount="indefinite" />
+          </circle>
+        ))}
+      </svg>
+    </div>
+  );
+};
 
-        <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {items.map((it, idx) => (
-            <div
-              key={it.t}
-              className="group relative rounded-2xl bg-white border border-border p-6 hover:shadow-elevated hover:-translate-y-0.5 transition-smooth"
-            >
-              <div
-                className="size-11 rounded-xl flex items-center justify-center mb-4 text-white"
-                style={{
-                  background:
-                    idx % 2 === 0
-                      ? "linear-gradient(135deg, #00D5D5, #008b9b)"
-                      : "linear-gradient(135deg, #6D4DFF, #4a2fcf)",
-                }}
-              >
-                {it.i}
-              </div>
-              <h3 className="text-[17px] font-semibold tracking-tight mb-1.5">{it.t}</h3>
-              <p className="text-[13.5px] text-muted-foreground leading-relaxed">{it.d}</p>
+const PillarSection = ({
+  id, index, label, tagline, statement, bullets, variant, mood,
+}: PillarSectionProps) => {
+  const isDark = variant === "dark";
+  return (
+    <section
+      id={id}
+      className={`relative overflow-hidden border-t ${
+        isDark ? "bg-hero-dark border-white/5" : "bg-[#F5F7FA] border-border"
+      }`}
+    >
+      <PillarMood mood={mood} />
+      <div className="relative max-w-[1180px] mx-auto px-5 md:px-8 py-20 md:py-28">
+        <div className="grid lg:grid-cols-12 gap-10 items-start">
+          <div className="lg:col-span-7">
+            <div className={`text-[11px] font-semibold tracking-[0.28em] mb-4 ${
+              isDark ? "text-[#00D5D5]" : "text-[#6D4DFF]"
+            }`}>
+              0{index} · {label}
             </div>
-          ))}
-        </div>
+            <p className={`text-[13px] tracking-[0.18em] uppercase font-semibold mb-5 ${
+              isDark ? "text-white/55" : "text-muted-foreground"
+            }`}>
+              {tagline}
+            </p>
+            <h2 className={`text-3xl md:text-5xl font-semibold tracking-tight leading-[1.08] ${
+              isDark ? "text-white" : "text-foreground"
+            }`}>
+              <span className="text-gradient-brand">{statement}</span>
+            </h2>
+          </div>
 
-        <div className="mt-12 rounded-2xl bg-gradient-to-r from-[#00D5D5]/10 via-white to-[#6D4DFF]/10 border border-border p-6 md:p-8">
-          <p className="text-[15px] md:text-lg text-foreground/85 max-w-3xl leading-relaxed">
-            <span className="text-gradient-brand font-semibold">Õppimine juba toimub.</span>{" "}
-            Kool lihtsalt ei näe seda otsuste tegemiseks piisavalt selgelt.
-          </p>
+          <div className="lg:col-span-5">
+            <ul className="space-y-2.5">
+              {bullets.map((b, i) => (
+                <li
+                  key={b}
+                  className={`flex items-start gap-3 rounded-xl px-4 py-3 border ${
+                    isDark
+                      ? "glass-dark border-white/10 text-white/85"
+                      : "bg-white border-border text-foreground/85"
+                  }`}
+                  style={{ animationDelay: `${i * 0.05}s` }}
+                >
+                  <span
+                    className="mt-1 size-1.5 rounded-full shrink-0"
+                    style={{
+                      background: i % 2 === 0 ? "#00D5D5" : "#6D4DFF",
+                      boxShadow: `0 0 10px ${i % 2 === 0 ? "#00D5D5" : "#6D4DFF"}`,
+                    }}
+                  />
+                  <span className="text-[14px] leading-snug">{b}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </div>
     </section>
   );
 };
+
+const Pillars = () => (
+  <>
+    <PillarSection
+      id="aeg"
+      index={1}
+      label="AEG"
+      tagline="Aeg on piiratud ressurss."
+      statement="Aeg on haridusruumi kõige piiratum ressurss."
+      bullets={[
+        "Õppijate ülekoormus",
+        "Õpetajate puudus",
+        "Pikad koolipäevad",
+        "Dubleeriv õppimine",
+        "Käsitööline otsustamine",
+      ]}
+      variant="dark"
+      mood="particles"
+    />
+    <PillarSection
+      id="tark-kasutus"
+      index={2}
+      label="TARK KASUTUS"
+      tagline="Targad valikud loovad väärtust."
+      statement="AI aitab näha. Kool otsustab."
+      bullets={[
+        "AI eelanalüüs",
+        "Tõendite koondamine",
+        "Õppekava seosed",
+        "Õpetaja otsus",
+        "Vähem käsitööd",
+      ]}
+      variant="light"
+      mood="nodes"
+    />
+    <PillarSection
+      id="voimalused"
+      index={3}
+      label="VÕIMALUSED"
+      tagline="Iga hetk investeerituna toob rohkem võimalusi."
+      statement="Kui õppimine muutub nähtavaks, tekivad uued võimalused."
+      bullets={[
+        "Paindlikum õpitee",
+        "Huvihariduse nähtavus",
+        "Kvaliteedimärk huvikoolidele",
+        "Parem talendiarendus",
+        "Targem õpetaja aja kasutus",
+      ]}
+      variant="dark"
+      mood="expand"
+    />
+    <PillarSection
+      id="ruum"
+      index={4}
+      label="RUUM"
+      tagline="Vabaneb ruum kasvuks ja arenguks."
+      statement="Vähem käsitööd. Rohkem ruumi õpetamiseks."
+      bullets={[
+        "Vähem dubleerimist",
+        "Rohkem õpetamise aega",
+        "Targem tunniplaan",
+        "Koolijuhi juhtimisinfo",
+        "Rohkem arenguruumi",
+      ]}
+      variant="light"
+      mood="calm"
+    />
+  </>
+);
 
 /* ---------------- DEMO CASE ---------------- */
 const DemoCase = () => {
@@ -779,7 +930,7 @@ const Index = () => (
     <Header />
     <main>
       <Hero />
-      <Problem />
+      <Pillars />
       <DemoCase />
       <PrincipalDashboard />
       <Validation />
