@@ -136,16 +136,23 @@ const Hero = () => (
               style={{ background: "linear-gradient(135deg, rgba(0,213,213,0.12), rgba(109,77,255,0.12))" }}
             />
             <div className="relative">
-              <div className="flex items-center justify-between mb-3">
+              <div className="flex items-center justify-between mb-4">
                 <span className="text-[10px] tabular tracking-[0.22em] text-white/40 font-semibold">
                   0{i + 1}
                 </span>
                 <ArrowRight className="size-4 text-white/40 group-hover:text-[#00D5D5] group-hover:translate-x-0.5 transition-all" />
               </div>
-              <div className="text-[13px] tracking-[0.22em] font-bold text-gradient-brand mb-2">
+              <div className="flex items-center justify-center mb-4 h-20 md:h-24">
+                <img
+                  src={p.icon}
+                  alt={`${p.label} ikoon`}
+                  className="h-full w-auto object-contain transition-transform group-hover:scale-105"
+                />
+              </div>
+              <div className="text-[13px] tracking-[0.22em] font-bold text-gradient-brand mb-2 text-center">
                 {p.label}
               </div>
-              <div className="text-[13px] text-white/70 leading-snug">{p.line}</div>
+              <div className="text-[13px] text-white/70 leading-snug text-center">{p.line}</div>
             </div>
           </a>
         ))}
