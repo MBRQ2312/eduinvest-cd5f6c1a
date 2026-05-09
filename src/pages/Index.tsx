@@ -29,6 +29,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Hourglass, ParticleField } from "@/components/Hourglass";
+import brandBoard from "@/assets/eduinvest-brand.jpg";
 
 /* ---------------- HEADER ---------------- */
 const Header = () => (
