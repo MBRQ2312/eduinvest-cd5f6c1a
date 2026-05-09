@@ -47,10 +47,10 @@ const Header = () => (
         </div>
       </Link>
       <nav className="hidden md:flex items-center gap-1 text-[13px] text-white/70">
-        <a href="#probleem" className="px-3 py-1.5 rounded-lg hover:text-white hover:bg-white/5">Probleem</a>
-        <a href="#demo" className="px-3 py-1.5 rounded-lg hover:text-white hover:bg-white/5">Demo</a>
-        <a href="#juht" className="px-3 py-1.5 rounded-lg hover:text-white hover:bg-white/5">Koolijuht</a>
-        <a href="#valideerimine" className="px-3 py-1.5 rounded-lg hover:text-white hover:bg-white/5">Valideerimine</a>
+        <a href="#aeg" className="px-3 py-1.5 rounded-lg hover:text-white hover:bg-white/5">Aeg</a>
+        <a href="#tark-kasutus" className="px-3 py-1.5 rounded-lg hover:text-white hover:bg-white/5">Tark kasutus</a>
+        <a href="#voimalused" className="px-3 py-1.5 rounded-lg hover:text-white hover:bg-white/5">Võimalused</a>
+        <a href="#ruum" className="px-3 py-1.5 rounded-lg hover:text-white hover:bg-white/5">Ruum</a>
         <Link
           to="/demo"
           className="ml-2 px-3.5 py-1.5 rounded-lg bg-gradient-brand text-white text-[13px] font-medium"
