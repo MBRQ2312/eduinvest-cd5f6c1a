@@ -623,6 +623,7 @@ const Slide13 = () => (
 
 /* ========== Deck navigation ========== */
 const SLIDES = [
+  { id: 0, label: "Aeg loob ruumi", el: <SlideCover /> },
   { id: 1, label: "Suur probleem", el: <Slide1 /> },
   { id: 2, label: "Kelle häda", el: <Slide2 /> },
   { id: 3, label: "Mida koolijuht ostab", el: <Slide3 /> },
