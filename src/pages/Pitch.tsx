@@ -9,6 +9,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Hourglass } from "@/components/Hourglass";
 import { PILLARS } from "@/components/PillarIcons";
+import coverImage from "@/assets/eduinvest-cover.jpg";
 
 /* ========== Brand palette (unified with landing) ========== */
 const C = {
@@ -79,47 +80,15 @@ const Mantra = () => (
   </div>
 );
 
-/* ========== Slide 0 — Brand cover (hourglass + tagline + 4 sammast) ========== */
+/* ========== Slide 0 — Brand cover ========== */
 const SlideCover = () => (
   <SlideShell>
-    <div className="flex flex-col items-center text-center">
-      <Hourglass size={170} />
-      <h1 className="mt-6 text-5xl sm:text-7xl font-bold tracking-tight">
-        <span style={{ color: C.text }}>Edu</span>
-        <span style={{
-          background: "linear-gradient(120deg,#00D5D5 0%,#6D4DFF 100%)",
-          WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent",
-        }}>Invest</span>
-      </h1>
-      <p className="mt-3 text-lg sm:text-2xl font-light tracking-wide" style={{ color: C.muted }}>
-        Aeg loob ruumi<span style={{ color: C.purple }}>…</span>
-      </p>
-
-      <div className="mt-10 w-full rounded-2xl border p-5 sm:p-7"
-        style={{ background: `${C.bg}80`, borderColor: C.border }}>
-        <div className="grid grid-cols-4 gap-2 sm:gap-4 items-start">
-          {PILLARS.map((p, i) => {
-            const Icon = p.icon;
-            return (
-              <div key={p.key} className="flex flex-col items-center text-center">
-                <div className="flex items-center gap-1 sm:gap-2">
-                  <Icon size={56} />
-                  {i < PILLARS.length - 1 && (
-                    <span className="hidden sm:inline text-2xl" style={{ color: C.mutedSoft }}>›</span>
-                  )}
-                </div>
-                <div className="mt-3 text-[10px] sm:text-xs font-bold tracking-[0.18em]"
-                  style={{ color: p.color }}>
-                  {p.key}
-                </div>
-                <div className="mt-1.5 text-[11px] sm:text-xs leading-snug" style={{ color: C.muted }}>
-                  {p.title}
-                </div>
-              </div>
-            );
-          })}
-        </div>
-      </div>
+    <div className="flex justify-center">
+      <img
+        src={coverImage}
+        alt="EduInvest — Aeg loob ruumi"
+        className="w-full max-w-[640px] h-auto rounded-2xl"
+      />
     </div>
   </SlideShell>
 );
