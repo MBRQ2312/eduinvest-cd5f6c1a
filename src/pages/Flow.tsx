@@ -70,7 +70,7 @@ const Flow = () => {
   const progressPct = ((step + 1) / STEPS.length) * 100;
 
   return (
-    <div className="min-h-screen" style={{ background: C.bg }}>
+    <div className="min-h-screen bg-hero-dark">
       {/* Top bar */}
       <header className="sticky top-0 z-30 backdrop-blur-md border-b"
         style={{ background: `${C.bg}E6`, borderColor: C.border }}>
