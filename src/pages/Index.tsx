@@ -162,13 +162,15 @@ const Hero = () => (
 );
 
 /* ---------------- 4 PILLAR SECTIONS ---------------- */
+type Outcome = { role: string; metric: string; label: string };
 type PillarSectionProps = {
   id: string;
   index: number;
   label: string;
   tagline: string;
   statement: string;
-  bullets: string[];
+  icon: string;
+  outcomes: Outcome[];
   variant: "dark" | "light";
   mood: "particles" | "nodes" | "expand" | "calm";
 };
