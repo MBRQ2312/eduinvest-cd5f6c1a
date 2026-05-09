@@ -7,18 +7,18 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-/* ===== Brand palette (sama mis pitch'is) ===== */
+/* ===== Brand palette — EduInvest unified ===== */
 const C = {
-  bg: "#F7F5EF",
-  text: "#111827",
-  green: "#053F35",
-  teal: "#006D6F",
-  purple: "#7C6BEA",
-  lime: "#D6D04A",
-  orange: "#E07A3C",
+  bg: "#FFFFFF",
+  text: "#0B1220",
+  green: "#00BFBF",   // deep teal (sama mis landing accent)
+  teal: "#00BFBF",    // primary accent
+  purple: "#6D4DFF",  // brand purple
+  lime: "#00D5D5",    // brand cyan
+  orange: "#E07A3C",  // hoiatus / puuduv
   cardBg: "#FFFFFF",
-  subtle: "#EEEAE0",
-  border: "#E2DCCC",
+  subtle: "#F1F5F9",
+  border: "#E2E8F0",
 } as const;
 
 type StepId = 0 | 1 | 2 | 3;
