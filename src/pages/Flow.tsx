@@ -7,18 +7,20 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-/* ===== Brand palette — EduInvest unified ===== */
+/* ===== Brand palette — EduInvest dark unified ===== */
 const C = {
-  bg: "#FFFFFF",
-  text: "#0B1220",
-  green: "#00BFBF",   // deep teal (sama mis landing accent)
-  teal: "#00BFBF",    // primary accent
-  purple: "#6D4DFF",  // brand purple
-  lime: "#00D5D5",    // brand cyan
-  orange: "#E07A3C",  // hoiatus / puuduv
-  cardBg: "#FFFFFF",
-  subtle: "#F1F5F9",
-  border: "#E2E8F0",
+  bg: "#0D1020",          // dark navy hero
+  text: "#FFFFFF",
+  green: "#00D5D5",       // teal (sama mis brändilogo)
+  teal: "#00D5D5",
+  purple: "#6D4DFF",      // brändi lilla
+  lime: "#7CE8E8",        // hele cyan aktsent
+  orange: "#F2A66B",      // hoiatus / puuduv
+  cardBg: "#141833",      // glass-dark sarnane pind
+  subtle: "#1A1F3D",
+  border: "#2A2F52",
+  muted: "#B8BED1",       // body text dark bg peal
+  mutedSoft: "#8A91AB",   // sekundaarne tekst
 } as const;
 
 type StepId = 0 | 1 | 2 | 3;
@@ -73,7 +75,7 @@ const Flow = () => {
       <header className="sticky top-0 z-30 backdrop-blur-md border-b"
         style={{ background: `${C.bg}E6`, borderColor: C.border }}>
         <div className="max-w-5xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between gap-4">
-          <Link to="/" className="inline-flex items-center gap-2 text-sm" style={{ color: "#6B7280" }}>
+          <Link to="/" className="inline-flex items-center gap-2 text-sm" style={{ color: C.mutedSoft }}>
             <ArrowLeft className="size-4" /> Tagasi
           </Link>
           <div className="text-[11px] font-semibold tracking-[0.2em] uppercase" style={{ color: C.teal }}>
@@ -101,7 +103,7 @@ const Flow = () => {
                       className="size-8 rounded-full flex items-center justify-center shrink-0 transition-all"
                       style={{
                         background: active ? s.color : done ? s.color : C.cardBg,
-                        color: active || done ? "white" : "#9CA3AF",
+                        color: active || done ? "white" : C.mutedSoft,
                         border: active || done ? "none" : `1.5px solid ${C.border}`,
                         transform: active ? "scale(1.1)" : "scale(1)",
                         boxShadow: active ? `0 0 0 4px ${s.color}25` : "none",
@@ -113,7 +115,7 @@ const Flow = () => {
                       className={`text-xs sm:text-sm font-medium hidden sm:block transition-colors ${
                         active ? "" : done ? "" : "text-muted-foreground"
                       }`}
-                      style={{ color: active ? C.text : done ? C.text : "#9CA3AF" }}
+                      style={{ color: active ? C.text : done ? C.text : C.mutedSoft }}
                     >
                       {s.short}
                     </span>
@@ -178,7 +180,7 @@ const Flow = () => {
           >
             <ArrowLeft className="size-4" /> Tagasi
           </Button>
-          <div className="text-xs hidden sm:block" style={{ color: "#9CA3AF" }}>
+          <div className="text-xs hidden sm:block" style={{ color: C.mutedSoft }}>
             ← → klahvid navigeerimiseks
           </div>
           {step < 3 ? (
@@ -224,7 +226,7 @@ const FlowOverview = () => (
     <h2 className="text-2xl sm:text-3xl font-semibold leading-tight tracking-tight" style={{ color: C.text }}>
       Üks otsustusvoog lõpuni
     </h2>
-    <p className="mt-2 text-sm sm:text-base" style={{ color: "#4B5563" }}>
+    <p className="mt-2 text-sm sm:text-base" style={{ color: C.muted }}>
       Taotlusest kooli põhjendatud otsuseni.
     </p>
 
@@ -246,7 +248,7 @@ const FlowOverview = () => (
               {s.title}
             </h3>
           </div>
-          <p className="text-[13px] leading-relaxed" style={{ color: "#6B7280" }}>
+          <p className="text-[13px] leading-relaxed" style={{ color: C.mutedSoft }}>
             {s.text}
           </p>
         </li>
@@ -312,7 +314,7 @@ const Step1 = ({
   <div>
     <Eyebrow>1 / 4 · Õppija ja pere sisend</Eyebrow>
     <Title>Nikita Tamm, 8.A — taotlus arvestamiseks</Title>
-    <p className="mt-3 text-base sm:text-lg" style={{ color: "#4B5563" }}>
+    <p className="mt-3 text-base sm:text-lg" style={{ color: C.muted }}>
       Pere algatab taotluse. Vali ained, mille puhul kool peaks koolivälist õppimist hindama.
     </p>
 
@@ -324,7 +326,7 @@ const Step1 = ({
             <Trophy className="size-6" />
           </div>
           <div>
-            <div className="text-xs" style={{ color: "#6B7280" }}>Koolivälise õppe liik</div>
+            <div className="text-xs" style={{ color: C.mutedSoft }}>Koolivälise õppe liik</div>
             <div className="font-semibold text-lg" style={{ color: C.text }}>Spordikool</div>
           </div>
         </div>
@@ -368,7 +370,7 @@ const Step1 = ({
                   </span>
                   <div className="min-w-0">
                     <div className="text-sm font-semibold" style={{ color: C.text }}>{opt.t}</div>
-                    <div className="text-xs mt-0.5" style={{ color: "#6B7280" }}>{opt.d}</div>
+                    <div className="text-xs mt-0.5" style={{ color: C.mutedSoft }}>{opt.d}</div>
                   </div>
                 </div>
               </button>
@@ -377,7 +379,7 @@ const Step1 = ({
         </div>
 
         <div className="mt-5">
-          <div className="text-[11px] uppercase tracking-wider mb-2" style={{ color: "#6B7280" }}>
+          <div className="text-[11px] uppercase tracking-wider mb-2" style={{ color: C.mutedSoft }}>
             Lisatud tõendid
           </div>
           <div className="flex flex-wrap gap-2">
@@ -442,7 +444,7 @@ const Field = ({ icon: Icon, label, value }: { icon: React.ElementType; label: s
   <div className="flex items-start gap-3 py-2 border-t" style={{ borderColor: `${C.border}80` }}>
     <Icon className="size-4 mt-0.5 shrink-0" style={{ color: C.teal }} />
     <div className="min-w-0 flex-1">
-      <div className="text-[11px] uppercase tracking-wider" style={{ color: "#6B7280" }}>{label}</div>
+      <div className="text-[11px] uppercase tracking-wider" style={{ color: C.mutedSoft }}>{label}</div>
       <div className="text-sm font-medium" style={{ color: C.text }}>{value}</div>
     </div>
   </div>
@@ -467,7 +469,7 @@ const Step2 = ({
   <div>
     <Eyebrow color={C.purple}>2 / 4 · AI eelanalüüs</Eyebrow>
     <Title>AI koondab tõendid ja pakub seosed õppekavaga.</Title>
-    <p className="mt-3 text-base sm:text-lg" style={{ color: "#4B5563" }}>
+    <p className="mt-3 text-base sm:text-lg" style={{ color: C.muted }}>
       AI ei otsusta. AI näitab, mis on tugev, mis osaline ja mis vajab lisatõendit.
     </p>
 
@@ -478,7 +480,7 @@ const Step2 = ({
             <Sparkles className="size-6 shrink-0" style={{ color: C.purple }} />
             <div>
               <div className="font-semibold" style={{ color: C.text }}>Käivita AI eelanalüüs</div>
-              <p className="text-sm mt-1" style={{ color: "#4B5563" }}>
+              <p className="text-sm mt-1" style={{ color: C.muted }}>
                 AI loeb tõendid, võrdleb õppekavaga ja koostab mustandi õpetajale.
                 Analüüsitavad ained: <strong>{[includesPe && "kehaline kasvatus", includesEst && "eesti keel"].filter(Boolean).join(", ") || "—"}</strong>.
               </p>
@@ -501,7 +503,7 @@ const Step2 = ({
           <div className="text-sm font-medium" style={{ color: C.purple }}>
             AI loeb tõendeid ja seob õppekavaga…
           </div>
-          <div className="text-xs" style={{ color: "#6B7280" }}>
+          <div className="text-xs" style={{ color: C.mutedSoft }}>
             Kestab paar sekundit. Häkil kasutame mock-andmeid.
           </div>
         </div>
@@ -596,7 +598,7 @@ const Step3 = ({
     <div>
       <Eyebrow color={C.green}>3 / 4 · Õpetaja otsus</Eyebrow>
       <Title>Õpetaja teeb otsuse AI eeltöö põhjal.</Title>
-      <p className="mt-3 text-base sm:text-lg" style={{ color: "#4B5563" }}>
+      <p className="mt-3 text-base sm:text-lg" style={{ color: C.muted }}>
         Vali variant — see määrab, mida pere ja koolijuht järgmises sammus näevad.
       </p>
 
@@ -623,7 +625,7 @@ const Step3 = ({
                 {active ? <Check className="size-5" /> : <CheckCircle2 className="size-5" />}
               </div>
               <div className="font-semibold text-base" style={{ color: C.text }}>{o.t}</div>
-              <p className="text-sm mt-2" style={{ color: "#4B5563" }}>{o.d}</p>
+              <p className="text-sm mt-2" style={{ color: C.muted }}>{o.d}</p>
             </button>
           );
         })}
@@ -658,7 +660,7 @@ const Step4 = ({ decision, subjects }: { decision: "full" | "partial" | "more" |
       ? { t: "Osaline arvestamine", c: C.teal, msg: "Kehaline kasvatus arvestatud, eesti keel toetav tõend." }
       : decision === "more"
       ? { t: "Vajab lisatõendit", c: C.orange, msg: "Pere täiendab tõendit, otsus tuleb hiljem." }
-      : { t: "Otsus tegemata", c: "#9CA3AF", msg: "Mine tagasi ja vali variant." };
+      : { t: "Otsus tegemata", c: C.mutedSoft, msg: "Mine tagasi ja vali variant." };
 
   const familyLetter =
     decision === "full"
@@ -685,7 +687,7 @@ const Step4 = ({ decision, subjects }: { decision: "full" | "partial" | "more" |
             Otsus
           </div>
           <div className="text-lg sm:text-xl font-semibold" style={{ color: C.text }}>{summary.t}</div>
-          <div className="text-sm" style={{ color: "#4B5563" }}>{summary.msg}</div>
+          <div className="text-sm" style={{ color: C.muted }}>{summary.msg}</div>
         </div>
       </div>
 
@@ -724,7 +726,7 @@ const Step4 = ({ decision, subjects }: { decision: "full" | "partial" | "more" |
             <div className="text-xs uppercase tracking-wider font-semibold mb-1" style={{ color: C.teal }}>
               Koolijuhi koondvaade
             </div>
-            <p className="text-sm" style={{ color: "#4B5563" }}>
+            <p className="text-sm" style={{ color: C.muted }}>
               Nikita juhtum lisandub mustrisse. Koolijuht näeb, et 8.A klassis on{" "}
               <strong>14 / 22 õpilast</strong> seotud huviharidusega ja{" "}
               <strong>jalgpall → kehaline kasvatus</strong> muster kordub 5 koolis 34 õpilasega.
@@ -748,7 +750,7 @@ const Step4 = ({ decision, subjects }: { decision: "full" | "partial" | "more" |
               <p className="text-sm leading-relaxed" style={{ color: C.text }}>
                 {familyLetter}
               </p>
-              <div className="mt-3 text-[11px]" style={{ color: "#6B7280" }}>
+              <div className="mt-3 text-[11px]" style={{ color: C.mutedSoft }}>
                 AI mustand · Saadetakse perele alles pärast õpetaja kinnitust.
               </div>
             </div>
@@ -787,7 +789,7 @@ const ImpactCard = ({
     </div>
     <div className="text-xs uppercase tracking-wider font-semibold" style={{ color }}>{title}</div>
     <div className="text-xl font-bold mt-1.5" style={{ color: C.text }}>{big}</div>
-    <p className="text-xs mt-2" style={{ color: "#6B7280" }}>{note}</p>
+    <p className="text-xs mt-2" style={{ color: C.mutedSoft }}>{note}</p>
   </div>
 );
 
