@@ -41,14 +41,10 @@ const Header = () => (
   <header className="sticky top-0 z-40 backdrop-blur-md bg-[hsl(230_50%_8%/0.7)] border-b border-white/5">
     <div className="max-w-[1180px] mx-auto px-5 md:px-8 py-3.5 flex items-center justify-between">
       <Link to="/" className="flex items-center gap-2.5 min-w-0">
-        <div className="relative size-9 shrink-0">
-          <div className="absolute inset-0 rounded-xl bg-gradient-brand opacity-90 blur-[6px]" />
-          <div className="relative size-9 rounded-xl bg-gradient-brand flex items-center justify-center">
-            <Hourglass size={22} />
-          </div>
-        </div>
-        <div className="text-white/95 text-sm font-medium tracking-tight">
-          EduInvest <span className="text-gradient-brand font-semibold">LearnOnce</span>
+        <Hourglass size={28} />
+        <div className="text-sm font-semibold tracking-tight">
+          <span className="text-white">Edu</span>
+          <span className="text-gradient-brand">Invest</span>
         </div>
       </Link>
       <nav className="hidden md:flex items-center gap-1 text-[13px] text-white/70">
