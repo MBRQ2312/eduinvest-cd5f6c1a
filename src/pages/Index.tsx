@@ -324,12 +324,12 @@ const Pillars = () => (
       label="AEG"
       tagline="Aeg on piiratud ressurss."
       statement="Aeg on haridusruumi kõige piiratum ressurss."
-      bullets={[
-        "Õppijate ülekoormus",
-        "Õpetajate puudus",
-        "Pikad koolipäevad",
-        "Dubleeriv õppimine",
-        "Käsitööline otsustamine",
+      icon={iconAeg}
+      outcomes={[
+        { role: "Õppija", metric: "~120 h", label: "vabaneb õppeaastas dubleerivast õppest." },
+        { role: "Koolijuht", metric: "~18 000 €", label: "potentsiaalne koormuse ümberjaotus 500 õpilase kohta." },
+        { role: "Õpetaja", metric: "−40%", label: "vähem käsitööd taotluste menetlemisel." },
+        { role: "Pere", metric: "0", label: "kordusõppimist — sama asja ei õpita kaks korda." },
       ]}
       variant="dark"
       mood="particles"
@@ -340,12 +340,12 @@ const Pillars = () => (
       label="TARK KASUTUS"
       tagline="Targad valikud loovad väärtust."
       statement="AI aitab näha. Kool otsustab."
-      bullets={[
-        "AI eelanalüüs",
-        "Tõendite koondamine",
-        "Õppekava seosed",
-        "Õpetaja otsus",
-        "Vähem käsitööd",
+      icon={iconTark}
+      outcomes={[
+        { role: "Õppija", metric: "Suunab", label: "vabanenud aja huvi, süvenemise või puhkuse poole." },
+        { role: "Kool", metric: "Tunniplaan", label: "kohandub mustrite järgi — mitte juhuse järgi." },
+        { role: "Õpetaja", metric: "AI eelvaade", label: "tõendid ja õppekava seosed koondatud." },
+        { role: "Koolijuht", metric: "Selgus", label: "millised ained korduvad ja kus tekib õhk." },
       ]}
       variant="light"
       mood="nodes"
@@ -356,12 +356,12 @@ const Pillars = () => (
       label="VÕIMALUSED"
       tagline="Iga hetk investeerituna toob rohkem võimalusi."
       statement="Kui õppimine muutub nähtavaks, tekivad uued võimalused."
-      bullets={[
-        "Paindlikum õpitee",
-        "Huvihariduse nähtavus",
-        "Kvaliteedimärk huvikoolidele",
-        "Parem talendiarendus",
-        "Targem õpetaja aja kasutus",
+      icon={iconVoimalused}
+      outcomes={[
+        { role: "Õppija", metric: "Valikained", label: "saab omandada ka väljaspool kooli — nähtavalt." },
+        { role: "Õpetaja", metric: "+ tasu", label: "vabanev maht võimaldab kõrgemat tunnitasu." },
+        { role: "Kool", metric: "Vähem inim.", label: "sama maht tehtud väiksema meeskonnaga." },
+        { role: "Koolijuht", metric: "Paindlikkus", label: "ressurss liigub sinna, kus väärtus suurim." },
       ]}
       variant="dark"
       mood="expand"
@@ -372,12 +372,12 @@ const Pillars = () => (
       label="RUUM"
       tagline="Vabaneb ruum kasvuks ja arenguks."
       statement="Vähem käsitööd. Rohkem ruumi õpetamiseks."
-      bullets={[
-        "Vähem dubleerimist",
-        "Rohkem õpetamise aega",
-        "Targem tunniplaan",
-        "Koolijuhi juhtimisinfo",
-        "Rohkem arenguruumi",
+      icon={iconRuum}
+      outcomes={[
+        { role: "Õppija", metric: "Areng", label: "ruum süvenemiseks, talendi arendamiseks, puhkuseks." },
+        { role: "Kool", metric: "Kasv", label: "ruum uuteks õppemudeliteks ja koostööks." },
+        { role: "Õpetaja", metric: "Õpetamine", label: "rohkem aega päris õpetamise tuumikule." },
+        { role: "Koolijuht", metric: "Juhtimine", label: "andmepõhine vaade strateegilisteks otsusteks." },
       ]}
       variant="light"
       mood="calm"
