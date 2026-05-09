@@ -68,26 +68,10 @@ const Header = () => (
 
 /* ---------------- HERO (brand board as centerpiece) ---------------- */
 const PILLARS = [
-  {
-    id: "aeg",
-    label: "AEG",
-    line: "Aeg on piiratud ressurss.",
-  },
-  {
-    id: "tark-kasutus",
-    label: "TARK KASUTUS",
-    line: "Targad valikud loovad väärtust.",
-  },
-  {
-    id: "voimalused",
-    label: "VÕIMALUSED",
-    line: "Iga hetk investeerituna toob rohkem võimalusi.",
-  },
-  {
-    id: "ruum",
-    label: "RUUM",
-    line: "Vabaneb ruum kasvuks ja arenguks.",
-  },
+  { id: "aeg", label: "AEG", line: "Aeg on piiratud ressurss.", icon: iconAeg },
+  { id: "tark-kasutus", label: "TARK KASUTUS", line: "Targad valikud loovad väärtust.", icon: iconTark },
+  { id: "voimalused", label: "VÕIMALUSED", line: "Iga hetk investeerituna toob rohkem võimalusi.", icon: iconVoimalused },
+  { id: "ruum", label: "RUUM", line: "Vabaneb ruum kasvuks ja arenguks.", icon: iconRuum },
 ] as const;
 
 const Hero = () => (
