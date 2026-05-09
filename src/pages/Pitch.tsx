@@ -8,18 +8,20 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-/* ========== Brand palette ========== */
+/* ========== Brand palette (unified with landing) ========== */
 const C = {
-  bg: "#F7F5EF",
-  text: "#111827",
-  green: "#053F35",
-  teal: "#006D6F",
-  purple: "#7C6BEA",
-  lime: "#D6D04A",
-  orange: "#E07A3C",
-  cardBg: "#FFFFFF",
-  subtle: "#EEEAE0",
-  border: "#E2DCCC",
+  bg: "#0D1020",
+  text: "#FFFFFF",
+  green: "#00D5D5",
+  teal: "#00D5D5",
+  purple: "#6D4DFF",
+  lime: "#7CE8E8",
+  orange: "#F2A66B",
+  cardBg: "#141833",
+  subtle: "#1B2042",
+  border: "#2A3060",
+  muted: "#B8BED1",
+  mutedSoft: "#8A91AB",
 } as const;
 
 /* ========== Reusable shell ========== */
