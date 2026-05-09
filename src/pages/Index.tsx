@@ -930,7 +930,7 @@ const Index = () => (
     <Header />
     <main>
       <Hero />
-      <Problem />
+      <Pillars />
       <DemoCase />
       <PrincipalDashboard />
       <Validation />
