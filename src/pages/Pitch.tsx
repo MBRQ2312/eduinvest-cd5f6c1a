@@ -579,26 +579,44 @@ const Slide12 = () => (
 /* ========== Slide 13 — Lõppsõnum ========== */
 const Slide13 = () => (
   <SlideShell>
-    <Eyebrow>EduInvest</Eyebrow>
-    <Title>Aeg loob ruumi.</Title>
-    <div className="mt-10 grid grid-cols-2 md:grid-cols-4 gap-3">
-      {[
-        { k: "AEG", d: "Aeg on piiratud ressurss.", c: C.teal },
-        { k: "TARK KASUTUS", d: "Targad valikud loovad väärtust.", c: C.purple },
-        { k: "VÕIMALUSED", d: "Täna investeerituna toob rohkem võimalusi.", c: C.lime },
-        { k: "RUUM", d: "Vabaneb ruum kasvuks ja arenguks.", c: C.green },
-      ].map((p) => (
-        <Card key={p.k} bg={`${p.c}14`} border={`${p.c}40`}>
-          <div className="text-xs font-bold tracking-[0.22em]" style={{ color: p.c }}>{p.k}</div>
-          <p className="text-sm mt-2" style={{ color: C.text }}>{p.d}</p>
-        </Card>
-      ))}
-    </div>
-    <div className="mt-10 rounded-2xl p-6 sm:p-8" style={{ background: C.green, color: C.bg }}>
-      <p className="text-xl sm:text-3xl font-semibold leading-snug">
-        Kui õppimine muutub nähtavaks,<br />
-        tekib rohkem ruumi arenguks.
-      </p>
+    <div className="flex flex-col items-center text-center">
+      <Hourglass size={130} />
+      <div className="mt-5 text-[11px] uppercase font-semibold tracking-[0.22em]" style={{ color: C.teal }}>
+        EduInvest
+      </div>
+      <h2 className="mt-2 text-4xl sm:text-6xl font-semibold tracking-tight" style={{ color: C.text }}>
+        Aeg loob <span style={{
+          background: "linear-gradient(120deg,#00D5D5 0%,#6D4DFF 100%)",
+          WebkitBackgroundClip: "text", backgroundClip: "text", color: "transparent",
+        }}>ruumi</span>.
+      </h2>
+
+      <div className="mt-10 w-full grid grid-cols-2 md:grid-cols-4 gap-3">
+        {PILLARS.map((p, i) => {
+          const Icon = p.icon;
+          return (
+            <div key={p.key} className="rounded-2xl border p-5 flex flex-col items-center text-center"
+              style={{ background: `${p.color}10`, borderColor: `${p.color}40` }}>
+              <Icon size={52} />
+              <div className="mt-3 text-[11px] font-bold tracking-[0.22em]" style={{ color: p.color }}>
+                {p.key}
+              </div>
+              <p className="text-xs mt-2 leading-snug" style={{ color: C.text }}>{p.title}</p>
+              {i < PILLARS.length - 1 && (
+                <span className="hidden md:block absolute" />
+              )}
+            </div>
+          );
+        })}
+      </div>
+
+      <div className="mt-10 w-full rounded-2xl p-6 sm:p-8"
+        style={{ background: "linear-gradient(120deg,#00D5D5 0%,#6D4DFF 100%)", color: "white" }}>
+        <p className="text-xl sm:text-3xl font-semibold leading-snug">
+          Kui õppimine muutub nähtavaks,<br />
+          tekib rohkem <span style={{ color: "#0D1020" }}>ruumi</span> arenguks.
+        </p>
+      </div>
     </div>
   </SlideShell>
 );
