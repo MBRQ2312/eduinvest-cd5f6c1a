@@ -931,7 +931,7 @@ const Index = () => (
       <Validation />
       <ValueEcosystem />
       <Scaling />
-      <Final />
+      
     </main>
   </div>
 );
